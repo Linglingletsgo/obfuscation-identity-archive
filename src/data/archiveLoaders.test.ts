@@ -64,6 +64,15 @@ describe("archive source validators", () => {
     ).toThrow("event");
   });
 
+  it("rejects a graph edge with an array events element", () => {
+    expect(() =>
+      assertInteractionGraph({
+        nodes: [],
+        edges: [{ id: "edge-1", source: "a", target: "b", relation: "shared", events: [[]] }],
+      }),
+    ).toThrow("event");
+  });
+
   it("accepts a timeline with anchors and a global collective item", () => {
     expect(() =>
       assertTimeline({
@@ -123,5 +132,9 @@ describe("archive source validators", () => {
 
   it("rejects a timeline item with an invalid events element", () => {
     expect(() => assertTimeline(timelineWithAnchorItem({ events: [null] }))).toThrow("event");
+  });
+
+  it("rejects a timeline item with an array events element", () => {
+    expect(() => assertTimeline(timelineWithAnchorItem({ events: [[]] }))).toThrow("event");
   });
 });
