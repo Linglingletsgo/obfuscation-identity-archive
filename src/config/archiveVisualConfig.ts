@@ -1,0 +1,46 @@
+export const archiveVisualConfig = {
+  data: {
+    interactionGraphPath: "/data/algorithm/interaction_graph_real_submissions_10.json",
+    timelinePath: "/data/algorithm/timeline/anchor_timeline_real_submissions_10.json",
+    graphCachePath: "/data/graph/relationship_graph_3d.json",
+  },
+  assets: {
+    nearWhiteThreshold: 245,
+    stage4DefaultModelPath: "/models/stage4/default-stage4.glb",
+    stage5ModelPath: "/models/stage5.glb",
+    placeholderAvatarPath: "",
+    placeholderModelPath: "",
+  },
+  camera: {
+    stage5Position: [0, 4.5, 16] as const,
+    detailPosition: [0, 2.8, 8] as const,
+    minDistance: 3,
+    maxDistance: 42,
+  },
+  graph: {
+    seed: "obfuscation-identity-archive-v1",
+    defaultLinkDensity: 0.65,
+    identityNodeSize: 1.2,
+    tagNodeSize: 0.42,
+    timelineNodeSize: 0.62,
+    collectiveNodeSize: 2.4,
+    hoverGlow: 1.8,
+    conflictThreshold: 0.5,
+  },
+  stages: {
+    sidebarVisible: [0, 1, 2, 3, 4],
+    timelineVisible: [0, 1, 2, 3, 4],
+    mainUiStageLabelsVisible: false,
+  },
+  colors: {
+    paper: "#f7f2e7",
+    ink: "#18140f",
+    identity: "#e34d35",
+    tag: "#2f7f6f",
+    shared: "#3b6fb6",
+    conflict: "#b02e4a",
+    timeline: "#7a5cbd",
+    collective: "#252525",
+    missing: "#8b8172",
+  },
+} as const;
