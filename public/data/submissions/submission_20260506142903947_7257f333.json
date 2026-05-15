@@ -1,0 +1,87 @@
+{
+  "submission_id": "submission_20260506142903947_7257f333",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T14:29:03.947Z",
+  "shell_form": "Parallel-world resident",
+  "places": [
+    "Game",
+    "Dream",
+    "Future world"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Legend"
+  ],
+  "material_sources": [
+    "Dream",
+    "Family legend",
+    "Religious / mythological element",
+    "Game character"
+  ],
+  "social_role_tags": [
+    "Traveler",
+    "Drifter",
+    "Observer",
+    "Recorded subject",
+    "Witness"
+  ],
+  "spatial_tags": [
+    "Forest",
+    "River",
+    "Ruin",
+    "Basement",
+    "Rooftop"
+  ],
+  "time_era_tags": [
+    "Mythic age",
+    "Medieval period",
+    "Distant future",
+    "Parallel timeline"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Collector",
+    "Brand loyalist"
+  ],
+  "emotion_personality_tags": [
+    "Warm",
+    "Calm",
+    "Gentle",
+    "Optimistic",
+    "Nostalgic",
+    "Relaxed"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Socially active",
+    "Community organizer",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Pop culture",
+    "Anime / manga culture",
+    "Religious atmosphere",
+    "Academic style"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Unpredictable user",
+    "Identity drift",
+    "Suspected human"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Dog",
+    "Wolf",
+    "Star",
+    "Sun",
+    "Old photo",
+    "Shadow",
+    "A gust of wind"
+  ],
+  "identity_name": "林东",
+  "carried_fragment": "枪",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

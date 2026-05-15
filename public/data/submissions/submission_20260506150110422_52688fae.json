@@ -1,0 +1,81 @@
+{
+  "submission_id": "submission_20260506150110422_52688fae",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T15:01:10.422Z",
+  "shell_form": "Real self",
+  "places": [
+    "City"
+  ],
+  "expression_formats": [
+    "Official form"
+  ],
+  "material_sources": [
+    "False memory"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Parent",
+    "Housemate",
+    "Person living alone"
+  ],
+  "spatial_tags": [
+    "Urban edge",
+    "Airport",
+    "School",
+    "Family home",
+    "Dormitory"
+  ],
+  "time_era_tags": [
+    "Mythic age",
+    "Ancient time",
+    "1980s",
+    "Millennium",
+    "2020s"
+  ],
+  "platform_behavior_tags": [
+    "Hoarder",
+    "Second-hand preference",
+    "Late-night shopper",
+    "High-frequency low-price consumer",
+    "Brand loyalist"
+  ],
+  "emotion_personality_tags": [
+    "Anxious",
+    "Silent",
+    "Socially avoidant",
+    "Highly sensitive",
+    "Optimistic"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Frequently unreachable",
+    "Marginal group member"
+  ],
+  "aesthetic_cultural_tags": [
+    "Religious atmosphere",
+    "Minimalism",
+    "Pop culture",
+    "Fake official style",
+    "Archive atmosphere"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Noise user",
+    "Tag conflict",
+    "Insufficient information"
+  ],
+  "non_human_tags": [
+    "Dog",
+    "Snow",
+    "Door",
+    "Wolf",
+    "Snake",
+    "Fungus",
+    "Seed"
+  ],
+  "identity_name": "Pats",
+  "carried_fragment": "Memories",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

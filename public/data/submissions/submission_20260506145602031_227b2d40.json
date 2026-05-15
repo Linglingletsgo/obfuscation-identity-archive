@@ -1,0 +1,102 @@
+{
+  "submission_id": "submission_20260506145602031_227b2d40",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T14:56:02.031Z",
+  "shell_form": "Real self",
+  "places": [
+    "Internet",
+    "School",
+    "Dream",
+    "Border",
+    "Shopping mall",
+    "Database"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Poem",
+    "Advertising profile",
+    "Chat log",
+    "Museum label"
+  ],
+  "material_sources": [
+    "Real memory",
+    "False memory",
+    "News",
+    "Search history",
+    "Chat habit",
+    "Lyric-like fragment",
+    "Game character",
+    "AI-generated text"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Caregiver",
+    "Freelancer",
+    "Housemate"
+  ],
+  "spatial_tags": [
+    "Urban edge",
+    "Suburb",
+    "City center"
+  ],
+  "time_era_tags": [
+    "Ancient time",
+    "Medieval period",
+    "Millennium",
+    "1990s"
+  ],
+  "platform_behavior_tags": [
+    "Impulse buyer",
+    "Brand loyalist",
+    "High return rate"
+  ],
+  "emotion_personality_tags": [
+    "Anxious",
+    "Nostalgic",
+    "Easily distracted",
+    "Distant",
+    "Pessimistic",
+    "Ironic"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Long-distance relationship",
+    "Replies frequently",
+    "Marginal group member"
+  ],
+  "aesthetic_cultural_tags": [
+    "Pop culture",
+    "Futurism",
+    "Punk",
+    "Fake official style",
+    "Ruin atmosphere",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Unstable user",
+    "Insufficient information",
+    "Recommendation difficulty",
+    "Identity drift",
+    "Classification failure"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Dog",
+    "Deer",
+    "Octopus",
+    "Crow",
+    "Grass",
+    "Moon",
+    "Rain",
+    "Cloth",
+    "Broken phone",
+    "Map",
+    "Cup"
+  ],
+  "identity_name": "Isla",
+  "carried_fragment": "A basketball",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

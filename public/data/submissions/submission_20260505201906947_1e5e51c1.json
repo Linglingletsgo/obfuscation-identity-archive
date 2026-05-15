@@ -1,0 +1,77 @@
+{
+  "submission_id": "submission_20260505201906947_1e5e51c1",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-05T20:19:06.947Z",
+  "shell_form": "Real self",
+  "places": [
+    "Home",
+    "School",
+    "Workplace",
+    "Hospital",
+    "Natural environment",
+    "Transport system"
+  ],
+  "expression_formats": [
+    "Private diary"
+  ],
+  "material_sources": [
+    "Real memory",
+    "False memory",
+    "Family legend"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Temporary worker",
+    "Traveler"
+  ],
+  "spatial_tags": [
+    "Urban edge",
+    "Seaside",
+    "River"
+  ],
+  "time_era_tags": [
+    "2010s",
+    "2020s",
+    "Looping time"
+  ],
+  "platform_behavior_tags": [
+    "Price comparer",
+    "High return rate",
+    "Collector"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Nostalgic",
+    "Easily distracted",
+    "Adventurous",
+    "Impulsive"
+  ],
+  "relationship_tags": [
+    "In an intimate relationship",
+    "Family-oriented",
+    "Dependent on a small circle"
+  ],
+  "aesthetic_cultural_tags": [
+    "Anime / manga culture",
+    "Futurism",
+    "Environmentalism"
+  ],
+  "system_tags": [
+    "Algorithmic anomaly",
+    "Active user",
+    "Unpredictable user"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Dog",
+    "Fish",
+    "Whale",
+    "Metal",
+    "Sensor"
+  ],
+  "identity_name": "Jason?",
+  "carried_fragment": "Bike",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

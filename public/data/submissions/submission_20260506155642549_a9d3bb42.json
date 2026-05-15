@@ -1,0 +1,82 @@
+{
+  "submission_id": "submission_20260506155642549_a9d3bb42",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T15:56:42.549Z",
+  "shell_form": "Real self",
+  "places": [
+    "Home",
+    "Workplace",
+    "Natural environment",
+    "Dream",
+    "Social media platform",
+    "Shopping mall"
+  ],
+  "expression_formats": [
+    "Social media bio",
+    "Resume"
+  ],
+  "material_sources": [
+    "Color",
+    "Location trace",
+    "Dream",
+    "News",
+    "Real memory"
+  ],
+  "social_role_tags": [
+    "Regular visitor",
+    "Person living alone",
+    "Archive object"
+  ],
+  "spatial_tags": [
+    "Office building",
+    "Social media platform",
+    "Mountain area",
+    "Museum"
+  ],
+  "time_era_tags": [
+    "Millennium",
+    "Retro future",
+    "2020s"
+  ],
+  "platform_behavior_tags": [
+    "Browses without buying",
+    "Second-hand preference",
+    "Collector"
+  ],
+  "emotion_personality_tags": [
+    "Warm",
+    "Excited",
+    "Easily distracted",
+    "Calm"
+  ],
+  "relationship_tags": [
+    "Socially active",
+    "Often misunderstood",
+    "Waiting to be recognized"
+  ],
+  "aesthetic_cultural_tags": [
+    "Street-market feeling",
+    "Minimalism",
+    "Pop culture"
+  ],
+  "system_tags": [
+    "Risk user",
+    "Blurred profile",
+    "Wrong match"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Rabbit",
+    "Fox",
+    "Flower",
+    "Star",
+    "Camera",
+    "Electric wire",
+    "An unread email"
+  ],
+  "identity_name": "Rainbow",
+  "carried_fragment": "The secret keeper of her grandma’s vintage collection",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

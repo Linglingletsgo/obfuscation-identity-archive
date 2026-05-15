@@ -1,0 +1,78 @@
+{
+  "submission_id": "submission_20260506150537591_effb78b1",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T15:05:37.591Z",
+  "shell_form": "Character",
+  "places": [
+    "Internet",
+    "Game",
+    "Social media platform",
+    "No fixed place"
+  ],
+  "expression_formats": [
+    "Social media bio",
+    "Chat log"
+  ],
+  "material_sources": [
+    "Game character"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Freelancer",
+    "Local person"
+  ],
+  "spatial_tags": [
+    "City center",
+    "County town",
+    "Family home",
+    "Social media platform"
+  ],
+  "time_era_tags": [
+    "2020s",
+    "2010s",
+    "Near future"
+  ],
+  "platform_behavior_tags": [
+    "Digital subscriber",
+    "Platform nomad",
+    "Long-term lurker"
+  ],
+  "emotion_personality_tags": [
+    "Anxious",
+    "Distant",
+    "Cautious",
+    "Defensive",
+    "Highly sensitive",
+    "Socially avoidant",
+    "Silent"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Cared-for person",
+    "Frequently unreachable",
+    "Refuses contact"
+  ],
+  "aesthetic_cultural_tags": [
+    "Anime / manga culture",
+    "Pop culture",
+    "Minimalism"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Active user",
+    "Duplicate archive"
+  ],
+  "non_human_tags": [
+    "Fog",
+    "Cat",
+    "Rabbit",
+    "Octopus",
+    "Flower",
+    "Shoe"
+  ],
+  "identity_name": "猜猜我是谁",
+  "carried_fragment": "Hey Gork is this true？",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

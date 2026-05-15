@@ -1,0 +1,79 @@
+{
+  "submission_id": "submission_20260506214208982_870536f6",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T21:42:08.982Z",
+  "shell_form": "Dream figure",
+  "places": [
+    "Dream"
+  ],
+  "expression_formats": [
+    "Private diary"
+  ],
+  "material_sources": [
+    "Dream"
+  ],
+  "social_role_tags": [
+    "Drifter",
+    "Unknown person",
+    "Recorded subject",
+    "Student"
+  ],
+  "spatial_tags": [
+    "Museum",
+    "Hospital",
+    "Rental room",
+    "Rooftop",
+    "No fixed place"
+  ],
+  "time_era_tags": [
+    "Millennium",
+    "Near future",
+    "Periodic disappearance",
+    "Long silence"
+  ],
+  "platform_behavior_tags": [
+    "Disappears after browsing",
+    "Brand loyalist",
+    "Jumping browser",
+    "Anonymous browser",
+    "Ad avoider",
+    "Deletes records"
+  ],
+  "emotion_personality_tags": [
+    "Socially avoidant",
+    "Highly expressive",
+    "Gentle",
+    "Highly sensitive",
+    "Defensive"
+  ],
+  "relationship_tags": [
+    "Long-distance relationship",
+    "Cared-for person",
+    "Replies frequently",
+    "Watched"
+  ],
+  "aesthetic_cultural_tags": [
+    "Anime / manga culture",
+    "Environmentalism",
+    "Office style",
+    "Museum-like"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Active user",
+    "Noise user"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Flower",
+    "Coral",
+    "Snow",
+    "Star",
+    "Moon"
+  ],
+  "identity_name": "crescent",
+  "carried_fragment": "好感度",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

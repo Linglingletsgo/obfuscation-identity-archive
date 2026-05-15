@@ -1,0 +1,109 @@
+{
+  "submission_id": "submission_20260507093805308_8415663b",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-07T09:38:05.308Z",
+  "shell_form": "Real self",
+  "places": [
+    "City",
+    "Home",
+    "School",
+    "Workplace",
+    "Game",
+    "No fixed place"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Social media bio",
+    "Poem",
+    "Advertising profile",
+    "Resume"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Dream",
+    "News",
+    "Private code",
+    "Family legend",
+    "Shopping preference",
+    "Game character",
+    "Random words"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Researcher",
+    "Temporary worker",
+    "Parent",
+    "Person living alone",
+    "Freelancer"
+  ],
+  "spatial_tags": [
+    "City center",
+    "Suburb",
+    "County town",
+    "Seaside",
+    "Mountain area",
+    "Border"
+  ],
+  "time_era_tags": [
+    "Mythic age",
+    "Medieval period",
+    "Industrial age",
+    "1920s",
+    "1950s",
+    "1960s"
+  ],
+  "platform_behavior_tags": [
+    "Impulse buyer",
+    "Hoarder",
+    "High return rate",
+    "Late-night shopper",
+    "High-frequency low-price consumer",
+    "Digital subscriber"
+  ],
+  "emotion_personality_tags": [
+    "Distant",
+    "Suspicious",
+    "Anxious",
+    "Stubborn",
+    "Cautious",
+    "Adventurous",
+    "Silent"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Family-oriented",
+    "Dependent on a small circle",
+    "Caregiver",
+    "Frequently unreachable",
+    "Replies frequently"
+  ],
+  "aesthetic_cultural_tags": [
+    "Anime / manga culture",
+    "Minimalism",
+    "Futurism",
+    "Folklore",
+    "Tech geek",
+    "Punk"
+  ],
+  "system_tags": [
+    "Active user",
+    "Low-value user",
+    "Noise user",
+    "Risk user",
+    "Unpredictable user",
+    "Unstable user"
+  ],
+  "non_human_tags": [
+    "Dog",
+    "Fox",
+    "Deer",
+    "Wolf",
+    "Moon",
+    "Old photo"
+  ],
+  "identity_name": "Spiky",
+  "carried_fragment": "This too shall pass.",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

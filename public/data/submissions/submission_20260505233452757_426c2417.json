@@ -1,0 +1,80 @@
+{
+  "submission_id": "submission_20260505233452757_426c2417",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-05T23:34:52.757Z",
+  "shell_form": "Real self",
+  "places": [
+    "Internet",
+    "City",
+    "Dream",
+    "Future world"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Divination result",
+    "Species description",
+    "Museum label"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Dream",
+    "Family legend",
+    "Religious / mythological element"
+  ],
+  "social_role_tags": [
+    "Traveler",
+    "Drifter",
+    "Observer"
+  ],
+  "spatial_tags": [
+    "City center",
+    "Seaside",
+    "Café",
+    "Forest",
+    "River"
+  ],
+  "time_era_tags": [
+    "Near future",
+    "Active at dawn",
+    "Nocturnal"
+  ],
+  "platform_behavior_tags": [
+    "Impulse buyer",
+    "Brand loyalist",
+    "Minimalist"
+  ],
+  "emotion_personality_tags": [
+    "Nostalgic",
+    "Stubborn",
+    "Highly expressive",
+    "Optimistic"
+  ],
+  "relationship_tags": [
+    "In an intimate relationship",
+    "Caregiver",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Futurism",
+    "Unclassifiable"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Unpredictable user",
+    "Blurred profile"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Dog",
+    "Wolf",
+    "Crow",
+    "Moon",
+    "Black screen"
+  ],
+  "identity_name": "雾",
+  "carried_fragment": "嘘 小心身边",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

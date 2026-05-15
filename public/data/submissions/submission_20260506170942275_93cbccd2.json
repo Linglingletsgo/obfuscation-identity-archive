@@ -1,0 +1,106 @@
+{
+  "submission_id": "submission_20260506170942275_93cbccd2",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T17:09:42.275Z",
+  "shell_form": "Real self",
+  "places": [
+    "Home",
+    "No fixed place",
+    "Dream",
+    "Game",
+    "School",
+    "Natural environment"
+  ],
+  "expression_formats": [
+    "Poem",
+    "Testimony",
+    "Social media bio",
+    "Official form",
+    "Chat log"
+  ],
+  "material_sources": [
+    "Real memory",
+    "False memory",
+    "Dream",
+    "Chat habit",
+    "Search history",
+    "Color",
+    "Game character",
+    "Random words"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Freelancer",
+    "Unemployed person",
+    "Housemate",
+    "Person living alone",
+    "Tenant"
+  ],
+  "spatial_tags": [
+    "Suburb",
+    "City center",
+    "Village",
+    "Seaside",
+    "Mountain area",
+    "Airport"
+  ],
+  "time_era_tags": [
+    "1990s",
+    "2010s",
+    "2020s",
+    "Long silence",
+    "Seasonal appearance",
+    "Wrong era"
+  ],
+  "platform_behavior_tags": [
+    "Impulse buyer",
+    "Browses without buying",
+    "Ad avoider",
+    "Price comparer",
+    "Second-hand preference",
+    "Saves screenshots"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Anxious",
+    "Stubborn",
+    "Easily distracted",
+    "Optimistic",
+    "Tired",
+    "Nostalgic"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Long-distance relationship",
+    "Cared-for person",
+    "Caregiver",
+    "Socially active",
+    "Anonymous observer"
+  ],
+  "aesthetic_cultural_tags": [
+    "Pop culture",
+    "Minimalism",
+    "Nostalgia",
+    "Folklore",
+    "Tech geek",
+    "Punk"
+  ],
+  "system_tags": [
+    "Ordinary user",
+    "High-value user",
+    "Unpredictable user"
+  ],
+  "non_human_tags": [
+    "Old photo",
+    "Broken phone",
+    "Unsent message",
+    "Cat",
+    "Dog",
+    "Bird"
+  ],
+  "identity_name": "Harry Lewis",
+  "carried_fragment": "he is rumoured to carry spinach in his pockets all the time.",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

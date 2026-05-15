@@ -1,0 +1,88 @@
+{
+  "submission_id": "submission_20260511182106779_6b1d4b6d",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-11T18:21:06.779Z",
+  "shell_form": "Real self",
+  "places": [
+    "Internet",
+    "Social media platform",
+    "Ruin",
+    "Border",
+    "City"
+  ],
+  "expression_formats": [
+    "Poem",
+    "Legend",
+    "Species description"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Private code",
+    "Lyric-like fragment",
+    "Religious / mythological element",
+    "Random words"
+  ],
+  "social_role_tags": [
+    "Freelancer",
+    "Drifter",
+    "Host"
+  ],
+  "spatial_tags": [
+    "Suburb",
+    "Seaside",
+    "River"
+  ],
+  "time_era_tags": [
+    "Looping time",
+    "2020s",
+    "Near future"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Digital subscriber",
+    "Algorithm follower",
+    "Anonymous browser"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Gentle",
+    "Optimistic",
+    "Highly expressive",
+    "Silent"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Watched",
+    "Anonymous observer",
+    "Keeps distance"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Religious atmosphere",
+    "Futurism",
+    "Tech geek",
+    "Fake official style",
+    "Archive atmosphere"
+  ],
+  "system_tags": [
+    "Active user",
+    "Risk user",
+    "Identity drift",
+    "Algorithmic anomaly"
+  ],
+  "non_human_tags": [
+    "Jellyfish",
+    "Fog",
+    "Wind",
+    "Moon",
+    "Metal",
+    "Electric wire",
+    "Echo",
+    "Simulated life"
+  ],
+  "identity_name": "ldontwantaname",
+  "carried_fragment": "I eat a lot",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

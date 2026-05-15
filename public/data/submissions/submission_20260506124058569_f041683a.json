@@ -1,0 +1,98 @@
+{
+  "submission_id": "submission_20260506124058569_f041683a",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T12:40:58.569Z",
+  "shell_form": "Shadow",
+  "places": [
+    "City",
+    "Game",
+    "Ruin",
+    "Future world",
+    "No fixed place",
+    "Border"
+  ],
+  "expression_formats": [
+    "Divination result",
+    "System error",
+    "Junk file",
+    "Untitled file",
+    "Private diary"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Dream",
+    "Location trace",
+    "Game character",
+    "Non-human material",
+    "Lyric-like fragment",
+    "False memory",
+    "Other: Books/Stories/Narratives"
+  ],
+  "social_role_tags": [
+    "Outsider",
+    "Traveler",
+    "Unclassifiable person",
+    "Passerby",
+    "Observer",
+    "Other: Artist"
+  ],
+  "spatial_tags": [
+    "City center",
+    "Library",
+    "Game world",
+    "Border",
+    "Seaside",
+    "No fixed place"
+  ],
+  "time_era_tags": [
+    "Mythic age",
+    "1980s",
+    "Near future",
+    "After the apocalypse",
+    "Time disorder"
+  ],
+  "platform_behavior_tags": [
+    "Anti-recommendation user",
+    "Disappears after browsing",
+    "Ad avoider"
+  ],
+  "emotion_personality_tags": [
+    "Hard to determine",
+    "Ironic",
+    "Suspicious",
+    "Distant"
+  ],
+  "relationship_tags": [
+    "Stranger",
+    "Anonymous observer",
+    "Keeps distance"
+  ],
+  "aesthetic_cultural_tags": [
+    "Tech geek",
+    "Fake official style",
+    "Unclassifiable",
+    "Ruin atmosphere"
+  ],
+  "system_tags": [
+    "Classification failure",
+    "Recommendation difficulty",
+    "Tag conflict",
+    "Insufficient information",
+    "Unstable user",
+    "Abnormal user"
+  ],
+  "non_human_tags": [
+    "A hole",
+    "Unnamed species",
+    "Hybrid species",
+    "Black screen",
+    "Untitled file",
+    "Error code",
+    "Fire"
+  ],
+  "identity_name": "Ignis",
+  "carried_fragment": "Only pretended to be. Loves the post-apocalyptic world better than before. Found peace and purpose in the destruction. To not have anywhere felt right.",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

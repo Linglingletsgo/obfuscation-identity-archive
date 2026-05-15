@@ -1,0 +1,96 @@
+{
+  "submission_id": "submission_20260508164416797_b13e1f70",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-08T16:44:16.797Z",
+  "shell_form": "Future version",
+  "places": [
+    "Internet",
+    "City",
+    "Home",
+    "Dream",
+    "Social media platform",
+    "Future world"
+  ],
+  "expression_formats": [
+    "Poem",
+    "Legend",
+    "Museum label",
+    "Testimony",
+    "Private diary"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Dream",
+    "Family legend",
+    "Search history",
+    "Religious / mythological element",
+    "Lyric-like fragment",
+    "Color",
+    "Location trace"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Temporary worker",
+    "Unemployed person",
+    "Tenant",
+    "Unknown person"
+  ],
+  "spatial_tags": [
+    "Mountain area",
+    "Café",
+    "Forest",
+    "River",
+    "Museum"
+  ],
+  "time_era_tags": [
+    "Mythic age",
+    "Ancient time",
+    "Medieval period",
+    "Distant future"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Brand loyalist",
+    "Collector"
+  ],
+  "emotion_personality_tags": [
+    "Nostalgic",
+    "Gentle",
+    "Optimistic",
+    "Highly sensitive",
+    "Socially avoidant",
+    "Ironic",
+    "Silent"
+  ],
+  "relationship_tags": [
+    "In an intimate relationship",
+    "Dependent on a small circle",
+    "Anonymous observer",
+    "Often misunderstood",
+    "Family-oriented"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Nostalgia",
+    "Museum-like",
+    "Folklore"
+  ],
+  "system_tags": [
+    "Active user",
+    "Risk user",
+    "Worth monitoring"
+  ],
+  "non_human_tags": [
+    "Dog",
+    "Fish",
+    "Deer",
+    "Horse",
+    "Camera",
+    "Old photo"
+  ],
+  "identity_name": "Meteor",
+  "carried_fragment": "Legacy",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

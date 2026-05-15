@@ -1,0 +1,90 @@
+{
+  "submission_id": "submission_20260506191112228_5d260333",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T19:11:12.228Z",
+  "shell_form": "Real self",
+  "places": [
+    "Internet",
+    "Game",
+    "Future world"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Social media bio",
+    "Poem",
+    "Resume"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Family legend",
+    "Shopping preference",
+    "Search history"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Freelancer",
+    "Unemployed person",
+    "Commuter",
+    "New resident",
+    "Traveler"
+  ],
+  "spatial_tags": [
+    "City center",
+    "Airport",
+    "Office building",
+    "Shopping mall",
+    "Café"
+  ],
+  "time_era_tags": [
+    "1920s",
+    "Medieval period",
+    "Millennium",
+    "Retro future"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Late-night shopper",
+    "Algorithm follower"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Nostalgic",
+    "Adventurous",
+    "Speechless"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Frequently unreachable",
+    "Replies frequently",
+    "Watched",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Nostalgia",
+    "Folklore",
+    "Luxury",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "Ordinary user",
+    "Low-value user",
+    "Unpredictable user",
+    "Tag conflict"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Dog",
+    "Wolf",
+    "Rabbit",
+    "Horse",
+    "Flower",
+    "Tree",
+    "Old photo"
+  ],
+  "identity_name": "Elle Rosée",
+  "carried_fragment": "A softness that hides more than it reveals",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

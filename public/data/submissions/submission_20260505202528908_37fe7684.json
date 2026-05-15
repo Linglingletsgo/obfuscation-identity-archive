@@ -1,0 +1,115 @@
+{
+  "submission_id": "submission_20260505202528908_37fe7684",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-05T20:25:28.908Z",
+  "shell_form": "Dream figure",
+  "places": [
+    "School",
+    "Transport system",
+    "Border",
+    "Natural environment",
+    "No fixed place",
+    "Other: charity shop"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Poem",
+    "Divination result",
+    "Resume",
+    "Untitled file"
+  ],
+  "material_sources": [
+    "Color",
+    "Lyric-like fragment",
+    "AI-generated text",
+    "Family legend",
+    "Internet meme",
+    "Real memory",
+    "Search history",
+    "Other: the ingredients label"
+  ],
+  "social_role_tags": [
+    "Traveler",
+    "Observer",
+    "Passerby",
+    "Anonymous user",
+    "Forgotten person",
+    "Local person"
+  ],
+  "spatial_tags": [
+    "Forest",
+    "Game world",
+    "Convenience store",
+    "Dormitory",
+    "Hospital",
+    "Airport"
+  ],
+  "time_era_tags": [
+    "Mythic age",
+    "Medieval period",
+    "1990s",
+    "Retro future",
+    "Seasonal appearance",
+    "1970s"
+  ],
+  "platform_behavior_tags": [
+    "Price comparer",
+    "Second-hand preference",
+    "Deletes records",
+    "Multiple-account switcher",
+    "Late-night shopper",
+    "Minimalist"
+  ],
+  "emotion_personality_tags": [
+    "Suspicious",
+    "Ironic",
+    "Hard to determine",
+    "Impulsive",
+    "Stubborn",
+    "Nostalgic",
+    "Warm"
+  ],
+  "relationship_tags": [
+    "Frequently unreachable",
+    "Anonymous observer",
+    "Temporary ally",
+    "Often misunderstands others",
+    "Stranger",
+    "Cared-for person"
+  ],
+  "aesthetic_cultural_tags": [
+    "Biological atlas style",
+    "Ruin atmosphere",
+    "Lo-fi",
+    "Office style",
+    "Folklore",
+    "Anime / manga culture"
+  ],
+  "system_tags": [
+    "Noise user",
+    "Risk user",
+    "Unstable user",
+    "Insufficient information",
+    "Recommendation difficulty",
+    "High-noise data"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Dog",
+    "Bird",
+    "Snake",
+    "An unread email",
+    "Simulated life",
+    "Echo",
+    "Shadow",
+    "Recycle bin",
+    "Dust",
+    "Coral",
+    "Octopus"
+  ],
+  "identity_name": "Ronald",
+  "carried_fragment": "i secretly work at papa john’s",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

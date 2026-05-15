@@ -1,0 +1,99 @@
+{
+  "submission_id": "submission_20260506141449565_a50b12ee",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T14:14:49.565Z",
+  "shell_form": "Shadow",
+  "places": [
+    "City",
+    "Home",
+    "Border",
+    "Transport system",
+    "Database",
+    "Natural environment"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Poem",
+    "Legend",
+    "Junk file",
+    "Untitled file"
+  ],
+  "material_sources": [
+    "Private code",
+    "False memory",
+    "Dream",
+    "Lyric-like fragment",
+    "Religious / mythological element",
+    "Family legend",
+    "Non-human material"
+  ],
+  "social_role_tags": [
+    "Freelancer",
+    "Drifter",
+    "Unclassifiable person",
+    "Anonymous user",
+    "Archive object"
+  ],
+  "spatial_tags": [
+    "Data center",
+    "Game world",
+    "Ruin",
+    "Museum",
+    "No fixed place"
+  ],
+  "time_era_tags": [
+    "Mythic age",
+    "Looping time",
+    "Parallel timeline",
+    "Time disorder"
+  ],
+  "platform_behavior_tags": [
+    "Impulse buyer",
+    "Brand loyalist",
+    "Collector",
+    "Long-term lurker",
+    "Platform nomad"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Easily distracted",
+    "Optimistic",
+    "Relaxed"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Dependent on a small circle",
+    "Replies frequently",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Nostalgia",
+    "Museum-like",
+    "Archive atmosphere"
+  ],
+  "system_tags": [
+    "Noise user",
+    "Unpredictable user",
+    "Archivable user",
+    "Algorithmic anomaly"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Rabbit",
+    "Bee",
+    "Flower",
+    "Coral",
+    "River",
+    "Moon",
+    "Star",
+    "Door number",
+    "Map",
+    "Potted plant",
+    "Unsent message"
+  ],
+  "identity_name": "BWS",
+  "carried_fragment": "memories of the identity",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

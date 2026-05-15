@@ -1,0 +1,81 @@
+{
+  "submission_id": "submission_20260501153958445_ddc8dd42",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-01T15:39:58.445Z",
+  "shell_form": "Parallel-world resident",
+  "places": [
+    "Internet",
+    "Game",
+    "Dream",
+    "Social media platform",
+    "Future world"
+  ],
+  "expression_formats": [
+    "Poem"
+  ],
+  "material_sources": [
+    "Dream",
+    "Private code",
+    "Internet meme",
+    "Lyric-like fragment",
+    "Game character"
+  ],
+  "social_role_tags": [
+    "New resident",
+    "Traveler",
+    "Drifter"
+  ],
+  "spatial_tags": [
+    "Game world",
+    "Social media platform",
+    "Museum"
+  ],
+  "time_era_tags": [
+    "Distant future",
+    "Parallel timeline",
+    "Nocturnal",
+    "Time disorder"
+  ],
+  "platform_behavior_tags": [
+    "Impulse buyer",
+    "Late-night shopper",
+    "Brand loyalist"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Easily distracted",
+    "Highly expressive",
+    "Relaxed",
+    "Excited"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Socially active",
+    "Caregiver"
+  ],
+  "aesthetic_cultural_tags": [
+    "Futurism",
+    "Pop culture",
+    "Luxury"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Unpredictable user",
+    "Active user"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Flower",
+    "River",
+    "Rain",
+    "Sun",
+    "Camera",
+    "Alien creature",
+    "A gust of wind"
+  ],
+  "identity_name": "iohkna",
+  "carried_fragment": "possible future",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

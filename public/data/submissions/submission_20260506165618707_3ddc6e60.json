@@ -1,0 +1,84 @@
+{
+  "submission_id": "submission_20260506165618707_3ddc6e60",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T16:56:18.707Z",
+  "shell_form": "Real self",
+  "places": [
+    "Workplace",
+    "Home",
+    "Natural environment"
+  ],
+  "expression_formats": [
+    "Official form",
+    "Social media bio",
+    "Resume"
+  ],
+  "material_sources": [
+    "Family legend"
+  ],
+  "social_role_tags": [
+    "Anonymous user",
+    "Observer",
+    "Freelancer",
+    "Housemate"
+  ],
+  "spatial_tags": [
+    "Office building",
+    "No fixed place",
+    "Family home",
+    "County town"
+  ],
+  "time_era_tags": [
+    "2020s",
+    "Parallel timeline",
+    "Seasonal appearance"
+  ],
+  "platform_behavior_tags": [
+    "Hoarder",
+    "Digital subscriber",
+    "Impulse buyer",
+    "Price comparer"
+  ],
+  "emotion_personality_tags": [
+    "Gentle",
+    "Cautious",
+    "Calm",
+    "Warm",
+    "Optimistic",
+    "Socially avoidant"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Cared-for person",
+    "Dependent on a small circle",
+    "Anonymous observer"
+  ],
+  "aesthetic_cultural_tags": [
+    "Religious atmosphere",
+    "Academic style",
+    "Environmentalism",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "Ordinary user",
+    "Low-value user",
+    "Risk user"
+  ],
+  "non_human_tags": [
+    "Horse",
+    "Potted plant",
+    "Verification code",
+    "Bird",
+    "Crow",
+    "Cloud",
+    "Moon",
+    "Paper",
+    "Old photo",
+    "Bed"
+  ],
+  "identity_name": "Don",
+  "carried_fragment": "Unfinished thought.",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

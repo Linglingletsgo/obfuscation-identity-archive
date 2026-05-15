@@ -1,0 +1,76 @@
+{
+  "submission_id": "submission_20260505201354964_55dd2e1b",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-05T20:13:54.964Z",
+  "shell_form": "Unnameable",
+  "places": [
+    "Archive"
+  ],
+  "expression_formats": [
+    "Poem"
+  ],
+  "material_sources": [
+    "False memory",
+    "Dream"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Local person",
+    "Guest"
+  ],
+  "spatial_tags": [
+    "City center",
+    "Social media platform",
+    "Data center"
+  ],
+  "time_era_tags": [
+    "Medieval period",
+    "1970s",
+    "Millennium"
+  ],
+  "platform_behavior_tags": [
+    "High-frequency low-price consumer",
+    "Browses without buying",
+    "High return rate"
+  ],
+  "emotion_personality_tags": [
+    "Suspicious",
+    "Distant",
+    "Stubborn",
+    "Ironic",
+    "Silent"
+  ],
+  "relationship_tags": [
+    "Socially active",
+    "Caregiver",
+    "Cared-for person"
+  ],
+  "aesthetic_cultural_tags": [
+    "Unclassifiable",
+    "Folklore",
+    "Tech geek",
+    "Office style",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "Unpredictable user",
+    "Tag conflict",
+    "Duplicate archive",
+    "Predictable user",
+    "Insufficient information"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Dog",
+    "Bird",
+    "Snake",
+    "Fish",
+    "Wolf",
+    "Rabbit"
+  ],
+  "identity_name": "啥玩意我没懂，混淆身份是啥",
+  "carried_fragment": "好困",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

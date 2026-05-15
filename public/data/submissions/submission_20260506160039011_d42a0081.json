@@ -1,0 +1,85 @@
+{
+  "submission_id": "submission_20260506160039011_d42a0081",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T16:00:39.011Z",
+  "shell_form": "Shadow",
+  "places": [
+    "Future world"
+  ],
+  "expression_formats": [
+    "Poem",
+    "Junk file"
+  ],
+  "material_sources": [
+    "Religious / mythological element",
+    "AI-generated text"
+  ],
+  "social_role_tags": [
+    "Unemployed person",
+    "Freelancer",
+    "Guest"
+  ],
+  "spatial_tags": [
+    "Urban edge",
+    "Dormitory",
+    "Museum"
+  ],
+  "time_era_tags": [
+    "Wrong era",
+    "Looping time",
+    "Time disorder"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Anti-recommendation user",
+    "Deletes records"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Nostalgic",
+    "Easily distracted",
+    "Optimistic",
+    "Relaxed",
+    "Speechless"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "Long-distance relationship",
+    "Ignored",
+    "Anonymous observer",
+    "Lost contact"
+  ],
+  "aesthetic_cultural_tags": [
+    "Anime / manga culture",
+    "Minimalism",
+    "Futurism",
+    "Punk",
+    "Lo-fi"
+  ],
+  "system_tags": [
+    "Unstable user",
+    "Unpredictable user",
+    "Archivable user",
+    "Tag conflict",
+    "Not worth analyzing",
+    "Suspected bot"
+  ],
+  "non_human_tags": [
+    "Wolf",
+    "Moss",
+    "Rain",
+    "Snow",
+    "Dog",
+    "Moon",
+    "Window",
+    "Unclaimed bag",
+    "Bed",
+    "Alien creature",
+    "Recycle bin"
+  ],
+  "identity_name": "Unique",
+  "carried_fragment": "Abrupt glitch",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

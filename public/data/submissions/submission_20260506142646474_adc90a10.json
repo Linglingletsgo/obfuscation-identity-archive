@@ -1,0 +1,85 @@
+{
+  "submission_id": "submission_20260506142646474_adc90a10",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T14:26:46.474Z",
+  "shell_form": "Character",
+  "places": [
+    "Internet",
+    "City",
+    "Game",
+    "Dream",
+    "Database",
+    "Ruin"
+  ],
+  "expression_formats": [
+    "Poem",
+    "Museum label",
+    "System error"
+  ],
+  "material_sources": [
+    "Dream",
+    "Color",
+    "Number",
+    "Religious / mythological element",
+    "Random words"
+  ],
+  "social_role_tags": [
+    "Drifter",
+    "Traveler",
+    "Unknown person",
+    "Unclassifiable person",
+    "Observer",
+    "Anonymous user"
+  ],
+  "spatial_tags": [
+    "Mountain area",
+    "Game world",
+    "No fixed place",
+    "Ruin"
+  ],
+  "time_era_tags": [
+    "Looping time",
+    "After the apocalypse",
+    "Active at dawn"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Jumping browser",
+    "Ad avoider"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Gentle",
+    "Adventurous",
+    "Restrained"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Anonymous observer",
+    "Frequently unreachable"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Ruin atmosphere",
+    "Unclassifiable",
+    "Nostalgia"
+  ],
+  "system_tags": [
+    "Unstable user",
+    "Suspected human",
+    "Identity drift"
+  ],
+  "non_human_tags": [
+    "Bird",
+    "Moss",
+    "Wind",
+    "Mirror",
+    "Bridge",
+    "Echo"
+  ],
+  "identity_name": "Not Specific",
+  "carried_fragment": "Transform into wind",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

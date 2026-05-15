@@ -1,0 +1,89 @@
+{
+  "submission_id": "submission_20260506070525471_4109cf85",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-06T07:05:25.471Z",
+  "shell_form": "Shadow",
+  "places": [
+    "Home",
+    "School",
+    "Database",
+    "Internet",
+    "Hospital"
+  ],
+  "expression_formats": [
+    "Medical record"
+  ],
+  "material_sources": [
+    "Religious / mythological element",
+    "False memory",
+    "Random words",
+    "Family legend",
+    "Dream"
+  ],
+  "social_role_tags": [
+    "Local person",
+    "Unemployed person",
+    "Observer",
+    "Forgotten person"
+  ],
+  "spatial_tags": [
+    "Urban edge",
+    "Hospital",
+    "Office building"
+  ],
+  "time_era_tags": [
+    "Near future",
+    "Industrial age",
+    "Distant future",
+    "Millennium"
+  ],
+  "platform_behavior_tags": [
+    "Browses without buying",
+    "Anonymous browser",
+    "Deletes records",
+    "Saves screenshots",
+    "Disappears after browsing"
+  ],
+  "emotion_personality_tags": [
+    "Defensive",
+    "Highly sensitive",
+    "Highly expressive",
+    "Ironic",
+    "Impulsive",
+    "Restrained"
+  ],
+  "relationship_tags": [
+    "Marginal group member",
+    "Ignored",
+    "Often misunderstands others",
+    "Keeps distance"
+  ],
+  "aesthetic_cultural_tags": [
+    "Luxury",
+    "Ruin atmosphere",
+    "Academic style"
+  ],
+  "system_tags": [
+    "Abnormal user",
+    "Noise user",
+    "Unstable user",
+    "Worth monitoring"
+  ],
+  "non_human_tags": [
+    "Dust",
+    "Bird",
+    "Insect",
+    "Well",
+    "Old key",
+    "Crack",
+    "Cache",
+    "Error code",
+    "Ghost",
+    "Shadow"
+  ],
+  "identity_name": "Caroline",
+  "carried_fragment": "Jealousy of a displaced and unrealised dream",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}
