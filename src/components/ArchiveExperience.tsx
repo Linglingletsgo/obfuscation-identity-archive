@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { loadArchiveSources } from "../data/archiveLoaders";
 import { buildArchiveGraph } from "../data/relationshipGraphBuilder";
 import { useArchiveStore } from "../state/archiveStore";
+import { StageScene } from "./StageScene";
 
 export function ArchiveExperience() {
   const { setGraph, setTimeline, stage } = useArchiveStore();
@@ -43,7 +44,9 @@ export function ArchiveExperience() {
 
   return (
     <section className="archive-experience" data-stage={stage}>
-      <div className="archive-scene-shell">Collective avatar-map</div>
+      <div className="archive-scene-shell">
+        <StageScene />
+      </div>
     </section>
   );
 }
