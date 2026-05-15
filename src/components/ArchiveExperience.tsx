@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { loadArchiveSources } from "../data/archiveLoaders";
 import { buildArchiveGraph } from "../data/relationshipGraphBuilder";
 import { useArchiveStore } from "../state/archiveStore";
+import { BranchingTimeline } from "./BranchingTimeline";
+import { Graph3DControls } from "./Graph3DControls";
+import { Graph3DDetailPanel } from "./Graph3DDetailPanel";
+import { MetadataSidebar } from "./MetadataSidebar";
 import { StageScene } from "./StageScene";
 
 export function ArchiveExperience() {
@@ -47,6 +51,10 @@ export function ArchiveExperience() {
       <div className="archive-scene-shell">
         <StageScene />
       </div>
+      <Graph3DControls />
+      <Graph3DDetailPanel />
+      <MetadataSidebar />
+      <BranchingTimeline />
     </section>
   );
 }
