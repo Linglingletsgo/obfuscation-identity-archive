@@ -9,6 +9,7 @@ build/
 .next/
 .vite/
 coverage/
+test-results/
 
 # Local environment
 .env
