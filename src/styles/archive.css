@@ -126,6 +126,23 @@ select {
   align-items: center;
 }
 
+.avatar-image,
+.avatar-placeholder {
+  display: block;
+  width: min(100%, 260px);
+  aspect-ratio: 1;
+  margin: 10px 0;
+  border: 2px dashed #18140f;
+  object-fit: contain;
+}
+
+.avatar-placeholder {
+  display: grid;
+  place-items: center;
+  color: #8b8172;
+  background: rgba(255, 255, 255, 0.42);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
