@@ -16,6 +16,9 @@ export const archiveVisualConfig = {
     detailPosition: [0, 2.8, 8] as const,
     minDistance: 3,
     maxDistance: 42,
+    stage5OverviewDistance: 32,
+    stage5InternalDistanceThreshold: 16,
+    stage5AvatarScale: 6,
   },
   graph: {
     seed: "obfuscation-identity-archive-v1",

@@ -1,8 +1,9 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { useArchiveStore } from "../state/archiveStore";
+import type { Stage5NavigationMode } from "../types/archive";
 import { AvatarPointCloud } from "./AvatarPointCloud";
 import { EmptyState, WebGLFallback } from "./FallbackStates";
 import { RelationshipGraph3D } from "./RelationshipGraph3D";
@@ -10,6 +11,46 @@ import { RelationshipGraph3D } from "./RelationshipGraph3D";
 function hasWebGL(): boolean {
   const canvas = document.createElement("canvas");
   return Boolean(canvas.getContext("webgl2") || canvas.getContext("webgl"));
+}
+
+export function getStage5ModeForCameraDistance(distance: number): Stage5NavigationMode {
+  return distance <= archiveVisualConfig.camera.stage5InternalDistanceThreshold ? "internal" : "overview";
+}
+
+function Stage5CameraStateSync() {
+  const { camera } = useThree();
+  const { stage, stage5Navigation, updateStage5Navigation } = useArchiveStore();
+
+  useFrame(() => {
+    if (stage !== 5) return;
+
+    const distance = camera.position.length();
+    const mode = getStage5ModeForCameraDistance(distance);
+    if (mode !== stage5Navigation.mode) {
+      updateStage5Navigation({
+        mode,
+        cameraPosition: [camera.position.x, camera.position.y, camera.position.z],
+      });
+    }
+  });
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+
+      camera.position.set(...archiveVisualConfig.camera.stage5Position);
+      updateStage5Navigation({
+        mode: "overview",
+        cameraPosition: [...archiveVisualConfig.camera.stage5Position],
+        cameraTarget: [0, 0, 0],
+      });
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [camera, updateStage5Navigation]);
+
+  return null;
 }
 
 export function StageScene() {
@@ -27,9 +68,16 @@ export function StageScene() {
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
       <Suspense fallback={null}>
-        {stage === 5 ? <AvatarPointCloud modelPath={archiveVisualConfig.assets.stage5ModelPath} /> : null}
+        {stage === 5 ? (
+          <AvatarPointCloud
+            modelPath={archiveVisualConfig.assets.stage5ModelPath}
+            scale={archiveVisualConfig.camera.stage5AvatarScale}
+            opacity={0.44}
+          />
+        ) : null}
         <RelationshipGraph3D graph={graph} />
       </Suspense>
+      <Stage5CameraStateSync />
       <OrbitControls
         enableDamping
         autoRotate={false}

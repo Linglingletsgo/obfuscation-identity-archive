@@ -2,7 +2,15 @@ import { PointMaterial, Points, useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 import * as THREE from "three";
 
-export function AvatarPointCloud({ modelPath }: { modelPath: string }) {
+export function AvatarPointCloud({
+  modelPath,
+  opacity = 0.32,
+  scale = 1,
+}: {
+  modelPath: string;
+  opacity?: number;
+  scale?: number;
+}) {
   const gltf = useGLTF(modelPath);
 
   const positions = useMemo(() => {
@@ -25,8 +33,10 @@ export function AvatarPointCloud({ modelPath }: { modelPath: string }) {
   }, [gltf.scene]);
 
   return (
-    <Points positions={positions} stride={3} frustumCulled={false}>
-      <PointMaterial size={0.045} color="#252525" transparent opacity={0.32} depthWrite={false} />
-    </Points>
+    <group scale={scale}>
+      <Points positions={positions} stride={3} frustumCulled={false}>
+        <PointMaterial size={0.045} color="#252525" transparent opacity={opacity} depthWrite={false} />
+      </Points>
+    </group>
   );
 }
