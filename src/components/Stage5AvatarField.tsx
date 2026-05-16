@@ -10,45 +10,6 @@ import { AvatarPointCloud } from "./AvatarPointCloud";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 import { getAvatarBreathingScale } from "./stage5AvatarAnimation";
 
-function Stage5FallbackShell() {
-  const groupRef = useRef<Group>(null);
-
-  useFrame(({ clock }) => {
-    const scale = getAvatarBreathingScale(clock.elapsedTime);
-    groupRef.current?.scale.setScalar(scale);
-  });
-
-  return (
-    <group ref={groupRef}>
-      <mesh>
-        <sphereGeometry args={[archiveVisualConfig.camera.stage5AvatarFieldRadius, 48, 32]} />
-        <meshStandardMaterial
-          color={archiveVisualConfig.colors.collective}
-          emissive={archiveVisualConfig.colors.shared}
-          emissiveIntensity={0.08}
-          roughness={0.68}
-          metalness={0.08}
-          transparent
-          opacity={0.08}
-          wireframe
-        />
-      </mesh>
-      <mesh scale={[0.78, 0.54, 0.78]}>
-        <sphereGeometry args={[archiveVisualConfig.camera.stage5AvatarFieldRadius, 48, 32]} />
-        <meshStandardMaterial
-          color={archiveVisualConfig.colors.shared}
-          emissive={archiveVisualConfig.colors.tag}
-          emissiveIntensity={0.06}
-          roughness={0.82}
-          transparent
-          opacity={0.06}
-          depthWrite={false}
-        />
-      </mesh>
-    </group>
-  );
-}
-
 function Stage5ModelShell({ scene, rawPositions }: { scene: THREE.Object3D; rawPositions: Float32Array }) {
   const { stage5Navigation } = useArchiveStore();
   const groupRef = useRef<Group>(null);
@@ -66,11 +27,11 @@ function Stage5ModelShell({ scene, rawPositions }: { scene: THREE.Object3D; rawP
       mesh.material = new THREE.MeshStandardMaterial({
         color: archiveVisualConfig.colors.collective,
         emissive: archiveVisualConfig.colors.shared,
-        emissiveIntensity: 0.12,
-        roughness: 0.58,
-        metalness: 0.12,
+        emissiveIntensity: 0.22,
+        roughness: 0.42,
+        metalness: 0.18,
         transparent: true,
-        opacity: 0.18,
+        opacity: 0.34,
         depthWrite: false,
         side: THREE.DoubleSide,
       });
@@ -79,7 +40,7 @@ function Stage5ModelShell({ scene, rawPositions }: { scene: THREE.Object3D; rawP
   }, [scene]);
 
   useFrame(({ clock }) => {
-    const hoverBoost = stage5Navigation.hoveredNodeId ? 0.018 : 0;
+    const hoverBoost = stage5Navigation.hoveredNodeId ? 0.035 : 0;
     const breathing = getAvatarBreathingScale(clock.elapsedTime) + hoverBoost;
     groupRef.current?.scale.setScalar(normalization.scale * breathing);
   });
@@ -119,11 +80,8 @@ function LoadedStage5AvatarField({ children }: { children: ReactNode }) {
 
 export function Stage5AvatarField({ children }: { children?: ReactNode }) {
   return (
-    <>
-      <Stage5FallbackShell />
-      <Suspense fallback={children}>
-        <LoadedStage5AvatarField>{children}</LoadedStage5AvatarField>
-      </Suspense>
-    </>
+    <Suspense fallback={null}>
+      <LoadedStage5AvatarField>{children}</LoadedStage5AvatarField>
+    </Suspense>
   );
 }
