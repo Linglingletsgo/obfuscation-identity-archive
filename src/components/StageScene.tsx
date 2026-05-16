@@ -10,10 +10,25 @@ import { RelationshipGraph3D } from "./RelationshipGraph3D";
 import { Stage5AvatarField } from "./Stage5AvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 
-function hasWebGL(): boolean {
-  const canvas = document.createElement("canvas");
-  return Boolean(canvas.getContext("webgl2") || canvas.getContext("webgl"));
+type WebGLContextLike = {
+  getExtension: (name: string) => { loseContext?: () => void } | null;
+};
+
+export function createWebGLSupportChecker(createCanvas: () => HTMLCanvasElement): () => boolean {
+  let cachedSupport: boolean | null = null;
+
+  return () => {
+    if (cachedSupport !== null) return cachedSupport;
+
+    const canvas = createCanvas();
+    const context = (canvas.getContext("webgl2") ?? canvas.getContext("webgl")) as WebGLContextLike | null;
+    cachedSupport = Boolean(context);
+    context?.getExtension("WEBGL_lose_context")?.loseContext?.();
+    return cachedSupport;
+  };
 }
+
+const hasWebGL = createWebGLSupportChecker(() => document.createElement("canvas"));
 
 export function getStage5ModeForCameraDistance(distance: number): Stage5NavigationMode {
   return distance <= archiveVisualConfig.camera.stage5InternalDistanceThreshold ? "internal" : "overview";

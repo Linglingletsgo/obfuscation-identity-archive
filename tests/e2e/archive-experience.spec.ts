@@ -63,6 +63,48 @@ async function expectCurrentCanvasContextLive(page: import("@playwright/test").P
     .toBe(true);
 }
 
+async function getStage5WebGLPixelCentroid(page: import("@playwright/test").Page) {
+  const screenshot = await page.screenshot();
+  const dataUrl = `data:image/png;base64,${screenshot.toString("base64")}`;
+
+  return page.evaluate(async (imageUrl) => {
+    const image = new Image();
+    await new Promise<void>((resolve, reject) => {
+      image.onload = () => resolve();
+      image.onerror = () => reject(new Error("Unable to decode screenshot"));
+      image.src = imageUrl;
+    });
+
+    const sample = document.createElement("canvas");
+    sample.width = image.width;
+    sample.height = image.height;
+    const context = sample.getContext("2d");
+    if (!context) return { x: 0, y: 0, count: 0 };
+
+    context.drawImage(image, 0, 0);
+    const startY = Math.floor(image.height * 0.18);
+    const pixels = context.getImageData(0, startY, image.width, image.height - startY).data;
+    let count = 0;
+    let totalX = 0;
+    let totalY = 0;
+
+    for (let index = 0; index < pixels.length; index += 4) {
+      const pixelOffset = index / 4;
+      const x = pixelOffset % image.width;
+      const y = startY + Math.floor(pixelOffset / image.width);
+      const redNode = pixels[index] > 170 && pixels[index + 1] < 130 && pixels[index + 2] < 120;
+      const blueLineOrAvatar = pixels[index + 2] > 110 && pixels[index] < 170 && pixels[index + 1] < 190;
+      if (pixels[index + 3] > 0 && (redNode || blueLineOrAvatar)) {
+        count += 1;
+        totalX += x;
+        totalY += y;
+      }
+    }
+
+    return { x: totalX / Math.max(1, count), y: totalY / Math.max(1, count), count };
+  }, dataUrl);
+}
+
 test("opens into Stage5 overview with graph controls", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByTestId("archive-experience")).toBeVisible();
@@ -84,6 +126,7 @@ test("Stage5 graph survives pointer movement without React or WebGL remount warn
     if (
       text.includes("Encountered two children with the same key") ||
       text.includes("THREE.WebGLRenderer: Context Lost") ||
+      text.includes("Too many active WebGL contexts") ||
       text.includes("The above error occurred") ||
       text.includes("Cannot update a component")
     ) {
@@ -102,6 +145,24 @@ test("Stage5 graph survives pointer movement without React or WebGL remount warn
   await page.waitForTimeout(300);
 
   expect(renderingFailures).toEqual([]);
+});
+
+test("Stage5 orbit drag does not snap back to its initial camera framing", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "5");
+  await expectStage5WebGLVisible(page);
+
+  const before = await getStage5WebGLPixelCentroid(page);
+  await page.mouse.move(760, 360);
+  await page.mouse.down();
+  await page.mouse.move(840, 420, { steps: 8 });
+  await page.mouse.up();
+  await page.waitForTimeout(1400);
+  const after = await getStage5WebGLPixelCentroid(page);
+
+  expect(before.count).toBeGreaterThan(120);
+  expect(after.count).toBeGreaterThan(120);
+  expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeGreaterThan(8);
 });
 
 test("Stage5 remounts the WebGL scene after context loss", async ({ page }) => {

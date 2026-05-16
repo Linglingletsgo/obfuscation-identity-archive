@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  createWebGLSupportChecker,
   getCameraPositionForStage,
   getCameraTargetForStage,
   getNextWebGLRestartVersion,
@@ -10,6 +11,34 @@ import {
 } from "./StageScene";
 
 describe("shouldRenderStage5AvatarField", () => {
+  it("caches WebGL support detection so renders do not create repeated contexts", () => {
+    let contextRequests = 0;
+    let released = false;
+    const checker = createWebGLSupportChecker(
+      () =>
+        ({
+          getContext() {
+            contextRequests += 1;
+            return {
+              getExtension(name: string) {
+                if (name !== "WEBGL_lose_context") return null;
+                return {
+                  loseContext() {
+                    released = true;
+                  },
+                };
+              },
+            };
+          },
+        }) as unknown as HTMLCanvasElement,
+    );
+
+    expect(checker()).toBe(true);
+    expect(checker()).toBe(true);
+    expect(contextRequests).toBe(1);
+    expect(released).toBe(true);
+  });
+
   it("keeps the avatar field mounted for Stage5 only", () => {
     expect(shouldRenderStage5AvatarField(5)).toBe(true);
     expect(shouldRenderStage5AvatarField(4)).toBe(false);
