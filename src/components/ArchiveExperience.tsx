@@ -6,10 +6,11 @@ import { BranchingTimeline } from "./BranchingTimeline";
 import { Graph3DControls } from "./Graph3DControls";
 import { Graph3DDetailPanel } from "./Graph3DDetailPanel";
 import { MetadataSidebar } from "./MetadataSidebar";
+import { Stage5IdentityOverlay } from "./Stage5IdentityOverlay";
 import { StageScene } from "./StageScene";
 
 export function ArchiveExperience() {
-  const { setGraph, setTimeline, stage } = useArchiveStore();
+  const { graph, setGraph, setTimeline, stage } = useArchiveStore();
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [message, setMessage] = useState("Loading archive data");
 
@@ -54,6 +55,7 @@ export function ArchiveExperience() {
       <Graph3DControls />
       <Graph3DDetailPanel />
       <MetadataSidebar />
+      <Stage5IdentityOverlay identities={graph?.nodes.filter((node) => node.type === "submission") ?? []} />
       <BranchingTimeline />
     </section>
   );

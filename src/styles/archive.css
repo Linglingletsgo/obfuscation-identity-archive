@@ -167,6 +167,27 @@ select {
   text-shadow: 0 1px 0 rgba(255, 252, 244, 0.92);
 }
 
+.stage5-identity-overlay {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  z-index: 7;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  width: min(680px, calc(100vw - 32px));
+  padding: 12px 14px;
+  background: rgba(255, 252, 244, 0.9);
+  border: 2px solid #18140f;
+  box-shadow: 4px 4px 0 rgba(24, 20, 15, 0.16);
+  transform: translateX(-50%);
+}
+
+.stage5-identity-overlay p {
+  margin: 3px 0;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
