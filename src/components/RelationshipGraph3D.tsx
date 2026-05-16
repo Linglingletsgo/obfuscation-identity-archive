@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { useArchiveStore } from "../state/archiveStore";
-import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode } from "../types/archive";
+import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode, ArchiveStage } from "../types/archive";
 import { GraphNodeSprite } from "./GraphNodeSprite";
 import { IdentityBillboardLabel } from "./IdentityBillboardLabel";
 import { Stage5HoverLabel } from "./Stage5HoverLabel";
@@ -12,6 +12,12 @@ type SearchableNode = Pick<
   ArchiveGraphNode,
   "id" | "identity_name" | "carried_fragment" | "tag_labels" | "visual"
 >;
+
+type StageScope = {
+  stage: ArchiveStage;
+  selectedIdentityId: string | null;
+  selectedTimelineItemId: string | null;
+};
 
 export function shouldRenderGraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
   if (link.type === "interaction" || link.type === "conflict_tag") return true;
@@ -29,27 +35,102 @@ export function getNodeOpacityMultiplier(node: SearchableNode, query: string): n
   return matches ? 1 : 0.16;
 }
 
+function timelineNodeMatchesSelection(node: ArchiveGraphNode, scope: StageScope): boolean {
+  if (node.type !== "timeline_item" || node.stage !== scope.stage) return false;
+  if (!scope.selectedIdentityId || !node.source_ids.includes(scope.selectedIdentityId)) return false;
+  if (!scope.selectedTimelineItemId) return true;
+  return node.id === `timeline:${scope.selectedTimelineItemId}` || node.id === scope.selectedTimelineItemId;
+}
+
+function timelineTagLabels(node: ArchiveGraphNode | undefined): Set<string> {
+  const labels = new Set(node?.tag_labels ?? []);
+  for (const values of Object.values(node?.avatar_tags ?? {})) {
+    for (const label of values) labels.add(label);
+  }
+  return labels;
+}
+
+export function getStageScopedGraphNodes(graph: ArchiveGraph, scope: StageScope): ArchiveGraphNode[] {
+  if (scope.stage === 5) {
+    return graph.nodes.filter(
+      (node) => node.type === "submission" || node.type === "tag" || node.type === "collective",
+    );
+  }
+
+  if (!scope.selectedIdentityId) return [];
+
+  const selectedTimelineNode =
+    graph.nodes.find((node) => timelineNodeMatchesSelection(node, scope)) ??
+    graph.nodes.find(
+      (node) =>
+        node.type === "timeline_item" &&
+        node.stage === scope.stage &&
+        node.source_ids.includes(scope.selectedIdentityId ?? ""),
+    );
+  const activeTags = timelineTagLabels(selectedTimelineNode);
+
+  return graph.nodes.filter((node) => {
+    if (node.id === scope.selectedIdentityId) return true;
+    if (selectedTimelineNode && node.id === selectedTimelineNode.id) return true;
+    if (node.type !== "tag") return false;
+    return node.tag_labels.some((label) => activeTags.has(label));
+  });
+}
+
+export function getStageScopedGraphLinks(
+  graph: ArchiveGraph,
+  scopedNodes: ArchiveGraphNode[],
+  focusedNodeId: string | null,
+  stage?: ArchiveStage,
+): ArchiveGraphLink[] {
+  const visibleIds = new Set(scopedNodes.map((node) => node.id));
+  const currentStage = stage ?? (scopedNodes.some((node) => node.type === "timeline_item") ? 0 : 5);
+
+  return graph.links.filter((link) => {
+    if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
+    if (currentStage === 5) return shouldRenderGraphLink(link, focusedNodeId);
+    return link.type === "shared_tag" || link.type === "source_membership" || link.type === "anchor_membership";
+  });
+}
+
+export function shouldShowIdentityBillboard(
+  node: Pick<ArchiveGraphNode, "id" | "type">,
+  context: { stage: ArchiveStage; focusedNodeId: string | null },
+): boolean {
+  return node.type === "submission" && context.stage === 5 && context.focusedNodeId === node.id;
+}
+
 export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
-  const { filters, previewIdentity, selectNode, stage5Navigation, updateStage5Navigation } = useArchiveStore();
+  const {
+    filters,
+    previewIdentity,
+    selectNode,
+    selectedIdentityId,
+    selectedTimelineItemId,
+    stage,
+    stage5Navigation,
+    updateStage5Navigation,
+  } = useArchiveStore();
   const nodeById = useMemo(() => new Map(graph.nodes.map((node) => [node.id, node])), [graph.nodes]);
   const query = filters.query.trim().toLowerCase();
   const focusedNodeId = stage5Navigation.hoveredNodeId || stage5Navigation.selectedIdentityId;
   const hoveredNode = focusedNodeId ? nodeById.get(focusedNodeId) ?? null : null;
+  const scopedNodes = useMemo(
+    () => getStageScopedGraphNodes(graph, { stage, selectedIdentityId, selectedTimelineItemId }),
+    [graph, selectedIdentityId, selectedTimelineItemId, stage],
+  );
 
   const visibleNodes = useMemo(() => {
-    if (!filters.tag) return graph.nodes;
-    return graph.nodes.filter((node) => {
+    if (!filters.tag) return scopedNodes;
+    return scopedNodes.filter((node) => {
       const matchesTag = !filters.tag || node.tag_labels.includes(filters.tag);
       return matchesTag;
     });
-  }, [filters.tag, graph.nodes]);
+  }, [filters.tag, scopedNodes]);
 
-  const visibleIds = useMemo(() => new Set(visibleNodes.map((node) => node.id)), [visibleNodes]);
-  const visibleLinks = graph.links.filter((link) => {
-    if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
-    if (!shouldRenderGraphLink(link, focusedNodeId)) return false;
-    return link.visual.opacity <= filters.linkDensity + 0.4;
-  });
+  const visibleLinks = getStageScopedGraphLinks(graph, visibleNodes, focusedNodeId, stage).filter(
+    (link) => link.visual.opacity <= filters.linkDensity + 0.4,
+  );
 
   return (
     <group>
@@ -94,7 +175,11 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
         />
       ))}
       {visibleNodes.map((node) => (
-        <IdentityBillboardLabel key={`${node.id}:label`} node={node} />
+        <IdentityBillboardLabel
+          key={`${node.id}:label`}
+          node={node}
+          visible={shouldShowIdentityBillboard(node, { stage, focusedNodeId })}
+        />
       ))}
       <Stage5HoverLabel node={hoveredNode} />
     </group>

@@ -1,8 +1,8 @@
 import { Html } from "@react-three/drei";
 import type { ArchiveGraphNode } from "../types/archive";
 
-export function IdentityBillboardLabel({ node }: { node: ArchiveGraphNode }) {
-  if (node.type !== "submission") return null;
+export function IdentityBillboardLabel({ node, visible }: { node: ArchiveGraphNode; visible: boolean }) {
+  if (node.type !== "submission" || !visible) return null;
 
   return (
     <Html
