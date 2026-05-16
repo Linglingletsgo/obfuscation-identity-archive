@@ -32,6 +32,8 @@ export const archiveVisualConfig = {
     conflictThreshold: 0.5,
     stage5AvatarRadius: 8.4,
     stage5InternalRadius: 6.6,
+    stage5GraphInsideAvatarRadius: 4.8,
+    stage5GraphVerticalScale: 0.58,
     stage5SimulationTicks: 72,
     stage5CommunityPull: 0.018,
     stage5LinkPull: 0.028,

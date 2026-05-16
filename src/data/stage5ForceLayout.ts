@@ -47,6 +47,29 @@ function clampToSphere(point: MutablePoint, radius: number): void {
   point.vz *= 0.35;
 }
 
+export function isInsideStage5AvatarVolume(point: Pick<MutablePoint, "x" | "y" | "z">): boolean {
+  const radius = archiveVisualConfig.graph.stage5GraphInsideAvatarRadius;
+  const verticalScale = archiveVisualConfig.graph.stage5GraphVerticalScale;
+  const normalizedDistance = Math.hypot(point.x, point.y / verticalScale, point.z);
+
+  return normalizedDistance <= radius + 0.001;
+}
+
+function clampToAvatarVolume(point: MutablePoint): void {
+  const radius = archiveVisualConfig.graph.stage5GraphInsideAvatarRadius;
+  const verticalScale = archiveVisualConfig.graph.stage5GraphVerticalScale;
+  const normalizedDistance = Math.hypot(point.x, point.y / verticalScale, point.z);
+  if (normalizedDistance <= radius || normalizedDistance === 0) return;
+
+  const scale = radius / normalizedDistance;
+  point.x *= scale;
+  point.y *= scale;
+  point.z *= scale;
+  point.vx *= 0.35;
+  point.vy *= 0.35;
+  point.vz *= 0.35;
+}
+
 function firstCommunity(node: ArchiveGraphNode): string {
   if (node.type === "tag") return node.tag_labels[0] ?? node.id.replace(/^tag:/, "");
   return node.tag_labels[0] ?? node.source_ids[0] ?? node.id;
@@ -91,7 +114,7 @@ function linkStrength(link: ArchiveGraphLink): number {
 }
 
 export function applyStage5ForceLayout(graph: ArchiveGraph): ArchiveGraph {
-  const radius = archiveVisualConfig.graph.stage5InternalRadius;
+  const radius = archiveVisualConfig.graph.stage5GraphInsideAvatarRadius;
   const layoutNodes = graph.nodes.filter(stage5Eligible);
   const layoutIds = new Set(layoutNodes.map((node) => node.id));
   const centers = new Map<string, CommunityCenter>();
@@ -158,6 +181,7 @@ export function applyStage5ForceLayout(graph: ArchiveGraph): ArchiveGraph {
       point.vy *= 0.74;
       point.vz *= 0.74;
       clampToSphere(point, radius);
+      clampToAvatarVolume(point);
     }
   }
 

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
-import { applyStage5ForceLayout } from "./stage5ForceLayout";
+import { applyStage5ForceLayout, isInsideStage5AvatarVolume } from "./stage5ForceLayout";
 
 function node(id: string, tagLabels: string[], type: ArchiveGraphNode["type"] = "submission"): ArchiveGraphNode {
   return {
@@ -85,6 +85,14 @@ describe("applyStage5ForceLayout", () => {
 
     for (const node of result.nodes.filter((item) => item.type === "submission" || item.type === "tag")) {
       expect(Math.hypot(node.position.x, node.position.y, node.position.z)).toBeLessThanOrEqual(maxRadius);
+    }
+  });
+
+  it("keeps Stage5 graph nodes inside the conservative avatar volume", () => {
+    const result = applyStage5ForceLayout(baseGraph);
+
+    for (const node of result.nodes.filter((item) => item.type === "submission" || item.type === "tag")) {
+      expect(isInsideStage5AvatarVolume(node.position)).toBe(true);
     }
   });
 
