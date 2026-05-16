@@ -1,25 +1,47 @@
 import { useArchiveStore } from "../state/archiveStore";
-import type { ArchiveStage } from "../types/archive";
+import type { ArchiveStage, TimelineItem } from "../types/archive";
 
-const stages: ArchiveStage[] = [0, 1, 2, 3, 4, 5];
 const labels = ["Interior", "Pair", "Cluster", "Dense", "Pressure", "Collective"];
 
+function timelineItemLabel(item: TimelineItem): string {
+  return item.stage_name || labels[item.stage] || item.timeline_item_id;
+}
+
 export function BranchingTimeline() {
-  const { openCollective, openStage, stage } = useArchiveStore();
+  const { openCollective, openStage, selectedIdentityId, selectedTimelineItemId, stage, timeline } = useArchiveStore();
   if (stage === 5) return null;
+
+  const anchor = timeline?.anchors.find((item) => item.anchor_id === selectedIdentityId);
+  if (!anchor) return null;
+
+  const items = [...anchor.items].sort((a, b) => {
+    if (a.stage !== b.stage) return a.stage - b.stage;
+    return a.timeline_item_id.localeCompare(b.timeline_item_id);
+  });
 
   return (
     <nav className="branching-timeline" aria-label="Branching archive timeline">
-      {stages.map((value, index) => (
+      {items.map((item) => (
         <button
-          key={value}
+          key={item.timeline_item_id}
           type="button"
-          className={value === stage ? "active" : ""}
-          onClick={() => (value === 5 ? openCollective() : openStage(value))}
+          className={
+            selectedTimelineItemId
+              ? item.timeline_item_id === selectedTimelineItemId
+                ? "active"
+                : ""
+              : item.stage === stage
+                ? "active"
+                : ""
+          }
+          onClick={() => openStage(item.stage, item.timeline_item_id)}
         >
-          {labels[index]}
+          {timelineItemLabel(item)}
         </button>
       ))}
+      <button type="button" className="" onClick={openCollective}>
+        {labels[5]}
+      </button>
     </nav>
   );
 }
