@@ -2,11 +2,13 @@ import { Line } from "@react-three/drei";
 import { useMemo } from "react";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
+import { projectNodeIntoAvatarShape } from "../data/avatarShape";
 import { useArchiveStore } from "../state/archiveStore";
 import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode, ArchiveStage } from "../types/archive";
 import { GraphNodeSprite } from "./GraphNodeSprite";
 import { IdentityBillboardLabel } from "./IdentityBillboardLabel";
 import { Stage5HoverLabel } from "./Stage5HoverLabel";
+import { useAvatarShapePositions } from "./AvatarShapeContext";
 
 type SearchableNode = Pick<
   ArchiveGraphNode,
@@ -119,22 +121,32 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
     stage5Navigation,
     updateStage5Navigation,
   } = useArchiveStore();
-  const nodeById = useMemo(() => new Map(graph.nodes.map((node) => [node.id, node])), [graph.nodes]);
+  const avatarShapePositions = useAvatarShapePositions();
   const query = filters.query.trim().toLowerCase();
   const focusedNodeId = stage5Navigation.hoveredNodeId || stage5Navigation.selectedIdentityId;
-  const hoveredNode = focusedNodeId ? nodeById.get(focusedNodeId) ?? null : null;
   const scopedNodes = useMemo(
     () => getStageScopedGraphNodes(graph, { stage, selectedIdentityId, selectedTimelineItemId }),
     [graph, selectedIdentityId, selectedTimelineItemId, stage],
   );
+  const shapedNodes = useMemo(
+    () =>
+      scopedNodes.map((node) =>
+        stage === 5 && (node.type === "submission" || node.type === "tag" || node.type === "collective")
+          ? { ...node, position: projectNodeIntoAvatarShape(node, avatarShapePositions) }
+          : node,
+      ),
+    [avatarShapePositions, scopedNodes, stage],
+  );
+  const nodeById = useMemo(() => new Map(shapedNodes.map((node) => [node.id, node])), [shapedNodes]);
+  const hoveredNode = focusedNodeId ? nodeById.get(focusedNodeId) ?? null : null;
 
   const visibleNodes = useMemo(() => {
-    if (!filters.tag) return scopedNodes;
-    return scopedNodes.filter((node) => {
+    if (!filters.tag) return shapedNodes;
+    return shapedNodes.filter((node) => {
       const matchesTag = !filters.tag || node.tag_labels.includes(filters.tag);
       return matchesTag;
     });
-  }, [filters.tag, scopedNodes]);
+  }, [filters.tag, shapedNodes]);
 
   const visibleLinks = getStageScopedGraphLinks(graph, visibleNodes, focusedNodeId, stage).filter(
     (link) => link.visual.opacity <= filters.linkDensity + 0.4,

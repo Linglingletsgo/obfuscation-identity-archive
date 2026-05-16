@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizePointCloudPositions } from "./AvatarPointCloud";
+import { normalizePointCloudPositions } from "../data/avatarShape";
 
 function maxRadius(positions: Float32Array): number {
   let max = 0;

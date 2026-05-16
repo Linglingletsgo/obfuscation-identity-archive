@@ -77,10 +77,15 @@ export function StageScene() {
           <pointLight position={[5, -2, -6]} intensity={0.7} color={archiveVisualConfig.colors.tag} />
         </>
       ) : null}
-      {shouldRenderStage5AvatarField(stage) ? <Stage5AvatarField /> : null}
-      <Suspense fallback={null}>
-        <RelationshipGraph3D graph={graph} />
-      </Suspense>
+      {shouldRenderStage5AvatarField(stage) ? (
+        <Stage5AvatarField>
+          <RelationshipGraph3D graph={graph} />
+        </Stage5AvatarField>
+      ) : (
+        <Suspense fallback={null}>
+          <RelationshipGraph3D graph={graph} />
+        </Suspense>
+      )}
       <Stage5CameraStateSync />
       <OrbitControls
         enableDamping
