@@ -2,6 +2,7 @@ import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { getAvatarAssetPath, getModelAssetPath } from "./archivePaths";
 import { normalizeEvents } from "./eventNormalization";
 import { withPosition } from "./layout3d";
+import { applyStage5ForceLayout } from "./stage5ForceLayout";
 import type {
   ArchiveGraph,
   ArchiveGraphLink,
@@ -259,7 +260,7 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
   const validIds = new Set(nodes.map((node) => node.id));
   const validLinks = links.filter((link) => validIds.has(link.source) && validIds.has(link.target));
 
-  return {
+  return applyStage5ForceLayout({
     nodes,
     links: validLinks,
     metadata: {
@@ -268,5 +269,5 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
       source_files: [archiveVisualConfig.data.interactionGraphPath, archiveVisualConfig.data.timelinePath],
       generated_at: new Date(0).toISOString(),
     },
-  };
+  });
 }

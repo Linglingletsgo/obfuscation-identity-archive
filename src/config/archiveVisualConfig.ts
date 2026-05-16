@@ -26,6 +26,12 @@ export const archiveVisualConfig = {
     collectiveNodeSize: 2.4,
     hoverGlow: 1.8,
     conflictThreshold: 0.5,
+    stage5AvatarRadius: 8.4,
+    stage5InternalRadius: 7.2,
+    stage5SimulationTicks: 72,
+    stage5CommunityPull: 0.018,
+    stage5LinkPull: 0.028,
+    stage5Repel: 0.18,
   },
   stages: {
     sidebarVisible: [0, 1, 2, 3, 4],
