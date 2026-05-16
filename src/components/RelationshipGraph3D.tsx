@@ -21,10 +21,40 @@ type StageScope = {
   selectedTimelineItemId: string | null;
 };
 
+type GraphRenderPolicy = {
+  depthTest: boolean;
+  depthWrite: boolean;
+  frustumCulled: boolean;
+  renderOrder: number;
+};
+
 export function shouldRenderGraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
   if (link.type === "interaction" || link.type === "conflict_tag") return true;
   if (link.type !== "shared_tag") return false;
   return focusedNodeId === link.source || focusedNodeId === link.target;
+}
+
+function shouldRenderStage5GraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
+  if (link.type === "shared_tag") return true;
+  return shouldRenderGraphLink(link, focusedNodeId);
+}
+
+export function getGraphRenderPolicy(stage: ArchiveStage): GraphRenderPolicy {
+  if (stage === 5) {
+    return {
+      depthTest: false,
+      depthWrite: false,
+      frustumCulled: false,
+      renderOrder: 20,
+    };
+  }
+
+  return {
+    depthTest: true,
+    depthWrite: false,
+    frustumCulled: true,
+    renderOrder: 0,
+  };
 }
 
 export function getNodeOpacityMultiplier(node: SearchableNode, query: string): number {
@@ -90,7 +120,7 @@ export function getStageScopedGraphLinks(
 
   return graph.links.filter((link) => {
     if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
-    if (currentStage === 5) return shouldRenderGraphLink(link, focusedNodeId);
+    if (currentStage === 5) return shouldRenderStage5GraphLink(link, focusedNodeId);
     return link.type === "shared_tag" || link.type === "source_membership" || link.type === "anchor_membership";
   });
 }
@@ -151,9 +181,10 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
   const visibleLinks = getStageScopedGraphLinks(graph, visibleNodes, focusedNodeId, stage).filter(
     (link) => link.visual.opacity <= filters.linkDensity + 0.4,
   );
+  const graphRenderPolicy = getGraphRenderPolicy(stage);
 
   return (
-    <group>
+    <group frustumCulled={graphRenderPolicy.frustumCulled} renderOrder={graphRenderPolicy.renderOrder}>
       {visibleLinks.map((link) => {
         const source = nodeById.get(link.source);
         const target = nodeById.get(link.target);
@@ -169,7 +200,11 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
             color={link.type === "conflict_tag" ? archiveVisualConfig.colors.conflict : archiveVisualConfig.colors.shared}
             lineWidth={Math.max(0.35, link.visual.thickness)}
             transparent
+            depthTest={graphRenderPolicy.depthTest}
+            depthWrite={graphRenderPolicy.depthWrite}
+            frustumCulled={graphRenderPolicy.frustumCulled}
             opacity={link.visual.opacity}
+            renderOrder={graphRenderPolicy.renderOrder}
           />
         );
       })}

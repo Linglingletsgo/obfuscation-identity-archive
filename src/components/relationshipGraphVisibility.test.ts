@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode } from "../types/archive";
 import {
+  getGraphRenderPolicy,
   shouldShowTagLabel,
   getNodeOpacityMultiplier,
   getStageScopedGraphLinks,
@@ -71,6 +72,34 @@ describe("RelationshipGraph3D visibility helpers", () => {
     expect(shouldRenderGraphLink(link("shared_tag"), null)).toBe(false);
     expect(shouldRenderGraphLink(link("shared_tag"), "a")).toBe(true);
     expect(shouldRenderGraphLink(link("shared_tag"), "c")).toBe(false);
+  });
+
+  it("keeps Stage5 shared-tag backbone links visible without hover", () => {
+    const scopedGraph: ArchiveGraph = {
+      ...graph,
+      nodes: [
+        searchableNode("a", ["Dream"], "submission", 0, ["a"]),
+        searchableNode("tag:Dream", ["Dream"], "tag", 5),
+      ],
+      links: [link("shared_tag", "a", "tag:Dream")],
+    };
+    const scopedNodes = getStageScopedGraphNodes(scopedGraph, {
+      stage: 5,
+      selectedIdentityId: null,
+      selectedTimelineItemId: null,
+    });
+
+    expect(getStageScopedGraphLinks(scopedGraph, scopedNodes, null, 5).map((item) => item.id)).toEqual([
+      "shared_tag:a:tag:Dream",
+    ]);
+  });
+
+  it("uses a depth-independent render policy for Stage5 graph objects", () => {
+    expect(getGraphRenderPolicy(5)).toMatchObject({
+      depthTest: false,
+      frustumCulled: false,
+    });
+    expect(getGraphRenderPolicy(0).depthTest).toBe(true);
   });
 
   it("dims nodes that do not match search", () => {

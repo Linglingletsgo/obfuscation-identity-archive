@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizePointCloudPositions } from "../data/avatarShape";
+import { ignoreAvatarPointCloudRaycast } from "./AvatarPointCloud";
 
 function maxRadius(positions: Float32Array): number {
   let max = 0;
@@ -21,5 +22,9 @@ describe("normalizePointCloudPositions", () => {
     const normalized = normalizePointCloudPositions(new Float32Array([10, 10, 10, 20, 10, 10]), 4);
 
     expect([...normalized]).toEqual([-4, 0, 0, 4, 0, 0]);
+  });
+
+  it("ignores point cloud raycasts so avatar particles do not steal node hover", () => {
+    expect(ignoreAvatarPointCloudRaycast()).toBeUndefined();
   });
 });

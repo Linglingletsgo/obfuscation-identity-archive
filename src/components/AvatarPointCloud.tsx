@@ -5,6 +5,10 @@ import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { getAvatarBreathingScale, getAvatarPointOpacity } from "./stage5AvatarAnimation";
 
+export function ignoreAvatarPointCloudRaycast(): void {
+  return undefined;
+}
+
 export function AvatarPointCloud({
   positions,
   opacity = 0.32,
@@ -29,7 +33,7 @@ export function AvatarPointCloud({
 
   return (
     <group ref={groupRef} scale={scale}>
-      <Points positions={positions} stride={3} frustumCulled={false}>
+      <Points positions={positions} stride={3} frustumCulled={false} raycast={ignoreAvatarPointCloudRaycast}>
         <PointMaterial
           ref={materialRef}
           size={0.045}

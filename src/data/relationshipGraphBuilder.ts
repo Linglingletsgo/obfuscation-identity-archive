@@ -161,8 +161,27 @@ function createCollectiveNode(item: TimelineItem): ArchiveGraphNode {
   });
 }
 
-function addLink(links: ArchiveGraphLink[], link: Omit<ArchiveGraphLink, "id">, suffix = ""): void {
-  links.push({ id: linkId(link.source, link.target, link.type, suffix), ...link });
+function reserveLinkId(usedLinkIds: Set<string>, link: Omit<ArchiveGraphLink, "id">, suffix = ""): string {
+  const baseId = linkId(link.source, link.target, link.type, suffix);
+  let id = baseId;
+  let duplicateIndex = 1;
+
+  while (usedLinkIds.has(id)) {
+    id = `${baseId}:duplicate-${duplicateIndex}`;
+    duplicateIndex += 1;
+  }
+
+  usedLinkIds.add(id);
+  return id;
+}
+
+function addLink(
+  links: ArchiveGraphLink[],
+  usedLinkIds: Set<string>,
+  link: Omit<ArchiveGraphLink, "id">,
+  suffix = "",
+): void {
+  links.push({ id: reserveLinkId(usedLinkIds, link, suffix), ...link });
 }
 
 export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: SourceTimeline): ArchiveGraph {
@@ -171,13 +190,16 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
     ...createTagNodes(graph.nodes),
   ];
   const links: ArchiveGraphLink[] = [];
+  const usedLinkIds = new Set<string>();
+  const addGraphLink = (link: Omit<ArchiveGraphLink, "id">, suffix = "") =>
+    addLink(links, usedLinkIds, link, suffix);
   const timelineItems = timeline.anchors.flatMap((anchor) => anchor.items);
 
   nodes.push(...timelineItems.map(createTimelineNode), createCollectiveNode(timeline.global_collective_item));
 
   for (const sourceNode of graph.nodes) {
     for (const label of uniqueLabels(sourceNode.tags)) {
-      addLink(links, {
+      addGraphLink({
         source: sourceNode.id,
         target: tagId(label),
         type: "shared_tag",
@@ -190,7 +212,7 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
   }
 
   for (const edge of graph.edges) {
-    addLink(links, {
+    addGraphLink({
       source: edge.source,
       target: edge.target,
       type: "interaction",
@@ -202,8 +224,7 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
 
     edge.evidence?.conflictPairs?.forEach((pair, pairIndex) => {
       for (const label of pair) {
-        addLink(
-          links,
+        addGraphLink(
           {
             source: edge.source,
             target: tagId(label),
@@ -221,7 +242,7 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
 
   for (const item of timelineItems) {
     for (const sourceId of item.source_ids) {
-      addLink(links, {
+      addGraphLink({
         source: sourceId,
         target: timelineId(item.timeline_item_id),
         type: "source_membership",
@@ -233,7 +254,7 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
     }
 
     if (item.anchor_id) {
-      addLink(links, {
+      addGraphLink({
         source: item.anchor_id,
         target: timelineId(item.timeline_item_id),
         type: "anchor_membership",
@@ -246,7 +267,7 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
   }
 
   for (const sourceId of timeline.global_collective_item.source_ids) {
-    addLink(links, {
+    addGraphLink({
       source: sourceId,
       target: collectiveId(timeline.global_collective_item.timeline_item_id),
       type: "source_membership",

@@ -112,6 +112,28 @@ type PointerEventLike = {
   stopPropagation: () => void;
 };
 
+export function configureGraphNodeSpriteObject(object: Sprite): Sprite {
+  object.frustumCulled = false;
+  object.renderOrder = 20;
+  object.material.depthTest = false;
+  object.material.depthWrite = false;
+  return object;
+}
+
+export function createGraphNodeSpriteObject(spec: NodeSpriteSpec, opacityMultiplier: number): Sprite {
+  const material = new SpriteMaterial({
+    map: createSpriteTexture(spec),
+    color: new Color("#ffffff"),
+    transparent: true,
+    opacity: spec.opacity * opacityMultiplier,
+    depthWrite: false,
+    depthTest: false,
+  });
+  const object = new Sprite(material);
+  object.scale.setScalar(spec.scale);
+  return configureGraphNodeSpriteObject(object);
+}
+
 export function GraphNodeSprite({
   node,
   opacityMultiplier = 1,
@@ -120,18 +142,10 @@ export function GraphNodeSprite({
   onPointerOver,
 }: GraphNodeSpriteProps) {
   const spec = getNodeSpriteSpec(node);
-  const sprite = useMemo(() => {
-    const material = new SpriteMaterial({
-      map: createSpriteTexture(spec),
-      color: new Color("#ffffff"),
-      transparent: true,
-      opacity: spec.opacity * opacityMultiplier,
-      depthWrite: false,
-    });
-    const object = new Sprite(material);
-    object.scale.setScalar(spec.scale);
-    return object;
-  }, [opacityMultiplier, spec.color, spec.opacity, spec.scale, spec.shape]);
+  const sprite = useMemo(
+    () => createGraphNodeSpriteObject(spec, opacityMultiplier),
+    [opacityMultiplier, spec.color, spec.opacity, spec.scale, spec.shape],
+  );
 
   sprite.position.set(node.position.x, node.position.y, node.position.z);
   sprite.material.opacity = spec.opacity * opacityMultiplier;

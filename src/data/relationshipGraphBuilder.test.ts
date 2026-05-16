@@ -97,6 +97,17 @@ describe("buildArchiveGraph", () => {
     expect(result.links.every((link) => ids.has(link.source) && ids.has(link.target))).toBe(true);
   });
 
+  it("keeps link ids unique when repeated source edges describe the same relationship", () => {
+    const repeatedEdgeGraph: SourceInteractionGraph = {
+      ...graph,
+      edges: [...graph.edges, { ...graph.edges[0], id: "a_b_repeated" }],
+    };
+    const result = buildArchiveGraph(repeatedEdgeGraph, timeline);
+    const linkIds = result.links.map((link) => link.id);
+
+    expect(new Set(linkIds).size).toBe(linkIds.length);
+  });
+
   it("assigns stable 3D positions", () => {
     const first = buildArchiveGraph(graph, timeline);
     const second = buildArchiveGraph(graph, timeline);
