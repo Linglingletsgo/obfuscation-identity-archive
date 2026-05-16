@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode } from "../types/archive";
 import {
+  shouldShowTagLabel,
   getNodeOpacityMultiplier,
   getStageScopedGraphLinks,
   getStageScopedGraphNodes,
@@ -146,11 +147,19 @@ describe("RelationshipGraph3D visibility helpers", () => {
     ]);
   });
 
-  it("only shows identity billboards for focused Stage5 identities", () => {
+  it("shows identity billboards for all Stage5 identities only", () => {
     const identity = searchableNode("a", ["Dream"], "submission", 0, ["a"]);
 
-    expect(shouldShowIdentityBillboard(identity, { stage: 5, focusedNodeId: null })).toBe(false);
+    expect(shouldShowIdentityBillboard(identity, { stage: 5, focusedNodeId: null })).toBe(true);
     expect(shouldShowIdentityBillboard(identity, { stage: 5, focusedNodeId: "a" })).toBe(true);
     expect(shouldShowIdentityBillboard(identity, { stage: 1, focusedNodeId: "a" })).toBe(false);
+  });
+
+  it("shows tag labels throughout Stage0-4 but keeps Stage5 tag labels hover-only", () => {
+    const tag = searchableNode("tag:Dream", ["Dream"], "tag", 5, []);
+
+    expect(shouldShowTagLabel(tag, { stage: 1, focusedNodeId: null })).toBe(true);
+    expect(shouldShowTagLabel(tag, { stage: 5, focusedNodeId: null })).toBe(false);
+    expect(shouldShowTagLabel(tag, { stage: 5, focusedNodeId: "tag:Dream" })).toBe(true);
   });
 });

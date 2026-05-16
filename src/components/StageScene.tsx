@@ -17,6 +17,21 @@ export function getStage5ModeForCameraDistance(distance: number): Stage5Navigati
   return distance <= archiveVisualConfig.camera.stage5InternalDistanceThreshold ? "internal" : "overview";
 }
 
+export function shouldRenderStage5AvatarField(stage: number): boolean {
+  return stage === 5;
+}
+
+function Stage5AvatarFallback() {
+  return (
+    <group>
+      <mesh>
+        <sphereGeometry args={[archiveVisualConfig.camera.stage5AvatarFieldRadius, 24, 16]} />
+        <meshBasicMaterial color={archiveVisualConfig.colors.collective} transparent opacity={0.05} wireframe />
+      </mesh>
+    </group>
+  );
+}
+
 function Stage5CameraStateSync() {
   const { camera } = useThree();
   const { stage, stage5Navigation, updateStage5Navigation } = useArchiveStore();
@@ -67,8 +82,8 @@ export function StageScene() {
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
-      <Suspense fallback={null}>
-        {stage === 5 ? (
+      <Suspense fallback={shouldRenderStage5AvatarField(stage) ? <Stage5AvatarFallback /> : null}>
+        {shouldRenderStage5AvatarField(stage) ? (
           <AvatarPointCloud
             modelPath={archiveVisualConfig.assets.stage5ModelPath}
             scale={archiveVisualConfig.camera.stage5AvatarScale}

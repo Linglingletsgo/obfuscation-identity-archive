@@ -97,7 +97,15 @@ export function shouldShowIdentityBillboard(
   node: Pick<ArchiveGraphNode, "id" | "type">,
   context: { stage: ArchiveStage; focusedNodeId: string | null },
 ): boolean {
-  return node.type === "submission" && context.stage === 5 && context.focusedNodeId === node.id;
+  return node.type === "submission" && context.stage === 5;
+}
+
+export function shouldShowTagLabel(
+  node: Pick<ArchiveGraphNode, "id" | "type">,
+  context: { stage: ArchiveStage; focusedNodeId: string | null },
+): boolean {
+  if (node.type !== "tag") return false;
+  return context.stage !== 5 || context.focusedNodeId === node.id;
 }
 
 export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
@@ -181,7 +189,11 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
           visible={shouldShowIdentityBillboard(node, { stage, focusedNodeId })}
         />
       ))}
-      <Stage5HoverLabel node={hoveredNode} />
+      {visibleNodes.map((node) =>
+        shouldShowTagLabel(node, { stage, focusedNodeId }) ? (
+          <Stage5HoverLabel key={`${node.id}:tag-label`} node={node} />
+        ) : null,
+      )}
     </group>
   );
 }

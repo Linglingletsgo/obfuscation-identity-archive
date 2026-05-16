@@ -3,10 +3,6 @@ import type { ArchiveStage, TimelineItem } from "../types/archive";
 
 const labels = ["Interior", "Pair", "Cluster", "Dense", "Pressure", "Collective"];
 
-function timelineItemLabel(item: TimelineItem): string {
-  return item.stage_name || labels[item.stage] || item.timeline_item_id;
-}
-
 export function BranchingTimeline() {
   const { openCollective, openStage, selectedIdentityId, selectedTimelineItemId, stage, timeline } = useArchiveStore();
   if (stage === 5) return null;
@@ -20,11 +16,13 @@ export function BranchingTimeline() {
   });
 
   return (
-    <nav className="branching-timeline" aria-label="Branching archive timeline">
-      {items.map((item) => (
+    <nav className="branching-timeline timeline-tree" aria-label="Branching archive timeline">
+      <div className="timeline-tree-track" aria-hidden="true" />
+      {items.map((item, index) => (
         <button
           key={item.timeline_item_id}
           type="button"
+          aria-label={`Stage ${item.stage} timeline node ${index}`}
           className={
             selectedTimelineItemId
               ? item.timeline_item_id === selectedTimelineItemId
@@ -35,13 +33,13 @@ export function BranchingTimeline() {
                 : ""
           }
           onClick={() => openStage(item.stage, item.timeline_item_id)}
-        >
-          {timelineItemLabel(item)}
-        </button>
+          style={{
+            "--timeline-stage": item.stage,
+            "--timeline-row": index,
+          } as React.CSSProperties}
+        />
       ))}
-      <button type="button" className="" onClick={openCollective}>
-        {labels[5]}
-      </button>
+      <button type="button" className="timeline-tree-collective" aria-label="Return to collective" onClick={openCollective} />
     </nav>
   );
 }

@@ -9,9 +9,9 @@ const timeline: SourceTimeline = {
     timeline_item_id: "global",
     anchor_id: null,
     stage: 5,
-    source_ids: ["a", "b"],
+    source_ids: ["a"],
     source_texts: [],
-    group_size: 2,
+    group_size: 1,
   },
   anchors: [
     {
@@ -21,36 +21,17 @@ const timeline: SourceTimeline = {
           timeline_item_id: "a-stage0",
           anchor_id: "a",
           stage: 0,
-          stage_name: "Interior A",
           source_ids: ["a"],
           source_texts: [],
           group_size: 1,
-          active_tags_preview: ["Dream"],
         },
         {
           timeline_item_id: "a-stage1",
           anchor_id: "a",
           stage: 1,
-          stage_name: "Pair A",
           source_ids: ["a"],
           source_texts: [],
           group_size: 1,
-          active_tags_preview: ["Shared"],
-        },
-      ],
-    },
-    {
-      anchor_id: "b",
-      items: [
-        {
-          timeline_item_id: "b-stage1",
-          anchor_id: "b",
-          stage: 1,
-          stage_name: "Pair B",
-          source_ids: ["b"],
-          source_texts: [],
-          group_size: 1,
-          active_tags_preview: ["Other"],
         },
       ],
     },
@@ -81,8 +62,8 @@ function TimelineStateProbe() {
   );
 }
 
-describe("BranchingTimeline", () => {
-  it("renders only selected identity timeline items and opens the clicked item", () => {
+describe("TimelineTree", () => {
+  it("renders icon-only tree nodes instead of visible text buttons", () => {
     render(
       <ArchiveProvider>
         <SetupIdentity />
@@ -93,12 +74,12 @@ describe("BranchingTimeline", () => {
 
     fireEvent.click(screen.getByText("setup"));
 
-    expect(screen.getByRole("button", { name: "Stage 0 timeline node 0" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Stage 1 timeline node 1" })).toBeInTheDocument();
-    expect(screen.queryByText("Pair B")).not.toBeInTheDocument();
+    const tree = screen.getByLabelText("Branching archive timeline");
+    expect(tree).toHaveClass("timeline-tree");
+    expect(screen.queryByText("Interior")).not.toBeInTheDocument();
+    expect(screen.queryByText("Pair")).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Stage 1 timeline node 1" }));
-
     expect(screen.getByLabelText("Timeline state")).toHaveTextContent("1:a-stage1");
   });
 });

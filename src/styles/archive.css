@@ -101,6 +101,50 @@ select {
   transform: translateX(-50%);
 }
 
+.timeline-tree {
+  display: block;
+  height: 128px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.timeline-tree-track {
+  position: absolute;
+  top: 50%;
+  right: 42px;
+  left: 42px;
+  height: 2px;
+  background: rgba(24, 20, 15, 0.38);
+}
+
+.timeline-tree button {
+  position: absolute;
+  left: calc(36px + var(--timeline-stage) * ((100% - 108px) / 5));
+  top: calc(24px + (var(--timeline-row) % 4) * 22px);
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  overflow: hidden;
+  background: #f7f2e7;
+  border: 2px solid #18140f;
+  border-radius: 50%;
+  color: transparent;
+  transform: translate(-50%, -50%);
+}
+
+.timeline-tree button.active {
+  background: #18140f;
+  box-shadow: 0 0 0 5px rgba(227, 77, 53, 0.22);
+}
+
+.timeline-tree .timeline-tree-collective {
+  right: 22px;
+  left: auto;
+  top: 50%;
+  background: #252525;
+}
+
 .branching-timeline button.active {
   background: #18140f;
   color: #fff8e8;
