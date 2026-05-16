@@ -143,6 +143,30 @@ select {
   background: rgba(255, 255, 255, 0.42);
 }
 
+.identity-billboard {
+  min-width: 140px;
+  max-width: 260px;
+  color: #18140f;
+  font-size: 12px;
+  line-height: 1.25;
+  pointer-events: none;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255, 252, 244, 0.92);
+}
+
+.identity-billboard span {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+}
+
+.tag-hover-label {
+  color: #2f7f6f;
+  font-size: 11px;
+  pointer-events: none;
+  text-shadow: 0 1px 0 rgba(255, 252, 244, 0.92);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

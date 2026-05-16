@@ -1,42 +1,55 @@
-import { Line, Sphere } from "@react-three/drei";
+import { Line } from "@react-three/drei";
 import { useMemo } from "react";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { useArchiveStore } from "../state/archiveStore";
-import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
+import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode } from "../types/archive";
+import { GraphNodeSprite } from "./GraphNodeSprite";
+import { IdentityBillboardLabel } from "./IdentityBillboardLabel";
+import { Stage5HoverLabel } from "./Stage5HoverLabel";
 
-function nodeColor(node: ArchiveGraphNode): string {
-  if (node.type === "tag") return archiveVisualConfig.colors.tag;
-  if (node.type === "timeline_item") return archiveVisualConfig.colors.timeline;
-  if (node.type === "collective") return archiveVisualConfig.colors.collective;
-  return archiveVisualConfig.colors.identity;
+type SearchableNode = Pick<
+  ArchiveGraphNode,
+  "id" | "identity_name" | "carried_fragment" | "tag_labels" | "visual"
+>;
+
+export function shouldRenderGraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
+  if (link.type === "interaction" || link.type === "conflict_tag") return true;
+  if (link.type !== "shared_tag") return false;
+  return focusedNodeId === link.source || focusedNodeId === link.target;
+}
+
+export function getNodeOpacityMultiplier(node: SearchableNode, query: string): number {
+  if (!query) return 1;
+  const normalizedQuery = query.toLowerCase();
+  const matches = [node.id, node.identity_name, node.carried_fragment, node.visual.label, ...node.tag_labels]
+    .filter(Boolean)
+    .some((value) => String(value).toLowerCase().includes(normalizedQuery));
+
+  return matches ? 1 : 0.16;
 }
 
 export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
-  const { filters, openIdentity, selectNode } = useArchiveStore();
+  const { filters, previewIdentity, selectNode, stage5Navigation, updateStage5Navigation } = useArchiveStore();
   const nodeById = useMemo(() => new Map(graph.nodes.map((node) => [node.id, node])), [graph.nodes]);
   const query = filters.query.trim().toLowerCase();
+  const focusedNodeId = stage5Navigation.hoveredNodeId || stage5Navigation.selectedIdentityId;
+  const hoveredNode = focusedNodeId ? nodeById.get(focusedNodeId) ?? null : null;
 
   const visibleNodes = useMemo(() => {
-    if (!query && !filters.tag) return graph.nodes;
+    if (!filters.tag) return graph.nodes;
     return graph.nodes.filter((node) => {
-      const matchesQuery =
-        !query ||
-        [node.id, node.identity_name, node.carried_fragment, node.visual.label, ...node.tag_labels]
-          .filter(Boolean)
-          .some((value) => String(value).toLowerCase().includes(query));
       const matchesTag = !filters.tag || node.tag_labels.includes(filters.tag);
-      return matchesQuery && matchesTag;
+      return matchesTag;
     });
-  }, [filters.tag, graph.nodes, query]);
+  }, [filters.tag, graph.nodes]);
 
   const visibleIds = useMemo(() => new Set(visibleNodes.map((node) => node.id)), [visibleNodes]);
-  const visibleLinks = graph.links.filter(
-    (link) =>
-      visibleIds.has(link.source) &&
-      visibleIds.has(link.target) &&
-      link.visual.opacity <= filters.linkDensity + 0.4,
-  );
+  const visibleLinks = graph.links.filter((link) => {
+    if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
+    if (!shouldRenderGraphLink(link, focusedNodeId)) return false;
+    return link.visual.opacity <= filters.linkDensity + 0.4;
+  });
 
   return (
     <group>
@@ -60,23 +73,30 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
         );
       })}
       {visibleNodes.map((node) => (
-        <Sphere
+        <GraphNodeSprite
           key={node.id}
-          args={[node.visual.size * 0.08, 12, 12]}
-          position={[node.position.x, node.position.y, node.position.z]}
-          onPointerOver={(event) => {
-            event.stopPropagation();
+          node={node}
+          opacityMultiplier={getNodeOpacityMultiplier(node, query)}
+          onPointerOver={() => {
             selectNode(node);
+            updateStage5Navigation({
+              hoveredNodeId: node.id,
+              hoveredTagLabel: node.type === "tag" ? node.visual.label : null,
+            });
           }}
-          onClick={(event) => {
-            event.stopPropagation();
+          onPointerOut={() => {
+            updateStage5Navigation({ hoveredNodeId: null, hoveredTagLabel: null });
+          }}
+          onClick={() => {
             selectNode(node);
-            if (node.type === "submission") openIdentity(node.id);
+            if (node.type === "submission") previewIdentity(node.id);
           }}
-        >
-          <meshStandardMaterial color={nodeColor(node)} transparent opacity={node.visual.opacity} />
-        </Sphere>
+        />
       ))}
+      {visibleNodes.map((node) => (
+        <IdentityBillboardLabel key={`${node.id}:label`} node={node} />
+      ))}
+      <Stage5HoverLabel node={hoveredNode} />
     </group>
   );
 }
