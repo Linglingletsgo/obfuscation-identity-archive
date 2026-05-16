@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import type { SourceInteractionGraph, SourceTimeline } from "../types/archive";
 import { buildArchiveGraph } from "./relationshipGraphBuilder";
 
@@ -101,5 +102,19 @@ describe("buildArchiveGraph", () => {
     const second = buildArchiveGraph(graph, timeline);
 
     expect(first.nodes.map((node) => node.position)).toEqual(second.nodes.map((node) => node.position));
+  });
+
+  it("returns Stage5 graph nodes already laid out inside the avatar radius", () => {
+    const result = buildArchiveGraph(graph, timeline);
+    const maxRadius = archiveVisualConfig.graph.stage5InternalRadius + 0.001;
+    const stage5Nodes = result.nodes.filter((node) => node.type === "submission" || node.type === "tag");
+
+    expect(stage5Nodes).not.toHaveLength(0);
+    expect(stage5Nodes.every((node) => Number.isFinite(node.position.x))).toBe(true);
+    expect(
+      stage5Nodes.every(
+        (node) => Math.hypot(node.position.x, node.position.y, node.position.z) <= maxRadius,
+      ),
+    ).toBe(true);
   });
 });
