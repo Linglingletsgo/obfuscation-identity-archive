@@ -32,6 +32,11 @@ export const archiveVisualConfig = {
     stage5CommunityPull: 0.018,
     stage5LinkPull: 0.028,
     stage5Repel: 0.18,
+    identitySpriteScale: 0.72,
+    tagSpriteScale: 0.2,
+    timelineSpriteScale: 0.34,
+    tagSpriteOpacity: 0.42,
+    identitySpriteOpacity: 0.94,
   },
   stages: {
     sidebarVisible: [0, 1, 2, 3, 4],
