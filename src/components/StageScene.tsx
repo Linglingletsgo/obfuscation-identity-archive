@@ -1,10 +1,10 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Suspense, useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { useArchiveStore } from "../state/archiveStore";
-import type { Stage5NavigationMode } from "../types/archive";
+import type { Stage5NavigationMode, Stage5NavigationState } from "../types/archive";
 import { EmptyState, WebGLFallback } from "./FallbackStates";
 import { RelationshipGraph3D } from "./RelationshipGraph3D";
 import { Stage5AvatarField } from "./Stage5AvatarField";
@@ -19,12 +19,24 @@ export function getStage5ModeForCameraDistance(distance: number): Stage5Navigati
   return distance <= archiveVisualConfig.camera.stage5InternalDistanceThreshold ? "internal" : "overview";
 }
 
-export function getCameraPositionForStage(stage: number): [number, number, number] {
-  return stage === 5 ? [...archiveVisualConfig.camera.stage5Position] : [...archiveVisualConfig.camera.detailPosition];
+export function getCameraPositionForStage(
+  stage: number,
+  stage5Navigation?: Stage5NavigationState,
+): [number, number, number] {
+  if (stage === 5) return [...(stage5Navigation?.cameraPosition ?? archiveVisualConfig.camera.stage5Position)];
+  return [...archiveVisualConfig.camera.detailPosition];
 }
 
 export function getStage5CameraTarget(): [number, number, number] {
   return [0, 0, 0];
+}
+
+export function getCameraTargetForStage(
+  stage: number,
+  stage5Navigation?: Stage5NavigationState,
+): [number, number, number] {
+  if (stage === 5) return [...(stage5Navigation?.cameraTarget ?? getStage5CameraTarget())];
+  return getStage5CameraTarget();
 }
 
 export function shouldDisableStage5Pan(stage: number): boolean {
@@ -51,18 +63,26 @@ function Stage5CameraStateSync({
   const { camera } = useThree();
   const { stage, stage5Navigation, updateStage5Navigation } = useArchiveStore();
   const updateStage5NavigationRef = useRef(updateStage5Navigation);
+  const stage5NavigationRef = useRef(stage5Navigation);
+  const lastSyncedCameraRef = useRef<[number, number, number]>(stage5Navigation.cameraPosition);
 
   useEffect(() => {
     updateStage5NavigationRef.current = updateStage5Navigation;
   }, [updateStage5Navigation]);
 
   useEffect(() => {
-    const position = getCameraPositionForStage(stage);
+    stage5NavigationRef.current = stage5Navigation;
+  }, [stage5Navigation]);
+
+  useEffect(() => {
+    const position = getCameraPositionForStage(stage, stage5NavigationRef.current);
+    const target = getCameraTargetForStage(stage, stage5NavigationRef.current);
     camera.position.set(...position);
+    lastSyncedCameraRef.current = position;
 
     const controls = controlsRef.current;
     if (controls) {
-      controls.target.set(...getStage5CameraTarget());
+      controls.target.set(...target);
       controls.update();
     }
 
@@ -70,7 +90,7 @@ function Stage5CameraStateSync({
       updateStage5NavigationRef.current({
         mode: getStage5ModeForCameraDistance(camera.position.length()),
         cameraPosition: position,
-        cameraTarget: getStage5CameraTarget(),
+        cameraTarget: target,
       });
     }
   }, [camera, controlsRef, stage]);
@@ -80,10 +100,23 @@ function Stage5CameraStateSync({
 
     const distance = camera.position.length();
     const mode = getStage5ModeForCameraDistance(distance);
-    if (mode !== stage5Navigation.mode) {
+    const position: [number, number, number] = [camera.position.x, camera.position.y, camera.position.z];
+    const previousPosition = lastSyncedCameraRef.current;
+    const moved =
+      Math.hypot(
+        position[0] - previousPosition[0],
+        position[1] - previousPosition[1],
+        position[2] - previousPosition[2],
+      ) > 0.04;
+
+    if (mode !== stage5Navigation.mode || moved) {
+      lastSyncedCameraRef.current = position;
       updateStage5Navigation({
         mode,
-        cameraPosition: [camera.position.x, camera.position.y, camera.position.z],
+        cameraPosition: position,
+        cameraTarget: controlsRef.current
+          ? [controlsRef.current.target.x, controlsRef.current.target.y, controlsRef.current.target.z]
+          : stage5Navigation.cameraTarget,
       });
     }
   });
@@ -110,7 +143,7 @@ function Stage5CameraStateSync({
 }
 
 export function StageScene() {
-  const { graph, stage } = useArchiveStore();
+  const { graph, stage, stage5Navigation } = useArchiveStore();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const restartTimerRef = useRef<number | null>(null);
   const [canvasElement, setCanvasElement] = useState<HTMLCanvasElement | null>(null);
@@ -153,13 +186,19 @@ export function StageScene() {
   if (!hasWebGL()) return <WebGLFallback />;
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
 
-  const cameraPosition = getCameraPositionForStage(stage);
+  const canvasCamera = useMemo(
+    () => ({
+      position: getCameraPositionForStage(stage, stage5Navigation),
+      fov: 45,
+    }),
+    [webglRestartVersion],
+  );
 
   return (
     <Canvas
       key={webglRestartVersion}
       ref={handleCanvasRef}
-      camera={{ position: [...cameraPosition], fov: 45 }}
+      camera={canvasCamera}
       className="archive-canvas"
       data-webgl-restart-version={webglRestartVersion}
     >

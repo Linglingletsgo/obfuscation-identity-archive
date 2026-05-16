@@ -108,6 +108,11 @@ test("Stage5 remounts the WebGL scene after context loss", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "5");
   await expectStage5WebGLVisible(page);
+  await page.mouse.move(760, 360);
+  await page.mouse.down();
+  await page.mouse.move(820, 390, { steps: 6 });
+  await page.mouse.up();
+  await expectStage5WebGLVisible(page);
 
   await forceWebGLContextLoss(page);
 

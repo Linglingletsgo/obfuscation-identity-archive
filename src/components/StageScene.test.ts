@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   getCameraPositionForStage,
+  getCameraTargetForStage,
   getNextWebGLRestartVersion,
   getStage5CameraTarget,
   shouldDisableStage5Pan,
@@ -23,6 +24,22 @@ describe("shouldRenderStage5AvatarField", () => {
     expect(getCameraPositionForStage(2)).toEqual([0, 2.8, 8]);
     expect(getStage5CameraTarget()).toEqual([0, 0, 0]);
     expect(shouldDisableStage5Pan(5)).toBe(true);
+  });
+
+  it("uses persisted Stage5 camera state when remounting the WebGL canvas", () => {
+    const navigation = {
+      mode: "overview" as const,
+      selectedIdentityId: null,
+      hoveredNodeId: null,
+      hoveredTagLabel: null,
+      cameraPosition: [3, 6, 18] as [number, number, number],
+      cameraTarget: [1, 0.5, -2] as [number, number, number],
+    };
+
+    expect(getCameraPositionForStage(5, navigation)).toEqual([3, 6, 18]);
+    expect(getCameraTargetForStage(5, navigation)).toEqual([1, 0.5, -2]);
+    expect(getCameraPositionForStage(1, navigation)).toEqual([0, 2.8, 8]);
+    expect(getCameraTargetForStage(1, navigation)).toEqual([0, 0, 0]);
   });
 
   it("increments the canvas restart version after WebGL context loss", () => {
