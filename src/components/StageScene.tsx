@@ -4,9 +4,9 @@ import { Suspense, useEffect } from "react";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { useArchiveStore } from "../state/archiveStore";
 import type { Stage5NavigationMode } from "../types/archive";
-import { AvatarPointCloud } from "./AvatarPointCloud";
 import { EmptyState, WebGLFallback } from "./FallbackStates";
 import { RelationshipGraph3D } from "./RelationshipGraph3D";
+import { Stage5AvatarField } from "./Stage5AvatarField";
 
 function hasWebGL(): boolean {
   const canvas = document.createElement("canvas");
@@ -19,17 +19,6 @@ export function getStage5ModeForCameraDistance(distance: number): Stage5Navigati
 
 export function shouldRenderStage5AvatarField(stage: number): boolean {
   return stage === 5;
-}
-
-function Stage5AvatarFallback() {
-  return (
-    <group>
-      <mesh>
-        <sphereGeometry args={[archiveVisualConfig.camera.stage5AvatarFieldRadius, 24, 16]} />
-        <meshBasicMaterial color={archiveVisualConfig.colors.collective} transparent opacity={0.05} wireframe />
-      </mesh>
-    </group>
-  );
 }
 
 function Stage5CameraStateSync() {
@@ -82,14 +71,14 @@ export function StageScene() {
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
-      <Suspense fallback={shouldRenderStage5AvatarField(stage) ? <Stage5AvatarFallback /> : null}>
-        {shouldRenderStage5AvatarField(stage) ? (
-          <AvatarPointCloud
-            modelPath={archiveVisualConfig.assets.stage5ModelPath}
-            scale={archiveVisualConfig.camera.stage5AvatarScale}
-            opacity={0.44}
-          />
-        ) : null}
+      {stage === 5 ? (
+        <>
+          <pointLight position={[-5, 3, 7]} intensity={1.1} color={archiveVisualConfig.colors.shared} />
+          <pointLight position={[5, -2, -6]} intensity={0.7} color={archiveVisualConfig.colors.tag} />
+        </>
+      ) : null}
+      {shouldRenderStage5AvatarField(stage) ? <Stage5AvatarField /> : null}
+      <Suspense fallback={null}>
         <RelationshipGraph3D graph={graph} />
       </Suspense>
       <Stage5CameraStateSync />

@@ -1,7 +1,9 @@
 import { PointMaterial, Points, useGLTF } from "@react-three/drei";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
+import { getAvatarBreathingScale, getAvatarPointOpacity } from "./stage5AvatarAnimation";
 
 export function normalizePointCloudPositions(positions: Float32Array, radius: number): Float32Array {
   if (positions.length < 3) return positions;
@@ -55,6 +57,8 @@ export function AvatarPointCloud({
   scale?: number;
 }) {
   const gltf = useGLTF(modelPath);
+  const groupRef = useRef<THREE.Group>(null);
+  const materialRef = useRef<THREE.PointsMaterial>(null);
 
   const positions = useMemo(() => {
     const sampled: number[] = [];
@@ -78,10 +82,27 @@ export function AvatarPointCloud({
     );
   }, [gltf.scene]);
 
+  useFrame(({ clock }) => {
+    const time = clock.elapsedTime;
+    const breathingScale = getAvatarBreathingScale(time + 1.4);
+    groupRef.current?.scale.setScalar(scale * breathingScale);
+    if (materialRef.current) {
+      materialRef.current.opacity = getAvatarPointOpacity(time, opacity);
+      materialRef.current.size = 0.045 * (0.92 + Math.sin(time * 1.1) * 0.08);
+    }
+  });
+
   return (
-    <group scale={scale}>
+    <group ref={groupRef} scale={scale}>
       <Points positions={positions} stride={3} frustumCulled={false}>
-        <PointMaterial size={0.045} color="#252525" transparent opacity={opacity} depthWrite={false} />
+        <PointMaterial
+          ref={materialRef}
+          size={0.045}
+          color={archiveVisualConfig.colors.collective}
+          transparent
+          opacity={opacity}
+          depthWrite={false}
+        />
       </Points>
     </group>
   );
