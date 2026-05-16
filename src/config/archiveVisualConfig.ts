@@ -18,7 +18,8 @@ export const archiveVisualConfig = {
     maxDistance: 42,
     stage5OverviewDistance: 32,
     stage5InternalDistanceThreshold: 16,
-    stage5AvatarScale: 6,
+    stage5AvatarScale: 1,
+    stage5AvatarFieldRadius: 8.4,
   },
   graph: {
     seed: "obfuscation-identity-archive-v1",
@@ -30,7 +31,7 @@ export const archiveVisualConfig = {
     hoverGlow: 1.8,
     conflictThreshold: 0.5,
     stage5AvatarRadius: 8.4,
-    stage5InternalRadius: 7.2,
+    stage5InternalRadius: 6.6,
     stage5SimulationTicks: 72,
     stage5CommunityPull: 0.018,
     stage5LinkPull: 0.028,
