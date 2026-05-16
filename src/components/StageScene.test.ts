@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   getCameraPositionForStage,
+  getNextWebGLRestartVersion,
   getStage5CameraTarget,
   shouldDisableStage5Pan,
   shouldRenderStage5AvatarField,
@@ -22,5 +23,10 @@ describe("shouldRenderStage5AvatarField", () => {
     expect(getCameraPositionForStage(2)).toEqual([0, 2.8, 8]);
     expect(getStage5CameraTarget()).toEqual([0, 0, 0]);
     expect(shouldDisableStage5Pan(5)).toBe(true);
+  });
+
+  it("increments the canvas restart version after WebGL context loss", () => {
+    expect(getNextWebGLRestartVersion(0)).toBe(1);
+    expect(getNextWebGLRestartVersion(4)).toBe(5);
   });
 });

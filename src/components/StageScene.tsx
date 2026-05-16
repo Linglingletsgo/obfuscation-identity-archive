@@ -39,6 +39,10 @@ export function shouldRenderGraphOutsideStage5AvatarSuspense(stage: number): boo
   return stage === 5;
 }
 
+export function getNextWebGLRestartVersion(currentVersion: number): number {
+  return currentVersion + 1;
+}
+
 function Stage5CameraStateSync({
   controlsRef,
 }: {
@@ -108,10 +112,43 @@ function Stage5CameraStateSync({
 export function StageScene() {
   const { graph, stage } = useArchiveStore();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
+  const restartTimerRef = useRef<number | null>(null);
+  const [canvasElement, setCanvasElement] = useState<HTMLCanvasElement | null>(null);
+  const [webglRestartVersion, setWebglRestartVersion] = useState(0);
   const [avatarShapePositions, setAvatarShapePositions] = useState<Float32Array | null>(null);
   const handleShapePositions = useCallback((positions: Float32Array) => {
     setAvatarShapePositions((current) => (current === positions ? current : positions));
   }, []);
+  const handleCanvasRef = useCallback((element: HTMLCanvasElement | null) => {
+    setCanvasElement(element);
+  }, []);
+
+  useEffect(() => {
+    if (!canvasElement) return undefined;
+
+    function handleContextLost(event: Event) {
+      event.preventDefault();
+      if (restartTimerRef.current !== null) return;
+
+      restartTimerRef.current = window.setTimeout(() => {
+        restartTimerRef.current = null;
+        setAvatarShapePositions(null);
+        setWebglRestartVersion(getNextWebGLRestartVersion);
+      }, 80);
+    }
+
+    canvasElement.addEventListener("webglcontextlost", handleContextLost, false);
+    return () => {
+      canvasElement.removeEventListener("webglcontextlost", handleContextLost, false);
+    };
+  }, [canvasElement]);
+
+  useEffect(
+    () => () => {
+      if (restartTimerRef.current !== null) window.clearTimeout(restartTimerRef.current);
+    },
+    [],
+  );
 
   if (!hasWebGL()) return <WebGLFallback />;
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
@@ -119,7 +156,13 @@ export function StageScene() {
   const cameraPosition = getCameraPositionForStage(stage);
 
   return (
-    <Canvas camera={{ position: [...cameraPosition], fov: 45 }} className="archive-canvas">
+    <Canvas
+      key={webglRestartVersion}
+      ref={handleCanvasRef}
+      camera={{ position: [...cameraPosition], fov: 45 }}
+      className="archive-canvas"
+      data-webgl-restart-version={webglRestartVersion}
+    >
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
