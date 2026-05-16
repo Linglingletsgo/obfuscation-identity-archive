@@ -181,3 +181,14 @@ export type ArchiveGraph = {
     generated_at: string;
   };
 };
+
+export type Stage5NavigationMode = "overview" | "internal";
+
+export type Stage5NavigationState = {
+  mode: Stage5NavigationMode;
+  selectedIdentityId: string | null;
+  hoveredNodeId: string | null;
+  hoveredTagLabel: string | null;
+  cameraPosition: [number, number, number];
+  cameraTarget: [number, number, number];
+};
