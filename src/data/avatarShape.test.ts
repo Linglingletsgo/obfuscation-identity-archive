@@ -32,6 +32,59 @@ describe("avatarShape", () => {
     expect(sample.positions.length / 3).toBeLessThanOrEqual(4);
     expect([...sample.colors.slice(0, 3)]).toEqual([1, 0, 0]);
     expect(sample.colors.length).toBe(sample.positions.length);
+    expect(sample.partColors.length).toBe(sample.positions.length);
+    expect(sample.partIds.length).toBe(sample.positions.length / 3);
+    expect(new Set([...sample.partIds]).size).toBeGreaterThan(1);
+    expect(sample.partColors[0]).toBeGreaterThan(sample.partColors[2]);
+    expect(sample.partColors[sample.partColors.length - 1]).toBeGreaterThan(sample.partColors[sample.partColors.length - 3]);
+    expect([...sample.partColors.slice(0, 3)]).toEqual([...sample.partColors.slice(3, 6)]);
+  });
+
+  it("keeps nearby texture colors visibly separated by mesh part", () => {
+    const scene = new THREE.Group();
+    const sharedMaterial = new THREE.MeshBasicMaterial({ color: "#666058" });
+    scene.add(
+      new THREE.Mesh(
+        new THREE.BufferGeometry().setAttribute(
+          "position",
+          new THREE.BufferAttribute(new Float32Array([0, 0, 0, 1, 0, 0, 2, 0, 0]), 3),
+        ),
+        sharedMaterial,
+      ),
+      new THREE.Mesh(
+        new THREE.BufferGeometry().setAttribute(
+          "position",
+          new THREE.BufferAttribute(new Float32Array([0, 1, 0, 1, 1, 0, 2, 1, 0]), 3),
+        ),
+        sharedMaterial,
+      ),
+    );
+
+    const sample = sampleObjectSurface(scene, 6);
+    const firstLum = sample.partColors[0] + sample.partColors[1] + sample.partColors[2];
+    const secondLum = sample.partColors[9] + sample.partColors[10] + sample.partColors[11];
+
+    expect(Math.abs(secondLum - firstLum)).toBeGreaterThan(0.45);
+  });
+
+  it("adds deterministic triangle samples when the requested point budget exceeds vertex count", () => {
+    const scene = new THREE.Group();
+    scene.add(
+      new THREE.Mesh(
+        new THREE.BufferGeometry().setAttribute(
+          "position",
+          new THREE.BufferAttribute(new Float32Array([0, 0, 0, 4, 0, 0, 0, 4, 0]), 3),
+        ),
+        new THREE.MeshBasicMaterial({ color: "#668866" }),
+      ),
+    );
+
+    const sample = sampleObjectSurface(scene, 9);
+
+    expect(sample.positions.length / 3).toBeGreaterThan(3);
+    expect(sample.colors.length).toBe(sample.positions.length);
+    expect(sample.partColors.length).toBe(sample.positions.length);
+    expect(sample.partIds.length).toBe(sample.positions.length / 3);
   });
 
   it("projects graph nodes to an inward point from sampled model shape", () => {

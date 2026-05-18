@@ -4,6 +4,8 @@ import * as THREE from "three";
 
 const vertexShader = `
   attribute vec3 color;
+  attribute vec3 partColor;
+  attribute float partId;
   attribute float seed;
   varying vec3 vColor;
   uniform float uTime;
@@ -17,17 +19,21 @@ const vertexShader = `
     float rayT = max(dot(position - uRayOrigin, uRayDirection), 0.0);
     vec3 rayPoint = uRayOrigin + uRayDirection * rayT;
     float distanceToRay = distance(position, rayPoint);
-    float wave = sin(seed * 18.0 + uTime * 2.7) * 0.5 + 0.5;
-    float filament = sin(seed * 31.0 + uTime * 4.1 + rayT * 0.22) * 0.5 + 0.5;
+    float partPhase = partId * 6.2831853;
+    float wave = sin(seed * 18.0 + partPhase + uTime * 2.7) * 0.5 + 0.5;
+    float filament = sin(seed * 31.0 + partPhase * 1.7 + uTime * 4.1 + rayT * 0.22) * 0.5 + 0.5;
+    float partPulse = sin(partPhase * 3.0 + uTime * 1.4) * 0.5 + 0.5;
     float localInfluence = uInfluence * exp(-distanceToRay * 0.42) * (0.55 + filament * 0.62);
     vec3 direction = normalize(position + vec3(0.001, 0.013, 0.007));
     vec3 swirl = normalize(cross(uRayDirection, direction) + vec3(0.001, 0.002, 0.003));
     displaced += direction * (0.045 * wave + localInfluence * (0.38 + wave * 0.22));
-    displaced += swirl * localInfluence * (0.42 + uPointerVelocity * 0.95) * sin(uTime * 6.0 + seed * 44.0);
+    displaced += swirl * localInfluence * (0.42 + uPointerVelocity * 0.95) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
 
-    vColor = color * (0.42 + wave * 0.2 + localInfluence * (1.05 + uPointerVelocity * 0.9));
+    vec3 baseColor = mix(partColor, color, 0.16);
+    vec3 accentGlow = partColor * (0.08 + partPulse * 0.14 + localInfluence * (0.42 + uPointerVelocity * 0.28));
+    vColor = baseColor * (0.5 + wave * 0.18 + partPulse * 0.18 + localInfluence * (0.84 + uPointerVelocity * 0.62)) + accentGlow;
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
-    gl_PointSize = (0.38 + wave * 0.24 + localInfluence * (2.4 + uPointerVelocity * 3.2)) * (620.0 / -modelViewPosition.z);
+    gl_PointSize = (0.4 + wave * 0.24 + partPulse * 0.08 + localInfluence * (2.4 + uPointerVelocity * 3.2)) * (620.0 / -modelViewPosition.z);
     gl_Position = projectionMatrix * modelViewPosition;
   }
 `;
@@ -58,8 +64,22 @@ export function createStage2ModelPointGeometry(positions: Float32Array, colors: 
   const pointCount = Math.floor(positions.length / 3);
   geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  geometry.setAttribute("partColor", new THREE.BufferAttribute(colors, 3));
+  geometry.setAttribute("partId", new THREE.BufferAttribute(new Float32Array(pointCount), 1));
   geometry.setAttribute("seed", new THREE.BufferAttribute(createSeeds(pointCount), 1));
   geometry.computeBoundingSphere();
+  return geometry;
+}
+
+export function createStage2ModelPartGeometry(
+  positions: Float32Array,
+  colors: Float32Array,
+  partColors: Float32Array,
+  partIds: Float32Array,
+): THREE.BufferGeometry {
+  const geometry = createStage2ModelPointGeometry(positions, colors);
+  geometry.setAttribute("partColor", new THREE.BufferAttribute(partColors, 3));
+  geometry.setAttribute("partId", new THREE.BufferAttribute(partIds, 1));
   return geometry;
 }
 
@@ -82,16 +102,23 @@ export function createStage2ModelPointMaterial(): THREE.ShaderMaterial {
 
 export function Stage2ModelPointCloud({
   colors,
+  partColors,
+  partIds,
   positions,
 }: {
   colors: Float32Array;
+  partColors: Float32Array;
+  partIds: Float32Array;
   positions: Float32Array;
 }) {
   const { camera, pointer, raycaster } = useThree();
   const influenceRef = useRef(0);
   const velocityRef = useRef(0);
   const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
-  const geometry = useMemo(() => createStage2ModelPointGeometry(positions, colors), [colors, positions]);
+  const geometry = useMemo(
+    () => createStage2ModelPartGeometry(positions, colors, partColors, partIds),
+    [colors, partColors, partIds, positions],
+  );
   const material = useMemo(() => createStage2ModelPointMaterial(), []);
 
   useEffect(

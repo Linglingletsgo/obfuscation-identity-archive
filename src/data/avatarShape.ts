@@ -10,6 +10,8 @@ export type AvatarNormalization = {
 export type AvatarSurfaceSample = {
   positions: Float32Array;
   colors: Float32Array;
+  partColors: Float32Array;
+  partIds: Float32Array;
 };
 
 const textureImageDataCache = new WeakMap<THREE.Texture, ImageData | null>();
@@ -141,10 +143,96 @@ function materialColor(material: THREE.Material | THREE.Material[] | undefined, 
   return textureColor ? textureColor.multiply(baseColor) : baseColor;
 }
 
+function enhancedPartColor(color: THREE.Color, partIndex: number): THREE.Color {
+  const hsl = { h: 0, s: 0, l: 0 };
+  color.getHSL(hsl);
+  const hueOffsets = [0, 0.035, -0.028, 0.06, -0.05, 0.018, -0.042];
+  const lightnessBands = [-0.24, 0.24, -0.12, 0.32, 0.06];
+  const hueOffset = hueOffsets[partIndex % hueOffsets.length];
+  const lightnessOffset = lightnessBands[partIndex % lightnessBands.length];
+  return new THREE.Color().setHSL(
+    THREE.MathUtils.euclideanModulo(hsl.h + hueOffset, 1),
+    Math.min(0.94, hsl.s * 1.48 + 0.16),
+    Math.min(0.9, Math.max(0.16, hsl.l * 1.08 + lightnessOffset)),
+  );
+}
+
+function averageColor(colors: THREE.Color[]): THREE.Color {
+  if (colors.length === 0) return new THREE.Color(0.78, 0.82, 0.76);
+  const average = colors.reduce(
+    (sum, color) => {
+      sum.r += color.r;
+      sum.g += color.g;
+      sum.b += color.b;
+      return sum;
+    },
+    new THREE.Color(0, 0, 0),
+  );
+  return average.multiplyScalar(1 / colors.length);
+}
+
+function triangleVertexIndex(mesh: THREE.Mesh, triangleIndex: number, corner: number): number {
+  const index = mesh.geometry.index;
+  const vertexOffset = triangleIndex * 3 + corner;
+  return index ? index.getX(vertexOffset) : vertexOffset;
+}
+
+function triangleCount(mesh: THREE.Mesh): number {
+  const position = mesh.geometry.attributes.position;
+  const index = mesh.geometry.index;
+  return Math.floor((index?.count ?? position.count) / 3);
+}
+
+function interpolatedTrianglePoint(
+  mesh: THREE.Mesh,
+  triangleIndex: number,
+  seed: number,
+): { color: THREE.Color; position: THREE.Vector3 } {
+  const position = mesh.geometry.attributes.position;
+  const uv = mesh.geometry.attributes.uv;
+  const aIndex = triangleVertexIndex(mesh, triangleIndex, 0);
+  const bIndex = triangleVertexIndex(mesh, triangleIndex, 1);
+  const cIndex = triangleVertexIndex(mesh, triangleIndex, 2);
+  const a = new THREE.Vector3(position.getX(aIndex), position.getY(aIndex), position.getZ(aIndex));
+  const b = new THREE.Vector3(position.getX(bIndex), position.getY(bIndex), position.getZ(bIndex));
+  const c = new THREE.Vector3(position.getX(cIndex), position.getY(cIndex), position.getZ(cIndex));
+  const u = ((seed * 16807) % 997) / 997;
+  const v = ((seed * 48271) % 991) / 991;
+  const su = Math.sqrt(u);
+  const aWeight = 1 - su;
+  const bWeight = su * (1 - v);
+  const cWeight = su * v;
+  const vector = new THREE.Vector3()
+    .addScaledVector(a, aWeight)
+    .addScaledVector(b, bWeight)
+    .addScaledVector(c, cWeight);
+  let uvPoint: THREE.Vector2 | undefined;
+
+  if (uv) {
+    const uvA = new THREE.Vector2(uv.getX(aIndex), uv.getY(aIndex));
+    const uvB = new THREE.Vector2(uv.getX(bIndex), uv.getY(bIndex));
+    const uvC = new THREE.Vector2(uv.getX(cIndex), uv.getY(cIndex));
+    uvPoint = new THREE.Vector2()
+      .addScaledVector(uvA, aWeight)
+      .addScaledVector(uvB, bWeight)
+      .addScaledVector(uvC, cWeight);
+  }
+
+  return {
+    color: materialColor(mesh.material, uvPoint),
+    position: mesh.localToWorld(vector),
+  };
+}
+
 export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): AvatarSurfaceSample {
   const sampled: number[] = [];
   const colors: number[] = [];
+  const partColors: number[] = [];
+  const partIds: number[] = [];
   let totalVertices = 0;
+  let meshCount = 0;
+  let partIndex = 0;
+  const meshes: THREE.Mesh[] = [];
 
   scene.updateWorldMatrix(true, true);
   scene.traverse((child) => {
@@ -152,14 +240,19 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
     const position = mesh.geometry?.attributes.position;
     if (!position) return;
     totalVertices += position.count;
+    meshCount += 1;
+    meshes.push(mesh);
   });
 
   const step = Math.max(1, Math.ceil(totalVertices / maxSamples));
-  scene.traverse((child) => {
-    const mesh = child as THREE.Mesh;
+  const extraSamples = Math.max(0, maxSamples - totalVertices);
+  meshes.forEach((mesh) => {
     const position = mesh.geometry?.attributes.position;
     const uv = mesh.geometry?.attributes.uv;
     if (!position) return;
+    const normalizedPartId = partIndex / Math.max(1, meshCount - 1);
+    const partColorStart = partColors.length;
+    const partSampleColors: THREE.Color[] = [];
     for (let index = 0; index < position.count; index += step) {
       const vector = new THREE.Vector3(position.getX(index), position.getY(index), position.getZ(index));
       const uvPoint = uv ? new THREE.Vector2(uv.getX(index), uv.getY(index)) : undefined;
@@ -167,19 +260,46 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
       mesh.localToWorld(vector);
       sampled.push(vector.x, vector.y, vector.z);
       colors.push(baseColor.r, baseColor.g, baseColor.b);
+      partColors.push(baseColor.r, baseColor.g, baseColor.b);
+      partIds.push(normalizedPartId);
+      partSampleColors.push(baseColor);
     }
+
+    const meshExtraSamples = Math.floor((extraSamples * position.count) / Math.max(1, totalVertices));
+    const triangles = triangleCount(mesh);
+    for (let extraIndex = 0; extraIndex < meshExtraSamples && triangles > 0; extraIndex += 1) {
+      const triangleIndex = (extraIndex * 37 + partIndex * 131) % triangles;
+      const point = interpolatedTrianglePoint(mesh, triangleIndex, extraIndex + partIndex * 8191 + 1);
+      sampled.push(point.position.x, point.position.y, point.position.z);
+      colors.push(point.color.r, point.color.g, point.color.b);
+      partColors.push(point.color.r, point.color.g, point.color.b);
+      partIds.push(normalizedPartId);
+      partSampleColors.push(point.color);
+    }
+
+    const partColor = enhancedPartColor(averageColor(partSampleColors), partIndex);
+    for (let offset = partColorStart; offset < partColors.length; offset += 3) {
+      partColors[offset] = partColor.r;
+      partColors[offset + 1] = partColor.g;
+      partColors[offset + 2] = partColor.b;
+    }
+    partIndex += 1;
   });
 
   if (sampled.length === 0) {
     return {
       positions: new Float32Array([0, 0, 0, 1, 1, 1, -1, -1, -1]),
       colors: new Float32Array([0.78, 0.82, 0.76, 0.78, 0.82, 0.76, 0.78, 0.82, 0.76]),
+      partColors: new Float32Array([0.86, 0.54, 0.3, 0.86, 0.54, 0.3, 0.86, 0.54, 0.3]),
+      partIds: new Float32Array([0, 0, 0]),
     };
   }
 
   return {
     positions: new Float32Array(sampled),
     colors: new Float32Array(colors),
+    partColors: new Float32Array(partColors),
+    partIds: new Float32Array(partIds),
   };
 }
 

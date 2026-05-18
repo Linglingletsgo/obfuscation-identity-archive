@@ -7,6 +7,7 @@ export const archiveVisualConfig = {
   assets: {
     nearWhiteThreshold: 245,
     stage2CollectiveModelPath: "/models/global_stage2_collective.glb",
+    stage2CollectivePointSamples: 36000,
     placeholderAvatarPath: "",
   },
   camera: {

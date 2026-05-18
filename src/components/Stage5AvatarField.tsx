@@ -11,7 +11,10 @@ function LoadedStage5AvatarField({
   onShapePositions: (positions: Float32Array) => void;
 }) {
   const gltf = useGLTF(archiveVisualConfig.assets.stage2CollectiveModelPath);
-  const surface = useMemo(() => sampleObjectSurface(gltf.scene), [gltf.scene]);
+  const surface = useMemo(
+    () => sampleObjectSurface(gltf.scene, archiveVisualConfig.assets.stage2CollectivePointSamples),
+    [gltf.scene],
+  );
   const visualRadius = archiveVisualConfig.camera.stage5AvatarFieldRadius * archiveVisualConfig.camera.stage5AvatarScale;
   const normalization = useMemo(
     () => getAvatarNormalization(surface.positions, visualRadius),
@@ -57,7 +60,12 @@ function LoadedStage5AvatarField({
       >
         <primitive object={materializedScene} />
       </group>
-      <Stage2ModelPointCloud colors={surface.colors} positions={normalizedPositions} />
+      <Stage2ModelPointCloud
+        colors={surface.colors}
+        partColors={surface.partColors}
+        partIds={surface.partIds}
+        positions={normalizedPositions}
+      />
     </group>
   );
 }
