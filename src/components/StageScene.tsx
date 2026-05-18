@@ -38,7 +38,7 @@ export function getCameraPositionForStage(
   stage: number,
   stage5Navigation?: Stage5NavigationState,
 ): [number, number, number] {
-  if (stage === 5) return [...(stage5Navigation?.cameraPosition ?? archiveVisualConfig.camera.stage5Position)];
+  if (stage === 2) return [...(stage5Navigation?.cameraPosition ?? archiveVisualConfig.camera.stage5Position)];
   return [...archiveVisualConfig.camera.detailPosition];
 }
 
@@ -50,20 +50,24 @@ export function getCameraTargetForStage(
   stage: number,
   stage5Navigation?: Stage5NavigationState,
 ): [number, number, number] {
-  if (stage === 5) return [...(stage5Navigation?.cameraTarget ?? getStage5CameraTarget())];
+  if (stage === 2) return [...(stage5Navigation?.cameraTarget ?? getStage5CameraTarget())];
   return getStage5CameraTarget();
 }
 
 export function shouldDisableStage5Pan(stage: number): boolean {
-  return stage === 5;
+  return stage === 2;
 }
 
 export function shouldRenderStage5AvatarField(stage: number): boolean {
-  return stage === 5;
+  return stage === 2;
 }
 
 export function shouldRenderGraphOutsideStage5AvatarSuspense(stage: number): boolean {
-  return stage === 5;
+  return stage === 2;
+}
+
+export function shouldRenderWebGLStage(stage: number): boolean {
+  return stage === 2;
 }
 
 export function getNextWebGLRestartVersion(currentVersion: number): number {
@@ -101,7 +105,7 @@ function Stage5CameraStateSync({
       controls.update();
     }
 
-    if (stage === 5) {
+    if (stage === 2) {
       updateStage5NavigationRef.current({
         mode: getStage5ModeForCameraDistance(camera.position.length()),
         cameraPosition: position,
@@ -111,7 +115,7 @@ function Stage5CameraStateSync({
   }, [camera, controlsRef, stage]);
 
   useFrame(() => {
-    if (stage !== 5) return;
+    if (stage !== 2) return;
 
     const distance = camera.position.length();
     const mode = getStage5ModeForCameraDistance(distance);
@@ -158,7 +162,7 @@ function Stage5CameraStateSync({
 }
 
 export function StageScene() {
-  const { graph, stage, stage5Navigation } = useArchiveStore();
+  const { graph, selectNode, stage, stage5Navigation, updateStage5Navigation } = useArchiveStore();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const restartTimerRef = useRef<number | null>(null);
   const [canvasElement, setCanvasElement] = useState<HTMLCanvasElement | null>(null);
@@ -170,6 +174,15 @@ export function StageScene() {
   const handleCanvasRef = useCallback((element: HTMLCanvasElement | null) => {
     setCanvasElement(element);
   }, []);
+  const handlePointerMissed = useCallback(() => {
+    if (stage !== 2) return;
+    selectNode(null);
+    updateStage5Navigation({
+      selectedIdentityId: null,
+      hoveredNodeId: null,
+      hoveredTagLabel: null,
+    });
+  }, [selectNode, stage, updateStage5Navigation]);
 
   useEffect(() => {
     if (!canvasElement) return undefined;
@@ -198,9 +211,6 @@ export function StageScene() {
     [],
   );
 
-  if (!hasWebGL()) return <WebGLFallback />;
-  if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
-
   const canvasCamera = useMemo(
     () => ({
       position: getCameraPositionForStage(stage, stage5Navigation),
@@ -209,6 +219,10 @@ export function StageScene() {
     [webglRestartVersion],
   );
 
+  if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
+  if (!shouldRenderWebGLStage(stage)) return <div className="archive-2d-stage-backdrop" aria-hidden="true" />;
+  if (!hasWebGL()) return <WebGLFallback />;
+
   return (
     <Canvas
       key={webglRestartVersion}
@@ -216,11 +230,12 @@ export function StageScene() {
       camera={canvasCamera}
       className="archive-canvas"
       data-webgl-restart-version={webglRestartVersion}
+      onPointerMissed={handlePointerMissed}
     >
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
-      {stage === 5 ? (
+      {stage === 2 ? (
         <>
           <pointLight position={[-5, 3, 7]} intensity={1.1} color={archiveVisualConfig.colors.shared} />
           <pointLight position={[5, -2, -6]} intensity={0.7} color={archiveVisualConfig.colors.tag} />

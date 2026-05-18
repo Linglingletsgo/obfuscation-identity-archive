@@ -55,7 +55,7 @@ const initialStage5Navigation: Stage5NavigationState = {
 };
 
 export function ArchiveProvider({ children }: { children: ReactNode }) {
-  const [stage, setStage] = useState<ArchiveStage>(5);
+  const [stage, setStage] = useState<ArchiveStage>(2);
   const [selectedIdentityId, setSelectedIdentityId] = useState<string | null>(null);
   const [selectedTimelineItemId, setSelectedTimelineItemId] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<ArchiveGraphNode | null>(null);
@@ -86,7 +86,7 @@ export function ArchiveProvider({ children }: { children: ReactNode }) {
         setSelectedTimelineItemId(timelineItemId ?? null);
       },
       openCollective() {
-        setStage(5);
+        setStage(2);
         setSelectedTimelineItemId(null);
       },
       previewIdentity(identityId) {

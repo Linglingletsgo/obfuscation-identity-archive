@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import type { SourceInteractionGraph, SourceTimeline } from "../types/archive";
 import { buildArchiveGraph } from "./relationshipGraphBuilder";
 
@@ -47,7 +46,7 @@ const timeline: SourceTimeline = {
   global_collective_item: {
     timeline_item_id: "global_stage5_collective",
     anchor_id: null,
-    stage: 5,
+    stage: 2,
     source_ids: ["submission_a", "submission_b"],
     source_texts: [],
     group_size: 2,
@@ -115,17 +114,16 @@ describe("buildArchiveGraph", () => {
     expect(first.nodes.map((node) => node.position)).toEqual(second.nodes.map((node) => node.position));
   });
 
-  it("returns Stage5 graph nodes already laid out inside the avatar radius", () => {
+  it("leaves Stage2 graph nodes at model-projection placeholders", () => {
     const result = buildArchiveGraph(graph, timeline);
-    const maxRadius = archiveVisualConfig.graph.stage5InternalRadius + 0.001;
-    const stage5Nodes = result.nodes.filter((node) => node.type === "submission" || node.type === "tag");
+    const stage2Nodes = result.nodes.filter(
+      (node) => node.type === "submission" || node.type === "tag" || node.type === "collective",
+    );
 
-    expect(stage5Nodes).not.toHaveLength(0);
-    expect(stage5Nodes.every((node) => Number.isFinite(node.position.x))).toBe(true);
-    expect(
-      stage5Nodes.every(
-        (node) => Math.hypot(node.position.x, node.position.y, node.position.z) <= maxRadius,
-      ),
-    ).toBe(true);
+    expect(result.metadata.layout).toBe("stage2-model-sampled-avatar-map");
+    expect(stage2Nodes).not.toHaveLength(0);
+    expect(stage2Nodes.every((node) => node.position.x === 0 && node.position.y === 0 && node.position.z === 0)).toBe(
+      true,
+    );
   });
 });

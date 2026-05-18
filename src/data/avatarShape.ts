@@ -7,6 +7,13 @@ export type AvatarNormalization = {
   scale: number;
 };
 
+export type AvatarSurfaceSample = {
+  positions: Float32Array;
+  colors: Float32Array;
+};
+
+const textureImageDataCache = new WeakMap<THREE.Texture, ImageData | null>();
+
 function hashString(value: string): number {
   let hash = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
@@ -76,24 +83,108 @@ export function normalizePointCloudPositions(rawPositions: Float32Array, radius:
   return normalized;
 }
 
-export function sampleObjectSurfacePositions(scene: Object3D, maxSamples = 12000): Float32Array {
+function textureImageData(texture: THREE.Texture | null | undefined): ImageData | null {
+  if (!texture) return null;
+  const cached = textureImageDataCache.get(texture);
+  if (cached !== undefined) return cached;
+  if (typeof document === "undefined") {
+    textureImageDataCache.set(texture, null);
+    return null;
+  }
+
+  const image = texture.image as CanvasImageSource | undefined;
+  const imageSize = image as { naturalWidth?: number; naturalHeight?: number; width?: number; height?: number } | undefined;
+  const width = Number(imageSize?.naturalWidth ?? imageSize?.width ?? 0);
+  const height = Number(imageSize?.naturalHeight ?? imageSize?.height ?? 0);
+  if (!image || width <= 0 || height <= 0) {
+    textureImageDataCache.set(texture, null);
+    return null;
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (!context) {
+    textureImageDataCache.set(texture, null);
+    return null;
+  }
+
+  context.drawImage(image, 0, 0, width, height);
+  const imageData = context.getImageData(0, 0, width, height);
+  textureImageDataCache.set(texture, imageData);
+  return imageData;
+}
+
+function sampleTextureColor(texture: THREE.Texture | null | undefined, u: number, v: number): THREE.Color | null {
+  const imageData = textureImageData(texture);
+  if (!imageData) return null;
+
+  const wrappedU = THREE.MathUtils.euclideanModulo(u, 1);
+  const wrappedV = THREE.MathUtils.euclideanModulo(v, 1);
+  const x = Math.min(imageData.width - 1, Math.max(0, Math.floor(wrappedU * imageData.width)));
+  const y = Math.min(imageData.height - 1, Math.max(0, Math.floor((1 - wrappedV) * imageData.height)));
+  const offset = (y * imageData.width + x) * 4;
+
+  return new THREE.Color(
+    imageData.data[offset] / 255,
+    imageData.data[offset + 1] / 255,
+    imageData.data[offset + 2] / 255,
+  );
+}
+
+function materialColor(material: THREE.Material | THREE.Material[] | undefined, uv?: THREE.Vector2): THREE.Color {
+  const source = Array.isArray(material) ? material[0] : material;
+  const standardMaterial = source as THREE.MeshStandardMaterial | THREE.MeshBasicMaterial | undefined;
+  const textureColor = uv ? sampleTextureColor(standardMaterial?.map, uv.x, uv.y) : null;
+  const baseColor = standardMaterial?.color?.clone() ?? new THREE.Color(0.78, 0.82, 0.76);
+  return textureColor ? textureColor.multiply(baseColor) : baseColor;
+}
+
+export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): AvatarSurfaceSample {
   const sampled: number[] = [];
+  const colors: number[] = [];
+  let totalVertices = 0;
 
   scene.updateWorldMatrix(true, true);
   scene.traverse((child) => {
     const mesh = child as THREE.Mesh;
     const position = mesh.geometry?.attributes.position;
     if (!position) return;
+    totalVertices += position.count;
+  });
 
-    const step = Math.max(1, Math.ceil(position.count / maxSamples));
+  const step = Math.max(1, Math.ceil(totalVertices / maxSamples));
+  scene.traverse((child) => {
+    const mesh = child as THREE.Mesh;
+    const position = mesh.geometry?.attributes.position;
+    const uv = mesh.geometry?.attributes.uv;
+    if (!position) return;
     for (let index = 0; index < position.count; index += step) {
       const vector = new THREE.Vector3(position.getX(index), position.getY(index), position.getZ(index));
+      const uvPoint = uv ? new THREE.Vector2(uv.getX(index), uv.getY(index)) : undefined;
+      const baseColor = materialColor(mesh.material, uvPoint);
       mesh.localToWorld(vector);
       sampled.push(vector.x, vector.y, vector.z);
+      colors.push(baseColor.r, baseColor.g, baseColor.b);
     }
   });
 
-  return new Float32Array(sampled.length > 0 ? sampled : [0, 0, 0, 1, 1, 1, -1, -1, -1]);
+  if (sampled.length === 0) {
+    return {
+      positions: new Float32Array([0, 0, 0, 1, 1, 1, -1, -1, -1]),
+      colors: new Float32Array([0.78, 0.82, 0.76, 0.78, 0.82, 0.76, 0.78, 0.82, 0.76]),
+    };
+  }
+
+  return {
+    positions: new Float32Array(sampled),
+    colors: new Float32Array(colors),
+  };
+}
+
+export function sampleObjectSurfacePositions(scene: Object3D, maxSamples = 12000): Float32Array {
+  return sampleObjectSurface(scene, maxSamples).positions;
 }
 
 function vectorAt(positions: Float32Array, pointIndex: number): THREE.Vector3 {
@@ -105,25 +196,39 @@ export function projectNodeIntoAvatarShape(
   node: Pick<ArchiveGraphNode, "id" | "position">,
   surfacePositions: Float32Array | null,
   inwardScale = 0.62,
+  distribution?: { index: number; total: number },
 ): ArchiveGraphNode["position"] {
   if (!surfacePositions || surfacePositions.length < 3) return node.position;
 
   const pointCount = Math.floor(surfacePositions.length / 3);
-  const baseIndex = hashString(node.id) % pointCount;
-  const fallbackDirection = new THREE.Vector3(node.position.x, node.position.y, node.position.z).normalize();
-  let best = vectorAt(surfacePositions, baseIndex);
-  let bestScore = best.clone().normalize().dot(fallbackDirection) + 0.08;
-  const stride = Math.max(1, Math.floor(pointCount / 64));
+  let baseIndex = hashString(node.id) % pointCount;
 
-  for (let offset = 0; offset < pointCount; offset += stride) {
-    const candidateIndex = (baseIndex + offset) % pointCount;
-    const candidate = vectorAt(surfacePositions, candidateIndex);
-    const score = candidate.clone().normalize().dot(fallbackDirection);
-    if (score > bestScore) {
-      best = candidate;
-      bestScore = score;
+  if (distribution && distribution.total > 1) {
+    let minY = Number.POSITIVE_INFINITY;
+    let maxY = Number.NEGATIVE_INFINITY;
+    for (let index = 1; index < surfacePositions.length; index += 3) {
+      minY = Math.min(minY, surfacePositions[index]);
+      maxY = Math.max(maxY, surfacePositions[index]);
+    }
+
+    const clampedIndex = Math.max(0, Math.min(distribution.total - 1, distribution.index));
+    const targetY = maxY - (clampedIndex / (distribution.total - 1)) * (maxY - minY);
+    let bestScore = Number.POSITIVE_INFINITY;
+    const seed = hashString(node.id);
+
+    for (let pointIndex = 0; pointIndex < pointCount; pointIndex += 1) {
+      const pointOffset = pointIndex * 3;
+      const yScore = Math.abs(surfacePositions[pointOffset + 1] - targetY);
+      const stableTieBreak = ((seed ^ Math.imul(pointIndex + 1, 2654435761)) >>> 0) / 4294967295;
+      const score = yScore + stableTieBreak * 0.0001;
+      if (score < bestScore) {
+        bestScore = score;
+        baseIndex = pointIndex;
+      }
     }
   }
+
+  const best = vectorAt(surfacePositions, baseIndex);
 
   return {
     x: rounded(best.x * inwardScale),

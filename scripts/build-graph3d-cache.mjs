@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { deterministicPosition, ensureDir, graphPath, readJson, timelinePath } from "./archive-core.mjs";
+import { ensureDir, graphPath, readJson, timelinePath } from "./archive-core.mjs";
 
 const graph = readJson(graphPath);
 const timeline = readJson(timelinePath);
@@ -15,7 +15,7 @@ const identityNodes = graph.nodes.map((node) => ({
   identity_name: node.label || node.id,
   carried_fragment: node.text_fragments?.carriedFragment || "",
   tag_labels: [...new Set((node.tags || []).map((tag) => tag.label))].sort(),
-  position: deterministicPosition(node.id, 0),
+  position: { x: 0, y: 0, z: 0 },
 }));
 
 const tagLabels = [...new Set(graph.nodes.flatMap((node) => (node.tags || []).map((tag) => tag.label)).filter(Boolean))].sort(
@@ -24,11 +24,22 @@ const tagLabels = [...new Set(graph.nodes.flatMap((node) => (node.tags || []).ma
 const tagNodes = tagLabels.map((label) => ({
   id: `tag:${label}`,
   type: "tag",
-  stage: 5,
+  stage: 2,
   source_ids: [],
   tag_labels: [label],
-  position: deterministicPosition(`tag:${label}`, 5, 10),
+  position: { x: 0, y: 0, z: 0 },
 }));
+
+const collectiveNode = timeline.global_collective_item
+  ? {
+      id: `collective:${timeline.global_collective_item.timeline_item_id}`,
+      type: "collective",
+      stage: 2,
+      source_ids: timeline.global_collective_item.source_ids || [],
+      tag_labels: [],
+      position: { x: 0, y: 0, z: 0 },
+    }
+  : null;
 
 const links = [];
 for (const node of graph.nodes) {
@@ -48,15 +59,12 @@ for (const edge of graph.edges) {
 }
 
 const cache = {
-  nodes: [...identityNodes, ...tagNodes],
+  nodes: [...identityNodes, ...tagNodes, ...(collectiveNode ? [collectiveNode] : [])],
   links,
   metadata: {
-    layout: "scripted-deterministic-cache",
+    layout: "stage2-model-sampled-avatar-map",
     seed: "obfuscation-identity-archive-v1",
-    source_files: [
-      "public/data/algorithm/interaction_graph_real_submissions_10.json",
-      "public/data/algorithm/timeline/anchor_timeline_real_submissions_10.json",
-    ],
+    source_files: [graphPath, timelinePath],
     source_count: timeline.source_count,
   },
 };

@@ -23,26 +23,12 @@ const unresolvedTimelineSources = items.flatMap((item) =>
 );
 const unresolvedAnchors = timeline.anchors.filter((anchor) => !identities.has(anchor.anchor_id));
 const cardinalityProblems = items.filter(
-  (item) =>
-    item.stage + 1 !== item.group_size ||
-    item.source_ids.length !== item.group_size ||
-    item.source_texts.length !== item.group_size,
+  (item) => item.source_ids.length !== item.group_size || item.source_texts.length !== item.group_size,
 );
 const missingStage0 = graph.nodes
   .filter((node) => !publicFileExists(`/assets/avatars/stage0/${node.id}.png`))
   .map((node) => node.id);
-const missingStage1 = items.filter(
-  (item) => item.stage === 1 && !publicFileExists(`/assets/avatars/stage1/${item.timeline_item_id}.png`),
-).length;
-const missingStage2 = items.filter(
-  (item) => item.stage === 2 && !publicFileExists(`/assets/avatars/stage2/${item.timeline_item_id}.png`),
-).length;
-const missingStage3 = items.filter(
-  (item) => item.stage === 3 && !publicFileExists(`/assets/avatars/stage3/${item.timeline_item_id}.png`),
-).length;
-const missingStage4 = items.filter(
-  (item) => item.stage === 4 && !publicFileExists(`/models/stage4/${item.timeline_item_id}.glb`),
-).length;
+const hasStage2CollectiveModel = publicFileExists("/models/global_stage2_collective.glb");
 
 const report = `# Algorithm Audit
 
@@ -56,7 +42,7 @@ const report = `# Algorithm Audit
 - Anchors: ${timeline.anchors.length}
 - Timeline items under anchors: ${items.length}
 - Stage item counts: ${JSON.stringify(counts)}
-- Stage5 source: ${timeline.global_collective_item ? "global_collective_item" : "missing"}
+- Stage2 collective source: ${timeline.global_collective_item ? "global_collective_item" : "missing"}
 
 ## Resolution Checks
 
@@ -64,7 +50,7 @@ const report = `# Algorithm Audit
 - Timeline source_ids not resolving to identity nodes: ${unresolvedTimelineSources.length}
 - Anchor IDs not resolving to identity nodes: ${unresolvedAnchors.length}
 - Stage/source cardinality problems: ${cardinalityProblems.length}
-- Stage5 is global: ${Boolean(timeline.global_collective_item)}
+- Stage2 collective is global: ${Boolean(timeline.global_collective_item)}
 
 ## Field Availability
 
@@ -80,18 +66,14 @@ const report = `# Algorithm Audit
 ## Asset Resolution
 
 - Missing Stage0 PNGs for graph identities: ${missingStage0.length}${missingStage0.length ? ` (${missingStage0.join(", ")})` : ""}
-- Missing Stage1 PNGs: ${missingStage1}
-- Missing Stage2 PNGs: ${missingStage2}
-- Missing Stage3 PNGs: ${missingStage3}
-- Missing timeline-specific Stage4 GLBs: ${missingStage4}
-- Default Stage4 GLB exists: ${publicFileExists("/models/stage4/default-stage4.glb")}
-- Stage5 GLB exists: ${publicFileExists("/models/stage5.glb")}
+- Stage1 avatar intentionally blank: true
+- Stage2 collective GLB exists: ${hasStage2CollectiveModel}
 
 ## Frontend Interpretation
 
 - Use graph edges as canonical all-identity relationship source.
-- Use timeline anchors and items as canonical Stage0-4 navigation source.
-- Use global_collective_item as canonical Stage5 source.
+- Use timeline anchors and items as canonical Stage0-1 navigation source.
+- Use global_collective_item and /models/global_stage2_collective.glb as canonical Stage2 source.
 - Create frontend tag nodes from unique tag display labels because source graph nodes are identity-only.
 - Use evidence.conflictPairs and glitch-like events for conflict/glitch links; do not infer conflict from tag names alone.
 - Missing assets are expected runtime states and must render placeholders without mutating source data.

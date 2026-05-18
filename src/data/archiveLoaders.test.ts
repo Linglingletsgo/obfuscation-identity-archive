@@ -21,7 +21,7 @@ function timelineWithAnchorItem(item: Record<string, unknown>): Record<string, u
     ],
     global_collective_item: {
       timeline_item_id: "global",
-      stage: 5,
+      stage: 2,
       anchor_id: null,
       source_ids: [],
       source_texts: [],
@@ -79,7 +79,7 @@ describe("archive source validators", () => {
         anchors: [],
         global_collective_item: {
           timeline_item_id: "global",
-          stage: 5,
+          stage: 2,
           anchor_id: null,
           source_ids: [],
           source_texts: [],
@@ -112,7 +112,7 @@ describe("archive source validators", () => {
         ],
         global_collective_item: {
           timeline_item_id: "global",
-          stage: 5,
+          stage: 2,
           anchor_id: null,
           source_ids: [],
           source_texts: [],

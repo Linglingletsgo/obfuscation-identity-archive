@@ -10,7 +10,7 @@ function isString(value: unknown): value is string {
 }
 
 function isValidStage(value: unknown): boolean {
-  return typeof value === "number" && Number.isInteger(value) && value >= 0 && value <= 5;
+  return typeof value === "number" && Number.isInteger(value) && value >= 0 && value <= 2;
 }
 
 function isStringArray(value: unknown): value is string[] {

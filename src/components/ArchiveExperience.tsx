@@ -4,8 +4,7 @@ import { buildArchiveGraph } from "../data/relationshipGraphBuilder";
 import { useArchiveStore } from "../state/archiveStore";
 import { BranchingTimeline } from "./BranchingTimeline";
 import { Graph3DControls } from "./Graph3DControls";
-import { Graph3DDetailPanel } from "./Graph3DDetailPanel";
-import { MetadataSidebar } from "./MetadataSidebar";
+import { StageDetailAvatarScene } from "./StageDetailAvatarScene";
 import { Stage5IdentityOverlay } from "./Stage5IdentityOverlay";
 import { StageScene } from "./StageScene";
 
@@ -52,9 +51,8 @@ export function ArchiveExperience() {
       <div className="archive-scene-shell">
         <StageScene />
       </div>
+      <StageDetailAvatarScene />
       <Graph3DControls />
-      <Graph3DDetailPanel />
-      <MetadataSidebar />
       <Stage5IdentityOverlay identities={graph?.nodes.filter((node) => node.type === "submission") ?? []} />
       <BranchingTimeline />
     </section>

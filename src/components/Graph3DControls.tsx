@@ -2,7 +2,8 @@ import { RotateCcw } from "lucide-react";
 import { useArchiveStore } from "../state/archiveStore";
 
 export function Graph3DControls() {
-  const { filters, openCollective, setFilters } = useArchiveStore();
+  const { filters, openCollective, setFilters, stage } = useArchiveStore();
+  if (stage !== 2) return null;
 
   return (
     <aside className="graph-controls" aria-label="Archive graph controls">
@@ -13,18 +14,6 @@ export function Graph3DControls() {
           value={filters.query}
           placeholder="Search identities, fragments, tags"
           onChange={(event) => setFilters({ query: event.currentTarget.value })}
-        />
-      </label>
-      <label>
-        <span>Links</span>
-        <input
-          aria-label="Link density"
-          type="range"
-          min="0.1"
-          max="1"
-          step="0.05"
-          value={filters.linkDensity}
-          onChange={(event) => setFilters({ linkDensity: Number(event.currentTarget.value) })}
         />
       </label>
       <label className="inline-toggle">

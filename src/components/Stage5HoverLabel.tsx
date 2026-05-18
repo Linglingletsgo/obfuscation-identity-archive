@@ -10,6 +10,7 @@ export function Stage5HoverLabel({ node }: { node: ArchiveGraphNode | null }) {
       center
       distanceFactor={10}
       className="tag-hover-label"
+      zIndexRange={[100, 0]}
     >
       {node.visual.label}
     </Html>

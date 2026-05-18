@@ -2,7 +2,6 @@ import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { getAvatarAssetPath, getModelAssetPath } from "./archivePaths";
 import { normalizeEvents } from "./eventNormalization";
 import { withPosition } from "./layout3d";
-import { applyStage5ForceLayout } from "./stage5ForceLayout";
 import type {
   ArchiveGraph,
   ArchiveGraphLink,
@@ -79,7 +78,7 @@ function createTagNodes(sourceNodes: SourceGraphNode[]): ArchiveGraphNode[] {
       withPosition({
         id: tagId(label),
         type: "tag",
-        stage: 5,
+        stage: 2,
         source_ids: [],
         tags,
         tag_labels: [label],
@@ -99,15 +98,14 @@ function createTagNodes(sourceNodes: SourceGraphNode[]): ArchiveGraphNode[] {
 
 function createTimelineNode(item: TimelineItem): ArchiveGraphNode {
   const assetPath =
-    item.stage <= 3
+    item.stage === 0
       ? getAvatarAssetPath({
           stage: item.stage,
           timelineItemId: item.timeline_item_id,
           submissionId: item.source_ids[0],
         })
       : undefined;
-  const modelPath =
-    item.stage >= 4 ? getModelAssetPath({ stage: item.stage, timelineItemId: item.timeline_item_id }) : undefined;
+  const modelPath = item.stage === 2 ? getModelAssetPath({ stage: item.stage, timelineItemId: item.timeline_item_id }) : undefined;
 
   return withPosition({
     id: timelineId(item.timeline_item_id),
@@ -129,7 +127,10 @@ function createTimelineNode(item: TimelineItem): ArchiveGraphNode {
       size: archiveVisualConfig.graph.timelineNodeSize,
       color_group: "timeline",
       opacity: 0.72,
-      label: item.stage_name || item.timeline_item_id,
+      label:
+        item.stage === 1 && typeof item.pressure_score === "number"
+          ? `${item.stage_name || "Cluster Body"} ${(item.pressure_score * 100).toFixed(0)}`
+          : item.stage_name || item.timeline_item_id,
       node_shape: "custom",
       node_style_key: `timeline-stage-${item.stage}`,
     },
@@ -140,7 +141,7 @@ function createCollectiveNode(item: TimelineItem): ArchiveGraphNode {
   return withPosition({
     id: collectiveId(item.timeline_item_id),
     type: "collective",
-    stage: 5,
+    stage: 2,
     anchor_id: null,
     source_ids: item.source_ids,
     tags: [],
@@ -149,7 +150,7 @@ function createCollectiveNode(item: TimelineItem): ArchiveGraphNode {
     events: normalizeEvents(item.events, "timeline"),
     avatar_vector: item.avatar_vector,
     avatar_tags: item.avatar_tags,
-    model_path: getModelAssetPath({ stage: 5 }),
+    model_path: getModelAssetPath({ stage: 2 }),
     visual: {
       size: archiveVisualConfig.graph.collectiveNodeSize,
       color_group: "collective",
@@ -182,6 +183,21 @@ function addLink(
   suffix = "",
 ): void {
   links.push({ id: reserveLinkId(usedLinkIds, link, suffix), ...link });
+}
+
+function usesStage2ModelProjection(node: ArchiveGraphNode): boolean {
+  return node.type === "submission" || node.type === "tag" || node.type === "collective";
+}
+
+function withStage2ModelProjectionPlaceholders(nodes: ArchiveGraphNode[]): ArchiveGraphNode[] {
+  return nodes.map((node) =>
+    usesStage2ModelProjection(node)
+      ? {
+          ...node,
+          position: { x: 0, y: 0, z: 0 },
+        }
+      : node,
+  );
 }
 
 export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: SourceTimeline): ArchiveGraph {
@@ -281,14 +297,14 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
   const validIds = new Set(nodes.map((node) => node.id));
   const validLinks = links.filter((link) => validIds.has(link.source) && validIds.has(link.target));
 
-  return applyStage5ForceLayout({
-    nodes,
+  return {
+    nodes: withStage2ModelProjectionPlaceholders(nodes),
     links: validLinks,
     metadata: {
-      layout: "deterministic-avatar-map",
+      layout: "stage2-model-sampled-avatar-map",
       seed: archiveVisualConfig.graph.seed,
       source_files: [archiveVisualConfig.data.interactionGraphPath, archiveVisualConfig.data.timelinePath],
       generated_at: new Date(0).toISOString(),
     },
-  });
+  };
 }

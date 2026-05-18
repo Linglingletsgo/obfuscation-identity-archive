@@ -8,7 +8,7 @@ const timeline: SourceTimeline = {
   global_collective_item: {
     timeline_item_id: "global",
     anchor_id: null,
-    stage: 5,
+    stage: 2,
     source_ids: ["a", "b"],
     source_texts: [],
     group_size: 2,
@@ -36,6 +36,26 @@ const timeline: SourceTimeline = {
           source_texts: [],
           group_size: 1,
           active_tags_preview: ["Shared"],
+        },
+        {
+          timeline_item_id: "a-stage1-b",
+          anchor_id: "a",
+          stage: 1,
+          stage_name: "Pair B",
+          source_ids: ["a"],
+          source_texts: [],
+          group_size: 1,
+          active_tags_preview: ["Shared B"],
+        },
+        {
+          timeline_item_id: "a-stage1-c",
+          anchor_id: "a",
+          stage: 1,
+          stage_name: "Pair C",
+          source_ids: ["a"],
+          source_texts: [],
+          group_size: 1,
+          active_tags_preview: ["Shared C"],
         },
       ],
     },
@@ -94,10 +114,13 @@ describe("BranchingTimeline", () => {
     fireEvent.click(screen.getByText("setup"));
 
     expect(screen.getByRole("button", { name: "Stage 0 timeline node 0" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Stage 1 timeline node 1" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Stage 1 timeline branch 1" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Stage 1 timeline branch 2" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Stage 1 timeline branch 3" })).toBeInTheDocument();
+    expect(document.querySelectorAll(".timeline-tree-branches line")).toHaveLength(6);
     expect(screen.queryByText("Pair B")).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Stage 1 timeline node 1" }));
+    fireEvent.click(screen.getByRole("button", { name: "Stage 1 timeline branch 1" }));
 
     expect(screen.getByLabelText("Timeline state")).toHaveTextContent("1:a-stage1");
   });

@@ -17,7 +17,7 @@ export function getAvatarAssetPath(input: AvatarPathInput): string {
     return `/assets/avatars/stage0/${input.submissionId}.png`;
   }
 
-  if ((input.stage === 1 || input.stage === 2 || input.stage === 3) && input.timelineItemId) {
+  if (input.stage === 1 && input.timelineItemId) {
     return `/assets/avatars/stage${input.stage}/${input.timelineItemId}.png`;
   }
 
@@ -25,17 +25,9 @@ export function getAvatarAssetPath(input: AvatarPathInput): string {
 }
 
 export function getModelAssetPath(input: ModelPathInput): string {
-  if (input.stage === 4 && input.timelineItemId) {
-    return `/models/stage4/${input.timelineItemId}.glb`;
-  }
-
-  if (input.stage === 5) {
-    return archiveVisualConfig.assets.stage5ModelPath;
+  if (input.stage === 2) {
+    return archiveVisualConfig.assets.stage2CollectiveModelPath;
   }
 
   return "";
-}
-
-export function getStage4FallbackModelPath(): string {
-  return archiveVisualConfig.assets.stage4DefaultModelPath;
 }

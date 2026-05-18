@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-async function countStage5WebGLPixels(page: import("@playwright/test").Page) {
+async function countStage2WebGLPixels(page: import("@playwright/test").Page) {
   const screenshot = await page.screenshot();
   const dataUrl = `data:image/png;base64,${screenshot.toString("base64")}`;
 
@@ -33,9 +33,9 @@ async function countStage5WebGLPixels(page: import("@playwright/test").Page) {
   }, dataUrl);
 }
 
-async function expectStage5WebGLVisible(page: import("@playwright/test").Page) {
+async function expectStage2WebGLVisible(page: import("@playwright/test").Page) {
   await expect
-    .poll(() => countStage5WebGLPixels(page), { timeout: 12000 })
+    .poll(() => countStage2WebGLPixels(page), { timeout: 12000 })
     .toBeGreaterThan(120);
 }
 
@@ -63,7 +63,7 @@ async function expectCurrentCanvasContextLive(page: import("@playwright/test").P
     .toBe(true);
 }
 
-async function getStage5WebGLPixelCentroid(page: import("@playwright/test").Page) {
+async function getStage2WebGLPixelCentroid(page: import("@playwright/test").Page) {
   const screenshot = await page.screenshot();
   const dataUrl = `data:image/png;base64,${screenshot.toString("base64")}`;
 
@@ -105,21 +105,21 @@ async function getStage5WebGLPixelCentroid(page: import("@playwright/test").Page
   }, dataUrl);
 }
 
-test("opens into Stage5 overview with graph controls", async ({ page }) => {
+test("opens into Stage2 overview with graph controls", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByTestId("archive-experience")).toBeVisible();
-  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "5");
+  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "2");
   await expect(page.getByLabel("Archive graph controls")).toBeVisible();
 });
 
-test("search keeps Stage5 graph usable without entering detail", async ({ page }) => {
+test("search keeps Stage2 graph usable without entering detail", async ({ page }) => {
   await page.goto("/");
   await page.getByLabel("Search archive").fill("Dream");
   await expect(page.getByLabel("Archive graph controls")).toBeVisible();
-  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "5");
+  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "2");
 });
 
-test("Stage5 graph survives pointer movement without React or WebGL remount warnings", async ({ page }) => {
+test("Stage2 graph survives pointer movement without React or WebGL remount warnings", async ({ page }) => {
   const renderingFailures: string[] = [];
   page.on("console", (message) => {
     const text = message.text();
@@ -136,7 +136,7 @@ test("Stage5 graph survives pointer movement without React or WebGL remount warn
   page.on("pageerror", (error) => renderingFailures.push(error.message));
 
   await page.goto("/");
-  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "5");
+  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "2");
   await expect(page.locator("canvas")).toBeVisible();
 
   await page.mouse.move(340, 260);
@@ -147,47 +147,47 @@ test("Stage5 graph survives pointer movement without React or WebGL remount warn
   expect(renderingFailures).toEqual([]);
 });
 
-test("Stage5 orbit drag does not snap back to its initial camera framing", async ({ page }) => {
+test("Stage2 orbit drag does not snap back to its initial camera framing", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "5");
-  await expectStage5WebGLVisible(page);
+  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "2");
+  await expectStage2WebGLVisible(page);
 
-  const before = await getStage5WebGLPixelCentroid(page);
+  const before = await getStage2WebGLPixelCentroid(page);
   await page.mouse.move(760, 360);
   await page.mouse.down();
   await page.mouse.move(840, 420, { steps: 8 });
   await page.mouse.up();
   await page.waitForTimeout(1400);
-  const after = await getStage5WebGLPixelCentroid(page);
+  const after = await getStage2WebGLPixelCentroid(page);
 
   expect(before.count).toBeGreaterThan(120);
   expect(after.count).toBeGreaterThan(120);
   expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeGreaterThan(8);
 });
 
-test("Stage5 remounts the WebGL scene after context loss", async ({ page }) => {
+test("Stage2 remounts the WebGL scene after context loss", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "5");
-  await expectStage5WebGLVisible(page);
+  await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "2");
+  await expectStage2WebGLVisible(page);
   await page.mouse.move(760, 360);
   await page.mouse.down();
   await page.mouse.move(820, 390, { steps: 6 });
   await page.mouse.up();
-  await expectStage5WebGLVisible(page);
+  await expectStage2WebGLVisible(page);
 
   await forceWebGLContextLoss(page);
 
   await expectCurrentCanvasContextLive(page);
-  await expectStage5WebGLVisible(page);
+  await expectStage2WebGLVisible(page);
 });
 
-test("Stage5 identity preview enters detail through explicit action", async ({ page }) => {
+test("Stage2 identity preview enters detail through explicit action", async ({ page }) => {
   await page.goto("/");
   await page.locator("canvas").click({ position: { x: 400, y: 300 } });
 
   const overlay = page.getByLabel("Selected identity preview");
   if (await overlay.isVisible()) {
-    await page.getByRole("button", { name: "Enter detail" }).click();
+    await page.getByRole("button", { name: "Enter Stage 0" }).click();
     await expect(page.locator(".archive-experience")).toHaveAttribute("data-stage", "0");
   }
 });

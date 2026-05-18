@@ -1,7 +1,15 @@
 import { Html } from "@react-three/drei";
 import type { ArchiveGraphNode } from "../types/archive";
 
-export function IdentityBillboardLabel({ node, visible }: { node: ArchiveGraphNode; visible: boolean }) {
+export function IdentityBillboardLabel({
+  node,
+  onClick,
+  visible,
+}: {
+  node: ArchiveGraphNode;
+  onClick?: () => void;
+  visible: boolean;
+}) {
   if (node.type !== "submission" || !visible) return null;
 
   return (
@@ -11,8 +19,23 @@ export function IdentityBillboardLabel({ node, visible }: { node: ArchiveGraphNo
       distanceFactor={12}
       className="identity-billboard"
     >
-      <strong>Name: {node.identity_name || node.id}</strong>
-      {node.carried_fragment ? <span>{node.carried_fragment}</span> : null}
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={(event) => {
+          event.stopPropagation();
+          onClick?.();
+        }}
+        onKeyDown={(event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          event.stopPropagation();
+          onClick?.();
+        }}
+      >
+        <strong>Name: {node.identity_name || node.id}</strong>
+        {node.carried_fragment ? <span>{node.carried_fragment}</span> : null}
+      </div>
     </Html>
   );
 }

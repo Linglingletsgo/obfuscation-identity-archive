@@ -35,12 +35,64 @@ export function shouldRenderGraphLink(link: ArchiveGraphLink, focusedNodeId: str
 }
 
 function shouldRenderStage5GraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
-  if (link.type === "shared_tag") return true;
+  if (!focusedNodeId) {
+    return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag";
+  }
+  if (link.source !== focusedNodeId && link.target !== focusedNodeId) return false;
+  if (link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag") return true;
   return shouldRenderGraphLink(link, focusedNodeId);
 }
 
+export function getStage2LinkOpacity(link: ArchiveGraphLink, focusedNodeId: string | null): number {
+  if (!focusedNodeId) {
+    return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag" ? 0.12 : 0;
+  }
+  const connected = link.source === focusedNodeId || link.target === focusedNodeId;
+  if (!connected) return 0;
+  if (link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag") return 0.38;
+  return link.visual.opacity;
+}
+
+export function getGraphLinkStyle(link: ArchiveGraphLink, stage: ArchiveStage, focusedNodeId: string | null) {
+  const stage2Opacity = stage === 2 ? getStage2LinkOpacity(link, focusedNodeId) : link.visual.opacity;
+
+  if (link.type === "shared_tag") {
+    return {
+      color: stage === 2 ? "#42d6b3" : archiveVisualConfig.colors.tag,
+      lineWidth: stage === 2 ? 0.7 : 0.7,
+      opacity: stage2Opacity,
+      dashed: false,
+    };
+  }
+
+  if (link.type === "interaction") {
+    return {
+      color: stage === 2 ? "#1f6fff" : archiveVisualConfig.colors.shared,
+      lineWidth: stage === 2 ? 0.7 : 1,
+      opacity: stage2Opacity,
+      dashed: false,
+    };
+  }
+
+  if (link.type === "conflict_tag") {
+    return {
+      color: stage === 2 ? "#ff5c7a" : archiveVisualConfig.colors.conflict,
+      lineWidth: stage === 2 ? 0.7 : 1,
+      opacity: stage2Opacity,
+      dashed: true,
+    };
+  }
+
+  return {
+    color: archiveVisualConfig.colors.timeline,
+    lineWidth: Math.max(0.35, link.visual.thickness),
+    opacity: stage2Opacity,
+    dashed: link.visual.dash,
+  };
+}
+
 export function getGraphRenderPolicy(stage: ArchiveStage): GraphRenderPolicy {
-  if (stage === 5) {
+  if (stage === 2) {
     return {
       depthTest: false,
       depthWrite: false,
@@ -55,6 +107,11 @@ export function getGraphRenderPolicy(stage: ArchiveStage): GraphRenderPolicy {
     frustumCulled: true,
     renderOrder: 0,
   };
+}
+
+export function shouldDisplayGraphLink(link: ArchiveGraphLink, stage: ArchiveStage, focusedNodeId: string | null, linkDensity: number): boolean {
+  if (stage === 2) return getGraphLinkStyle(link, stage, focusedNodeId).opacity > 0;
+  return link.visual.opacity <= linkDensity + 0.4;
 }
 
 export function getNodeOpacityMultiplier(node: SearchableNode, query: string): number {
@@ -83,7 +140,7 @@ function timelineTagLabels(node: ArchiveGraphNode | undefined): Set<string> {
 }
 
 export function getStageScopedGraphNodes(graph: ArchiveGraph, scope: StageScope): ArchiveGraphNode[] {
-  if (scope.stage === 5) {
+  if (scope.stage === 2) {
     return graph.nodes.filter(
       (node) => node.type === "submission" || node.type === "tag" || node.type === "collective",
     );
@@ -102,8 +159,6 @@ export function getStageScopedGraphNodes(graph: ArchiveGraph, scope: StageScope)
   const activeTags = timelineTagLabels(selectedTimelineNode);
 
   return graph.nodes.filter((node) => {
-    if (node.id === scope.selectedIdentityId) return true;
-    if (selectedTimelineNode && node.id === selectedTimelineNode.id) return true;
     if (node.type !== "tag") return false;
     return node.tag_labels.some((label) => activeTags.has(label));
   });
@@ -116,12 +171,12 @@ export function getStageScopedGraphLinks(
   stage?: ArchiveStage,
 ): ArchiveGraphLink[] {
   const visibleIds = new Set(scopedNodes.map((node) => node.id));
-  const currentStage = stage ?? (scopedNodes.some((node) => node.type === "timeline_item") ? 0 : 5);
+  const currentStage = stage ?? (scopedNodes.some((node) => node.type === "timeline_item") ? 0 : 2);
 
   return graph.links.filter((link) => {
     if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
-    if (currentStage === 5) return shouldRenderStage5GraphLink(link, focusedNodeId);
-    return link.type === "shared_tag" || link.type === "source_membership" || link.type === "anchor_membership";
+    if (currentStage === 2) return shouldRenderStage5GraphLink(link, focusedNodeId);
+    return false;
   });
 }
 
@@ -129,7 +184,7 @@ export function shouldShowIdentityBillboard(
   node: Pick<ArchiveGraphNode, "id" | "type">,
   context: { stage: ArchiveStage; focusedNodeId: string | null },
 ): boolean {
-  return node.type === "submission" && context.stage === 5;
+  return node.type === "submission" && context.stage === 2;
 }
 
 export function shouldShowTagLabel(
@@ -137,7 +192,18 @@ export function shouldShowTagLabel(
   context: { stage: ArchiveStage; focusedNodeId: string | null },
 ): boolean {
   if (node.type !== "tag") return false;
-  return context.stage !== 5 || context.focusedNodeId === node.id;
+  return context.stage !== 2 || context.focusedNodeId === node.id;
+}
+
+export function shouldSelectNodeOnStage2Hover(
+  node: Pick<ArchiveGraphNode, "type">,
+  stage: ArchiveStage,
+): boolean {
+  return stage !== 2 && node.type !== "tag";
+}
+
+export function shouldStage2NodeClickLock(node: Pick<ArchiveGraphNode, "type">, stage: ArchiveStage): boolean {
+  return stage === 2 && (node.type === "submission" || node.type === "tag" || node.type === "collective");
 }
 
 export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
@@ -159,12 +225,33 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
     [graph, selectedIdentityId, selectedTimelineItemId, stage],
   );
   const shapedNodes = useMemo(
-    () =>
-      scopedNodes.map((node) =>
-        stage === 5 && (node.type === "submission" || node.type === "tag" || node.type === "collective")
-          ? { ...node, position: projectNodeIntoAvatarShape(node, avatarShapePositions) }
-          : node,
-      ),
+    () => {
+      if (stage !== 2) return scopedNodes;
+      if (!avatarShapePositions || avatarShapePositions.length < 3) return [];
+
+      const projectedNodeIndexById = new Map<string, { index: number; total: number }>();
+      for (const nodeType of ["submission", "tag"] as const) {
+        const projectedNodes = scopedNodes
+          .filter((node) => node.type === nodeType)
+          .sort((left, right) => left.id.localeCompare(right.id));
+        projectedNodes.forEach((node, index) => {
+          projectedNodeIndexById.set(node.id, { index, total: projectedNodes.length });
+        });
+      }
+
+      return scopedNodes.map((node) => {
+        if (node.type === "collective") return { ...node, position: { x: 0, y: 0, z: 0 } };
+        if (node.type !== "submission" && node.type !== "tag") return node;
+
+        return {
+          ...node,
+          position: projectNodeIntoAvatarShape(node, avatarShapePositions, 0.78, {
+            index: projectedNodeIndexById.get(node.id)?.index ?? 0,
+            total: projectedNodeIndexById.get(node.id)?.total ?? 1,
+          }),
+        };
+      });
+    },
     [avatarShapePositions, scopedNodes, stage],
   );
   const nodeById = useMemo(() => new Map(shapedNodes.map((node) => [node.id, node])), [shapedNodes]);
@@ -179,7 +266,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
   }, [filters.tag, shapedNodes]);
 
   const visibleLinks = getStageScopedGraphLinks(graph, visibleNodes, focusedNodeId, stage).filter(
-    (link) => link.visual.opacity <= filters.linkDensity + 0.4,
+    (link) => shouldDisplayGraphLink(link, stage, focusedNodeId, filters.linkDensity),
   );
   const graphRenderPolicy = getGraphRenderPolicy(stage);
 
@@ -189,6 +276,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
         const source = nodeById.get(link.source);
         const target = nodeById.get(link.target);
         if (!source || !target) return null;
+        const linkStyle = getGraphLinkStyle(link, stage, focusedNodeId);
 
         return (
           <Line
@@ -197,13 +285,16 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
               new THREE.Vector3(source.position.x, source.position.y, source.position.z),
               new THREE.Vector3(target.position.x, target.position.y, target.position.z),
             ]}
-            color={link.type === "conflict_tag" ? archiveVisualConfig.colors.conflict : archiveVisualConfig.colors.shared}
-            lineWidth={Math.max(0.35, link.visual.thickness)}
+            color={linkStyle.color}
+            lineWidth={linkStyle.lineWidth}
+            dashed={linkStyle.dashed}
+            dashSize={0.12}
+            gapSize={0.08}
             transparent
             depthTest={graphRenderPolicy.depthTest}
             depthWrite={graphRenderPolicy.depthWrite}
             frustumCulled={graphRenderPolicy.frustumCulled}
-            opacity={link.visual.opacity}
+            opacity={linkStyle.opacity}
             renderOrder={graphRenderPolicy.renderOrder}
           />
         );
@@ -214,7 +305,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
           node={node}
           opacityMultiplier={getNodeOpacityMultiplier(node, query)}
           onPointerOver={() => {
-            selectNode(node);
+            if (shouldSelectNodeOnStage2Hover(node, stage)) selectNode(node);
             updateStage5Navigation({
               hoveredNodeId: node.id,
               hoveredTagLabel: node.type === "tag" ? node.visual.label : null,
@@ -224,8 +315,17 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
             updateStage5Navigation({ hoveredNodeId: null, hoveredTagLabel: null });
           }}
           onClick={() => {
-            selectNode(node);
-            if (node.type === "submission") previewIdentity(node.id);
+            if (stage !== 2) {
+              selectNode(node);
+              if (node.type === "submission") previewIdentity(node.id);
+              return;
+            }
+
+            if (shouldStage2NodeClickLock(node, stage)) {
+              selectNode(node);
+              updateStage5Navigation({ selectedIdentityId: node.id });
+              if (node.type === "submission") previewIdentity(node.id);
+            }
           }}
         />
       ))}
@@ -233,6 +333,12 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
         <IdentityBillboardLabel
           key={`${node.id}:label`}
           node={node}
+          onClick={() => {
+            if (!shouldStage2NodeClickLock(node, stage)) return;
+            selectNode(node);
+            updateStage5Navigation({ selectedIdentityId: node.id });
+            if (node.type === "submission") previewIdentity(node.id);
+          }}
           visible={shouldShowIdentityBillboard(node, { stage, focusedNodeId })}
         />
       ))}

@@ -20,11 +20,8 @@ for (const anchor of timeline.anchors || []) {
 }
 
 for (const item of timelineItems(timeline)) {
-  if (!Number.isInteger(item.stage) || item.stage < 0 || item.stage > 4) {
+  if (!Number.isInteger(item.stage) || item.stage < 0 || item.stage > 2) {
     errors.push(`timeline item ${item.timeline_item_id} has invalid stage ${item.stage}`);
-  }
-  if (item.stage + 1 !== item.group_size) {
-    errors.push(`timeline item ${item.timeline_item_id} group_size does not match stage`);
   }
   if (item.source_ids.length !== item.group_size || item.source_texts.length !== item.group_size) {
     errors.push(`timeline item ${item.timeline_item_id} source cardinality does not match group_size`);
@@ -35,7 +32,9 @@ for (const item of timelineItems(timeline)) {
 }
 
 if (uniqueTagLabels(graph).length === 0) errors.push("expected at least one tag label");
-if (!publicFileExists("/models/stage5.glb")) errors.push("Stage5 GLB is missing at /models/stage5.glb");
+if (!publicFileExists("/models/global_stage2_collective.glb")) {
+  errors.push("Stage2 collective GLB is missing at /models/global_stage2_collective.glb");
+}
 
 if (errors.length > 0) {
   console.error(errors.join("\n"));

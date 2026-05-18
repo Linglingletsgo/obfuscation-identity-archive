@@ -8,7 +8,7 @@ const timeline: SourceTimeline = {
   global_collective_item: {
     timeline_item_id: "global",
     anchor_id: null,
-    stage: 5,
+    stage: 2,
     source_ids: ["a"],
     source_texts: [],
     group_size: 1,
@@ -79,7 +79,7 @@ describe("TimelineTree", () => {
     expect(screen.queryByText("Interior")).not.toBeInTheDocument();
     expect(screen.queryByText("Pair")).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Stage 1 timeline node 1" }));
+    fireEvent.click(screen.getByRole("button", { name: "Stage 1 timeline branch 1" }));
     expect(screen.getByLabelText("Timeline state")).toHaveTextContent("1:a-stage1");
   });
 });

@@ -1,4 +1,4 @@
-export type ArchiveStage = 0 | 1 | 2 | 3 | 4 | 5;
+export type ArchiveStage = 0 | 1 | 2;
 
 export type SourceGraphTag = {
   label: string;
@@ -73,6 +73,8 @@ export type TimelineItem = {
   source_ids: string[];
   source_texts: TimelineSourceText[];
   group_size: number;
+  sampling_channel?: string;
+  pressure_score?: number;
   interaction_type?: string;
   scores?: Record<string, number>;
   events?: SourceGraphEvent[];
@@ -175,7 +177,7 @@ export type ArchiveGraph = {
   nodes: ArchiveGraphNode[];
   links: ArchiveGraphLink[];
   metadata: {
-    layout: "deterministic-avatar-map";
+    layout: "deterministic-avatar-map" | "stage2-model-sampled-avatar-map";
     seed: string;
     source_files: string[];
     generated_at: string;

@@ -20,5 +20,6 @@ describe("Graph3DControls", () => {
     fireEvent.change(screen.getByLabelText("Search archive"), { target: { value: "Dream" } });
 
     expect(screen.getByText("Dream")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Link density")).not.toBeInTheDocument();
   });
 });

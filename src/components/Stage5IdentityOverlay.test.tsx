@@ -51,9 +51,11 @@ describe("Stage5IdentityOverlay", () => {
 
     fireEvent.click(screen.getByText("select"));
     expect(screen.getByText("Name: Name A")).toBeInTheDocument();
-    expect(screen.getByTestId("stage")).toHaveTextContent("5");
+    expect(screen.getByTestId("stage")).toHaveTextContent("2");
 
-    fireEvent.click(screen.getByRole("button", { name: "Enter detail" }));
+    expect(screen.queryByText("Dream")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Enter Stage 0" }));
     expect(screen.getByTestId("stage")).toHaveTextContent("0");
   });
 });

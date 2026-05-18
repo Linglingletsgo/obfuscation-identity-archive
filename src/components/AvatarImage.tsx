@@ -1,13 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { removeNearWhitePixels } from "../utils/removeNearWhite";
 
-export function AvatarImage({ alt, src }: { src: string; alt: string }) {
+export function AvatarImage({ alt, src }: { src: string | string[]; alt: string }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [failed, setFailed] = useState(false);
+  const [activeSourceIndex, setActiveSourceIndex] = useState(0);
+  const sources = useMemo(() => (Array.isArray(src) ? src.filter(Boolean) : [src].filter(Boolean)), [src]);
+  const activeSource = sources[activeSourceIndex];
 
   useEffect(() => {
-    if (!src) {
+    setActiveSourceIndex(0);
+    setFailed(false);
+  }, [sources.join("\n")]);
+
+  useEffect(() => {
+    if (!activeSource) {
       setFailed(true);
       return;
     }
@@ -16,7 +24,7 @@ export function AvatarImage({ alt, src }: { src: string; alt: string }) {
     image.crossOrigin = "anonymous";
     image.onload = () => {
       const canvas = canvasRef.current;
-      const context = canvas?.getContext("2d");
+      const context = canvas?.getContext("2d", { willReadFrequently: true });
       if (!canvas || !context) return;
 
       canvas.width = image.naturalWidth;
@@ -27,9 +35,15 @@ export function AvatarImage({ alt, src }: { src: string; alt: string }) {
       context.putImageData(imageData, 0, 0);
       setFailed(false);
     };
-    image.onerror = () => setFailed(true);
-    image.src = src;
-  }, [src]);
+    image.onerror = () => {
+      if (activeSourceIndex < sources.length - 1) {
+        setActiveSourceIndex((current) => current + 1);
+        return;
+      }
+      setFailed(true);
+    };
+    image.src = activeSource;
+  }, [activeSource, activeSourceIndex, sources.length]);
 
   if (failed) {
     return (

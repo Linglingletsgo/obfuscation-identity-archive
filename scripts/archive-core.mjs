@@ -2,10 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 
 export const repoRoot = process.cwd();
-export const graphPath = path.join(repoRoot, "public/data/algorithm/interaction_graph_real_submissions_10.json");
+export const graphPath = path.join(repoRoot, "public/data/algorithm/interaction_graph_real_submissions.json");
 export const timelinePath = path.join(
   repoRoot,
-  "public/data/algorithm/timeline/anchor_timeline_real_submissions_10.json",
+  "public/data/algorithm/timeline/anchor_timeline_real_submissions.json",
 );
 
 export function readJson(filePath) {
@@ -31,15 +31,15 @@ export function publicFileExists(publicPath) {
 }
 
 export function stageCounts(timeline) {
-  const counts = Object.fromEntries([0, 1, 2, 3, 4, 5].map((stage) => [stage, 0]));
+  const counts = Object.fromEntries([0, 1, 2].map((stage) => [stage, 0]));
   for (const item of timelineItems(timeline)) {
     counts[item.stage] = (counts[item.stage] || 0) + 1;
   }
-  counts[5] = timeline.global_collective_item ? 1 : 0;
+  counts[2] = timeline.global_collective_item ? (counts[2] || 0) + 1 : counts[2];
   return counts;
 }
 
-export function deterministicPosition(id, stage = 5, radius = 7) {
+export function deterministicPosition(id, stage = 2, radius = 7) {
   let hash = 2166136261;
   for (const char of `${id}:${stage}`) {
     hash ^= char.charCodeAt(0);
@@ -47,7 +47,7 @@ export function deterministicPosition(id, stage = 5, radius = 7) {
   }
   const normalized = (hash >>> 0) / 4294967295;
   const angle = normalized * Math.PI * 2;
-  const stageZ = [-7, -4, -1.5, 1.5, 4, 7][stage] ?? 0;
+  const stageZ = [-7, -4, 0][stage] ?? 0;
   return {
     x: Number((Math.cos(angle) * radius).toFixed(4)),
     y: Number(((normalized - 0.5) * radius).toFixed(4)),
