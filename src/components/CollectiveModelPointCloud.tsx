@@ -1,6 +1,8 @@
 import { useFrame, useThree } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { archiveVisualConfig } from "../config/archiveVisualConfig";
 
 const vertexShader = `
   attribute vec3 color;
@@ -30,24 +32,32 @@ const vertexShader = `
     displaced += swirl * localInfluence * (0.42 + uPointerVelocity * 0.95) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
 
     vec3 baseColor = mix(partColor, color, 0.16);
-    vec3 accentGlow = partColor * (0.08 + partPulse * 0.14 + localInfluence * (0.42 + uPointerVelocity * 0.28));
-    vColor = baseColor * (0.5 + wave * 0.18 + partPulse * 0.18 + localInfluence * (0.84 + uPointerVelocity * 0.62)) + accentGlow;
+    vec3 accentGlow = partColor * (0.07 + partPulse * 0.12 + localInfluence * (0.18 + uPointerVelocity * 0.08));
+    vColor = baseColor * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * (0.34 + uPointerVelocity * 0.18)) + accentGlow;
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
-    gl_PointSize = (0.4 + wave * 0.24 + partPulse * 0.08 + localInfluence * (2.4 + uPointerVelocity * 3.2)) * (620.0 / -modelViewPosition.z);
+    gl_PointSize = (0.24 + wave * 0.14 + partPulse * 0.05 + localInfluence * (0.42 + uPointerVelocity * 0.58)) * (620.0 / -modelViewPosition.z);
     gl_Position = projectionMatrix * modelViewPosition;
   }
 `;
 
 const fragmentShader = `
   varying vec3 vColor;
+  uniform sampler2D uPointTexture;
 
   void main() {
     vec2 uv = gl_PointCoord - vec2(0.5);
     float radius = length(uv);
-    float core = smoothstep(0.22, 0.02, radius);
-    float halo = smoothstep(0.5, 0.08, radius);
-    vec3 highlight = vColor + vec3(0.14, 0.18, 0.1) * core;
-    gl_FragColor = vec4(highlight, halo * 0.28 + core * 0.38);
+    float core = smoothstep(0.18, 0.015, radius);
+    float halo = smoothstep(0.48, 0.1, radius);
+    vec4 sprite = texture2D(uPointTexture, gl_PointCoord);
+    float spriteLuma = dot(sprite.rgb, vec3(0.2126, 0.7152, 0.0722));
+    float spriteAlpha = smoothstep(0.08, 0.76, max(sprite.a, spriteLuma));
+    vec3 spriteDetail = mix(vec3(1.0), vec3(spriteLuma), 0.52);
+    vec3 emission = vColor * (0.3 * core + 0.12 * halo);
+    vec3 partTintedCore = normalize(vColor + vec3(0.001)) * core * 0.18;
+    vec3 highlight = vColor * spriteDetail * 0.88 + emission + partTintedCore;
+    float alpha = (halo * 0.16 + core * 0.32) * spriteAlpha;
+    gl_FragColor = vec4(highlight, alpha);
   }
 `;
 
@@ -83,7 +93,7 @@ export function createCollectiveModelPartGeometry(
   return geometry;
 }
 
-export function createCollectiveModelPointMaterial(): THREE.ShaderMaterial {
+export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture): THREE.ShaderMaterial {
   return new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -93,10 +103,11 @@ export function createCollectiveModelPointMaterial(): THREE.ShaderMaterial {
       uRayDirection: { value: new THREE.Vector3(0, 0, -1) },
       uInfluence: { value: 0 },
       uPointerVelocity: { value: 0 },
+      uPointTexture: { value: pointTexture ?? new THREE.Texture() },
     },
     transparent: true,
     depthWrite: false,
-    blending: THREE.NormalBlending,
+    blending: THREE.AdditiveBlending,
   });
 }
 
@@ -115,11 +126,21 @@ export function CollectiveModelPointCloud({
   const influenceRef = useRef(0);
   const velocityRef = useRef(0);
   const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
+  const pointTexture = useLoader(THREE.TextureLoader, archiveVisualConfig.assets.collectiveParticleTexturePath);
   const geometry = useMemo(
     () => createCollectiveModelPartGeometry(positions, colors, partColors, partIds),
     [colors, partColors, partIds, positions],
   );
-  const material = useMemo(() => createCollectiveModelPointMaterial(), []);
+  const material = useMemo(() => {
+    pointTexture.colorSpace = THREE.SRGBColorSpace;
+    pointTexture.wrapS = THREE.ClampToEdgeWrapping;
+    pointTexture.wrapT = THREE.ClampToEdgeWrapping;
+    pointTexture.generateMipmaps = false;
+    pointTexture.minFilter = THREE.LinearFilter;
+    pointTexture.magFilter = THREE.LinearFilter;
+    pointTexture.needsUpdate = true;
+    return createCollectiveModelPointMaterial(pointTexture);
+  }, [pointTexture]);
 
   useEffect(
     () => () => {
@@ -134,7 +155,7 @@ export function CollectiveModelPointCloud({
     const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
     previousPointer.set(pointer.x, pointer.y);
     velocityRef.current += (Math.min(1, pointerDelta * 18) - velocityRef.current) * 0.22;
-    influenceRef.current += (0.78 - influenceRef.current) * 0.08;
+    influenceRef.current += (0.38 - influenceRef.current) * 0.08;
     raycaster.setFromCamera(pointer, camera);
 
     material.uniforms.uTime.value = clock.elapsedTime;

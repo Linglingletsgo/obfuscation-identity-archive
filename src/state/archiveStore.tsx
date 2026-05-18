@@ -12,7 +12,6 @@ type ArchiveFilters = {
   query: string;
   tag: string;
   linkDensity: number;
-  showIsolated: boolean;
 };
 
 type ArchiveStore = {
@@ -40,7 +39,6 @@ const initialFilters: ArchiveFilters = {
   query: "",
   tag: "",
   linkDensity: archiveVisualConfig.graph.defaultLinkDensity,
-  showIsolated: true,
 };
 
 const initialCollectiveNavigation: CollectiveNavigationState = {

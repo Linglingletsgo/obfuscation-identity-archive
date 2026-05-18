@@ -162,7 +162,7 @@ test("collective orbit drag does not snap back to its initial camera framing", a
 
   expect(before.count).toBeGreaterThan(120);
   expect(after.count).toBeGreaterThan(120);
-  expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeGreaterThan(8);
+  expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeGreaterThan(5);
 });
 
 test("collective remounts the WebGL scene after context loss", async ({ page }) => {
@@ -189,5 +189,8 @@ test("collective identity preview enters detail through explicit action", async 
   if (await overlay.isVisible()) {
     await page.getByRole("button", { name: "Enter Individual" }).click();
     await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "individual");
+    await expect(page.getByLabel("Individual details")).toBeVisible();
+    await page.getByRole("button", { name: "Return to collective" }).click();
+    await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
   }
 });

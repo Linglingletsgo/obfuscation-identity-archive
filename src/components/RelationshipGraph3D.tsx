@@ -33,9 +33,27 @@ export function shouldRenderGraphLink(link: ArchiveGraphLink, focusedNodeId: str
   return focusedNodeId === link.source || focusedNodeId === link.target;
 }
 
-function shouldRenderCollectiveGraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
+function getStableLinkBucket(id: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < id.length; index += 1) {
+    hash ^= id.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) / 4294967295;
+}
+
+function shouldRenderDefaultCollectiveGraphLink(link: ArchiveGraphLink, linkDensity: number): boolean {
+  if (link.type !== "shared_tag" && link.type !== "interaction" && link.type !== "conflict_tag") return false;
+  return getStableLinkBucket(link.id) <= Math.max(0, Math.min(1, linkDensity));
+}
+
+function shouldRenderCollectiveGraphLink(
+  link: ArchiveGraphLink,
+  focusedNodeId: string | null,
+  linkDensity: number,
+): boolean {
   if (!focusedNodeId) {
-    return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag";
+    return shouldRenderDefaultCollectiveGraphLink(link, linkDensity);
   }
   if (link.source !== focusedNodeId && link.target !== focusedNodeId) return false;
   if (link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag") return true;
@@ -44,7 +62,7 @@ function shouldRenderCollectiveGraphLink(link: ArchiveGraphLink, focusedNodeId: 
 
 export function getCollectiveLinkOpacity(link: ArchiveGraphLink, focusedNodeId: string | null): number {
   if (!focusedNodeId) {
-    return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag" ? 0.12 : 0;
+    return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag" ? 0.38 : 0;
   }
   const connected = link.source === focusedNodeId || link.target === focusedNodeId;
   if (!connected) return 0;
@@ -145,12 +163,13 @@ export function getViewScopedGraphLinks(
   scopedNodes: ArchiveGraphNode[],
   focusedNodeId: string | null,
   view: ArchiveView,
+  linkDensity = 1,
 ): ArchiveGraphLink[] {
   const visibleIds = new Set(scopedNodes.map((node) => node.id));
 
   return graph.links.filter((link) => {
     if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
-    if (view === "collective") return shouldRenderCollectiveGraphLink(link, focusedNodeId);
+    if (view === "collective") return shouldRenderCollectiveGraphLink(link, focusedNodeId, linkDensity);
     return false;
   });
 }
@@ -239,7 +258,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
     });
   }, [filters.tag, shapedNodes]);
 
-  const visibleLinks = getViewScopedGraphLinks(graph, visibleNodes, focusedNodeId, view).filter(
+  const visibleLinks = getViewScopedGraphLinks(graph, visibleNodes, focusedNodeId, view, filters.linkDensity).filter(
     (link) => shouldDisplayGraphLink(link, view, focusedNodeId, filters.linkDensity),
   );
   const graphRenderPolicy = getGraphRenderPolicy(view);

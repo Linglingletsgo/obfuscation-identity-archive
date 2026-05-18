@@ -7,7 +7,8 @@ export const archiveVisualConfig = {
   assets: {
     nearWhiteThreshold: 245,
     stage2CollectiveModelPath: "/models/global_stage2_collective.glb",
-    stage2CollectivePointSamples: 36000,
+    stage2CollectivePointSamples: 80000,
+    collectiveParticleTexturePath: "/textures/particle_sprite.png",
     placeholderAvatarPath: "",
   },
   camera: {
@@ -22,7 +23,7 @@ export const archiveVisualConfig = {
   },
   graph: {
     seed: "obfuscation-identity-archive-v1",
-    defaultLinkDensity: 0.2,
+    defaultLinkDensity: 0.1,
     identityNodeSize: 1.2,
     tagNodeSize: 0.42,
     timelineNodeSize: 0.62,

@@ -54,6 +54,8 @@ describe("IndividualAvatarScene state", () => {
   it("uses the selected individual avatar image when one is available", () => {
     expect(getIndividualSceneState(graph, "identity:a")).toMatchObject({
       assetSources: ["/avatars/a.png"],
+      carriedFragment: "fragment",
+      id: "identity:a",
       label: "A",
       tagLabels: ["Dream", "Global", "Shared"],
     });
@@ -75,6 +77,8 @@ describe("IndividualAvatarScene state", () => {
       ),
     ).toMatchObject({
       assetSources: [],
+      carriedFragment: "",
+      id: "identity:missing",
       tagLabels: ["Global"],
     });
   });

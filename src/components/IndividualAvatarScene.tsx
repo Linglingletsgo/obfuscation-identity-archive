@@ -1,9 +1,12 @@
 import { useMemo, type CSSProperties } from "react";
+import { RotateCcw } from "lucide-react";
 import { useArchiveStore } from "../state/archiveStore";
 import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
 import { AvatarImage } from "./AvatarImage";
 
 type IndividualSceneState = {
+  carriedFragment: string;
+  id: string;
   label: string;
   assetSources: string[];
   tagLabels: string[];
@@ -33,6 +36,8 @@ export function getIndividualSceneState(
   if (!selectedIdentityNode) return null;
 
   return {
+    carriedFragment: selectedIdentityNode.carried_fragment ?? "",
+    id: selectedIdentityNode.id,
     label: selectedIdentityNode.identity_name ?? selectedIdentityNode.visual.label,
     assetSources: uniqueAssetSources(selectedIdentityNode.asset_path),
     tagLabels: collectTagLabels(selectedIdentityNode),
@@ -58,8 +63,32 @@ function TagCallout({ index, label, total }: { index: number; label: string; tot
   );
 }
 
+function IndividualDetailSidebar({ sceneState }: { sceneState: IndividualSceneState }) {
+  return (
+    <aside className="individual-detail-sidebar" aria-label="Individual details">
+      <header>
+        <span>Individual One</span>
+        <h2>{sceneState.label}</h2>
+        {sceneState.carriedFragment ? <p>{sceneState.carriedFragment}</p> : null}
+      </header>
+      <dl>
+        <dt>ID</dt>
+        <dd>{sceneState.id}</dd>
+      </dl>
+      <section>
+        <h3>Tags</h3>
+        <ul>
+          {sceneState.tagLabels.map((label) => (
+            <li key={label}>{label}</li>
+          ))}
+        </ul>
+      </section>
+    </aside>
+  );
+}
+
 export function IndividualAvatarScene() {
-  const { graph, selectedIdentityId, view } = useArchiveStore();
+  const { graph, openCollective, selectedIdentityId, view } = useArchiveStore();
   const sceneState = useMemo(
     () => (view === "individual" ? getIndividualSceneState(graph, selectedIdentityId) : null),
     [graph, selectedIdentityId, view],
@@ -69,6 +98,15 @@ export function IndividualAvatarScene() {
 
   return (
     <section className="individual-avatar-scene" aria-label="Individual avatar scene">
+      <button
+        type="button"
+        className="individual-back-button"
+        onClick={openCollective}
+        aria-label="Return to collective"
+      >
+        <RotateCcw size={18} />
+        <span>Collective</span>
+      </button>
       <div className="stage-detail-avatar-visual">
         {sceneState.assetSources.length > 0 ? (
           <AvatarImage src={sceneState.assetSources} alt={sceneState.label} />
@@ -81,6 +119,7 @@ export function IndividualAvatarScene() {
           <TagCallout key={label} index={index} label={label} total={sceneState.tagLabels.length} />
         ))}
       </ol>
+      <IndividualDetailSidebar sceneState={sceneState} />
     </section>
   );
 }

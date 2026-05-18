@@ -107,9 +107,34 @@ describe("RelationshipGraph3D visibility helpers", () => {
       "shared_tag:a:tag:Dream",
       "interaction:a:b",
     ]);
-    expect(getCollectiveLinkOpacity(link("shared_tag", "a", "tag:Dream"), null)).toBe(0.12);
-    expect(getCollectiveLinkOpacity(link("interaction", "a", "b"), null)).toBe(0.12);
-    expect(getCollectiveLinkOpacity(link("conflict_tag", "a", "b"), null)).toBe(0.12);
+    expect(getCollectiveLinkOpacity(link("shared_tag", "a", "tag:Dream"), null)).toBe(0.38);
+    expect(getCollectiveLinkOpacity(link("interaction", "a", "b"), null)).toBe(0.38);
+    expect(getCollectiveLinkOpacity(link("conflict_tag", "a", "b"), null)).toBe(0.38);
+  });
+
+  it("applies link density only to the default collective state", () => {
+    const denseNodes = Array.from({ length: 81 }, (_, index) => searchableNode(`node:${index}`, ["Dream"]));
+    const denseLinks = Array.from({ length: 80 }, (_, index) =>
+      link(index % 2 === 0 ? "interaction" : "shared_tag", `node:${index}`, `node:${index + 1}`),
+    );
+    const denseGraph: ArchiveGraph = {
+      ...graph,
+      nodes: denseNodes,
+      links: denseLinks,
+    };
+    const scopedNodes = getViewScopedGraphNodes(denseGraph, {
+      view: "collective",
+      selectedIdentityId: null,
+    });
+
+    const fullDefaultLinks = getViewScopedGraphLinks(denseGraph, scopedNodes, null, "collective", 1);
+    const sparseDefaultLinks = getViewScopedGraphLinks(denseGraph, scopedNodes, null, "collective", 0.1);
+    const focusedLinks = getViewScopedGraphLinks(denseGraph, scopedNodes, "node:0", "collective", 0);
+
+    expect(fullDefaultLinks).toHaveLength(80);
+    expect(sparseDefaultLinks.length).toBeGreaterThan(0);
+    expect(sparseDefaultLinks.length).toBeLessThan(fullDefaultLinks.length);
+    expect(focusedLinks.map((item) => item.id)).toEqual(["interaction:node:0:node:1"]);
   });
 
   it("uses relationship-specific collective link colors and traces", () => {

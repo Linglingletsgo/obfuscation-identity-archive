@@ -16,14 +16,6 @@ export function Graph3DControls() {
           onChange={(event) => setFilters({ query: event.currentTarget.value })}
         />
       </label>
-      <label className="inline-toggle">
-        <input
-          type="checkbox"
-          checked={filters.showIsolated}
-          onChange={(event) => setFilters({ showIsolated: event.currentTarget.checked })}
-        />
-        <span>Isolated</span>
-      </label>
       <button type="button" className="icon-button" onClick={openCollective} aria-label="Return to collective">
         <RotateCcw size={18} />
       </button>
