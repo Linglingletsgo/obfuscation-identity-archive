@@ -1,22 +1,29 @@
 export const archiveVisualConfig = {
   data: {
-    interactionGraphPath: "/data/algorithm/interaction_graph_real_submissions.json",
-    timelinePath: "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
+    interactionGraphPath:
+      "/data/algorithm/interaction_graph_real_submissions.json",
+    timelinePath:
+      "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
     graphCachePath: "/data/graph/relationship_graph_3d.json",
   },
   assets: {
     nearWhiteThreshold: 245,
     stage2CollectiveModelPath: "/models/global_stage2_collective.glb",
-    stage2CollectivePointSamples: 80000,
+    stage2CollectivePointSamples: 160000,
+    collectiveEnvironmentModelPath: "/models/env.glb",
+    collectiveEnvironmentPointSamples: 90000,
+    collectiveEnvironmentFieldRadius: 42,
+    collectiveEnvironmentTexturePath:
+      "/textures/environment_particle_sprite.png",
     collectiveParticleTexturePath: "/textures/particle_sprite.png",
     placeholderAvatarPath: "",
   },
   camera: {
-    collectivePosition: [0, 4.5, 16] as const,
+    collectivePosition: [0, 10.5, 40] as const,
     detailPosition: [0, 2.8, 8] as const,
     minDistance: 3,
-    maxDistance: 42,
-    collectiveOverviewDistance: 32,
+    maxDistance: 56,
+    collectiveOverviewDistance: 40,
     collectiveInternalDistanceThreshold: 16,
     collectiveAvatarScale: 1.45,
     collectiveAvatarFieldRadius: 8.4,

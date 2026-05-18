@@ -26,20 +26,22 @@ const vertexShader = `
     float filament = sin(seed * 31.0 + partPhase * 1.7 + uTime * 4.1 + rayT * 0.22) * 0.5 + 0.5;
     float partPulse = sin(partPhase * 3.0 + uTime * 1.4) * 0.5 + 0.5;
     float localInfluence = uInfluence * exp(-distanceToRay * 0.42) * (0.55 + filament * 0.62);
+    float pointerField = exp(-distanceToRay * 0.42) * uPointerVelocity;
     vec3 direction = normalize(position + vec3(0.001, 0.013, 0.007));
     vec3 swirl = normalize(cross(uRayDirection, direction) + vec3(0.001, 0.002, 0.003));
     vec3 lightDirection = normalize(vec3(-0.32, 0.55, 0.78));
     float spatialLight = dot(direction, lightDirection) * 0.5 + 0.5;
     float selfShadow = smoothstep(0.0, 0.9, length(position.xy) * 0.055 + position.y * 0.018);
-    displaced += direction * (0.045 * wave + localInfluence * (0.38 + wave * 0.22));
-    displaced += swirl * localInfluence * (0.42 + uPointerVelocity * 0.95) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
+    displaced += direction * (0.045 * wave + localInfluence * (0.2 + wave * 0.12) + pointerField * 0.12);
+    displaced += swirl * (localInfluence * 0.18 + pointerField * 0.18) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
 
     vec3 baseColor = mix(partColor, color, 0.16);
-    vec3 accentGlow = partColor * (0.07 + partPulse * 0.12 + localInfluence * (0.18 + uPointerVelocity * 0.08));
-    float lightShade = 0.62 + spatialLight * 0.46 + selfShadow * 0.18;
-    vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * (0.34 + uPointerVelocity * 0.18)) + accentGlow;
+    vec3 accentGlow = partColor * (0.07 + partPulse * 0.12 + localInfluence * 0.1 + pointerField * 0.18);
+    float rim = pow(1.0 - abs(dot(direction, vec3(0.0, 0.0, 1.0))), 2.2);
+    float lightShade = 0.48 + spatialLight * 0.72 + selfShadow * 0.24 + rim * 0.32;
+    vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * 0.16 + pointerField * 0.24) + accentGlow;
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
-    gl_PointSize = (0.24 + wave * 0.14 + partPulse * 0.05 + localInfluence * (0.42 + uPointerVelocity * 0.58)) * (620.0 / -modelViewPosition.z);
+    gl_PointSize = (0.24 + wave * 0.14 + partPulse * 0.05 + localInfluence * 0.2 + pointerField * 0.28) * (620.0 / -modelViewPosition.z);
     gl_Position = projectionMatrix * modelViewPosition;
   }
 `;
@@ -47,6 +49,15 @@ const vertexShader = `
 const fragmentShader = `
   varying vec3 vColor;
   uniform sampler2D uPointTexture;
+
+  vec3 preserveLowLightChroma(vec3 color) {
+    float luma = dot(color, vec3(0.2126, 0.7152, 0.0722));
+    vec3 hue = normalize(color + vec3(0.001));
+    vec3 chromaLift = hue * max(luma, 0.11);
+    float lowLight = 1.0 - smoothstep(0.12, 0.52, luma);
+    vec3 saturated = mix(vec3(luma), chromaLift, 0.78);
+    return mix(color, saturated, lowLight * 0.72);
+  }
 
   void main() {
     vec2 uv = gl_PointCoord - vec2(0.5);
@@ -56,10 +67,11 @@ const fragmentShader = `
     vec4 sprite = texture2D(uPointTexture, gl_PointCoord);
     float spriteLuma = dot(sprite.rgb, vec3(0.2126, 0.7152, 0.0722));
     float spriteAlpha = smoothstep(0.08, 0.76, max(sprite.a, spriteLuma));
-    vec3 spriteDetail = mix(vec3(1.0), vec3(spriteLuma), 0.52);
-    vec3 emission = vColor * (0.3 * core + 0.12 * halo);
-    vec3 partTintedCore = normalize(vColor + vec3(0.001)) * core * 0.18;
-    vec3 highlight = vColor * spriteDetail * 0.88 + emission + partTintedCore;
+    float spriteDetail = mix(1.0, spriteLuma, 0.38);
+    vec3 chromaColor = preserveLowLightChroma(vColor);
+    vec3 emission = chromaColor * (0.3 * core + 0.12 * halo);
+    vec3 partTintedCore = normalize(chromaColor + vec3(0.001)) * core * 0.18;
+    vec3 highlight = chromaColor * spriteDetail * 0.88 + emission + partTintedCore;
     float alpha = (halo * 0.16 + core * 0.32) * spriteAlpha;
     gl_FragColor = vec4(highlight, alpha);
   }

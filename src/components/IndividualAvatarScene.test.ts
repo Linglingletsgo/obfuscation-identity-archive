@@ -68,13 +68,12 @@ describe("IndividualAvatarScene state", () => {
     expect(getIndividualSceneState(graph, "identity:a")).toMatchObject({
       assetSources: ["/avatars/a.png"],
       carriedFragment: "fragment",
-      conflictTagLabels: ["Dream"],
       id: "identity:a",
       label: "A",
       tagNodes: [
-        expect.objectContaining({ conflict: true, label: "Dream" }),
-        expect.objectContaining({ conflict: false, label: "Global" }),
-        expect.objectContaining({ conflict: false, label: "Shared" }),
+        expect.objectContaining({ label: "Dream" }),
+        expect.objectContaining({ label: "Global" }),
+        expect.objectContaining({ label: "Shared" }),
       ],
       tagLabels: ["Dream", "Global", "Shared"],
     });
@@ -97,9 +96,8 @@ describe("IndividualAvatarScene state", () => {
     ).toMatchObject({
       assetSources: [],
       carriedFragment: "",
-      conflictTagLabels: [],
       id: "identity:missing",
-      tagNodes: [expect.objectContaining({ conflict: false, label: "Global" })],
+      tagNodes: [expect.objectContaining({ label: "Global" })],
       tagLabels: ["Global"],
     });
   });

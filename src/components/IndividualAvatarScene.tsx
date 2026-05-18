@@ -5,7 +5,6 @@ import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
 import { AvatarImage } from "./AvatarImage";
 
 type IndividualTagNode = {
-  conflict: boolean;
   label: string;
   x: number;
   y: number;
@@ -13,7 +12,6 @@ type IndividualTagNode = {
 
 type IndividualSceneState = {
   carriedFragment: string;
-  conflictTagLabels: string[];
   id: string;
   label: string;
   assetSources: string[];
@@ -33,37 +31,17 @@ function uniqueAssetSources(...sources: Array<string | undefined>): string[] {
   return [...new Set(sources.filter((source): source is string => Boolean(source)))];
 }
 
-function getTagLabelFromNode(node: ArchiveGraphNode | undefined): string | null {
-  if (!node) return null;
-  return node.tag_labels[0] ?? node.visual.label ?? node.id.replace(/^tag:/, "");
-}
-
-function collectConflictTagLabels(graph: ArchiveGraph, selectedIdentityId: string): string[] {
-  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
-  const labels = new Set<string>();
-
-  for (const link of graph.links) {
-    if (link.type !== "conflict_tag") continue;
-    if (link.source !== selectedIdentityId && link.target !== selectedIdentityId) continue;
-
-    const tagNodeId = link.source === selectedIdentityId ? link.target : link.source;
-    const label = getTagLabelFromNode(nodeById.get(tagNodeId));
-    if (label) labels.add(label);
-  }
-
-  return [...labels].sort((left, right) => left.localeCompare(right));
-}
-
-function createIndividualTagNodes(tagLabels: string[], conflictTagLabels: string[]): IndividualTagNode[] {
-  const conflictLabels = new Set(conflictTagLabels);
+function createIndividualTagNodes(tagLabels: string[]): IndividualTagNode[] {
   return tagLabels.map((label, index) => {
-    const angle = -132 + (264 / Math.max(1, tagLabels.length - 1)) * index;
+    const ring = index % 2;
+    const angle = -120 + (300 / Math.max(1, tagLabels.length - 1)) * index + ring * 4;
     const radians = (angle * Math.PI) / 180;
+    const radiusX = ring === 0 ? 30 : 39;
+    const radiusY = ring === 0 ? 31 : 40;
     return {
-      conflict: conflictLabels.has(label),
       label,
-      x: 50 + Math.cos(radians) * 34,
-      y: 50 + Math.sin(radians) * 36,
+      x: 50 + Math.cos(radians) * radiusX,
+      y: 50 + Math.sin(radians) * radiusY,
     };
   });
 }
@@ -79,51 +57,28 @@ export function getIndividualSceneState(
   );
   if (!selectedIdentityNode) return null;
   const tagLabels = collectTagLabels(selectedIdentityNode);
-  const conflictTagLabels = collectConflictTagLabels(graph, selectedIdentityId);
 
   return {
     carriedFragment: selectedIdentityNode.carried_fragment ?? "",
-    conflictTagLabels,
     id: selectedIdentityNode.id,
     label: selectedIdentityNode.identity_name ?? selectedIdentityNode.visual.label,
     assetSources: uniqueAssetSources(selectedIdentityNode.asset_path),
     tagLabels,
-    tagNodes: createIndividualTagNodes(tagLabels, conflictTagLabels),
+    tagNodes: createIndividualTagNodes(tagLabels),
   };
 }
 
 function IndividualTagNodeItem({ node }: { node: IndividualTagNode }) {
   return (
     <li
-      className={`stage-detail-tag-node${node.conflict ? " conflict" : ""}`}
-      style={{ "--tag-x": `${node.x}%`, "--tag-y": `${node.y}%` } as CSSProperties}
+      className="stage-detail-tag-node"
+      style={{ "--tag-x": `${node.x}%`, "--tag-y": `${node.y}%`, "--tag-delay": `${node.x * -0.027}s` } as CSSProperties}
       title={node.label}
+      tabIndex={0}
     >
       <span aria-hidden="true" />
       <b>{node.label}</b>
     </li>
-  );
-}
-
-function IndividualConflictLines({ nodes }: { nodes: IndividualTagNode[] }) {
-  const conflictNodes = nodes.filter((node) => node.conflict);
-  if (conflictNodes.length < 2) return null;
-
-  return (
-    <svg className="stage-detail-conflict-lines" viewBox="0 0 100 100" aria-hidden="true">
-      {conflictNodes.slice(1).map((node, index) => {
-        const previous = conflictNodes[index];
-        return (
-          <line
-            key={`${previous.label}:${node.label}`}
-            x1={previous.x}
-            y1={previous.y}
-            x2={node.x}
-            y2={node.y}
-          />
-        );
-      })}
-    </svg>
   );
 }
 
@@ -179,7 +134,6 @@ export function IndividualAvatarScene() {
             <div className="stage-detail-model-visual" role="img" aria-label={sceneState.label} />
           )}
         </div>
-        <IndividualConflictLines nodes={sceneState.tagNodes} />
         <ol className="stage-detail-tags" aria-label="Active avatar tags">
           {sceneState.tagNodes.map((node) => (
             <IndividualTagNodeItem key={node.label} node={node} />

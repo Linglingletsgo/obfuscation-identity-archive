@@ -1,5 +1,9 @@
 import { expect, test } from "@playwright/test";
 
+function webGLCanvas(page: import("@playwright/test").Page) {
+  return page.locator(".archive-scene-shell canvas");
+}
+
 async function countCollectiveWebGLPixels(page: import("@playwright/test").Page) {
   const screenshot = await page.screenshot();
   const dataUrl = `data:image/png;base64,${screenshot.toString("base64")}`;
@@ -40,7 +44,7 @@ async function expectCollectiveWebGLVisible(page: import("@playwright/test").Pag
 }
 
 async function forceWebGLContextLoss(page: import("@playwright/test").Page) {
-  await page.locator("canvas").evaluate((canvasElement) => {
+  await webGLCanvas(page).evaluate((canvasElement) => {
     const canvas = canvasElement as HTMLCanvasElement;
     const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
     const extension = gl?.getExtension("WEBGL_lose_context");
@@ -53,7 +57,7 @@ async function expectCurrentCanvasContextLive(page: import("@playwright/test").P
   await expect
     .poll(
       () =>
-        page.locator("canvas").evaluate((canvasElement) => {
+        webGLCanvas(page).evaluate((canvasElement) => {
           const canvas = canvasElement as HTMLCanvasElement;
           const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
           return Boolean(gl && !gl.isContextLost());
@@ -137,7 +141,7 @@ test("collective graph survives pointer movement without React or WebGL remount 
 
   await page.goto("/");
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
-  await expect(page.locator("canvas")).toBeVisible();
+  await expect(webGLCanvas(page)).toBeVisible();
 
   await page.mouse.move(340, 260);
   await page.mouse.move(620, 420);
@@ -183,7 +187,7 @@ test("collective remounts the WebGL scene after context loss", async ({ page }) 
 
 test("collective identity preview enters detail through explicit action", async ({ page }) => {
   await page.goto("/");
-  await page.locator("canvas").click({ position: { x: 400, y: 300 } });
+  await webGLCanvas(page).click({ position: { x: 400, y: 300 } });
 
   const overlay = page.getByLabel("Selected identity preview");
   if (await overlay.isVisible()) {

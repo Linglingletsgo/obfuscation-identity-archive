@@ -55,7 +55,7 @@ describe("shouldRenderCollectiveAvatarField", () => {
   });
 
   it("locks collective camera controls around the avatar origin", () => {
-    expect(getCameraPositionForStage("collective")).toEqual([0, 4.5, 16]);
+    expect(getCameraPositionForStage("collective")).toEqual([0, 10.5, 40]);
     expect(getCameraPositionForStage("individual")).toEqual([0, 2.8, 8]);
     expect(getCollectiveCameraTarget()).toEqual([0, 0, 0]);
     expect(shouldDisableCollectivePan("collective")).toBe(true);

@@ -12,7 +12,7 @@ import { useAvatarShapePositions } from "./AvatarShapeContext";
 
 type SearchableNode = Pick<
   ArchiveGraphNode,
-  "id" | "identity_name" | "carried_fragment" | "tag_labels" | "visual"
+  "id" | "identity_name" | "type" | "visual"
 >;
 
 type StageScope = {
@@ -134,7 +134,7 @@ export function shouldDisplayGraphLink(link: ArchiveGraphLink, view: ArchiveView
 export function getNodeOpacityMultiplier(node: SearchableNode, query: string): number {
   if (!query) return 1;
   const normalizedQuery = query.toLowerCase();
-  const matches = [node.id, node.identity_name, node.carried_fragment, node.visual.label, ...node.tag_labels]
+  const matches = node.type === "submission" && [node.id, node.identity_name, node.visual.label]
     .filter(Boolean)
     .some((value) => String(value).toLowerCase().includes(normalizedQuery));
 

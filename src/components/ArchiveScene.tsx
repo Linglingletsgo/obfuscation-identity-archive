@@ -1,6 +1,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
+import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { useArchiveStore } from "../state/archiveStore";
@@ -10,7 +11,6 @@ import { RelationshipGraph3D } from "./RelationshipGraph3D";
 import { CollectiveAvatarField } from "./CollectiveAvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 import { CollectiveEnvironmentField } from "./CollectiveEnvironmentField";
-import { CollectivePointerTrails } from "./CollectivePointerTrails";
 
 type WebGLContextLike = {
   getExtension: (name: string) => { loseContext?: () => void } | null;
@@ -163,6 +163,75 @@ function CollectiveCameraStateSync({
   return null;
 }
 
+function GlobalInteractionLights() {
+  const { camera, pointer, raycaster } = useThree();
+  const keyLightRef = useRef<THREE.PointLight>(null);
+  const fillLightRef = useRef<THREE.PointLight>(null);
+  const dragActiveRef = useRef(false);
+  const dragBoostRef = useRef(0);
+  const velocityRef = useRef(0);
+  const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
+  const lightTargetRef = useRef(new THREE.Vector3(0, 0, 0));
+  const lightPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), []);
+
+  useEffect(() => {
+    function handlePointerDown() {
+      dragActiveRef.current = true;
+      dragBoostRef.current = 1;
+    }
+
+    function handlePointerUp() {
+      dragActiveRef.current = false;
+    }
+
+    window.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("pointerup", handlePointerUp);
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, []);
+
+  useFrame(() => {
+    const previousPointer = previousPointerRef.current;
+    const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
+    previousPointer.set(pointer.x, pointer.y);
+    velocityRef.current += (Math.min(1, pointerDelta * 16) - velocityRef.current) * 0.18;
+    dragBoostRef.current += ((dragActiveRef.current ? 1 : 0) - dragBoostRef.current) * 0.12;
+
+    raycaster.setFromCamera(pointer, camera);
+    raycaster.ray.intersectPlane(lightPlane, lightTargetRef.current);
+    const intensity = 0.28 + velocityRef.current * 2.4 + dragBoostRef.current * 2.8;
+    const keyLight = keyLightRef.current;
+    const fillLight = fillLightRef.current;
+
+    if (keyLight) {
+      keyLight.position.lerp(
+        new THREE.Vector3(lightTargetRef.current.x, lightTargetRef.current.y, 6 + dragBoostRef.current * 5),
+        0.24,
+      );
+      keyLight.intensity = intensity;
+      keyLight.distance = 30 + dragBoostRef.current * 22;
+    }
+
+    if (fillLight) {
+      fillLight.position.lerp(
+        new THREE.Vector3(-lightTargetRef.current.x * 0.42, lightTargetRef.current.y * 0.3, -8),
+        0.18,
+      );
+      fillLight.intensity = 0.14 + velocityRef.current * 0.7 + dragBoostRef.current * 0.9;
+      fillLight.distance = 38;
+    }
+  });
+
+  return (
+    <>
+      <pointLight ref={keyLightRef} color="#8eefff" distance={34} intensity={0.28} position={[0, 0, 8]} />
+      <pointLight ref={fillLightRef} color="#5d7dff" distance={38} intensity={0.14} position={[0, 0, -8]} />
+    </>
+  );
+}
+
 export function ArchiveScene() {
   const { graph, selectNode, view, collectiveNavigation, updateCollectiveNavigation } = useArchiveStore();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
@@ -239,8 +308,8 @@ export function ArchiveScene() {
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
       {view === "collective" ? (
         <>
+          <GlobalInteractionLights />
           <CollectiveEnvironmentField />
-          <CollectivePointerTrails />
           <pointLight position={[-5, 3, 7]} intensity={1.1} color={archiveVisualConfig.colors.shared} />
           <pointLight position={[5, -2, -6]} intensity={0.7} color={archiveVisualConfig.colors.tag} />
         </>

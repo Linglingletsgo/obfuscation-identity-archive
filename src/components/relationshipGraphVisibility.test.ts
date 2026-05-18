@@ -174,9 +174,10 @@ describe("RelationshipGraph3D visibility helpers", () => {
     expect(getGraphRenderPolicy("individual").depthTest).toBe(true);
   });
 
-  it("dims nodes that do not match search", () => {
-    expect(getNodeOpacityMultiplier(graph.nodes[0], "dream")).toBe(1);
-    expect(getNodeOpacityMultiplier(graph.nodes[2], "dream")).toBeLessThan(1);
+  it("dims nodes that do not match submission id or name search", () => {
+    expect(getNodeOpacityMultiplier(graph.nodes[0], "a")).toBe(1);
+    expect(getNodeOpacityMultiplier(graph.nodes[2], "a")).toBeLessThan(1);
+    expect(getNodeOpacityMultiplier(graph.nodes[0], "dream")).toBeLessThan(1);
   });
 
   it("keeps collective focused on identity, tag, and collective nodes without timeline items", () => {
