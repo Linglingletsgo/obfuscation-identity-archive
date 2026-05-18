@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
+import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode } from "../types/archive";
 import { getIndividualSceneState } from "./IndividualAvatarScene";
 
 function node(
@@ -30,6 +30,19 @@ function node(
   };
 }
 
+function link(type: ArchiveGraphLink["type"], source: string, target: string): ArchiveGraphLink {
+  return {
+    id: `${type}:${source}:${target}`,
+    source,
+    target,
+    type,
+    weight: 1,
+    scores: {},
+    events: [],
+    visual: { style_key: type, opacity: 0.5, thickness: 1, dash: type === "conflict_tag" },
+  };
+}
+
 const graph: ArchiveGraph = {
   nodes: [
     node("identity:a", "submission", ["Global"], {
@@ -41,7 +54,7 @@ const graph: ArchiveGraph = {
     }),
     node("tag:Dream", "tag", ["Dream"]),
   ],
-  links: [],
+  links: [link("conflict_tag", "identity:a", "tag:Dream")],
   metadata: {
     layout: "deterministic-avatar-map",
     seed: "test",
@@ -55,8 +68,14 @@ describe("IndividualAvatarScene state", () => {
     expect(getIndividualSceneState(graph, "identity:a")).toMatchObject({
       assetSources: ["/avatars/a.png"],
       carriedFragment: "fragment",
+      conflictTagLabels: ["Dream"],
       id: "identity:a",
       label: "A",
+      tagNodes: [
+        expect.objectContaining({ conflict: true, label: "Dream" }),
+        expect.objectContaining({ conflict: false, label: "Global" }),
+        expect.objectContaining({ conflict: false, label: "Shared" }),
+      ],
       tagLabels: ["Dream", "Global", "Shared"],
     });
   });
@@ -78,7 +97,9 @@ describe("IndividualAvatarScene state", () => {
     ).toMatchObject({
       assetSources: [],
       carriedFragment: "",
+      conflictTagLabels: [],
       id: "identity:missing",
+      tagNodes: [expect.objectContaining({ conflict: false, label: "Global" })],
       tagLabels: ["Global"],
     });
   });

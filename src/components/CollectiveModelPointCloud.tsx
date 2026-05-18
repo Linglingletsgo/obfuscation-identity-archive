@@ -28,12 +28,16 @@ const vertexShader = `
     float localInfluence = uInfluence * exp(-distanceToRay * 0.42) * (0.55 + filament * 0.62);
     vec3 direction = normalize(position + vec3(0.001, 0.013, 0.007));
     vec3 swirl = normalize(cross(uRayDirection, direction) + vec3(0.001, 0.002, 0.003));
+    vec3 lightDirection = normalize(vec3(-0.32, 0.55, 0.78));
+    float spatialLight = dot(direction, lightDirection) * 0.5 + 0.5;
+    float selfShadow = smoothstep(0.0, 0.9, length(position.xy) * 0.055 + position.y * 0.018);
     displaced += direction * (0.045 * wave + localInfluence * (0.38 + wave * 0.22));
     displaced += swirl * localInfluence * (0.42 + uPointerVelocity * 0.95) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
 
     vec3 baseColor = mix(partColor, color, 0.16);
     vec3 accentGlow = partColor * (0.07 + partPulse * 0.12 + localInfluence * (0.18 + uPointerVelocity * 0.08));
-    vColor = baseColor * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * (0.34 + uPointerVelocity * 0.18)) + accentGlow;
+    float lightShade = 0.62 + spatialLight * 0.46 + selfShadow * 0.18;
+    vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * (0.34 + uPointerVelocity * 0.18)) + accentGlow;
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
     gl_PointSize = (0.24 + wave * 0.14 + partPulse * 0.05 + localInfluence * (0.42 + uPointerVelocity * 0.58)) * (620.0 / -modelViewPosition.z);
     gl_Position = projectionMatrix * modelViewPosition;

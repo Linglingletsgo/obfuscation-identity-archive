@@ -9,6 +9,8 @@ import { EmptyState, WebGLFallback } from "./FallbackStates";
 import { RelationshipGraph3D } from "./RelationshipGraph3D";
 import { CollectiveAvatarField } from "./CollectiveAvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
+import { CollectiveEnvironmentField } from "./CollectiveEnvironmentField";
+import { CollectivePointerTrails } from "./CollectivePointerTrails";
 
 type WebGLContextLike = {
   getExtension: (name: string) => { loseContext?: () => void } | null;
@@ -237,6 +239,8 @@ export function ArchiveScene() {
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
       {view === "collective" ? (
         <>
+          <CollectiveEnvironmentField />
+          <CollectivePointerTrails />
           <pointLight position={[-5, 3, 7]} intensity={1.1} color={archiveVisualConfig.colors.shared} />
           <pointLight position={[5, -2, -6]} intensity={0.7} color={archiveVisualConfig.colors.tag} />
         </>
