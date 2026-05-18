@@ -33,7 +33,7 @@ for (const item of timelineItems(timeline)) {
 
 if (uniqueTagLabels(graph).length === 0) errors.push("expected at least one tag label");
 if (!publicFileExists("/models/global_stage2_collective.glb")) {
-  errors.push("Stage2 collective GLB is missing at /models/global_stage2_collective.glb");
+  errors.push("Collective GLB is missing at /models/global_stage2_collective.glb");
 }
 
 if (errors.length > 0) {

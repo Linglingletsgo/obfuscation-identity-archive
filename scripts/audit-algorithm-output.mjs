@@ -25,10 +25,10 @@ const unresolvedAnchors = timeline.anchors.filter((anchor) => !identities.has(an
 const cardinalityProblems = items.filter(
   (item) => item.source_ids.length !== item.group_size || item.source_texts.length !== item.group_size,
 );
-const missingStage0 = graph.nodes
+const missingIndividualAvatars = graph.nodes
   .filter((node) => !publicFileExists(`/assets/avatars/stage0/${node.id}.png`))
   .map((node) => node.id);
-const hasStage2CollectiveModel = publicFileExists("/models/global_stage2_collective.glb");
+const hasCollectiveModel = publicFileExists("/models/global_stage2_collective.glb");
 
 const report = `# Algorithm Audit
 
@@ -41,16 +41,16 @@ const report = `# Algorithm Audit
 - Unique tag display labels: ${uniqueTagLabels(graph).length}
 - Anchors: ${timeline.anchors.length}
 - Timeline items under anchors: ${items.length}
-- Stage item counts: ${JSON.stringify(counts)}
-- Stage2 collective source: ${timeline.global_collective_item ? "global_collective_item" : "missing"}
+- Source timeline item counts: ${JSON.stringify(counts)}
+- Collective source: ${timeline.global_collective_item ? "global_collective_item" : "missing"}
 
 ## Resolution Checks
 
 - Edges with unresolved endpoints: ${unresolvedEdges.length}
 - Timeline source_ids not resolving to identity nodes: ${unresolvedTimelineSources.length}
 - Anchor IDs not resolving to identity nodes: ${unresolvedAnchors.length}
-- Stage/source cardinality problems: ${cardinalityProblems.length}
-- Stage2 collective is global: ${Boolean(timeline.global_collective_item)}
+- Timeline/source cardinality problems: ${cardinalityProblems.length}
+- Collective is global: ${Boolean(timeline.global_collective_item)}
 
 ## Field Availability
 
@@ -65,15 +65,14 @@ const report = `# Algorithm Audit
 
 ## Asset Resolution
 
-- Missing Stage0 PNGs for graph identities: ${missingStage0.length}${missingStage0.length ? ` (${missingStage0.join(", ")})` : ""}
-- Stage1 avatar intentionally blank: true
-- Stage2 collective GLB exists: ${hasStage2CollectiveModel}
+- Missing individual PNGs for graph identities: ${missingIndividualAvatars.length}${missingIndividualAvatars.length ? ` (${missingIndividualAvatars.join(", ")})` : ""}
+- Collective GLB exists: ${hasCollectiveModel}
 
 ## Frontend Interpretation
 
 - Use graph edges as canonical all-identity relationship source.
-- Use timeline anchors and items as canonical Stage0-1 navigation source.
-- Use global_collective_item and /models/global_stage2_collective.glb as canonical Stage2 source.
+- Use graph identity nodes as canonical individual entries.
+- Use global_collective_item and /models/global_stage2_collective.glb as canonical collective source.
 - Create frontend tag nodes from unique tag display labels because source graph nodes are identity-only.
 - Use evidence.conflictPairs and glitch-like events for conflict/glitch links; do not infer conflict from tag names alone.
 - Missing assets are expected runtime states and must render placeholders without mutating source data.

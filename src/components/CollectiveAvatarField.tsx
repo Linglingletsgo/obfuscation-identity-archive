@@ -3,9 +3,9 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { getAvatarNormalization, normalizePointCloudPositions, sampleObjectSurface } from "../data/avatarShape";
-import { Stage2ModelPointCloud } from "./Stage2ModelPointCloud";
+import { CollectiveModelPointCloud } from "./CollectiveModelPointCloud";
 
-function LoadedStage5AvatarField({
+function LoadedCollectiveAvatarField({
   onShapePositions,
 }: {
   onShapePositions: (positions: Float32Array) => void;
@@ -15,7 +15,7 @@ function LoadedStage5AvatarField({
     () => sampleObjectSurface(gltf.scene, archiveVisualConfig.assets.stage2CollectivePointSamples),
     [gltf.scene],
   );
-  const visualRadius = archiveVisualConfig.camera.stage5AvatarFieldRadius * archiveVisualConfig.camera.stage5AvatarScale;
+  const visualRadius = archiveVisualConfig.camera.collectiveAvatarFieldRadius * archiveVisualConfig.camera.collectiveAvatarScale;
   const normalization = useMemo(
     () => getAvatarNormalization(surface.positions, visualRadius),
     [surface.positions, visualRadius],
@@ -60,7 +60,7 @@ function LoadedStage5AvatarField({
       >
         <primitive object={materializedScene} />
       </group>
-      <Stage2ModelPointCloud
+      <CollectiveModelPointCloud
         colors={surface.colors}
         partColors={surface.partColors}
         partIds={surface.partIds}
@@ -70,14 +70,14 @@ function LoadedStage5AvatarField({
   );
 }
 
-export function Stage5AvatarField({
+export function CollectiveAvatarField({
   onShapePositions,
 }: {
   onShapePositions: (positions: Float32Array) => void;
 }) {
   return (
     <Suspense fallback={null}>
-      <LoadedStage5AvatarField onShapePositions={onShapePositions} />
+      <LoadedCollectiveAvatarField onShapePositions={onShapePositions} />
     </Suspense>
   );
 }

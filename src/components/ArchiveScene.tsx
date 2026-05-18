@@ -4,10 +4,10 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type RefOb
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { useArchiveStore } from "../state/archiveStore";
-import type { Stage5NavigationMode, Stage5NavigationState } from "../types/archive";
+import type { ArchiveView, CollectiveNavigationMode, CollectiveNavigationState } from "../types/archive";
 import { EmptyState, WebGLFallback } from "./FallbackStates";
 import { RelationshipGraph3D } from "./RelationshipGraph3D";
-import { Stage5AvatarField } from "./Stage5AvatarField";
+import { CollectiveAvatarField } from "./CollectiveAvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 
 type WebGLContextLike = {
@@ -30,72 +30,72 @@ export function createWebGLSupportChecker(createCanvas: () => HTMLCanvasElement)
 
 const hasWebGL = createWebGLSupportChecker(() => document.createElement("canvas"));
 
-export function getStage5ModeForCameraDistance(distance: number): Stage5NavigationMode {
-  return distance <= archiveVisualConfig.camera.stage5InternalDistanceThreshold ? "internal" : "overview";
+export function getCollectiveModeForCameraDistance(distance: number): CollectiveNavigationMode {
+  return distance <= archiveVisualConfig.camera.collectiveInternalDistanceThreshold ? "internal" : "overview";
 }
 
 export function getCameraPositionForStage(
-  stage: number,
-  stage5Navigation?: Stage5NavigationState,
+  view: ArchiveView,
+  collectiveNavigation?: CollectiveNavigationState,
 ): [number, number, number] {
-  if (stage === 2) return [...(stage5Navigation?.cameraPosition ?? archiveVisualConfig.camera.stage5Position)];
+  if (view === "collective") return [...(collectiveNavigation?.cameraPosition ?? archiveVisualConfig.camera.collectivePosition)];
   return [...archiveVisualConfig.camera.detailPosition];
 }
 
-export function getStage5CameraTarget(): [number, number, number] {
+export function getCollectiveCameraTarget(): [number, number, number] {
   return [0, 0, 0];
 }
 
 export function getCameraTargetForStage(
-  stage: number,
-  stage5Navigation?: Stage5NavigationState,
+  view: ArchiveView,
+  collectiveNavigation?: CollectiveNavigationState,
 ): [number, number, number] {
-  if (stage === 2) return [...(stage5Navigation?.cameraTarget ?? getStage5CameraTarget())];
-  return getStage5CameraTarget();
+  if (view === "collective") return [...(collectiveNavigation?.cameraTarget ?? getCollectiveCameraTarget())];
+  return getCollectiveCameraTarget();
 }
 
-export function shouldDisableStage5Pan(stage: number): boolean {
-  return stage === 2;
+export function shouldDisableCollectivePan(view: ArchiveView): boolean {
+  return view === "collective";
 }
 
-export function shouldRenderStage5AvatarField(stage: number): boolean {
-  return stage === 2;
+export function shouldRenderCollectiveAvatarField(view: ArchiveView): boolean {
+  return view === "collective";
 }
 
-export function shouldRenderGraphOutsideStage5AvatarSuspense(stage: number): boolean {
-  return stage === 2;
+export function shouldRenderGraphOutsideCollectiveAvatarSuspense(view: ArchiveView): boolean {
+  return view === "collective";
 }
 
-export function shouldRenderWebGLStage(stage: number): boolean {
-  return stage === 2;
+export function shouldRenderWebGLStage(view: ArchiveView): boolean {
+  return view === "collective";
 }
 
 export function getNextWebGLRestartVersion(currentVersion: number): number {
   return currentVersion + 1;
 }
 
-function Stage5CameraStateSync({
+function CollectiveCameraStateSync({
   controlsRef,
 }: {
   controlsRef: RefObject<OrbitControlsImpl | null>;
 }) {
   const { camera } = useThree();
-  const { stage, stage5Navigation, updateStage5Navigation } = useArchiveStore();
-  const updateStage5NavigationRef = useRef(updateStage5Navigation);
-  const stage5NavigationRef = useRef(stage5Navigation);
-  const lastSyncedCameraRef = useRef<[number, number, number]>(stage5Navigation.cameraPosition);
+  const { view, collectiveNavigation, updateCollectiveNavigation } = useArchiveStore();
+  const updateCollectiveNavigationRef = useRef(updateCollectiveNavigation);
+  const collectiveNavigationRef = useRef(collectiveNavigation);
+  const lastSyncedCameraRef = useRef<[number, number, number]>(collectiveNavigation.cameraPosition);
 
   useEffect(() => {
-    updateStage5NavigationRef.current = updateStage5Navigation;
-  }, [updateStage5Navigation]);
+    updateCollectiveNavigationRef.current = updateCollectiveNavigation;
+  }, [updateCollectiveNavigation]);
 
   useEffect(() => {
-    stage5NavigationRef.current = stage5Navigation;
-  }, [stage5Navigation]);
+    collectiveNavigationRef.current = collectiveNavigation;
+  }, [collectiveNavigation]);
 
   useEffect(() => {
-    const position = getCameraPositionForStage(stage, stage5NavigationRef.current);
-    const target = getCameraTargetForStage(stage, stage5NavigationRef.current);
+    const position = getCameraPositionForStage(view, collectiveNavigationRef.current);
+    const target = getCameraTargetForStage(view, collectiveNavigationRef.current);
     camera.position.set(...position);
     lastSyncedCameraRef.current = position;
 
@@ -105,20 +105,20 @@ function Stage5CameraStateSync({
       controls.update();
     }
 
-    if (stage === 2) {
-      updateStage5NavigationRef.current({
-        mode: getStage5ModeForCameraDistance(camera.position.length()),
+    if (view === "collective") {
+      updateCollectiveNavigationRef.current({
+        mode: getCollectiveModeForCameraDistance(camera.position.length()),
         cameraPosition: position,
         cameraTarget: target,
       });
     }
-  }, [camera, controlsRef, stage]);
+  }, [camera, controlsRef, view]);
 
   useFrame(() => {
-    if (stage !== 2) return;
+    if (view !== "collective") return;
 
     const distance = camera.position.length();
-    const mode = getStage5ModeForCameraDistance(distance);
+    const mode = getCollectiveModeForCameraDistance(distance);
     const position: [number, number, number] = [camera.position.x, camera.position.y, camera.position.z];
     const previousPosition = lastSyncedCameraRef.current;
     const moved =
@@ -128,14 +128,14 @@ function Stage5CameraStateSync({
         position[2] - previousPosition[2],
       ) > 0.04;
 
-    if (mode !== stage5Navigation.mode || moved) {
+    if (mode !== collectiveNavigation.mode || moved) {
       lastSyncedCameraRef.current = position;
-      updateStage5Navigation({
+      updateCollectiveNavigation({
         mode,
         cameraPosition: position,
         cameraTarget: controlsRef.current
           ? [controlsRef.current.target.x, controlsRef.current.target.y, controlsRef.current.target.z]
-          : stage5Navigation.cameraTarget,
+          : collectiveNavigation.cameraTarget,
       });
     }
   });
@@ -144,13 +144,13 @@ function Stage5CameraStateSync({
     function onKeyDown(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
 
-      camera.position.set(...archiveVisualConfig.camera.stage5Position);
-      controlsRef.current?.target.set(...getStage5CameraTarget());
+      camera.position.set(...archiveVisualConfig.camera.collectivePosition);
+      controlsRef.current?.target.set(...getCollectiveCameraTarget());
       controlsRef.current?.update();
-      updateStage5NavigationRef.current({
+      updateCollectiveNavigationRef.current({
         mode: "overview",
-        cameraPosition: [...archiveVisualConfig.camera.stage5Position],
-        cameraTarget: getStage5CameraTarget(),
+        cameraPosition: [...archiveVisualConfig.camera.collectivePosition],
+        cameraTarget: getCollectiveCameraTarget(),
       });
     }
 
@@ -161,8 +161,8 @@ function Stage5CameraStateSync({
   return null;
 }
 
-export function StageScene() {
-  const { graph, selectNode, stage, stage5Navigation, updateStage5Navigation } = useArchiveStore();
+export function ArchiveScene() {
+  const { graph, selectNode, view, collectiveNavigation, updateCollectiveNavigation } = useArchiveStore();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const restartTimerRef = useRef<number | null>(null);
   const [canvasElement, setCanvasElement] = useState<HTMLCanvasElement | null>(null);
@@ -175,14 +175,14 @@ export function StageScene() {
     setCanvasElement(element);
   }, []);
   const handlePointerMissed = useCallback(() => {
-    if (stage !== 2) return;
+    if (view !== "collective") return;
     selectNode(null);
-    updateStage5Navigation({
+    updateCollectiveNavigation({
       selectedIdentityId: null,
       hoveredNodeId: null,
       hoveredTagLabel: null,
     });
-  }, [selectNode, stage, updateStage5Navigation]);
+  }, [selectNode, updateCollectiveNavigation, view]);
 
   useEffect(() => {
     if (!canvasElement) return undefined;
@@ -213,14 +213,14 @@ export function StageScene() {
 
   const canvasCamera = useMemo(
     () => ({
-      position: getCameraPositionForStage(stage, stage5Navigation),
+      position: getCameraPositionForStage(view, collectiveNavigation),
       fov: 45,
     }),
     [webglRestartVersion],
   );
 
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
-  if (!shouldRenderWebGLStage(stage)) return <div className="archive-2d-stage-backdrop" aria-hidden="true" />;
+  if (!shouldRenderWebGLStage(view)) return <div className="archive-2d-stage-backdrop" aria-hidden="true" />;
   if (!hasWebGL()) return <WebGLFallback />;
 
   return (
@@ -235,14 +235,14 @@ export function StageScene() {
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
-      {stage === 2 ? (
+      {view === "collective" ? (
         <>
           <pointLight position={[-5, 3, 7]} intensity={1.1} color={archiveVisualConfig.colors.shared} />
           <pointLight position={[5, -2, -6]} intensity={0.7} color={archiveVisualConfig.colors.tag} />
         </>
       ) : null}
-      {shouldRenderStage5AvatarField(stage) ? <Stage5AvatarField onShapePositions={handleShapePositions} /> : null}
-      {shouldRenderGraphOutsideStage5AvatarSuspense(stage) ? (
+      {shouldRenderCollectiveAvatarField(view) ? <CollectiveAvatarField onShapePositions={handleShapePositions} /> : null}
+      {shouldRenderGraphOutsideCollectiveAvatarSuspense(view) ? (
         <AvatarShapeProvider value={avatarShapePositions}>
           <RelationshipGraph3D graph={graph} />
         </AvatarShapeProvider>
@@ -251,11 +251,11 @@ export function StageScene() {
           <RelationshipGraph3D graph={graph} />
         </Suspense>
       )}
-      <Stage5CameraStateSync controlsRef={controlsRef} />
+      <CollectiveCameraStateSync controlsRef={controlsRef} />
       <OrbitControls
         ref={controlsRef}
         enableDamping
-        enablePan={!shouldDisableStage5Pan(stage)}
+        enablePan={!shouldDisableCollectivePan(view)}
         autoRotate={false}
         minDistance={archiveVisualConfig.camera.minDistance}
         maxDistance={archiveVisualConfig.camera.maxDistance}

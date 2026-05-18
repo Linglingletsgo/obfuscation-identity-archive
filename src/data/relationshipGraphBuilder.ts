@@ -1,5 +1,5 @@
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
-import { getAvatarAssetPath, getModelAssetPath } from "./archivePaths";
+import { getAvatarAssetPath, getCollectiveModelAssetPath } from "./archivePaths";
 import { normalizeEvents } from "./eventNormalization";
 import { withPosition } from "./layout3d";
 import type {
@@ -15,10 +15,6 @@ import type {
 
 function tagId(label: string): string {
   return `tag:${label}`;
-}
-
-function timelineId(id: string): string {
-  return `timeline:${id}`;
 }
 
 function collectiveId(id: string): string {
@@ -51,7 +47,7 @@ function createIdentityNode(node: SourceGraphNode): ArchiveGraphNode {
     tag_labels: uniqueLabels(node.tags),
     scores: {},
     events: [],
-    asset_path: getAvatarAssetPath({ stage: 0, submissionId: node.id }),
+    asset_path: getAvatarAssetPath({ submissionId: node.id }),
     visual: {
       size: archiveVisualConfig.graph.identityNodeSize,
       color_group: "identity",
@@ -96,47 +92,6 @@ function createTagNodes(sourceNodes: SourceGraphNode[]): ArchiveGraphNode[] {
     );
 }
 
-function createTimelineNode(item: TimelineItem): ArchiveGraphNode {
-  const assetPath =
-    item.stage === 0
-      ? getAvatarAssetPath({
-          stage: item.stage,
-          timelineItemId: item.timeline_item_id,
-          submissionId: item.source_ids[0],
-        })
-      : undefined;
-  const modelPath = item.stage === 2 ? getModelAssetPath({ stage: item.stage, timelineItemId: item.timeline_item_id }) : undefined;
-
-  return withPosition({
-    id: timelineId(item.timeline_item_id),
-    type: "timeline_item",
-    stage: item.stage,
-    anchor_id: item.anchor_id,
-    source_ids: item.source_ids,
-    identity_name: item.source_texts[0]?.identity_name,
-    carried_fragment: item.source_texts[0]?.carried_fragment,
-    tags: [],
-    tag_labels: item.active_tags_preview ?? [],
-    scores: item.scores ?? {},
-    events: normalizeEvents(item.events, "timeline"),
-    avatar_vector: item.avatar_vector,
-    avatar_tags: item.avatar_tags,
-    asset_path: assetPath,
-    model_path: modelPath,
-    visual: {
-      size: archiveVisualConfig.graph.timelineNodeSize,
-      color_group: "timeline",
-      opacity: 0.72,
-      label:
-        item.stage === 1 && typeof item.pressure_score === "number"
-          ? `${item.stage_name || "Cluster Body"} ${(item.pressure_score * 100).toFixed(0)}`
-          : item.stage_name || item.timeline_item_id,
-      node_shape: "custom",
-      node_style_key: `timeline-stage-${item.stage}`,
-    },
-  });
-}
-
 function createCollectiveNode(item: TimelineItem): ArchiveGraphNode {
   return withPosition({
     id: collectiveId(item.timeline_item_id),
@@ -150,7 +105,7 @@ function createCollectiveNode(item: TimelineItem): ArchiveGraphNode {
     events: normalizeEvents(item.events, "timeline"),
     avatar_vector: item.avatar_vector,
     avatar_tags: item.avatar_tags,
-    model_path: getModelAssetPath({ stage: 2 }),
+    model_path: getCollectiveModelAssetPath(),
     visual: {
       size: archiveVisualConfig.graph.collectiveNodeSize,
       color_group: "collective",
@@ -185,13 +140,13 @@ function addLink(
   links.push({ id: reserveLinkId(usedLinkIds, link, suffix), ...link });
 }
 
-function usesStage2ModelProjection(node: ArchiveGraphNode): boolean {
+function usesCollectiveModelProjection(node: ArchiveGraphNode): boolean {
   return node.type === "submission" || node.type === "tag" || node.type === "collective";
 }
 
-function withStage2ModelProjectionPlaceholders(nodes: ArchiveGraphNode[]): ArchiveGraphNode[] {
+function withCollectiveModelProjectionPlaceholders(nodes: ArchiveGraphNode[]): ArchiveGraphNode[] {
   return nodes.map((node) =>
-    usesStage2ModelProjection(node)
+    usesCollectiveModelProjection(node)
       ? {
           ...node,
           position: { x: 0, y: 0, z: 0 },
@@ -209,9 +164,7 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
   const usedLinkIds = new Set<string>();
   const addGraphLink = (link: Omit<ArchiveGraphLink, "id">, suffix = "") =>
     addLink(links, usedLinkIds, link, suffix);
-  const timelineItems = timeline.anchors.flatMap((anchor) => anchor.items);
-
-  nodes.push(...timelineItems.map(createTimelineNode), createCollectiveNode(timeline.global_collective_item));
+  nodes.push(createCollectiveNode(timeline.global_collective_item));
 
   for (const sourceNode of graph.nodes) {
     for (const label of uniqueLabels(sourceNode.tags)) {
@@ -256,32 +209,6 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
     });
   }
 
-  for (const item of timelineItems) {
-    for (const sourceId of item.source_ids) {
-      addGraphLink({
-        source: sourceId,
-        target: timelineId(item.timeline_item_id),
-        type: "source_membership",
-        weight: 1,
-        scores: item.scores ?? {},
-        events: normalizeEvents(item.events, "timeline"),
-        visual: { style_key: "source-membership", opacity: 0.34, thickness: 0.8, dash: false },
-      });
-    }
-
-    if (item.anchor_id) {
-      addGraphLink({
-        source: item.anchor_id,
-        target: timelineId(item.timeline_item_id),
-        type: "anchor_membership",
-        weight: 1,
-        scores: item.scores ?? {},
-        events: normalizeEvents(item.events, "timeline"),
-        visual: { style_key: "anchor-membership", opacity: 0.44, thickness: 1, dash: false },
-      });
-    }
-  }
-
   for (const sourceId of timeline.global_collective_item.source_ids) {
     addGraphLink({
       source: sourceId,
@@ -298,7 +225,7 @@ export function buildArchiveGraph(graph: SourceInteractionGraph, timeline: Sourc
   const validLinks = links.filter((link) => validIds.has(link.source) && validIds.has(link.target));
 
   return {
-    nodes: withStage2ModelProjectionPlaceholders(nodes),
+    nodes: withCollectiveModelProjectionPlaceholders(nodes),
     links: validLinks,
     metadata: {
       layout: "stage2-model-sampled-avatar-map",

@@ -1,8 +1,8 @@
 import { useArchiveStore } from "../state/archiveStore";
 
 export function Graph3DDetailPanel() {
-  const { selectedNode, stage } = useArchiveStore();
-  if (stage !== 2 || !selectedNode || selectedNode.type === "tag") return null;
+  const { selectedNode, view } = useArchiveStore();
+  if (view !== "collective" || !selectedNode || selectedNode.type === "tag") return null;
 
   return (
     <aside className="detail-panel" aria-label="Selected archive node">

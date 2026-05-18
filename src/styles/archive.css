@@ -195,7 +195,7 @@ select {
   background: rgba(255, 255, 255, 0.42);
 }
 
-.stage-detail-avatar-scene {
+.individual-avatar-scene {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -338,7 +338,7 @@ select {
   border-radius: 999px;
 }
 
-.stage5-identity-overlay {
+.collective-identity-overlay {
   position: absolute;
   bottom: 18px;
   left: 50%;
@@ -355,13 +355,13 @@ select {
   transform: translateX(-50%);
 }
 
-.stage5-identity-overlay strong,
-.stage5-identity-overlay p {
+.collective-identity-overlay strong,
+.collective-identity-overlay p {
   max-width: min(480px, 62vw);
   overflow-wrap: anywhere;
 }
 
-.stage5-identity-overlay p {
+.collective-identity-overlay p {
   margin: 3px 0;
 }
 

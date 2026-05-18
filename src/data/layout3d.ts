@@ -1,4 +1,4 @@
-import type { ArchiveGraphNode, ArchiveStage } from "../types/archive";
+import type { ArchiveGraphNode, SourceStage } from "../types/archive";
 
 function hashString(value: string): number {
   let hash = 2166136261;
@@ -13,12 +13,12 @@ function normalizedHash(value: string): number {
   return hashString(value) / 4294967295;
 }
 
-export function semanticStageZ(stage: ArchiveStage | undefined): number {
+export function semanticStageZ(stage: SourceStage | undefined): number {
   if (stage === undefined) return 0;
-  return [-7, -4, -1.5, 1.5, 4, 7][stage];
+  return [-4, 0, 4][stage];
 }
 
-export function deterministicPosition(id: string, stage: ArchiveStage | undefined, radius = 7) {
+export function deterministicPosition(id: string, stage: SourceStage | undefined, radius = 7) {
   const angle = normalizedHash(`${id}:angle`) * Math.PI * 2;
   const localRadius = radius * (0.35 + normalizedHash(`${id}:radius`) * 0.65);
   const y = (normalizedHash(`${id}:y`) - 0.5) * radius;

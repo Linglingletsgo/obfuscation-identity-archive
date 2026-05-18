@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
-  createStage2ModelPartGeometry,
-  createStage2ModelPointGeometry,
-  createStage2ModelPointMaterial,
-} from "./Stage2ModelPointCloud";
+  createCollectiveModelPartGeometry,
+  createCollectiveModelPointGeometry,
+  createCollectiveModelPointMaterial,
+} from "./CollectiveModelPointCloud";
 
-describe("Stage2ModelPointCloud", () => {
+describe("CollectiveModelPointCloud", () => {
   it("creates one GPU point geometry with color and seed attributes", () => {
-    const geometry = createStage2ModelPointGeometry(
+    const geometry = createCollectiveModelPointGeometry(
       new Float32Array([0, 0, 0, 1, 1, 1]),
       new Float32Array([1, 0, 0, 0, 1, 0]),
     );
@@ -22,7 +22,7 @@ describe("Stage2ModelPointCloud", () => {
   });
 
   it("can preserve GLB part accents as GPU attributes", () => {
-    const geometry = createStage2ModelPartGeometry(
+    const geometry = createCollectiveModelPartGeometry(
       new Float32Array([0, 0, 0, 1, 1, 1]),
       new Float32Array([1, 0, 0, 0, 1, 0]),
       new Float32Array([0.8, 0.4, 0.2, 0.2, 0.5, 0.9]),
@@ -38,7 +38,7 @@ describe("Stage2ModelPointCloud", () => {
   });
 
   it("uses shader uniforms for local interaction instead of per-point meshes", () => {
-    const material = createStage2ModelPointMaterial();
+    const material = createCollectiveModelPointMaterial();
 
     expect(material.uniforms.uRayOrigin).toBeDefined();
     expect(material.uniforms.uRayDirection).toBeDefined();

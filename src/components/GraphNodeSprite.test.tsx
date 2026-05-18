@@ -34,7 +34,7 @@ describe("getNodeSpriteSpec", () => {
     expect(getNodeSpriteSpec(node("tag")).opacity).toBeLessThan(0.8);
   });
 
-  it("creates depth-independent graph sprites that cannot be culled away in Stage5", () => {
+  it("creates depth-independent graph sprites that cannot be culled away in collective", () => {
     const sprite = configureGraphNodeSpriteObject(new Sprite(new SpriteMaterial()));
 
     expect(sprite.frustumCulled).toBe(false);

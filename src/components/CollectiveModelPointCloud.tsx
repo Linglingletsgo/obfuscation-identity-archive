@@ -59,7 +59,7 @@ function createSeeds(pointCount: number): Float32Array {
   return seeds;
 }
 
-export function createStage2ModelPointGeometry(positions: Float32Array, colors: Float32Array): THREE.BufferGeometry {
+export function createCollectiveModelPointGeometry(positions: Float32Array, colors: Float32Array): THREE.BufferGeometry {
   const geometry = new THREE.BufferGeometry();
   const pointCount = Math.floor(positions.length / 3);
   geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
@@ -71,19 +71,19 @@ export function createStage2ModelPointGeometry(positions: Float32Array, colors: 
   return geometry;
 }
 
-export function createStage2ModelPartGeometry(
+export function createCollectiveModelPartGeometry(
   positions: Float32Array,
   colors: Float32Array,
   partColors: Float32Array,
   partIds: Float32Array,
 ): THREE.BufferGeometry {
-  const geometry = createStage2ModelPointGeometry(positions, colors);
+  const geometry = createCollectiveModelPointGeometry(positions, colors);
   geometry.setAttribute("partColor", new THREE.BufferAttribute(partColors, 3));
   geometry.setAttribute("partId", new THREE.BufferAttribute(partIds, 1));
   return geometry;
 }
 
-export function createStage2ModelPointMaterial(): THREE.ShaderMaterial {
+export function createCollectiveModelPointMaterial(): THREE.ShaderMaterial {
   return new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -100,7 +100,7 @@ export function createStage2ModelPointMaterial(): THREE.ShaderMaterial {
   });
 }
 
-export function Stage2ModelPointCloud({
+export function CollectiveModelPointCloud({
   colors,
   partColors,
   partIds,
@@ -116,10 +116,10 @@ export function Stage2ModelPointCloud({
   const velocityRef = useRef(0);
   const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
   const geometry = useMemo(
-    () => createStage2ModelPartGeometry(positions, colors, partColors, partIds),
+    () => createCollectiveModelPartGeometry(positions, colors, partColors, partIds),
     [colors, partColors, partIds, positions],
   );
-  const material = useMemo(() => createStage2ModelPointMaterial(), []);
+  const material = useMemo(() => createCollectiveModelPointMaterial(), []);
 
   useEffect(
     () => () => {

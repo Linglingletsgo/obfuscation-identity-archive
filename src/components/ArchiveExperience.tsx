@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { loadArchiveSources } from "../data/archiveLoaders";
 import { buildArchiveGraph } from "../data/relationshipGraphBuilder";
 import { useArchiveStore } from "../state/archiveStore";
-import { BranchingTimeline } from "./BranchingTimeline";
 import { Graph3DControls } from "./Graph3DControls";
-import { StageDetailAvatarScene } from "./StageDetailAvatarScene";
-import { Stage5IdentityOverlay } from "./Stage5IdentityOverlay";
-import { StageScene } from "./StageScene";
+import { IndividualAvatarScene } from "./IndividualAvatarScene";
+import { CollectiveIdentityOverlay } from "./CollectiveIdentityOverlay";
+import { ArchiveScene } from "./ArchiveScene";
 
 export function ArchiveExperience() {
-  const { graph, setGraph, setTimeline, stage } = useArchiveStore();
+  const { graph, setGraph, setTimeline, view } = useArchiveStore();
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [message, setMessage] = useState("Loading archive data");
 
@@ -47,14 +46,13 @@ export function ArchiveExperience() {
   }
 
   return (
-    <section className="archive-experience" data-stage={stage}>
+    <section className="archive-experience" data-view={view}>
       <div className="archive-scene-shell">
-        <StageScene />
+        <ArchiveScene />
       </div>
-      <StageDetailAvatarScene />
+      <IndividualAvatarScene />
       <Graph3DControls />
-      <Stage5IdentityOverlay identities={graph?.nodes.filter((node) => node.type === "submission") ?? []} />
-      <BranchingTimeline />
+      <CollectiveIdentityOverlay identities={graph?.nodes.filter((node) => node.type === "submission") ?? []} />
     </section>
   );
 }

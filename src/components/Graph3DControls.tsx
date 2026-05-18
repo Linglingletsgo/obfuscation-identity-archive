@@ -2,8 +2,8 @@ import { RotateCcw } from "lucide-react";
 import { useArchiveStore } from "../state/archiveStore";
 
 export function Graph3DControls() {
-  const { filters, openCollective, setFilters, stage } = useArchiveStore();
-  if (stage !== 2) return null;
+  const { filters, openCollective, setFilters, view } = useArchiveStore();
+  if (view !== "collective") return null;
 
   return (
     <aside className="graph-controls" aria-label="Archive graph controls">

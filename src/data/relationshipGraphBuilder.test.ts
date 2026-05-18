@@ -44,7 +44,7 @@ const graph: SourceInteractionGraph = {
 
 const timeline: SourceTimeline = {
   global_collective_item: {
-    timeline_item_id: "global_stage5_collective",
+    timeline_item_id: "global_collective",
     anchor_id: null,
     stage: 2,
     source_ids: ["submission_a", "submission_b"],
@@ -76,13 +76,13 @@ const timeline: SourceTimeline = {
 };
 
 describe("buildArchiveGraph", () => {
-  it("creates identity, unique tag, timeline, and collective nodes", () => {
+  it("creates identity, unique tag, and collective nodes", () => {
     const result = buildArchiveGraph(graph, timeline);
 
     expect(result.nodes.some((node) => node.id === "submission_a" && node.type === "submission")).toBe(true);
     expect(result.nodes.some((node) => node.id === "tag:Dream" && node.type === "tag")).toBe(true);
-    expect(result.nodes.some((node) => node.id === "timeline:submission_a_stage0_000")).toBe(true);
-    expect(result.nodes.some((node) => node.id === "collective:global_stage5_collective")).toBe(true);
+    expect(result.nodes.some((node) => node.type === "timeline_item")).toBe(false);
+    expect(result.nodes.some((node) => node.id === "collective:global_collective")).toBe(true);
   });
 
   it("creates shared, conflict, interaction, and source membership links with valid endpoints", () => {
@@ -114,7 +114,7 @@ describe("buildArchiveGraph", () => {
     expect(first.nodes.map((node) => node.position)).toEqual(second.nodes.map((node) => node.position));
   });
 
-  it("leaves Stage2 graph nodes at model-projection placeholders", () => {
+  it("leaves collective graph nodes at model-projection placeholders", () => {
     const result = buildArchiveGraph(graph, timeline);
     const stage2Nodes = result.nodes.filter(
       (node) => node.type === "submission" || node.type === "tag" || node.type === "collective",

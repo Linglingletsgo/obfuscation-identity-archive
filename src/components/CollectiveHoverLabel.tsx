@@ -1,7 +1,7 @@
 import { Html } from "@react-three/drei";
 import type { ArchiveGraphNode } from "../types/archive";
 
-export function Stage5HoverLabel({ node }: { node: ArchiveGraphNode | null }) {
+export function CollectiveHoverLabel({ node }: { node: ArchiveGraphNode | null }) {
   if (!node || node.type !== "tag") return null;
 
   return (

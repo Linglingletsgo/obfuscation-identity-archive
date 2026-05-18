@@ -101,7 +101,7 @@ describe("avatarShape", () => {
     expect(Math.hypot(projected.x, projected.y, projected.z)).toBeLessThanOrEqual(5);
   });
 
-  it("uses id-seeded surface positions so Stage5 graph nodes cover the upper avatar volume", () => {
+  it("uses id-seeded surface positions so collective graph nodes cover the upper avatar volume", () => {
     const surface = new Float32Array([0, 10, 0, 0, -4, 0, 2, 0, 0]);
     const projected = Array.from({ length: 24 }, (_, index) =>
       projectNodeIntoAvatarShape(
@@ -118,7 +118,7 @@ describe("avatarShape", () => {
     expect(projected.some((node) => node.y < 0)).toBe(true);
   });
 
-  it("can distribute sparse Stage5 graph nodes through the avatar height", () => {
+  it("can distribute sparse collective graph nodes through the avatar height", () => {
     const surface = new Float32Array([0, 10, 0, 0, 4, 0, 0, -4, 0, 0, -10, 0]);
     const projected = Array.from({ length: 4 }, (_, index) =>
       projectNodeIntoAvatarShape(

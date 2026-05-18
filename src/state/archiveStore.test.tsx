@@ -3,40 +3,40 @@ import { describe, expect, it } from "vitest";
 import { ArchiveProvider, useArchiveStore } from "./archiveStore";
 
 describe("archive store", () => {
-  it("starts in Stage2 overview mode", () => {
+  it("starts in collective overview mode", () => {
     const { result } = renderHook(() => useArchiveStore(), { wrapper: ArchiveProvider });
 
-    expect(result.current.stage).toBe(2);
-    expect(result.current.stage5Navigation.mode).toBe("overview");
+    expect(result.current.view).toBe("collective");
+    expect(result.current.collectiveNavigation.mode).toBe("overview");
     expect(result.current.selectedIdentityId).toBeNull();
   });
 
-  it("selects identity in Stage2 without entering Stage0", () => {
+  it("selects identity in collective without entering individual", () => {
     const { result } = renderHook(() => useArchiveStore(), { wrapper: ArchiveProvider });
 
     act(() => result.current.previewIdentity("submission_a"));
 
-    expect(result.current.stage).toBe(2);
-    expect(result.current.stage5Navigation.selectedIdentityId).toBe("submission_a");
+    expect(result.current.view).toBe("collective");
+    expect(result.current.collectiveNavigation.selectedIdentityId).toBe("submission_a");
     expect(result.current.selectedIdentityId).toBeNull();
   });
 
-  it("enters Stage0 only through explicit identity detail action", () => {
+  it("enters individual only through explicit identity detail action", () => {
     const { result } = renderHook(() => useArchiveStore(), { wrapper: ArchiveProvider });
 
     act(() => result.current.previewIdentity("submission_a"));
     act(() => result.current.enterIdentityDetail("submission_a"));
 
-    expect(result.current.stage).toBe(0);
+    expect(result.current.view).toBe("individual");
     expect(result.current.selectedIdentityId).toBe("submission_a");
-    expect(result.current.stage5Navigation.selectedIdentityId).toBe("submission_a");
+    expect(result.current.collectiveNavigation.selectedIdentityId).toBe("submission_a");
   });
 
-  it("returns to Stage2 while preserving internal navigation state", () => {
+  it("returns to collective while preserving internal navigation state", () => {
     const { result } = renderHook(() => useArchiveStore(), { wrapper: ArchiveProvider });
 
     act(() =>
-      result.current.updateStage5Navigation({
+      result.current.updateCollectiveNavigation({
         mode: "internal",
         selectedIdentityId: "submission_a",
         cameraPosition: [1, 2, 3],
@@ -46,9 +46,9 @@ describe("archive store", () => {
     act(() => result.current.enterIdentityDetail("submission_a"));
     act(() => result.current.openCollective());
 
-    expect(result.current.stage).toBe(2);
-    expect(result.current.stage5Navigation.mode).toBe("internal");
-    expect(result.current.stage5Navigation.cameraPosition).toEqual([1, 2, 3]);
-    expect(result.current.stage5Navigation.selectedIdentityId).toBe("submission_a");
+    expect(result.current.view).toBe("collective");
+    expect(result.current.collectiveNavigation.mode).toBe("internal");
+    expect(result.current.collectiveNavigation.cameraPosition).toEqual([1, 2, 3]);
+    expect(result.current.collectiveNavigation.selectedIdentityId).toBe("submission_a");
   });
 });

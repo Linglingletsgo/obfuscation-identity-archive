@@ -4,10 +4,10 @@ import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { projectNodeIntoAvatarShape } from "../data/avatarShape";
 import { useArchiveStore } from "../state/archiveStore";
-import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode, ArchiveStage } from "../types/archive";
+import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode, ArchiveView } from "../types/archive";
 import { GraphNodeSprite } from "./GraphNodeSprite";
 import { IdentityBillboardLabel } from "./IdentityBillboardLabel";
-import { Stage5HoverLabel } from "./Stage5HoverLabel";
+import { CollectiveHoverLabel } from "./CollectiveHoverLabel";
 import { useAvatarShapePositions } from "./AvatarShapeContext";
 
 type SearchableNode = Pick<
@@ -16,9 +16,8 @@ type SearchableNode = Pick<
 >;
 
 type StageScope = {
-  stage: ArchiveStage;
+  view: ArchiveView;
   selectedIdentityId: string | null;
-  selectedTimelineItemId: string | null;
 };
 
 type GraphRenderPolicy = {
@@ -34,7 +33,7 @@ export function shouldRenderGraphLink(link: ArchiveGraphLink, focusedNodeId: str
   return focusedNodeId === link.source || focusedNodeId === link.target;
 }
 
-function shouldRenderStage5GraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
+function shouldRenderCollectiveGraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
   if (!focusedNodeId) {
     return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag";
   }
@@ -43,7 +42,7 @@ function shouldRenderStage5GraphLink(link: ArchiveGraphLink, focusedNodeId: stri
   return shouldRenderGraphLink(link, focusedNodeId);
 }
 
-export function getStage2LinkOpacity(link: ArchiveGraphLink, focusedNodeId: string | null): number {
+export function getCollectiveLinkOpacity(link: ArchiveGraphLink, focusedNodeId: string | null): number {
   if (!focusedNodeId) {
     return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag" ? 0.12 : 0;
   }
@@ -53,32 +52,32 @@ export function getStage2LinkOpacity(link: ArchiveGraphLink, focusedNodeId: stri
   return link.visual.opacity;
 }
 
-export function getGraphLinkStyle(link: ArchiveGraphLink, stage: ArchiveStage, focusedNodeId: string | null) {
-  const stage2Opacity = stage === 2 ? getStage2LinkOpacity(link, focusedNodeId) : link.visual.opacity;
+export function getGraphLinkStyle(link: ArchiveGraphLink, view: ArchiveView, focusedNodeId: string | null) {
+  const collectiveOpacity = view === "collective" ? getCollectiveLinkOpacity(link, focusedNodeId) : link.visual.opacity;
 
   if (link.type === "shared_tag") {
     return {
-      color: stage === 2 ? "#42d6b3" : archiveVisualConfig.colors.tag,
-      lineWidth: stage === 2 ? 0.7 : 0.7,
-      opacity: stage2Opacity,
+      color: view === "collective" ? "#42d6b3" : archiveVisualConfig.colors.tag,
+      lineWidth: 0.7,
+      opacity: collectiveOpacity,
       dashed: false,
     };
   }
 
   if (link.type === "interaction") {
     return {
-      color: stage === 2 ? "#1f6fff" : archiveVisualConfig.colors.shared,
-      lineWidth: stage === 2 ? 0.7 : 1,
-      opacity: stage2Opacity,
+      color: view === "collective" ? "#1f6fff" : archiveVisualConfig.colors.shared,
+      lineWidth: view === "collective" ? 0.7 : 1,
+      opacity: collectiveOpacity,
       dashed: false,
     };
   }
 
   if (link.type === "conflict_tag") {
     return {
-      color: stage === 2 ? "#ff5c7a" : archiveVisualConfig.colors.conflict,
-      lineWidth: stage === 2 ? 0.7 : 1,
-      opacity: stage2Opacity,
+      color: view === "collective" ? "#ff5c7a" : archiveVisualConfig.colors.conflict,
+      lineWidth: view === "collective" ? 0.7 : 1,
+      opacity: collectiveOpacity,
       dashed: true,
     };
   }
@@ -86,13 +85,13 @@ export function getGraphLinkStyle(link: ArchiveGraphLink, stage: ArchiveStage, f
   return {
     color: archiveVisualConfig.colors.timeline,
     lineWidth: Math.max(0.35, link.visual.thickness),
-    opacity: stage2Opacity,
+    opacity: collectiveOpacity,
     dashed: link.visual.dash,
   };
 }
 
-export function getGraphRenderPolicy(stage: ArchiveStage): GraphRenderPolicy {
-  if (stage === 2) {
+export function getGraphRenderPolicy(view: ArchiveView): GraphRenderPolicy {
+  if (view === "collective") {
     return {
       depthTest: false,
       depthWrite: false,
@@ -109,8 +108,8 @@ export function getGraphRenderPolicy(stage: ArchiveStage): GraphRenderPolicy {
   };
 }
 
-export function shouldDisplayGraphLink(link: ArchiveGraphLink, stage: ArchiveStage, focusedNodeId: string | null, linkDensity: number): boolean {
-  if (stage === 2) return getGraphLinkStyle(link, stage, focusedNodeId).opacity > 0;
+export function shouldDisplayGraphLink(link: ArchiveGraphLink, view: ArchiveView, focusedNodeId: string | null, linkDensity: number): boolean {
+  if (view === "collective") return getGraphLinkStyle(link, view, focusedNodeId).opacity > 0;
   return link.visual.opacity <= linkDensity + 0.4;
 }
 
@@ -124,39 +123,16 @@ export function getNodeOpacityMultiplier(node: SearchableNode, query: string): n
   return matches ? 1 : 0.16;
 }
 
-function timelineNodeMatchesSelection(node: ArchiveGraphNode, scope: StageScope): boolean {
-  if (node.type !== "timeline_item" || node.stage !== scope.stage) return false;
-  if (!scope.selectedIdentityId || !node.source_ids.includes(scope.selectedIdentityId)) return false;
-  if (!scope.selectedTimelineItemId) return true;
-  return node.id === `timeline:${scope.selectedTimelineItemId}` || node.id === scope.selectedTimelineItemId;
-}
-
-function timelineTagLabels(node: ArchiveGraphNode | undefined): Set<string> {
-  const labels = new Set(node?.tag_labels ?? []);
-  for (const values of Object.values(node?.avatar_tags ?? {})) {
-    for (const label of values) labels.add(label);
-  }
-  return labels;
-}
-
-export function getStageScopedGraphNodes(graph: ArchiveGraph, scope: StageScope): ArchiveGraphNode[] {
-  if (scope.stage === 2) {
+export function getViewScopedGraphNodes(graph: ArchiveGraph, scope: StageScope): ArchiveGraphNode[] {
+  if (scope.view === "collective") {
     return graph.nodes.filter(
       (node) => node.type === "submission" || node.type === "tag" || node.type === "collective",
     );
   }
 
   if (!scope.selectedIdentityId) return [];
-
-  const selectedTimelineNode =
-    graph.nodes.find((node) => timelineNodeMatchesSelection(node, scope)) ??
-    graph.nodes.find(
-      (node) =>
-        node.type === "timeline_item" &&
-        node.stage === scope.stage &&
-        node.source_ids.includes(scope.selectedIdentityId ?? ""),
-    );
-  const activeTags = timelineTagLabels(selectedTimelineNode);
+  const selectedIdentityNode = graph.nodes.find((node) => node.id === scope.selectedIdentityId);
+  const activeTags = new Set(selectedIdentityNode?.tag_labels ?? []);
 
   return graph.nodes.filter((node) => {
     if (node.type !== "tag") return false;
@@ -164,46 +140,45 @@ export function getStageScopedGraphNodes(graph: ArchiveGraph, scope: StageScope)
   });
 }
 
-export function getStageScopedGraphLinks(
+export function getViewScopedGraphLinks(
   graph: ArchiveGraph,
   scopedNodes: ArchiveGraphNode[],
   focusedNodeId: string | null,
-  stage?: ArchiveStage,
+  view: ArchiveView,
 ): ArchiveGraphLink[] {
   const visibleIds = new Set(scopedNodes.map((node) => node.id));
-  const currentStage = stage ?? (scopedNodes.some((node) => node.type === "timeline_item") ? 0 : 2);
 
   return graph.links.filter((link) => {
     if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
-    if (currentStage === 2) return shouldRenderStage5GraphLink(link, focusedNodeId);
+    if (view === "collective") return shouldRenderCollectiveGraphLink(link, focusedNodeId);
     return false;
   });
 }
 
 export function shouldShowIdentityBillboard(
   node: Pick<ArchiveGraphNode, "id" | "type">,
-  context: { stage: ArchiveStage; focusedNodeId: string | null },
+  context: { view: ArchiveView; focusedNodeId: string | null },
 ): boolean {
-  return node.type === "submission" && context.stage === 2;
+  return node.type === "submission" && context.view === "collective";
 }
 
 export function shouldShowTagLabel(
   node: Pick<ArchiveGraphNode, "id" | "type">,
-  context: { stage: ArchiveStage; focusedNodeId: string | null },
+  context: { view: ArchiveView; focusedNodeId: string | null },
 ): boolean {
   if (node.type !== "tag") return false;
-  return context.stage !== 2 || context.focusedNodeId === node.id;
+  return context.view !== "collective" || context.focusedNodeId === node.id;
 }
 
-export function shouldSelectNodeOnStage2Hover(
+export function shouldSelectNodeOnCollectiveHover(
   node: Pick<ArchiveGraphNode, "type">,
-  stage: ArchiveStage,
+  view: ArchiveView,
 ): boolean {
-  return stage !== 2 && node.type !== "tag";
+  return view !== "collective" && node.type !== "tag";
 }
 
-export function shouldStage2NodeClickLock(node: Pick<ArchiveGraphNode, "type">, stage: ArchiveStage): boolean {
-  return stage === 2 && (node.type === "submission" || node.type === "tag" || node.type === "collective");
+export function shouldCollectiveNodeClickLock(node: Pick<ArchiveGraphNode, "type">, view: ArchiveView): boolean {
+  return view === "collective" && (node.type === "submission" || node.type === "tag" || node.type === "collective");
 }
 
 export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
@@ -212,21 +187,20 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
     previewIdentity,
     selectNode,
     selectedIdentityId,
-    selectedTimelineItemId,
-    stage,
-    stage5Navigation,
-    updateStage5Navigation,
+    view,
+    collectiveNavigation,
+    updateCollectiveNavigation,
   } = useArchiveStore();
   const avatarShapePositions = useAvatarShapePositions();
   const query = filters.query.trim().toLowerCase();
-  const focusedNodeId = stage5Navigation.hoveredNodeId || stage5Navigation.selectedIdentityId;
+  const focusedNodeId = collectiveNavigation.hoveredNodeId || collectiveNavigation.selectedIdentityId;
   const scopedNodes = useMemo(
-    () => getStageScopedGraphNodes(graph, { stage, selectedIdentityId, selectedTimelineItemId }),
-    [graph, selectedIdentityId, selectedTimelineItemId, stage],
+    () => getViewScopedGraphNodes(graph, { view, selectedIdentityId }),
+    [graph, selectedIdentityId, view],
   );
   const shapedNodes = useMemo(
     () => {
-      if (stage !== 2) return scopedNodes;
+      if (view !== "collective") return scopedNodes;
       if (!avatarShapePositions || avatarShapePositions.length < 3) return [];
 
       const projectedNodeIndexById = new Map<string, { index: number; total: number }>();
@@ -252,7 +226,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
         };
       });
     },
-    [avatarShapePositions, scopedNodes, stage],
+    [avatarShapePositions, scopedNodes, view],
   );
   const nodeById = useMemo(() => new Map(shapedNodes.map((node) => [node.id, node])), [shapedNodes]);
   const hoveredNode = focusedNodeId ? nodeById.get(focusedNodeId) ?? null : null;
@@ -265,10 +239,10 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
     });
   }, [filters.tag, shapedNodes]);
 
-  const visibleLinks = getStageScopedGraphLinks(graph, visibleNodes, focusedNodeId, stage).filter(
-    (link) => shouldDisplayGraphLink(link, stage, focusedNodeId, filters.linkDensity),
+  const visibleLinks = getViewScopedGraphLinks(graph, visibleNodes, focusedNodeId, view).filter(
+    (link) => shouldDisplayGraphLink(link, view, focusedNodeId, filters.linkDensity),
   );
-  const graphRenderPolicy = getGraphRenderPolicy(stage);
+  const graphRenderPolicy = getGraphRenderPolicy(view);
 
   return (
     <group frustumCulled={graphRenderPolicy.frustumCulled} renderOrder={graphRenderPolicy.renderOrder}>
@@ -276,7 +250,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
         const source = nodeById.get(link.source);
         const target = nodeById.get(link.target);
         if (!source || !target) return null;
-        const linkStyle = getGraphLinkStyle(link, stage, focusedNodeId);
+        const linkStyle = getGraphLinkStyle(link, view, focusedNodeId);
 
         return (
           <Line
@@ -305,25 +279,25 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
           node={node}
           opacityMultiplier={getNodeOpacityMultiplier(node, query)}
           onPointerOver={() => {
-            if (shouldSelectNodeOnStage2Hover(node, stage)) selectNode(node);
-            updateStage5Navigation({
+            if (shouldSelectNodeOnCollectiveHover(node, view)) selectNode(node);
+            updateCollectiveNavigation({
               hoveredNodeId: node.id,
               hoveredTagLabel: node.type === "tag" ? node.visual.label : null,
             });
           }}
           onPointerOut={() => {
-            updateStage5Navigation({ hoveredNodeId: null, hoveredTagLabel: null });
+            updateCollectiveNavigation({ hoveredNodeId: null, hoveredTagLabel: null });
           }}
           onClick={() => {
-            if (stage !== 2) {
+            if (view !== "collective") {
               selectNode(node);
               if (node.type === "submission") previewIdentity(node.id);
               return;
             }
 
-            if (shouldStage2NodeClickLock(node, stage)) {
+            if (shouldCollectiveNodeClickLock(node, view)) {
               selectNode(node);
-              updateStage5Navigation({ selectedIdentityId: node.id });
+              updateCollectiveNavigation({ selectedIdentityId: node.id });
               if (node.type === "submission") previewIdentity(node.id);
             }
           }}
@@ -334,17 +308,17 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
           key={`${node.id}:label`}
           node={node}
           onClick={() => {
-            if (!shouldStage2NodeClickLock(node, stage)) return;
+            if (!shouldCollectiveNodeClickLock(node, view)) return;
             selectNode(node);
-            updateStage5Navigation({ selectedIdentityId: node.id });
+            updateCollectiveNavigation({ selectedIdentityId: node.id });
             if (node.type === "submission") previewIdentity(node.id);
           }}
-          visible={shouldShowIdentityBillboard(node, { stage, focusedNodeId })}
+          visible={shouldShowIdentityBillboard(node, { view, focusedNodeId })}
         />
       ))}
       {visibleNodes.map((node) =>
-        shouldShowTagLabel(node, { stage, focusedNodeId }) ? (
-          <Stage5HoverLabel key={`${node.id}:tag-label`} node={node} />
+        shouldShowTagLabel(node, { view, focusedNodeId }) ? (
+          <CollectiveHoverLabel key={`${node.id}:tag-label`} node={node} />
         ) : null,
       )}
     </group>

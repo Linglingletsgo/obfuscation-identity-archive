@@ -1,11 +1,11 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import type {
+  ArchiveView,
   ArchiveGraph,
   ArchiveGraphNode,
-  ArchiveStage,
   SourceTimeline,
-  Stage5NavigationState,
+  CollectiveNavigationState,
 } from "../types/archive";
 
 type ArchiveFilters = {
@@ -16,23 +16,21 @@ type ArchiveFilters = {
 };
 
 type ArchiveStore = {
-  stage: ArchiveStage;
+  view: ArchiveView;
   selectedIdentityId: string | null;
-  selectedTimelineItemId: string | null;
   selectedNode: ArchiveGraphNode | null;
   graph: ArchiveGraph | null;
   timeline: SourceTimeline | null;
-  stage5Navigation: Stage5NavigationState;
+  collectiveNavigation: CollectiveNavigationState;
   filters: ArchiveFilters;
   setGraph: (graph: ArchiveGraph) => void;
   setTimeline: (timeline: SourceTimeline) => void;
   openIdentity: (identityId: string) => void;
-  openStage: (stage: ArchiveStage, timelineItemId?: string) => void;
   openCollective: () => void;
   previewIdentity: (identityId: string) => void;
   enterIdentityDetail: (identityId: string) => void;
   selectNode: (node: ArchiveGraphNode | null) => void;
-  updateStage5Navigation: (next: Partial<Stage5NavigationState>) => void;
+  updateCollectiveNavigation: (next: Partial<CollectiveNavigationState>) => void;
   setFilters: (filters: Partial<ArchiveFilters>) => void;
 };
 
@@ -45,72 +43,64 @@ const initialFilters: ArchiveFilters = {
   showIsolated: true,
 };
 
-const initialStage5Navigation: Stage5NavigationState = {
+const initialCollectiveNavigation: CollectiveNavigationState = {
   mode: "overview",
   selectedIdentityId: null,
   hoveredNodeId: null,
   hoveredTagLabel: null,
-  cameraPosition: [...archiveVisualConfig.camera.stage5Position],
+  cameraPosition: [...archiveVisualConfig.camera.collectivePosition],
   cameraTarget: [0, 0, 0],
 };
 
 export function ArchiveProvider({ children }: { children: ReactNode }) {
-  const [stage, setStage] = useState<ArchiveStage>(2);
+  const [view, setView] = useState<ArchiveView>("collective");
   const [selectedIdentityId, setSelectedIdentityId] = useState<string | null>(null);
-  const [selectedTimelineItemId, setSelectedTimelineItemId] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<ArchiveGraphNode | null>(null);
   const [graph, setGraph] = useState<ArchiveGraph | null>(null);
   const [timeline, setTimeline] = useState<SourceTimeline | null>(null);
-  const [stage5Navigation, setStage5Navigation] = useState<Stage5NavigationState>(initialStage5Navigation);
+  const [collectiveNavigation, setCollectiveNavigation] =
+    useState<CollectiveNavigationState>(initialCollectiveNavigation);
   const [filters, setFilterState] = useState<ArchiveFilters>(initialFilters);
 
   const value = useMemo<ArchiveStore>(
     () => ({
-      stage,
+      view,
       selectedIdentityId,
-      selectedTimelineItemId,
       selectedNode,
       graph,
       timeline,
-      stage5Navigation,
+      collectiveNavigation,
       filters,
       setGraph,
       setTimeline,
       openIdentity(identityId) {
         setSelectedIdentityId(identityId);
-        setSelectedTimelineItemId(null);
-        setStage(0);
-      },
-      openStage(nextStage, timelineItemId) {
-        setStage(nextStage);
-        setSelectedTimelineItemId(timelineItemId ?? null);
+        setView("individual");
       },
       openCollective() {
-        setStage(2);
-        setSelectedTimelineItemId(null);
+        setView("collective");
       },
       previewIdentity(identityId) {
-        setStage5Navigation((current) => ({
+        setCollectiveNavigation((current) => ({
           ...current,
           selectedIdentityId: identityId,
         }));
       },
       enterIdentityDetail(identityId) {
         setSelectedIdentityId(identityId);
-        setSelectedTimelineItemId(null);
-        setStage(0);
+        setView("individual");
       },
       selectNode(node) {
         setSelectedNode(node);
       },
-      updateStage5Navigation(next) {
-        setStage5Navigation((current) => ({ ...current, ...next }));
+      updateCollectiveNavigation(next) {
+        setCollectiveNavigation((current) => ({ ...current, ...next }));
       },
       setFilters(next) {
         setFilterState((current) => ({ ...current, ...next }));
       },
     }),
-    [filters, graph, selectedIdentityId, selectedNode, selectedTimelineItemId, stage, stage5Navigation, timeline],
+    [collectiveNavigation, filters, graph, selectedIdentityId, selectedNode, timeline, view],
   );
 
   return <ArchiveContext.Provider value={value}>{children}</ArchiveContext.Provider>;

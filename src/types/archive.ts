@@ -1,4 +1,5 @@
-export type ArchiveStage = 0 | 1 | 2;
+export type SourceStage = 0 | 1 | 2;
+export type ArchiveView = "collective" | "individual";
 
 export type SourceGraphTag = {
   label: string;
@@ -67,7 +68,7 @@ export type TimelineSourceText = {
 export type TimelineItem = {
   timeline_item_id: string;
   anchor_id: string | null;
-  stage: ArchiveStage;
+  stage: SourceStage;
   stage_name?: string;
   generation_mode?: string;
   source_ids: string[];
@@ -133,7 +134,7 @@ export type ArchiveLinkType =
 export type ArchiveGraphNode = {
   id: string;
   type: ArchiveNodeType;
-  stage?: ArchiveStage;
+  stage?: SourceStage;
   anchor_id?: string | null;
   source_ids: string[];
   identity_name?: string;
@@ -184,10 +185,10 @@ export type ArchiveGraph = {
   };
 };
 
-export type Stage5NavigationMode = "overview" | "internal";
+export type CollectiveNavigationMode = "overview" | "internal";
 
-export type Stage5NavigationState = {
-  mode: Stage5NavigationMode;
+export type CollectiveNavigationState = {
+  mode: CollectiveNavigationMode;
   selectedIdentityId: string | null;
   hoveredNodeId: string | null;
   hoveredTagLabel: string | null;

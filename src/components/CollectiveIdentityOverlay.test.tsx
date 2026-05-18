@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ArchiveProvider, useArchiveStore } from "../state/archiveStore";
 import type { ArchiveGraphNode } from "../types/archive";
-import { Stage5IdentityOverlay } from "./Stage5IdentityOverlay";
+import { CollectiveIdentityOverlay } from "./CollectiveIdentityOverlay";
 
 const identity: ArchiveGraphNode = {
   id: "submission_a",
@@ -26,36 +26,36 @@ const identity: ArchiveGraphNode = {
 };
 
 function SelectIdentity() {
-  const { updateStage5Navigation } = useArchiveStore();
+  const { updateCollectiveNavigation } = useArchiveStore();
   return (
-    <button type="button" onClick={() => updateStage5Navigation({ selectedIdentityId: "submission_a" })}>
+    <button type="button" onClick={() => updateCollectiveNavigation({ selectedIdentityId: "submission_a" })}>
       select
     </button>
   );
 }
 
-function StageReader() {
-  const { stage } = useArchiveStore();
-  return <span data-testid="stage">{stage}</span>;
+function ViewReader() {
+  const { view } = useArchiveStore();
+  return <span data-testid="view">{view}</span>;
 }
 
-describe("Stage5IdentityOverlay", () => {
-  it("renders selected identity and enters Stage0 through explicit action", () => {
+describe("CollectiveIdentityOverlay", () => {
+  it("renders selected identity and enters individual through explicit action", () => {
     render(
       <ArchiveProvider>
         <SelectIdentity />
-        <StageReader />
-        <Stage5IdentityOverlay identities={[identity]} />
+        <ViewReader />
+        <CollectiveIdentityOverlay identities={[identity]} />
       </ArchiveProvider>,
     );
 
     fireEvent.click(screen.getByText("select"));
     expect(screen.getByText("Name: Name A")).toBeInTheDocument();
-    expect(screen.getByTestId("stage")).toHaveTextContent("2");
+    expect(screen.getByTestId("view")).toHaveTextContent("collective");
 
     expect(screen.queryByText("Dream")).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Enter Stage 0" }));
-    expect(screen.getByTestId("stage")).toHaveTextContent("0");
+    fireEvent.click(screen.getByRole("button", { name: "Enter individual" }));
+    expect(screen.getByTestId("view")).toHaveTextContent("individual");
   });
 });
