@@ -11,7 +11,13 @@ import { RelationshipGraph3D } from "./RelationshipGraph3D";
 import { CollectiveAvatarField } from "./CollectiveAvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 import { CollectiveEnvironmentField } from "./CollectiveEnvironmentField";
-import { EntryTimeline3D, TIMELINE_COLLECTIVE_OFFSET_Y, getAvatarRevealOpacity, getTimelineCameraPose } from "./EntryTimeline3D";
+import {
+  COLLECTIVE_CAMERA_TRANSITION_END,
+  EntryTimeline3D,
+  TIMELINE_COLLECTIVE_OFFSET_Y,
+  getAvatarRevealOpacity,
+  getTimelineCameraPose,
+} from "./EntryTimeline3D";
 import { getCanvasDevicePixelRatio } from "../utils/renderingPerformance";
 import { loadBakedCollectiveModelPointCloud, loadBakedEnvironmentPointCloud } from "../data/bakedPointCloud";
 
@@ -336,7 +342,7 @@ export function ArchiveScene({
   const collectiveSceneReady = avatarShapePositions !== null;
   const collectiveSceneOpacity = collectiveSceneReady ? avatarRevealOpacity : 0;
   const collectiveScenePosition: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
-  const collectiveNavigationEnabled = timelineProgress >= 0.995;
+  const collectiveNavigationEnabled = timelineProgress >= COLLECTIVE_CAMERA_TRANSITION_END;
 
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
   if (!shouldRenderWebGLStage(view)) return <div className="archive-2d-stage-backdrop" aria-hidden="true" />;

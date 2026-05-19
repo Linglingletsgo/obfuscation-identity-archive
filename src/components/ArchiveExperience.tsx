@@ -3,8 +3,9 @@ import { useArchiveData } from "../data/useArchiveData";
 import { useArchiveStore } from "../state/archiveStore";
 import { CollectiveIdentityOverlay } from "./CollectiveIdentityOverlay";
 import { ArchiveScene } from "./ArchiveScene";
+import { COLLECTIVE_CAMERA_TRANSITION_END } from "./EntryTimeline3D";
 
-const COLLECTIVE_INTERACTION_PROGRESS = 0.995;
+const COLLECTIVE_INTERACTION_PROGRESS = COLLECTIVE_CAMERA_TRANSITION_END;
 const COLLECTIVE_WHEEL_ZONE_LEFT = 0.22;
 const COLLECTIVE_WHEEL_ZONE_RIGHT = 0.78;
 const TIMELINE_PROGRESS_DAMPING = 10;

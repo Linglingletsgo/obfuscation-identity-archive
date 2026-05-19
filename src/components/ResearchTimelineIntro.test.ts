@@ -20,8 +20,9 @@ describe("ResearchTimelineIntro helpers", () => {
 
   it("starts the collective scene while the timeline is exiting", () => {
     expect(getAvatarRevealOpacity(0.5)).toBe(0);
-    expect(getAvatarRevealOpacity(0.85)).toBe(0);
-    expect(getAvatarRevealOpacity(0.91)).toBeGreaterThan(0);
+    expect(getAvatarRevealOpacity(0.73)).toBeGreaterThan(0);
+    expect(getAvatarRevealOpacity(0.85)).toBeGreaterThan(0);
+    expect(getAvatarRevealOpacity(0.91)).toBe(1);
     expect(getAvatarRevealOpacity(0.95)).toBeGreaterThan(0);
     expect(getAvatarRevealOpacity(0.98)).toBeGreaterThan(0);
     expect(getTimelineCameraPose(1).position).toEqual([0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40]);

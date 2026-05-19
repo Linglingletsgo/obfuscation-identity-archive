@@ -13,7 +13,10 @@ const EVENT_PATH_START_Y = 42;
 const EVENT_PATH_END_Y = -42;
 const EVENT_PATH_RANGE = EVENT_PATH_START_Y - EVENT_PATH_END_Y;
 const EVENT_PROGRESS_END = 0.86;
-const AVATAR_REVEAL_START = 0.86;
+const AVATAR_REVEAL_START = 0.72;
+const AVATAR_REVEAL_END = 0.9;
+const COLLECTIVE_CAMERA_TRANSITION_START = 0.7;
+export const COLLECTIVE_CAMERA_TRANSITION_END = 0.88;
 export const TIMELINE_COLLECTIVE_OFFSET_Y = -68;
 const COLLECTIVE_POSITION: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40];
 const COLLECTIVE_TARGET: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
@@ -52,7 +55,7 @@ function writeTimelineCameraPose(
   const clampedProgress = clamp01(progress);
   const eventProgress = clamp01(clampedProgress / EVENT_PROGRESS_END);
   const pathY = EVENT_PATH_START_Y + 4 - eventProgress * (EVENT_PATH_RANGE + 10);
-  const transition = smoothstep(0.82, 0.96, clampedProgress);
+  const transition = smoothstep(COLLECTIVE_CAMERA_TRANSITION_START, COLLECTIVE_CAMERA_TRANSITION_END, clampedProgress);
 
   lookAt[0] = COLLECTIVE_TARGET[0] * transition;
   lookAt[1] = pathY - 8 + (COLLECTIVE_TARGET[1] - (pathY - 8)) * transition;
@@ -63,7 +66,7 @@ function writeTimelineCameraPose(
 }
 
 export function getAvatarRevealOpacity(progress: number): number {
-  return smoothstep(AVATAR_REVEAL_START, 1, progress);
+  return smoothstep(AVATAR_REVEAL_START, AVATAR_REVEAL_END, progress);
 }
 
 function getEventVisibility(progress: number, index: number, eventCount: number): number {
@@ -71,7 +74,7 @@ function getEventVisibility(progress: number, index: number, eventCount: number)
   const timelineProgress = clamp01(progress / EVENT_PROGRESS_END);
   const distance = Math.abs(eventProgress - timelineProgress);
   const baseVisibility = 1 - smoothstep(0.045, 0.18, distance);
-  const transitionFade = 1 - smoothstep(0.82, 0.92, progress);
+  const transitionFade = 1 - smoothstep(0.72, 0.84, progress);
   return baseVisibility * transitionFade;
 }
 
