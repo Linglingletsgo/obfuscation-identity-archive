@@ -395,7 +395,7 @@ export function ArchiveScene({
       />
       <OrbitControls
         ref={controlsRef}
-        enabled
+        enabled={collectiveNavigationEnabled}
         enableDamping
         enablePan={collectiveNavigationEnabled && !shouldDisableCollectivePan(view)}
         enableRotate={collectiveNavigationEnabled}

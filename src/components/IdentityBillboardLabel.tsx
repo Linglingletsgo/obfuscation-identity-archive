@@ -20,10 +20,12 @@ export function IdentityBillboardLabel({
       center
       distanceFactor={12}
       className="identity-billboard"
+      style={{ opacity, pointerEvents: "none" }}
+      zIndexRange={[12, 0]}
     >
       <div
         role="button"
-        style={{ opacity, pointerEvents: opacity > 0.18 ? "auto" : "none" }}
+        style={{ pointerEvents: opacity > 0.18 ? "auto" : "none" }}
         tabIndex={0}
         onClick={(event) => {
           event.stopPropagation();

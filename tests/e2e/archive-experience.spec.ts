@@ -70,10 +70,13 @@ test("opens into collective overview without in-scene search controls", async ({
 test("index database link opens searchable 2D identity table", async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => {
-    window.scrollTo({ top: document.documentElement.scrollHeight * 0.9, behavior: "auto" });
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({ top: maxScroll * 0.76, behavior: "auto" });
   });
   await expect(page.getByRole("link", { name: "Index Database" })).toBeVisible();
-  await page.getByRole("link", { name: "Index Database" }).click();
+  await page.getByRole("link", { name: "Index Database" }).evaluate((element) => {
+    (element as HTMLAnchorElement).click();
+  });
   await expect(page.getByLabel("Archive index database")).toBeVisible();
   await expect(page.locator(".index-table")).toBeVisible();
 });

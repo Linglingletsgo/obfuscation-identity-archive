@@ -21,6 +21,8 @@ export const TIMELINE_COLLECTIVE_OFFSET_Y = -68;
 const COLLECTIVE_POSITION: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40];
 const COLLECTIVE_TARGET: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
 const TIMELINE_LINKS_Y = -48;
+const TIMELINE_LINKS_VISIBLE_START = 0.66;
+const TIMELINE_LINKS_VISIBLE_END = 0.88;
 
 function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
@@ -76,6 +78,11 @@ function getEventVisibility(progress: number, index: number, eventCount: number)
   const baseVisibility = 1 - smoothstep(0.045, 0.18, distance);
   const transitionFade = 1 - smoothstep(0.72, 0.84, progress);
   return baseVisibility * transitionFade;
+}
+
+export function getTimelineArchiveLinksOpacity(progress: number): number {
+  return smoothstep(TIMELINE_LINKS_VISIBLE_START, TIMELINE_LINKS_VISIBLE_START + 0.05, progress) *
+    (1 - smoothstep(TIMELINE_LINKS_VISIBLE_END - 0.04, TIMELINE_LINKS_VISIBLE_END, progress));
 }
 
 function TimelineCameraRig({ progress }: { progress: number }) {
@@ -153,9 +160,13 @@ function TimelineEventPanel({
   );
 }
 
-function TimelineArchiveLinks() {
+function TimelineArchiveLinks({ opacity }: { opacity: number }) {
   return (
-    <nav className="timeline-3d-archive-links" aria-label="Archive links">
+    <nav
+      className="timeline-3d-archive-links"
+      aria-label="Archive links"
+      style={{ opacity, pointerEvents: opacity > 0.4 ? "auto" : "none" }}
+    >
       <a href="/index">Index Database</a>
       <a href="https://survey.dominicduan.com/" target="_blank" rel="noreferrer">
         Obfuscation Identity Archive Survey
@@ -168,6 +179,8 @@ function TimelineArchiveLinks() {
 }
 
 export function EntryTimeline3D({ cameraEnabled = true, progress }: { cameraEnabled?: boolean; progress: number }) {
+  const archiveLinksOpacity = getTimelineArchiveLinksOpacity(progress);
+
   return (
     <group>
       {cameraEnabled ? <TimelineCameraRig progress={progress} /> : null}
@@ -195,9 +208,9 @@ export function EntryTimeline3D({ cameraEnabled = true, progress }: { cameraEnab
       <Html
         center
         position={[0, TIMELINE_LINKS_Y, -3.5]}
-        zIndexRange={[30, 0]}
+        zIndexRange={[80, 40]}
       >
-        <TimelineArchiveLinks />
+        <TimelineArchiveLinks opacity={archiveLinksOpacity} />
       </Html>
     </group>
   );
