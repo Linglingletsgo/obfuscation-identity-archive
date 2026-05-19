@@ -10,6 +10,7 @@ build/
 .vite/
 coverage/
 test-results/
+tmp/
 
 # Local environment
 .env
