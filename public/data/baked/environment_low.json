@@ -1,0 +1,34 @@
+{
+  "attributes": {
+    "alphaSeed": {
+      "byteLength": 179996,
+      "byteOffset": 0,
+      "components": 1
+    },
+    "color": {
+      "byteLength": 539988,
+      "byteOffset": 179996,
+      "components": 3
+    },
+    "position": {
+      "byteLength": 539988,
+      "byteOffset": 719984,
+      "components": 3
+    },
+    "seed": {
+      "byteLength": 179996,
+      "byteOffset": 1259972,
+      "components": 1
+    },
+    "size": {
+      "byteLength": 179996,
+      "byteOffset": 1439968,
+      "components": 1
+    }
+  },
+  "bin": "./environment_low.bin",
+  "kind": "environment",
+  "pointCount": 44999,
+  "source": "public/models/env.glb",
+  "version": 1
+}

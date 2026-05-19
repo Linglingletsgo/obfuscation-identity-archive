@@ -1,8 +1,9 @@
-import { Suspense, useEffect, useMemo } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { getAvatarNormalization, normalizePointCloudPositions, sampleObjectSurface } from "../data/avatarShape";
+import { loadBakedCollectiveModelPointCloud, type BakedCollectiveModelPointCloud } from "../data/bakedPointCloud";
 import { getCollectiveAvatarPointSamples } from "../utils/renderingPerformance";
 import { CollectiveModelPointCloud } from "./CollectiveModelPointCloud";
 
@@ -16,18 +17,28 @@ function LoadedCollectiveAvatarField({
   opacity: number;
 }) {
   const gltf = useGLTF(archiveVisualConfig.assets.stage2CollectiveModelPath);
-  const surface = useMemo(
-    () => sampleObjectSurface(gltf.scene, getCollectiveAvatarPointSamples()),
-    [gltf.scene],
+  const [bakedPointCloud, setBakedPointCloud] = useState<BakedCollectiveModelPointCloud | null | undefined>(undefined);
+  const pointSamples = getCollectiveAvatarPointSamples();
+  const bakedManifestPath =
+    pointSamples === archiveVisualConfig.assets.stage2CollectivePointSamplesLowPower
+      ? archiveVisualConfig.assets.bakedPointClouds.collectiveLow
+      : archiveVisualConfig.assets.bakedPointClouds.collectiveHigh;
+  const fallbackSurface = useMemo(
+    () => (bakedPointCloud === null ? sampleObjectSurface(gltf.scene, pointSamples) : null),
+    [bakedPointCloud, gltf.scene, pointSamples],
   );
   const visualRadius = archiveVisualConfig.camera.collectiveAvatarFieldRadius * archiveVisualConfig.camera.collectiveAvatarScale;
   const normalization = useMemo(
-    () => getAvatarNormalization(surface.positions, visualRadius),
-    [surface.positions, visualRadius],
+    () =>
+      bakedPointCloud?.normalization ??
+      (fallbackSurface ? getAvatarNormalization(fallbackSurface.positions, visualRadius) : null),
+    [bakedPointCloud, fallbackSurface, visualRadius],
   );
   const normalizedPositions = useMemo(
-    () => normalizePointCloudPositions(surface.positions, visualRadius),
-    [surface.positions, visualRadius],
+    () =>
+      bakedPointCloud?.positions ??
+      (fallbackSurface ? normalizePointCloudPositions(fallbackSurface.positions, visualRadius) : null),
+    [bakedPointCloud, fallbackSurface, visualRadius],
   );
   const materializedScene = useMemo(() => {
     const scene = gltf.scene.clone(true);
@@ -74,8 +85,35 @@ function LoadedCollectiveAvatarField({
   );
 
   useEffect(() => {
+    let cancelled = false;
+    loadBakedCollectiveModelPointCloud(bakedManifestPath)
+      .then((pointCloud) => {
+        if (!cancelled) setBakedPointCloud(pointCloud);
+      })
+      .catch(() => {
+        if (!cancelled) setBakedPointCloud(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [bakedManifestPath]);
+
+  useEffect(() => {
+    if (!normalizedPositions) return;
     onShapePositions(normalizedPositions);
   }, [normalizedPositions, onShapePositions]);
+
+  if (!normalization || !normalizedPositions || bakedPointCloud === undefined) {
+    return null;
+  }
+
+  const colors = bakedPointCloud?.colors ?? fallbackSurface?.colors;
+  const partColors = bakedPointCloud?.partColors ?? fallbackSurface?.partColors;
+  const partIds = bakedPointCloud?.partIds ?? fallbackSurface?.partIds;
+
+  if (!colors || !partColors || !partIds) {
+    return null;
+  }
 
   return (
     <group>
@@ -90,10 +128,10 @@ function LoadedCollectiveAvatarField({
         <primitive object={materializedScene} visible={opacity > MIN_MODEL_OPACITY} />
       </group>
       <CollectiveModelPointCloud
-        colors={surface.colors}
+        colors={colors}
         opacity={opacity}
-        partColors={surface.partColors}
-        partIds={surface.partIds}
+        partColors={partColors}
+        partIds={partIds}
         positions={normalizedPositions}
       />
     </group>

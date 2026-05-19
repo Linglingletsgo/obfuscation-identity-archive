@@ -1,9 +1,10 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useLoader } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
+import { loadBakedEnvironmentPointCloud, type BakedEnvironmentPointCloud } from "../data/bakedPointCloud";
 import { normalizePointCloudPositions, sampleObjectSurface } from "../data/avatarShape";
 import { getCollectiveEnvironmentPointSamples } from "../utils/renderingPerformance";
 
@@ -143,6 +144,17 @@ function createEnvironmentGeometry(positions: Float32Array, colors: Float32Array
   return geometry;
 }
 
+export function createBakedEnvironmentGeometry(baked: BakedEnvironmentPointCloud): THREE.BufferGeometry {
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(baked.positions, 3));
+  geometry.setAttribute("alphaSeed", new THREE.BufferAttribute(baked.alphaSeeds, 1));
+  geometry.setAttribute("color", new THREE.BufferAttribute(baked.colors, 3));
+  geometry.setAttribute("seed", new THREE.BufferAttribute(baked.seeds, 1));
+  geometry.setAttribute("size", new THREE.BufferAttribute(baked.sizes, 1));
+  geometry.computeBoundingSphere();
+  return geometry;
+}
+
 function createEnvironmentMaterial(pointTexture: THREE.Texture, opacity: number) {
   return new THREE.ShaderMaterial({
     vertexShader: environmentVertexShader,
@@ -163,15 +175,46 @@ function createEnvironmentMaterial(pointTexture: THREE.Texture, opacity: number)
 }
 
 export function CollectiveEnvironmentField({ opacity = 1 }: { opacity?: number }) {
-  const { pointer } = useThree();
-  const dragActiveRef = useRef(false);
-  const dragRef = useRef(0);
-  const pointerPresentRef = useRef(0);
-  const pointerInsideRef = useRef(false);
-  const velocityRef = useRef(0);
-  const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
-  const gltf = useGLTF(archiveVisualConfig.assets.collectiveEnvironmentModelPath);
+  const [bakedPointCloud, setBakedPointCloud] = useState<BakedEnvironmentPointCloud | null | undefined>(undefined);
   const pointTexture = useLoader(THREE.TextureLoader, archiveVisualConfig.assets.collectiveEnvironmentTexturePath);
+  const bakedManifestPath =
+    getCollectiveEnvironmentPointSamples() === archiveVisualConfig.assets.collectiveEnvironmentPointSamplesLowPower
+      ? archiveVisualConfig.assets.bakedPointClouds.environmentLow
+      : archiveVisualConfig.assets.bakedPointClouds.environmentHigh;
+
+  useEffect(() => {
+    let cancelled = false;
+    loadBakedEnvironmentPointCloud(bakedManifestPath)
+      .then((pointCloud) => {
+        if (!cancelled) setBakedPointCloud(pointCloud);
+      })
+      .catch(() => {
+        if (!cancelled) setBakedPointCloud(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [bakedManifestPath]);
+
+  if (bakedPointCloud === undefined) {
+    return null;
+  }
+
+  return bakedPointCloud ? (
+    <PreparedEnvironmentField bakedPointCloud={bakedPointCloud} opacity={opacity} pointTexture={pointTexture} />
+  ) : (
+    <FallbackEnvironmentField opacity={opacity} pointTexture={pointTexture} />
+  );
+}
+
+function FallbackEnvironmentField({
+  opacity,
+  pointTexture,
+}: {
+  opacity: number;
+  pointTexture: THREE.Texture;
+}) {
+  const gltf = useGLTF(archiveVisualConfig.assets.collectiveEnvironmentModelPath);
   const surface = useMemo(
     () => sampleObjectSurface(gltf.scene, getCollectiveEnvironmentPointSamples()),
     [gltf.scene],
@@ -181,6 +224,32 @@ export function CollectiveEnvironmentField({ opacity = 1 }: { opacity?: number }
     [surface.positions],
   );
   const geometry = useMemo(() => createEnvironmentGeometry(positions, surface.colors), [positions, surface.colors]);
+
+  return <PreparedEnvironmentField geometry={geometry} opacity={opacity} pointTexture={pointTexture} />;
+}
+
+function PreparedEnvironmentField({
+  bakedPointCloud,
+  geometry: fallbackGeometry,
+  opacity,
+  pointTexture,
+}: {
+  bakedPointCloud?: BakedEnvironmentPointCloud;
+  geometry?: THREE.BufferGeometry;
+  opacity: number;
+  pointTexture: THREE.Texture;
+}) {
+  const { pointer } = useThree();
+  const dragActiveRef = useRef(false);
+  const dragRef = useRef(0);
+  const pointerPresentRef = useRef(0);
+  const pointerInsideRef = useRef(false);
+  const velocityRef = useRef(0);
+  const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
+  const geometry = useMemo(
+    () => fallbackGeometry ?? (bakedPointCloud ? createBakedEnvironmentGeometry(bakedPointCloud) : new THREE.BufferGeometry()),
+    [bakedPointCloud, fallbackGeometry],
+  );
   const material = useMemo(() => {
     pointTexture.colorSpace = THREE.SRGBColorSpace;
     pointTexture.wrapS = THREE.ClampToEdgeWrapping;

@@ -18,6 +18,16 @@ export const archiveVisualConfig = {
     collectiveEnvironmentTexturePath:
       "/textures/environment_particle_sprite.png",
     collectiveParticleTexturePath: "/textures/particle_sprite.png",
+    bakedPointClouds: {
+      collectiveHigh:
+        "/data/baked/collective_model_high.json",
+      collectiveLow:
+        "/data/baked/collective_model_low.json",
+      environmentHigh:
+        "/data/baked/environment_high.json",
+      environmentLow:
+        "/data/baked/environment_low.json",
+    },
     placeholderAvatarPath: "",
   },
   camera: {

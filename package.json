@@ -11,6 +11,7 @@
     "test:run": "vitest run",
     "test:e2e": "playwright test",
     "audit:algorithm": "node scripts/audit-algorithm-output.mjs",
+    "bake:point-clouds": "node scripts/bake-point-clouds.mjs",
     "build:graph3d-cache": "node scripts/build-graph3d-cache.mjs",
     "validate:archive-data": "node scripts/validate-archive-data.mjs"
   },
@@ -32,6 +33,7 @@
     "@types/three": "^0.171.0",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^27.0.1",
+    "pngjs": "^7.0.0",
     "typescript": "^5.7.2",
     "vite": "^5.4.21",
     "vitest": "^2.1.8"
