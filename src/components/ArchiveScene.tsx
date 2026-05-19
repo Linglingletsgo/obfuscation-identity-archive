@@ -13,6 +13,7 @@ import { AvatarShapeProvider } from "./AvatarShapeContext";
 import { CollectiveEnvironmentField } from "./CollectiveEnvironmentField";
 import { EntryTimeline3D, TIMELINE_COLLECTIVE_OFFSET_Y, getAvatarRevealOpacity, getTimelineCameraPose } from "./EntryTimeline3D";
 import { getCanvasDevicePixelRatio } from "../utils/renderingPerformance";
+import { loadBakedCollectiveModelPointCloud, loadBakedEnvironmentPointCloud } from "../data/bakedPointCloud";
 
 type WebGLContextLike = {
   getExtension: (name: string) => { loseContext?: () => void } | null;
@@ -245,6 +246,25 @@ function GlobalInteractionLights() {
   );
 }
 
+function useBakedPointCloudPreload() {
+  useEffect(() => {
+    let cancelled = false;
+
+    const preload = () => {
+      if (cancelled) return;
+      void Promise.allSettled([
+        loadBakedCollectiveModelPointCloud(archiveVisualConfig.assets.bakedPointClouds.collectiveHigh),
+        loadBakedEnvironmentPointCloud(archiveVisualConfig.assets.bakedPointClouds.environmentHigh),
+      ]);
+    };
+
+    preload();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+}
+
 export function ArchiveScene({
   collectiveInteractive = true,
   collectiveResetVersion = 0,
@@ -260,6 +280,7 @@ export function ArchiveScene({
   const [canvasElement, setCanvasElement] = useState<HTMLCanvasElement | null>(null);
   const [webglRestartVersion, setWebglRestartVersion] = useState(0);
   const [avatarShapePositions, setAvatarShapePositions] = useState<Float32Array | null>(null);
+  useBakedPointCloudPreload();
   const handleShapePositions = useCallback((positions: Float32Array) => {
     setAvatarShapePositions((current) => (current === positions ? current : positions));
   }, []);

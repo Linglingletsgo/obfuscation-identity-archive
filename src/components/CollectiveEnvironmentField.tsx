@@ -6,7 +6,6 @@ import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { loadBakedEnvironmentPointCloud, type BakedEnvironmentPointCloud } from "../data/bakedPointCloud";
 import { normalizePointCloudPositions, sampleObjectSurface } from "../data/avatarShape";
-import { getCollectiveEnvironmentPointSamples } from "../utils/renderingPerformance";
 
 const environmentVertexShader = `
   attribute vec3 color;
@@ -174,17 +173,17 @@ function createEnvironmentMaterial(pointTexture: THREE.Texture, opacity: number)
   });
 }
 
-export function CollectiveEnvironmentField({ opacity = 1 }: { opacity?: number }) {
+export function CollectiveEnvironmentField({
+  opacity = 1,
+}: {
+  opacity?: number;
+}) {
   const [bakedPointCloud, setBakedPointCloud] = useState<BakedEnvironmentPointCloud | null | undefined>(undefined);
   const pointTexture = useLoader(THREE.TextureLoader, archiveVisualConfig.assets.collectiveEnvironmentTexturePath);
-  const bakedManifestPath =
-    getCollectiveEnvironmentPointSamples() === archiveVisualConfig.assets.collectiveEnvironmentPointSamplesLowPower
-      ? archiveVisualConfig.assets.bakedPointClouds.environmentLow
-      : archiveVisualConfig.assets.bakedPointClouds.environmentHigh;
 
   useEffect(() => {
     let cancelled = false;
-    loadBakedEnvironmentPointCloud(bakedManifestPath)
+    loadBakedEnvironmentPointCloud(archiveVisualConfig.assets.bakedPointClouds.environmentHigh)
       .then((pointCloud) => {
         if (!cancelled) setBakedPointCloud(pointCloud);
       })
@@ -194,7 +193,7 @@ export function CollectiveEnvironmentField({ opacity = 1 }: { opacity?: number }
     return () => {
       cancelled = true;
     };
-  }, [bakedManifestPath]);
+  }, []);
 
   if (bakedPointCloud === undefined) {
     return null;
@@ -216,7 +215,7 @@ function FallbackEnvironmentField({
 }) {
   const gltf = useGLTF(archiveVisualConfig.assets.collectiveEnvironmentModelPath);
   const surface = useMemo(
-    () => sampleObjectSurface(gltf.scene, getCollectiveEnvironmentPointSamples()),
+    () => sampleObjectSurface(gltf.scene, archiveVisualConfig.assets.collectiveEnvironmentPointSamples),
     [gltf.scene],
   );
   const positions = useMemo(

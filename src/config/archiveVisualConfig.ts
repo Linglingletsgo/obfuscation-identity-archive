@@ -10,10 +10,8 @@ export const archiveVisualConfig = {
     nearWhiteThreshold: 245,
     stage2CollectiveModelPath: "/models/global_stage2_collective.glb",
     stage2CollectivePointSamples: 160000,
-    stage2CollectivePointSamplesLowPower: 90000,
     collectiveEnvironmentModelPath: "/models/env.glb",
     collectiveEnvironmentPointSamples: 90000,
-    collectiveEnvironmentPointSamplesLowPower: 45000,
     collectiveEnvironmentFieldRadius: 42,
     collectiveEnvironmentTexturePath:
       "/textures/environment_particle_sprite.png",
@@ -21,12 +19,8 @@ export const archiveVisualConfig = {
     bakedPointClouds: {
       collectiveHigh:
         "/data/baked/collective_model_high.json",
-      collectiveLow:
-        "/data/baked/collective_model_low.json",
       environmentHigh:
         "/data/baked/environment_high.json",
-      environmentLow:
-        "/data/baked/environment_low.json",
     },
     placeholderAvatarPath: "",
   },
