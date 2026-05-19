@@ -148,7 +148,7 @@ export function GraphNodeSprite({
   );
 
   sprite.position.set(node.position.x, node.position.y, node.position.z);
-  sprite.material.opacity = spec.opacity * opacityMultiplier;
+  sprite.userData.baseOpacity = spec.opacity * opacityMultiplier;
 
   return (
     <primitive

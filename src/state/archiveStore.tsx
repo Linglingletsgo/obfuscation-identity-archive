@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode, type MutableRefObject } from "react";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { TIMELINE_COLLECTIVE_OFFSET_Y } from "../components/EntryTimeline3D";
 import type {
@@ -23,6 +23,7 @@ type ArchiveStore = {
   timeline: SourceTimeline | null;
   collectiveNavigation: CollectiveNavigationState;
   filters: ArchiveFilters;
+  timelineProgressRef: MutableRefObject<number>;
   setGraph: (graph: ArchiveGraph) => void;
   setTimeline: (timeline: SourceTimeline) => void;
   openIdentity: (identityId: string) => void;
@@ -64,6 +65,8 @@ export function ArchiveProvider({ children }: { children: ReactNode }) {
   const [collectiveNavigation, setCollectiveNavigation] =
     useState<CollectiveNavigationState>(initialCollectiveNavigation);
   const [filters, setFilterState] = useState<ArchiveFilters>(initialFilters);
+  const timelineProgressRef = useRef(0);
+
   const openIdentity = useCallback((identityId: string) => {
     setSelectedIdentityId(identityId);
     setView("individual");
@@ -100,6 +103,7 @@ export function ArchiveProvider({ children }: { children: ReactNode }) {
       timeline,
       collectiveNavigation,
       filters,
+      timelineProgressRef,
       setGraph,
       setTimeline,
       openIdentity,

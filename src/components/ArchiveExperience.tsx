@@ -11,10 +11,8 @@ const COLLECTIVE_WHEEL_ZONE_RIGHT = 0.78;
 const TIMELINE_PROGRESS_DAMPING = 10;
 
 export function ArchiveExperience() {
-  const { graph, view } = useArchiveStore();
+  const { graph, view, timelineProgressRef } = useArchiveStore();
   const { message, status } = useArchiveData();
-  const [timelineProgress, setTimelineProgress] = useState(0);
-  const timelineProgressRef = useRef(0);
   const targetTimelineProgressRef = useRef(0);
   const viewRef = useRef(view);
   const individualScrollPositionRef = useRef({ x: 0, y: 0 });
@@ -23,10 +21,6 @@ export function ArchiveExperience() {
     () => graph?.nodes.filter((node) => node.type === "submission") ?? [],
     [graph],
   );
-
-  useEffect(() => {
-    timelineProgressRef.current = timelineProgress;
-  }, [timelineProgress]);
 
   useLayoutEffect(() => {
     viewRef.current = view;
@@ -55,7 +49,6 @@ export function ArchiveExperience() {
           window.scrollTo(x, y);
           targetTimelineProgressRef.current = restoredProgress;
           timelineProgressRef.current = restoredProgress;
-          setTimelineProgress(restoredProgress);
         });
       });
     };
@@ -81,7 +74,6 @@ export function ArchiveExperience() {
 
       if (nextProgress !== currentProgress) {
         timelineProgressRef.current = nextProgress;
-        setTimelineProgress(nextProgress);
       }
 
       animationFrame = window.requestAnimationFrame(animateProgress);
@@ -177,7 +169,7 @@ export function ArchiveExperience() {
       data-testid="archive-experience"
     >
       <div className="archive-scene-shell">
-        <ArchiveScene timelineProgress={timelineProgress} />
+        <ArchiveScene />
       </div>
       <div className="collective-scroll-gutter collective-scroll-gutter-left" aria-hidden="true" />
       <div className="collective-scroll-gutter collective-scroll-gutter-right" aria-hidden="true" />

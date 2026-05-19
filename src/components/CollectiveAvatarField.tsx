@@ -1,10 +1,13 @@
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { getAvatarNormalization, normalizePointCloudPositions, sampleObjectSurface, type AvatarNormalization } from "../data/avatarShape";
 import { loadBakedCollectiveModelPointCloud, type BakedCollectiveModelPointCloud } from "../data/bakedPointCloud";
 import { CollectiveModelPointCloud } from "./CollectiveModelPointCloud";
+import { useArchiveStore } from "../state/archiveStore";
+import { getAvatarRevealOpacity } from "./EntryTimeline3D";
 
 const MIN_MODEL_OPACITY = 0.01;
 
@@ -12,7 +15,6 @@ type PreparedCollectiveAvatarFieldProps = {
   colors: Float32Array;
   normalization: AvatarNormalization;
   onShapePositions: (positions: Float32Array) => void;
-  opacity: number;
   partColors: Float32Array;
   partIds: Float32Array;
   positions: Float32Array;
@@ -43,25 +45,43 @@ function PreparedCollectiveAvatarField({
   colors,
   normalization,
   onShapePositions,
-  opacity,
   partColors,
   partIds,
   positions,
   scene,
 }: PreparedCollectiveAvatarFieldProps) {
+  const { timelineProgressRef } = useArchiveStore();
+  const materialsRef = useRef<THREE.Material[]>([]);
+  const primitiveRef = useRef<THREE.Object3D>(null);
+
   useEffect(() => {
     onShapePositions(positions);
   }, [onShapePositions, positions]);
 
   useEffect(() => {
     if (!scene) return;
+    const materials: THREE.Material[] = [];
     scene.traverse((object) => {
       const mesh = object as THREE.Mesh;
       if (!mesh.isMesh) return;
-      const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-      for (const material of materials) material.opacity = 0.18 * opacity;
+      const meshMaterials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+      materials.push(...meshMaterials);
     });
-  }, [opacity, scene]);
+    materialsRef.current = materials;
+  }, [scene]);
+
+  useFrame(() => {
+    const progress = timelineProgressRef.current;
+    const currentOpacity = getAvatarRevealOpacity(progress);
+
+    for (let i = 0; i < materialsRef.current.length; i++) {
+      materialsRef.current[i].opacity = 0.18 * currentOpacity;
+    }
+
+    if (primitiveRef.current) {
+      primitiveRef.current.visible = currentOpacity > MIN_MODEL_OPACITY;
+    }
+  });
 
   return (
     <group>
@@ -74,12 +94,11 @@ function PreparedCollectiveAvatarField({
           ]}
           scale={normalization.scale}
         >
-          <primitive object={scene} visible={opacity > MIN_MODEL_OPACITY} />
+          <primitive ref={primitiveRef} object={scene} visible={false} />
         </group>
       ) : null}
       <CollectiveModelPointCloud
         colors={colors}
-        opacity={opacity}
         partColors={partColors}
         partIds={partIds}
         positions={positions}
@@ -91,18 +110,15 @@ function PreparedCollectiveAvatarField({
 function BakedCollectiveAvatarField({
   bakedPointCloud,
   onShapePositions,
-  opacity,
 }: {
   bakedPointCloud: BakedCollectiveModelPointCloud;
   onShapePositions: (positions: Float32Array) => void;
-  opacity: number;
 }) {
   return (
     <PreparedCollectiveAvatarField
       colors={bakedPointCloud.colors}
       normalization={bakedPointCloud.normalization}
       onShapePositions={onShapePositions}
-      opacity={opacity}
       partColors={bakedPointCloud.partColors}
       partIds={bakedPointCloud.partIds}
       positions={bakedPointCloud.positions}
@@ -112,10 +128,8 @@ function BakedCollectiveAvatarField({
 
 function FallbackCollectiveAvatarField({
   onShapePositions,
-  opacity,
 }: {
   onShapePositions: (positions: Float32Array) => void;
-  opacity: number;
 }) {
   const gltf = useGLTF(archiveVisualConfig.assets.stage2CollectiveModelPath);
   const pointSamples = archiveVisualConfig.assets.stage2CollectivePointSamples;
@@ -165,7 +179,6 @@ function FallbackCollectiveAvatarField({
       colors={fallbackSurface.colors}
       normalization={normalization}
       onShapePositions={onShapePositions}
-      opacity={opacity}
       partColors={fallbackSurface.partColors}
       partIds={fallbackSurface.partIds}
       positions={normalizedPositions}
@@ -176,21 +189,19 @@ function FallbackCollectiveAvatarField({
 
 export function CollectiveAvatarField({
   onShapePositions,
-  opacity = 1,
 }: {
   onShapePositions: (positions: Float32Array) => void;
-  opacity?: number;
 }) {
   const bakedPointCloud = useBakedCollectivePointCloud(archiveVisualConfig.assets.bakedPointClouds.collectiveHigh);
 
   if (bakedPointCloud === undefined) return null;
   if (bakedPointCloud) {
-    return <BakedCollectiveAvatarField bakedPointCloud={bakedPointCloud} onShapePositions={onShapePositions} opacity={opacity} />;
+    return <BakedCollectiveAvatarField bakedPointCloud={bakedPointCloud} onShapePositions={onShapePositions} />;
   }
 
   return (
     <Suspense fallback={null}>
-      <FallbackCollectiveAvatarField onShapePositions={onShapePositions} opacity={opacity} />
+      <FallbackCollectiveAvatarField onShapePositions={onShapePositions} />
     </Suspense>
   );
 }

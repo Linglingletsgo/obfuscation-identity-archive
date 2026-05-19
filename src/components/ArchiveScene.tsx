@@ -193,6 +193,7 @@ function CollectiveCameraStateSync({
 
 function GlobalInteractionLights() {
   const { camera, pointer, raycaster } = useThree();
+  const { timelineProgressRef } = useArchiveStore();
   const keyLightRef = useRef<THREE.PointLight>(null);
   const fillLightRef = useRef<THREE.PointLight>(null);
   const dragActiveRef = useRef(false);
@@ -231,7 +232,9 @@ function GlobalInteractionLights() {
 
     raycaster.setFromCamera(pointer, camera);
     raycaster.ray.intersectPlane(lightPlane, lightTargetRef.current);
-    const intensity = 0.28 + velocityRef.current * 2.4 + dragBoostRef.current * 2.8;
+    const progress = timelineProgressRef.current;
+    const opacity = getAvatarRevealOpacity(progress);
+    const intensity = (0.28 + velocityRef.current * 2.4 + dragBoostRef.current * 2.8) * opacity;
     const keyLight = keyLightRef.current;
     const fillLight = fillLightRef.current;
 
@@ -245,15 +248,15 @@ function GlobalInteractionLights() {
     if (fillLight) {
       fillLightTargetRef.current.set(-lightTargetRef.current.x * 0.42, lightTargetRef.current.y * 0.3, -8);
       fillLight.position.lerp(fillLightTargetRef.current, 0.18);
-      fillLight.intensity = 0.14 + velocityRef.current * 0.7 + dragBoostRef.current * 0.9;
+      fillLight.intensity = (0.14 + velocityRef.current * 0.7 + dragBoostRef.current * 0.9) * opacity;
       fillLight.distance = 38;
     }
   });
 
   return (
     <>
-      <pointLight ref={keyLightRef} color="#8eefff" distance={34} intensity={0.28} position={[0, 0, 8]} />
-      <pointLight ref={fillLightRef} color="#5d7dff" distance={38} intensity={0.14} position={[0, 0, -8]} />
+      <pointLight ref={keyLightRef} color="#8eefff" distance={34} intensity={0} position={[0, 0, 8]} />
+      <pointLight ref={fillLightRef} color="#5d7dff" distance={38} intensity={0} position={[0, 0, -8]} />
     </>
   );
 }
@@ -277,12 +280,47 @@ function useBakedPointCloudPreload() {
   }, []);
 }
 
-export function ArchiveScene({
-  timelineProgress = 1,
+function TransitionLights() {
+  const light1Ref = useRef<THREE.PointLight>(null);
+  const light2Ref = useRef<THREE.PointLight>(null);
+  const { timelineProgressRef } = useArchiveStore();
+
+  useFrame(() => {
+    const progress = timelineProgressRef.current;
+    const opacity = getAvatarRevealOpacity(progress);
+    if (light1Ref.current) light1Ref.current.intensity = 1.1 * opacity;
+    if (light2Ref.current) light2Ref.current.intensity = 0.7 * opacity;
+  });
+
+  return (
+    <>
+      <pointLight ref={light1Ref} position={[-5, 3, 7]} color={archiveVisualConfig.colors.shared} intensity={0} />
+      <pointLight ref={light2Ref} position={[5, -2, -6]} color={archiveVisualConfig.colors.tag} intensity={0} />
+    </>
+  );
+}
+
+function NavigationStateSync({
+  setEnabled,
+  enabled,
 }: {
-  timelineProgress?: number;
+  setEnabled: (val: boolean) => void;
+  enabled: boolean;
 }) {
-  const { graph, selectNode, view, collectiveNavigation, updateCollectiveNavigation } = useArchiveStore();
+  const { timelineProgressRef } = useArchiveStore();
+
+  useFrame(() => {
+    const isEnabled = timelineProgressRef.current >= COLLECTIVE_CAMERA_TRANSITION_END;
+    if (isEnabled !== enabled) {
+      setEnabled(isEnabled);
+    }
+  });
+
+  return null;
+}
+
+export function ArchiveScene() {
+  const { graph, selectNode, view, collectiveNavigation, updateCollectiveNavigation, timelineProgressRef } = useArchiveStore();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const restartTimerRef = useRef<number | null>(null);
   const [canvasElement, setCanvasElement] = useState<HTMLCanvasElement | null>(null);
@@ -334,17 +372,15 @@ export function ArchiveScene({
 
   const canvasCamera = useMemo(
     () => ({
-      position: getTimelineCameraPose(timelineProgress).position,
+      position: getTimelineCameraPose(0).position,
       fov: 45,
     }),
-    [timelineProgress, webglRestartVersion],
+    [webglRestartVersion],
   );
 
-  const avatarRevealOpacity = getAvatarRevealOpacity(timelineProgress);
   const collectiveSceneReady = avatarShapePositions !== null;
-  const collectiveSceneOpacity = collectiveSceneReady ? avatarRevealOpacity : 0;
   const collectiveScenePosition: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
-  const collectiveNavigationEnabled = timelineProgress >= COLLECTIVE_CAMERA_TRANSITION_END;
+  const [collectiveNavigationEnabled, setCollectiveNavigationEnabled] = useState(false);
 
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
   if (!shouldRenderWebGLStage(view)) return <div className="archive-2d-stage-backdrop" aria-hidden="true" />;
@@ -363,31 +399,31 @@ export function ArchiveScene({
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
-      <EntryTimeline3D cameraEnabled={!collectiveNavigationEnabled} progress={timelineProgress} />
+      <EntryTimeline3D />
       {view === "collective" ? (
         <group position={collectiveScenePosition}>
-          {collectiveSceneOpacity > 0 ? <GlobalInteractionLights /> : null}
+          <GlobalInteractionLights />
           <Suspense fallback={null}>
-            <CollectiveEnvironmentField opacity={collectiveSceneOpacity} />
+            <CollectiveEnvironmentField />
           </Suspense>
-          <pointLight position={[-5, 3, 7]} intensity={1.1 * collectiveSceneOpacity} color={archiveVisualConfig.colors.shared} />
-          <pointLight position={[5, -2, -6]} intensity={0.7 * collectiveSceneOpacity} color={archiveVisualConfig.colors.tag} />
+          <TransitionLights />
         </group>
       ) : null}
       <group position={collectiveScenePosition}>
         {shouldRenderCollectiveAvatarField(view) ? (
-          <CollectiveAvatarField onShapePositions={handleShapePositions} opacity={collectiveSceneOpacity} />
+          <CollectiveAvatarField onShapePositions={handleShapePositions} />
         ) : null}
         {shouldRenderGraphOutsideCollectiveAvatarSuspense(view) && collectiveSceneReady ? (
           <AvatarShapeProvider value={avatarShapePositions}>
-            <RelationshipGraph3D graph={graph} opacity={collectiveSceneOpacity} />
+            <RelationshipGraph3D graph={graph} />
           </AvatarShapeProvider>
         ) : collectiveSceneReady ? (
           <Suspense fallback={null}>
-            <RelationshipGraph3D graph={graph} opacity={collectiveSceneOpacity} />
+            <RelationshipGraph3D graph={graph} />
           </Suspense>
         ) : null}
       </group>
+      <NavigationStateSync setEnabled={setCollectiveNavigationEnabled} enabled={collectiveNavigationEnabled} />
       <CollectiveCameraStateSync
         controlsRef={controlsRef}
         enabled={collectiveNavigationEnabled}

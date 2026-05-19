@@ -1,8 +1,9 @@
 import { Html } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useMemo } from "react";
+import { forwardRef, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { researchTimelineEvents, type ResearchTimelineEvent } from "../data/researchTimeline";
+import { useArchiveStore } from "../state/archiveStore";
 
 export type TimelineCameraPose = {
   lookAt: [number, number, number];
@@ -85,14 +86,18 @@ export function getTimelineArchiveLinksOpacity(progress: number): number {
     (1 - smoothstep(TIMELINE_LINKS_VISIBLE_END - 0.04, TIMELINE_LINKS_VISIBLE_END, progress));
 }
 
-function TimelineCameraRig({ progress }: { progress: number }) {
+function TimelineCameraRig() {
   const { camera } = useThree();
+  const { timelineProgressRef } = useArchiveStore();
   const lookTarget = useMemo(() => new THREE.Vector3(), []);
   const positionTarget = useMemo(() => new THREE.Vector3(), []);
   const posePosition = useMemo<[number, number, number]>(() => [0, 0, 0], []);
   const poseLookAt = useMemo<[number, number, number]>(() => [0, 0, 0], []);
 
   useFrame(() => {
+    const progress = timelineProgressRef.current;
+    if (progress >= COLLECTIVE_CAMERA_TRANSITION_END) return;
+
     writeTimelineCameraPose(progress, posePosition, poseLookAt);
     positionTarget.set(posePosition[0], posePosition[1], posePosition[2]);
     camera.position.lerp(positionTarget, 0.18);
@@ -103,7 +108,9 @@ function TimelineCameraRig({ progress }: { progress: number }) {
   return null;
 }
 
-function TimelineMistField({ progress }: { progress: number }) {
+function TimelineMistField() {
+  const materialRef = useRef<THREE.PointsMaterial>(null);
+  const { timelineProgressRef } = useArchiveStore();
   const points = useMemo(() => {
     const positions = new Float32Array(360 * 3);
     for (let index = 0; index < 360; index += 1) {
@@ -117,15 +124,22 @@ function TimelineMistField({ progress }: { progress: number }) {
     return positions;
   }, []);
 
+  useFrame(() => {
+    if (!materialRef.current) return;
+    const progress = timelineProgressRef.current;
+    materialRef.current.opacity = 0.05 + (1 - getAvatarRevealOpacity(progress)) * 0.13;
+  });
+
   return (
     <points renderOrder={2}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[points, 3]} />
       </bufferGeometry>
       <pointsMaterial
+        ref={materialRef}
         color="#8eefff"
         depthWrite={false}
-        opacity={0.05 + (1 - getAvatarRevealOpacity(progress)) * 0.13}
+        opacity={0.18}
         size={0.09}
         transparent
       />
@@ -133,23 +147,21 @@ function TimelineMistField({ progress }: { progress: number }) {
   );
 }
 
-function TimelineEventPanel({
-  event,
-  opacity,
-}: {
-  event: ResearchTimelineEvent;
-  opacity: number;
-}) {
+const TimelineEventPanel = forwardRef<
+  HTMLAnchorElement,
+  { event: ResearchTimelineEvent; index: number; totalEvents: number }
+>(({ event, index, totalEvents }, ref) => {
   const primaryLink = event.links[0];
-
   return (
     <a
+      ref={ref}
       className="timeline-3d-event-card"
       href={primaryLink.url}
       rel="noreferrer"
       style={{
-        opacity,
-        pointerEvents: opacity > 0.25 ? "auto" : "none",
+        opacity: 0,
+        pointerEvents: "none",
+        display: "none",
       }}
       target="_blank"
     >
@@ -158,14 +170,16 @@ function TimelineEventPanel({
       <p>{event.description}</p>
     </a>
   );
-}
+});
+TimelineEventPanel.displayName = "TimelineEventPanel";
 
-function TimelineArchiveLinks({ opacity }: { opacity: number }) {
+const TimelineArchiveLinks = forwardRef<HTMLElement>((_, ref) => {
   return (
     <nav
+      ref={ref}
       className="timeline-3d-archive-links"
       aria-label="Archive links"
-      style={{ opacity, pointerEvents: opacity > 0.4 ? "auto" : "none" }}
+      style={{ opacity: 0, pointerEvents: "none", display: "none" }}
     >
       <a href="/index">Index Database</a>
       <a href="https://survey.dominicduan.com/" target="_blank" rel="noreferrer">
@@ -176,20 +190,46 @@ function TimelineArchiveLinks({ opacity }: { opacity: number }) {
       </a>
     </nav>
   );
-}
+});
+TimelineArchiveLinks.displayName = "TimelineArchiveLinks";
 
-export function EntryTimeline3D({ cameraEnabled = true, progress }: { cameraEnabled?: boolean; progress: number }) {
-  const archiveLinksOpacity = getTimelineArchiveLinksOpacity(progress);
+export function EntryTimeline3D() {
+  const { timelineProgressRef } = useArchiveStore();
+  const panelRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const linksRef = useRef<HTMLElement>(null);
+
+  useFrame(() => {
+    const progress = timelineProgressRef.current;
+
+    // Update panels
+    const totalEvents = researchTimelineEvents.length;
+    for (let i = 0; i < totalEvents; i++) {
+      const panel = panelRefs.current[i];
+      if (panel) {
+        const opacity = getEventVisibility(progress, i, totalEvents);
+        panel.style.opacity = opacity.toString();
+        panel.style.pointerEvents = opacity > 0.25 ? "auto" : "none";
+        panel.style.display = opacity <= 0.02 ? "none" : "";
+      }
+    }
+
+    // Update links
+    const links = linksRef.current;
+    if (links) {
+      const opacity = getTimelineArchiveLinksOpacity(progress);
+      links.style.opacity = opacity.toString();
+      links.style.pointerEvents = opacity > 0.4 ? "auto" : "none";
+      links.style.display = opacity <= 0.02 ? "none" : "";
+    }
+  });
 
   return (
     <group>
-      {cameraEnabled ? <TimelineCameraRig progress={progress} /> : null}
-      <TimelineMistField progress={progress} />
+      <TimelineCameraRig />
+      <TimelineMistField />
       <ambientLight intensity={0.45} />
       <pointLight color="#42d6b3" intensity={0.85} position={[0, 18, 8]} />
       {researchTimelineEvents.map((event, index) => {
-        const opacity = getEventVisibility(progress, index, researchTimelineEvents.length);
-        if (opacity <= 0.02) return null;
         const position = getTimelineEventPosition(index, researchTimelineEvents.length);
         return (
           <group key={`${event.year}:${event.title}`} position={position}>
@@ -200,7 +240,14 @@ export function EntryTimeline3D({ cameraEnabled = true, progress }: { cameraEnab
               transform
               zIndexRange={[20, 0]}
             >
-              <TimelineEventPanel event={event} opacity={opacity} />
+              <TimelineEventPanel
+                ref={(el) => {
+                  panelRefs.current[index] = el;
+                }}
+                event={event}
+                index={index}
+                totalEvents={researchTimelineEvents.length}
+              />
             </Html>
           </group>
         );
@@ -210,7 +257,7 @@ export function EntryTimeline3D({ cameraEnabled = true, progress }: { cameraEnab
         position={[0, TIMELINE_LINKS_Y, -3.5]}
         zIndexRange={[80, 40]}
       >
-        <TimelineArchiveLinks opacity={archiveLinksOpacity} />
+        <TimelineArchiveLinks ref={linksRef} />
       </Html>
     </group>
   );

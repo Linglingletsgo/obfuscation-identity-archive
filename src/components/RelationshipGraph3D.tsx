@@ -1,5 +1,6 @@
 import { Line } from "@react-three/drei";
-import { useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { projectNodeIntoAvatarShape } from "../data/avatarShape";
@@ -9,6 +10,7 @@ import { GraphNodeSprite } from "./GraphNodeSprite";
 import { IdentityBillboardLabel } from "./IdentityBillboardLabel";
 import { CollectiveHoverLabel } from "./CollectiveHoverLabel";
 import { useAvatarShapePositions } from "./AvatarShapeContext";
+import { getAvatarRevealOpacity } from "./EntryTimeline3D";
 
 type SearchableNode = Pick<
   ArchiveGraphNode,
@@ -31,13 +33,11 @@ const PROJECTED_NODE_TYPES = ["submission", "tag"] as const;
 
 function GraphLinkLine({
   graphRenderPolicy,
-  opacity,
   source,
   style,
   target,
 }: {
   graphRenderPolicy: GraphRenderPolicy;
-  opacity: number;
   source: ArchiveGraphNode;
   style: ReturnType<typeof getGraphLinkStyle>;
   target: ArchiveGraphNode;
@@ -69,8 +69,9 @@ function GraphLinkLine({
       depthTest={graphRenderPolicy.depthTest}
       depthWrite={graphRenderPolicy.depthWrite}
       frustumCulled={graphRenderPolicy.frustumCulled}
-      opacity={style.opacity * opacity}
+      opacity={0}
       renderOrder={graphRenderPolicy.renderOrder}
+      userData={{ baseOpacity: style.opacity }}
     />
   );
 }
@@ -253,7 +254,7 @@ export function shouldCollectiveNodeClickLock(node: Pick<ArchiveGraphNode, "type
   return view === "collective" && node.type === "submission";
 }
 
-export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGraph; opacity?: number }) {
+export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
   const {
     filters,
     previewIdentity,
@@ -262,10 +263,13 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
     view,
     collectiveNavigation,
     updateCollectiveNavigation,
+    timelineProgressRef,
   } = useArchiveStore();
   const avatarShapePositions = useAvatarShapePositions();
   const query = filters.query.trim().toLowerCase();
   const focusedNodeId = collectiveNavigation.hoveredNodeId || collectiveNavigation.selectedIdentityId;
+  const groupRef = useRef<THREE.Group>(null);
+
   const scopedNodes = useMemo(
     () => getViewScopedGraphNodes(graph, { view, selectedIdentityId }),
     [graph, selectedIdentityId, view],
@@ -310,7 +314,6 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
     [avatarShapePositions, scopedNodes, view],
   );
   const nodeById = useMemo(() => new Map(shapedNodes.map((node) => [node.id, node])), [shapedNodes]);
-  const hoveredNode = focusedNodeId ? nodeById.get(focusedNodeId) ?? null : null;
 
   const visibleNodes = useMemo(() => {
     if (!filters.tag) return shapedNodes;
@@ -328,55 +331,86 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
     [filters.linkDensity, focusedNodeId, graph, view, visibleNodes],
   );
   const graphRenderPolicy = getGraphRenderPolicy(view);
-  return (
-    <group frustumCulled={graphRenderPolicy.frustumCulled} renderOrder={graphRenderPolicy.renderOrder}>
-      {visibleLinks.map((link) => {
-        const source = nodeById.get(link.source);
-        const target = nodeById.get(link.target);
-        if (!source || !target) return null;
-        const linkStyle = getGraphLinkStyle(link, view, focusedNodeId);
 
-        return (
-          <GraphLinkLine
-            key={link.id}
-            graphRenderPolicy={graphRenderPolicy}
-            opacity={opacity}
-            source={source}
-            style={linkStyle}
-            target={target}
-          />
-        );
-      })}
-      {visibleNodes.map((node) => (
-        <GraphNodeSprite
-          key={node.id}
-          node={node}
-          opacityMultiplier={getNodeOpacityMultiplier(node, query) * opacity}
-          onPointerOver={() => {
-            if (shouldSelectNodeOnCollectiveHover(node, view)) selectNode(node);
-            updateCollectiveNavigation({
-              hoveredNodeId: node.id,
-              hoveredTagLabel: node.type === "tag" ? node.visual.label : null,
-            });
-          }}
-          onPointerOut={() => {
-            updateCollectiveNavigation({ hoveredNodeId: null, hoveredTagLabel: null });
-          }}
-          onClick={() => {
-            if (view !== "collective") {
-              selectNode(node);
-              if (node.type === "submission") previewIdentity(node.id);
-              return;
-            }
+  const linkElements = useMemo(() => {
+    return visibleLinks.map((link) => {
+      const source = nodeById.get(link.source);
+      const target = nodeById.get(link.target);
+      if (!source || !target) return null;
+      const linkStyle = getGraphLinkStyle(link, view, focusedNodeId);
 
-            if (shouldCollectiveNodeClickLock(node, view)) {
-              selectNode(node);
-              updateCollectiveNavigation({ selectedIdentityId: node.id });
-              if (node.type === "submission") previewIdentity(node.id);
-            }
-          }}
+      return (
+        <GraphLinkLine
+          key={link.id}
+          graphRenderPolicy={graphRenderPolicy}
+          source={source}
+          style={linkStyle}
+          target={target}
         />
-      ))}
+      );
+    });
+  }, [visibleLinks, nodeById, graphRenderPolicy, view, focusedNodeId]);
+
+  const nodeElements = useMemo(() => {
+    return visibleNodes.map((node) => (
+      <GraphNodeSprite
+        key={node.id}
+        node={node}
+        opacityMultiplier={getNodeOpacityMultiplier(node, query)}
+        onPointerOver={() => {
+          if (shouldSelectNodeOnCollectiveHover(node, view)) selectNode(node);
+          updateCollectiveNavigation({
+            hoveredNodeId: node.id,
+            hoveredTagLabel: node.type === "tag" ? node.visual.label : null,
+          });
+        }}
+        onPointerOut={() => {
+          updateCollectiveNavigation({ hoveredNodeId: null, hoveredTagLabel: null });
+        }}
+        onClick={() => {
+          if (view !== "collective") {
+            selectNode(node);
+            if (node.type === "submission") previewIdentity(node.id);
+            return;
+          }
+
+          if (shouldCollectiveNodeClickLock(node, view)) {
+            selectNode(node);
+            updateCollectiveNavigation({ selectedIdentityId: node.id });
+            if (node.type === "submission") previewIdentity(node.id);
+          }
+        }}
+      />
+    ));
+  }, [visibleNodes, query, view, selectNode, updateCollectiveNavigation, previewIdentity]);
+
+  useFrame(() => {
+    if (!groupRef.current) return;
+    const progress = timelineProgressRef.current;
+    const currentOpacity = getAvatarRevealOpacity(progress);
+
+    groupRef.current.traverse((object) => {
+      if (object.userData && typeof object.userData.baseOpacity === "number") {
+        const mat = (object as any).material;
+        if (mat) {
+          mat.opacity = object.userData.baseOpacity * currentOpacity;
+          mat.transparent = true;
+        }
+      }
+    });
+
+    const elements = document.querySelectorAll(".identity-billboard, .tag-hover-label");
+    for (let i = 0; i < elements.length; i++) {
+      (elements[i] as HTMLElement).style.opacity = currentOpacity.toString();
+    }
+
+    groupRef.current.visible = currentOpacity > 0.001;
+  });
+
+  return (
+    <group ref={groupRef} frustumCulled={graphRenderPolicy.frustumCulled} renderOrder={graphRenderPolicy.renderOrder} visible={false}>
+      {linkElements}
+      {nodeElements}
       {visibleNodes.map((node) => (
         <IdentityBillboardLabel
           key={`${node.id}:label`}
@@ -387,13 +421,12 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
             updateCollectiveNavigation({ selectedIdentityId: node.id });
             if (node.type === "submission") previewIdentity(node.id);
           }}
-          opacity={opacity}
           visible={shouldShowIdentityBillboard(node, { view, focusedNodeId })}
         />
       ))}
       {visibleNodes.map((node) =>
         shouldShowTagLabel(node, { view, focusedNodeId }) ? (
-          <CollectiveHoverLabel key={`${node.id}:tag-label`} node={node} opacity={opacity} />
+          <CollectiveHoverLabel key={`${node.id}:tag-label`} node={node} />
         ) : null,
       )}
     </group>

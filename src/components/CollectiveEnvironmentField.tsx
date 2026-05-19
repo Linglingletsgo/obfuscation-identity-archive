@@ -6,6 +6,8 @@ import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { loadBakedEnvironmentPointCloud, type BakedEnvironmentPointCloud } from "../data/bakedPointCloud";
 import { normalizePointCloudPositions, sampleObjectSurface } from "../data/avatarShape";
+import { useArchiveStore } from "../state/archiveStore";
+import { getAvatarRevealOpacity } from "./EntryTimeline3D";
 
 const environmentVertexShader = `
   attribute vec3 color;
@@ -154,14 +156,14 @@ export function createBakedEnvironmentGeometry(baked: BakedEnvironmentPointCloud
   return geometry;
 }
 
-function createEnvironmentMaterial(pointTexture: THREE.Texture, opacity: number) {
+function createEnvironmentMaterial(pointTexture: THREE.Texture) {
   return new THREE.ShaderMaterial({
     vertexShader: environmentVertexShader,
     fragmentShader: environmentFragmentShader,
     uniforms: {
       uTime: { value: 0 },
       uDragIntensity: { value: 0 },
-      uGlobalOpacity: { value: opacity },
+      uGlobalOpacity: { value: 0 },
       uPointer: { value: new THREE.Vector2(0, 0) },
       uPointerPresence: { value: 0 },
       uPointerVelocity: { value: 0 },
@@ -173,11 +175,7 @@ function createEnvironmentMaterial(pointTexture: THREE.Texture, opacity: number)
   });
 }
 
-export function CollectiveEnvironmentField({
-  opacity = 1,
-}: {
-  opacity?: number;
-}) {
+export function CollectiveEnvironmentField() {
   const [bakedPointCloud, setBakedPointCloud] = useState<BakedEnvironmentPointCloud | null | undefined>(undefined);
   const pointTexture = useLoader(THREE.TextureLoader, archiveVisualConfig.assets.collectiveEnvironmentTexturePath);
 
@@ -200,17 +198,15 @@ export function CollectiveEnvironmentField({
   }
 
   return bakedPointCloud ? (
-    <PreparedEnvironmentField bakedPointCloud={bakedPointCloud} opacity={opacity} pointTexture={pointTexture} />
+    <PreparedEnvironmentField bakedPointCloud={bakedPointCloud} pointTexture={pointTexture} />
   ) : (
-    <FallbackEnvironmentField opacity={opacity} pointTexture={pointTexture} />
+    <FallbackEnvironmentField pointTexture={pointTexture} />
   );
 }
 
 function FallbackEnvironmentField({
-  opacity,
   pointTexture,
 }: {
-  opacity: number;
   pointTexture: THREE.Texture;
 }) {
   const gltf = useGLTF(archiveVisualConfig.assets.collectiveEnvironmentModelPath);
@@ -224,21 +220,21 @@ function FallbackEnvironmentField({
   );
   const geometry = useMemo(() => createEnvironmentGeometry(positions, surface.colors), [positions, surface.colors]);
 
-  return <PreparedEnvironmentField geometry={geometry} opacity={opacity} pointTexture={pointTexture} />;
+  return <PreparedEnvironmentField geometry={geometry} pointTexture={pointTexture} />;
 }
 
 function PreparedEnvironmentField({
   bakedPointCloud,
   geometry: fallbackGeometry,
-  opacity,
   pointTexture,
 }: {
   bakedPointCloud?: BakedEnvironmentPointCloud;
   geometry?: THREE.BufferGeometry;
-  opacity: number;
   pointTexture: THREE.Texture;
 }) {
-  const { pointer } = useThree();
+  const { pointer, gl, camera } = useThree();
+  const { timelineProgressRef } = useArchiveStore();
+  const pointsRef = useRef<THREE.Points>(null);
   const dragActiveRef = useRef(false);
   const dragRef = useRef(0);
   const pointerPresentRef = useRef(0);
@@ -257,8 +253,14 @@ function PreparedEnvironmentField({
     pointTexture.minFilter = THREE.LinearFilter;
     pointTexture.magFilter = THREE.LinearFilter;
     pointTexture.needsUpdate = true;
-    return createEnvironmentMaterial(pointTexture, opacity);
+    return createEnvironmentMaterial(pointTexture);
   }, [pointTexture]);
+
+  useEffect(() => {
+    // Compile shaders immediately to prevent stutter on first reveal
+    const dummyPoints = new THREE.Points(geometry, material);
+    gl.compile(dummyPoints, camera);
+  }, [gl, camera, geometry, material]);
 
   useEffect(
     () => () => {
@@ -306,21 +308,30 @@ function PreparedEnvironmentField({
     velocityRef.current += (Math.min(1, pointerDelta * 14) - velocityRef.current) * 0.16;
     dragRef.current += ((dragActiveRef.current ? 1 : 0) - dragRef.current) * 0.12;
     pointerPresentRef.current += ((pointerInsideRef.current ? 1 : 0.35) - pointerPresentRef.current) * 0.08;
+
+    const progress = timelineProgressRef.current;
+    const opacity = getAvatarRevealOpacity(progress);
+
     material.uniforms.uTime.value = clock.elapsedTime;
     material.uniforms.uDragIntensity.value = dragRef.current;
     material.uniforms.uGlobalOpacity.value = opacity;
     material.uniforms.uPointer.value.set(pointer.x, pointer.y);
     material.uniforms.uPointerPresence.value = pointerPresentRef.current;
     material.uniforms.uPointerVelocity.value = velocityRef.current;
+
+    if (pointsRef.current) {
+      pointsRef.current.visible = opacity > MIN_RENDER_OPACITY;
+    }
   });
 
   return (
     <points
+      ref={pointsRef}
       geometry={geometry}
       material={material}
       frustumCulled={false}
       renderOrder={1}
-      visible={opacity > MIN_RENDER_OPACITY}
+      visible={false}
     />
   );
 }

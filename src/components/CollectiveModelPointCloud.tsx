@@ -3,6 +3,8 @@ import { useLoader } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
+import { useArchiveStore } from "../state/archiveStore";
+import { getAvatarRevealOpacity } from "./EntryTimeline3D";
 
 const vertexShader = `
   attribute vec3 color;
@@ -139,18 +141,18 @@ export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture,
 
 export function CollectiveModelPointCloud({
   colors,
-  opacity = 1,
   partColors,
   partIds,
   positions,
 }: {
   colors: Float32Array;
-  opacity?: number;
   partColors: Float32Array;
   partIds: Float32Array;
   positions: Float32Array;
 }) {
-  const { camera, pointer, raycaster } = useThree();
+  const { camera, pointer, raycaster, gl } = useThree();
+  const { timelineProgressRef } = useArchiveStore();
+  const pointsRef = useRef<THREE.Points>(null);
   const influenceRef = useRef(0);
   const velocityRef = useRef(0);
   const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
@@ -170,6 +172,12 @@ export function CollectiveModelPointCloud({
     return createCollectiveModelPointMaterial(pointTexture);
   }, [pointTexture]);
 
+  useEffect(() => {
+    // Precompile model point cloud shaders
+    const dummyPoints = new THREE.Points(geometry, material);
+    gl.compile(dummyPoints, camera);
+  }, [gl, camera, geometry, material]);
+
   useEffect(
     () => () => {
       geometry.dispose();
@@ -186,21 +194,29 @@ export function CollectiveModelPointCloud({
     influenceRef.current += (0.38 - influenceRef.current) * 0.08;
     raycaster.setFromCamera(pointer, camera);
 
+    const progress = timelineProgressRef.current;
+    const opacity = getAvatarRevealOpacity(progress);
+
     material.uniforms.uTime.value = clock.elapsedTime;
     material.uniforms.uInfluence.value = influenceRef.current;
     material.uniforms.uPointerVelocity.value = velocityRef.current;
     material.uniforms.uGlobalOpacity.value = opacity;
     material.uniforms.uRayOrigin.value.copy(raycaster.ray.origin);
     material.uniforms.uRayDirection.value.copy(raycaster.ray.direction);
+
+    if (pointsRef.current) {
+      pointsRef.current.visible = opacity > MIN_RENDER_OPACITY;
+    }
   });
 
   return (
     <points
+      ref={pointsRef}
       geometry={geometry}
       material={material}
       frustumCulled={false}
       renderOrder={8}
-      visible={opacity > MIN_RENDER_OPACITY}
+      visible={false}
     />
   );
 }
