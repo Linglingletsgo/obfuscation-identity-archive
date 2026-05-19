@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useArchiveData } from "../data/useArchiveData";
 import { useArchiveStore } from "../state/archiveStore";
 import { CollectiveIdentityOverlay } from "./CollectiveIdentityOverlay";
@@ -23,6 +23,10 @@ export function ArchiveExperience() {
   const individualScrollPositionRef = useRef({ x: 0, y: 0 });
   const collectiveScrollPositionRef = useRef({ x: 0, y: 0, progress: 0 });
   const updateCollectiveNavigationRef = useRef(updateCollectiveNavigation);
+  const collectiveIdentities = useMemo(
+    () => graph?.nodes.filter((node) => node.type === "submission") ?? [],
+    [graph],
+  );
 
   useEffect(() => {
     timelineProgressRef.current = timelineProgress;
@@ -239,7 +243,7 @@ export function ArchiveExperience() {
       ) : null}
       {timelineMode === "collective" ? (
         <>
-          <CollectiveIdentityOverlay identities={graph?.nodes.filter((node) => node.type === "submission") ?? []} />
+          <CollectiveIdentityOverlay identities={collectiveIdentities} />
         </>
       ) : null}
     </section>

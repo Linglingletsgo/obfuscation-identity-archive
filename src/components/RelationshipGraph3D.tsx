@@ -28,6 +28,53 @@ type GraphRenderPolicy = {
 };
 
 const LABEL_VISIBLE_OPACITY_THRESHOLD = 0.55;
+const PROJECTED_NODE_TYPES = ["submission", "tag"] as const;
+
+function GraphLinkLine({
+  graphRenderPolicy,
+  opacity,
+  source,
+  style,
+  target,
+}: {
+  graphRenderPolicy: GraphRenderPolicy;
+  opacity: number;
+  source: ArchiveGraphNode;
+  style: ReturnType<typeof getGraphLinkStyle>;
+  target: ArchiveGraphNode;
+}) {
+  const points = useMemo(
+    () => [
+      new THREE.Vector3(source.position.x, source.position.y, source.position.z),
+      new THREE.Vector3(target.position.x, target.position.y, target.position.z),
+    ],
+    [
+      source.position.x,
+      source.position.y,
+      source.position.z,
+      target.position.x,
+      target.position.y,
+      target.position.z,
+    ],
+  );
+
+  return (
+    <Line
+      points={points}
+      color={style.color}
+      lineWidth={style.lineWidth}
+      dashed={style.dashed}
+      dashSize={0.12}
+      gapSize={0.08}
+      transparent
+      depthTest={graphRenderPolicy.depthTest}
+      depthWrite={graphRenderPolicy.depthWrite}
+      frustumCulled={graphRenderPolicy.frustumCulled}
+      opacity={style.opacity * opacity}
+      renderOrder={graphRenderPolicy.renderOrder}
+    />
+  );
+}
 
 export function shouldRenderGraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
   if (link.type === "interaction" || link.type === "conflict_tag") return true;
@@ -136,9 +183,11 @@ export function shouldDisplayGraphLink(link: ArchiveGraphLink, view: ArchiveView
 export function getNodeOpacityMultiplier(node: SearchableNode, query: string): number {
   if (!query) return 1;
   const normalizedQuery = query.toLowerCase();
-  const matches = node.type === "submission" && [node.id, node.identity_name, node.visual.label]
-    .filter(Boolean)
-    .some((value) => String(value).toLowerCase().includes(normalizedQuery));
+  const matches =
+    node.type === "submission" &&
+    (node.id.toLowerCase().includes(normalizedQuery) ||
+      Boolean(node.identity_name?.toLowerCase().includes(normalizedQuery)) ||
+      node.visual.label.toLowerCase().includes(normalizedQuery));
 
   return matches ? 1 : 0.16;
 }
@@ -167,7 +216,10 @@ export function getViewScopedGraphLinks(
   view: ArchiveView,
   linkDensity = 1,
 ): ArchiveGraphLink[] {
-  const visibleIds = new Set(scopedNodes.map((node) => node.id));
+  const visibleIds = new Set<string>();
+  for (const node of scopedNodes) {
+    visibleIds.add(node.id);
+  }
 
   return graph.links.filter((link) => {
     if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
@@ -225,13 +277,22 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
       if (!avatarShapePositions || avatarShapePositions.length < 3) return [];
 
       const projectedNodeIndexById = new Map<string, { index: number; total: number }>();
-      for (const nodeType of ["submission", "tag"] as const) {
-        const projectedNodes = scopedNodes
-          .filter((node) => node.type === nodeType)
-          .sort((left, right) => left.id.localeCompare(right.id));
-        projectedNodes.forEach((node, index) => {
+      const projectedNodesByType: Record<(typeof PROJECTED_NODE_TYPES)[number], ArchiveGraphNode[]> = {
+        submission: [],
+        tag: [],
+      };
+
+      for (const node of scopedNodes) {
+        if (node.type === "submission" || node.type === "tag") projectedNodesByType[node.type].push(node);
+      }
+
+      for (const nodeType of PROJECTED_NODE_TYPES) {
+        const projectedNodes = projectedNodesByType[nodeType];
+        projectedNodes.sort((left, right) => left.id.localeCompare(right.id));
+        for (let index = 0; index < projectedNodes.length; index += 1) {
+          const node = projectedNodes[index];
           projectedNodeIndexById.set(node.id, { index, total: projectedNodes.length });
-        });
+        }
       }
 
       return scopedNodes.map((node) => {
@@ -260,8 +321,12 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
     });
   }, [filters.tag, shapedNodes]);
 
-  const visibleLinks = getViewScopedGraphLinks(graph, visibleNodes, focusedNodeId, view, filters.linkDensity).filter(
-    (link) => shouldDisplayGraphLink(link, view, focusedNodeId, filters.linkDensity),
+  const visibleLinks = useMemo(
+    () =>
+      getViewScopedGraphLinks(graph, visibleNodes, focusedNodeId, view, filters.linkDensity).filter((link) =>
+        shouldDisplayGraphLink(link, view, focusedNodeId, filters.linkDensity),
+      ),
+    [filters.linkDensity, focusedNodeId, graph, view, visibleNodes],
   );
   const graphRenderPolicy = getGraphRenderPolicy(view);
   const shouldRenderHtmlLabels = view !== "collective" || opacity >= LABEL_VISIBLE_OPACITY_THRESHOLD;
@@ -275,23 +340,13 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
         const linkStyle = getGraphLinkStyle(link, view, focusedNodeId);
 
         return (
-          <Line
+          <GraphLinkLine
             key={link.id}
-            points={[
-              new THREE.Vector3(source.position.x, source.position.y, source.position.z),
-              new THREE.Vector3(target.position.x, target.position.y, target.position.z),
-            ]}
-            color={linkStyle.color}
-            lineWidth={linkStyle.lineWidth}
-            dashed={linkStyle.dashed}
-            dashSize={0.12}
-            gapSize={0.08}
-            transparent
-            depthTest={graphRenderPolicy.depthTest}
-            depthWrite={graphRenderPolicy.depthWrite}
-            frustumCulled={graphRenderPolicy.frustumCulled}
-            opacity={linkStyle.opacity * opacity}
-            renderOrder={graphRenderPolicy.renderOrder}
+            graphRenderPolicy={graphRenderPolicy}
+            opacity={opacity}
+            source={source}
+            style={linkStyle}
+            target={target}
           />
         );
       })}

@@ -765,6 +765,8 @@ select {
 }
 
 .index-table tr {
+  content-visibility: auto;
+  contain-intrinsic-size: 48px;
   cursor: pointer;
 }
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import type {
   ArchiveView,
@@ -59,6 +59,32 @@ export function ArchiveProvider({ children }: { children: ReactNode }) {
   const [collectiveNavigation, setCollectiveNavigation] =
     useState<CollectiveNavigationState>(initialCollectiveNavigation);
   const [filters, setFilterState] = useState<ArchiveFilters>(initialFilters);
+  const openIdentity = useCallback((identityId: string) => {
+    setSelectedIdentityId(identityId);
+    setView("individual");
+  }, []);
+  const openCollective = useCallback(() => {
+    setView("collective");
+  }, []);
+  const previewIdentity = useCallback((identityId: string) => {
+    setCollectiveNavigation((current) => ({
+      ...current,
+      selectedIdentityId: identityId,
+    }));
+  }, []);
+  const enterIdentityDetail = useCallback((identityId: string) => {
+    setSelectedIdentityId(identityId);
+    setView("individual");
+  }, []);
+  const selectNode = useCallback((node: ArchiveGraphNode | null) => {
+    setSelectedNode(node);
+  }, []);
+  const updateCollectiveNavigation = useCallback((next: Partial<CollectiveNavigationState>) => {
+    setCollectiveNavigation((current) => ({ ...current, ...next }));
+  }, []);
+  const setFilters = useCallback((next: Partial<ArchiveFilters>) => {
+    setFilterState((current) => ({ ...current, ...next }));
+  }, []);
 
   const value = useMemo<ArchiveStore>(
     () => ({
@@ -71,34 +97,30 @@ export function ArchiveProvider({ children }: { children: ReactNode }) {
       filters,
       setGraph,
       setTimeline,
-      openIdentity(identityId) {
-        setSelectedIdentityId(identityId);
-        setView("individual");
-      },
-      openCollective() {
-        setView("collective");
-      },
-      previewIdentity(identityId) {
-        setCollectiveNavigation((current) => ({
-          ...current,
-          selectedIdentityId: identityId,
-        }));
-      },
-      enterIdentityDetail(identityId) {
-        setSelectedIdentityId(identityId);
-        setView("individual");
-      },
-      selectNode(node) {
-        setSelectedNode(node);
-      },
-      updateCollectiveNavigation(next) {
-        setCollectiveNavigation((current) => ({ ...current, ...next }));
-      },
-      setFilters(next) {
-        setFilterState((current) => ({ ...current, ...next }));
-      },
+      openIdentity,
+      openCollective,
+      previewIdentity,
+      enterIdentityDetail,
+      selectNode,
+      updateCollectiveNavigation,
+      setFilters,
     }),
-    [collectiveNavigation, filters, graph, selectedIdentityId, selectedNode, timeline, view],
+    [
+      collectiveNavigation,
+      enterIdentityDetail,
+      filters,
+      graph,
+      openCollective,
+      openIdentity,
+      previewIdentity,
+      selectNode,
+      selectedIdentityId,
+      selectedNode,
+      setFilters,
+      timeline,
+      updateCollectiveNavigation,
+      view,
+    ],
   );
 
   return <ArchiveContext.Provider value={value}>{children}</ArchiveContext.Provider>;

@@ -96,6 +96,8 @@ function CollectiveCameraStateSync({
   const updateCollectiveNavigationRef = useRef(updateCollectiveNavigation);
   const collectiveNavigationRef = useRef(collectiveNavigation);
   const lastSyncedCameraRef = useRef<[number, number, number]>(collectiveNavigation.cameraPosition);
+  const fallbackTargetRef = useRef(new THREE.Vector3(...getCollectiveCameraTarget()));
+  const resetTargetRef = useRef(new THREE.Vector3());
 
   useEffect(() => {
     updateCollectiveNavigationRef.current = updateCollectiveNavigation;
@@ -118,8 +120,9 @@ function CollectiveCameraStateSync({
     }
 
     if (view === "collective") {
+      resetTargetRef.current.set(...target);
       updateCollectiveNavigationRef.current({
-        mode: getCollectiveModeForCameraDistance(camera.position.distanceTo(new THREE.Vector3(...target))),
+        mode: getCollectiveModeForCameraDistance(camera.position.distanceTo(resetTargetRef.current)),
         cameraPosition: position,
         cameraTarget: target,
       });
@@ -129,7 +132,7 @@ function CollectiveCameraStateSync({
   useFrame(() => {
     if (view !== "collective") return;
 
-    const controlsTarget = controlsRef.current?.target ?? new THREE.Vector3(...getCollectiveCameraTarget());
+    const controlsTarget = controlsRef.current?.target ?? fallbackTargetRef.current;
     const distance = camera.position.distanceTo(controlsTarget);
     const mode = getCollectiveModeForCameraDistance(distance);
     const position: [number, number, number] = [camera.position.x, camera.position.y, camera.position.z];
@@ -183,6 +186,8 @@ function GlobalInteractionLights() {
   const velocityRef = useRef(0);
   const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
   const lightTargetRef = useRef(new THREE.Vector3(0, 0, 0));
+  const keyLightTargetRef = useRef(new THREE.Vector3(0, 0, 8));
+  const fillLightTargetRef = useRef(new THREE.Vector3(0, 0, -8));
   const lightPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), []);
 
   useEffect(() => {
@@ -217,19 +222,15 @@ function GlobalInteractionLights() {
     const fillLight = fillLightRef.current;
 
     if (keyLight) {
-      keyLight.position.lerp(
-        new THREE.Vector3(lightTargetRef.current.x, lightTargetRef.current.y, 6 + dragBoostRef.current * 5),
-        0.24,
-      );
+      keyLightTargetRef.current.set(lightTargetRef.current.x, lightTargetRef.current.y, 6 + dragBoostRef.current * 5);
+      keyLight.position.lerp(keyLightTargetRef.current, 0.24);
       keyLight.intensity = intensity;
       keyLight.distance = 30 + dragBoostRef.current * 22;
     }
 
     if (fillLight) {
-      fillLight.position.lerp(
-        new THREE.Vector3(-lightTargetRef.current.x * 0.42, lightTargetRef.current.y * 0.3, -8),
-        0.18,
-      );
+      fillLightTargetRef.current.set(-lightTargetRef.current.x * 0.42, lightTargetRef.current.y * 0.3, -8);
+      fillLight.position.lerp(fillLightTargetRef.current, 0.18);
       fillLight.intensity = 0.14 + velocityRef.current * 0.7 + dragBoostRef.current * 0.9;
       fillLight.distance = 38;
     }

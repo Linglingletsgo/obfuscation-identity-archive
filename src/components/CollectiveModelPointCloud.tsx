@@ -105,9 +105,14 @@ export function createCollectiveModelPartGeometry(
   partColors: Float32Array,
   partIds: Float32Array,
 ): THREE.BufferGeometry {
-  const geometry = createCollectiveModelPointGeometry(positions, colors);
+  const geometry = new THREE.BufferGeometry();
+  const pointCount = Math.floor(positions.length / 3);
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   geometry.setAttribute("partColor", new THREE.BufferAttribute(partColors, 3));
   geometry.setAttribute("partId", new THREE.BufferAttribute(partIds, 1));
+  geometry.setAttribute("seed", new THREE.BufferAttribute(createSeeds(pointCount), 1));
+  geometry.computeBoundingSphere();
   return geometry;
 }
 

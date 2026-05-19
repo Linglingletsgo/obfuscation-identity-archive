@@ -1,38 +1,94 @@
-import { useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState, type KeyboardEvent } from "react";
 import { useArchiveData } from "../data/useArchiveData";
 import { useArchiveStore } from "../state/archiveStore";
 import type { ArchiveGraphNode } from "../types/archive";
+
+const EMPTY_NODES: ArchiveGraphNode[] = [];
+const MAX_VISIBLE_TAGS = 8;
+
+type IdentityIndexRow = {
+  carriedFragment: string;
+  id: string;
+  name: string;
+  normalizedSearchText: string;
+  tagCount: number;
+  tagPreview: string;
+};
 
 function normalize(value: string | undefined): string {
   return value?.toLowerCase().trim() ?? "";
 }
 
-function getIdentityRows(nodes: ArchiveGraphNode[], query: string): ArchiveGraphNode[] {
-  const normalizedQuery = normalize(query);
-  const identities = nodes
-    .filter((node) => node.type === "submission")
-    .sort((left, right) => (left.identity_name ?? left.id).localeCompare(right.identity_name ?? right.id));
+function createIdentityIndexRows(nodes: ArchiveGraphNode[]): IdentityIndexRow[] {
+  const rows: IdentityIndexRow[] = [];
 
-  if (!normalizedQuery) return identities;
+  for (const node of nodes) {
+    if (node.type !== "submission") continue;
 
-  return identities.filter((node) =>
-    [node.id, node.identity_name, node.carried_fragment, ...node.tag_labels]
-      .filter(Boolean)
-      .some((value) => normalize(String(value)).includes(normalizedQuery)),
-  );
+    const name = node.identity_name ?? node.visual.label;
+    const carriedFragment = node.carried_fragment ?? "";
+    const tagPreview = node.tag_labels.slice(0, MAX_VISIBLE_TAGS).join(", ");
+    rows.push({
+      carriedFragment,
+      id: node.id,
+      name,
+      normalizedSearchText: normalize([node.id, name, carriedFragment, ...node.tag_labels].join(" ")),
+      tagCount: node.tag_labels.length,
+      tagPreview,
+    });
+  }
+
+  rows.sort((left, right) => left.name.localeCompare(right.name));
+  return rows;
 }
+
+function getVisibleIdentityRows(rows: IdentityIndexRow[], query: string): IdentityIndexRow[] {
+  const normalizedQuery = normalize(query);
+  if (!normalizedQuery) return rows;
+  return rows.filter((row) => row.normalizedSearchText.includes(normalizedQuery));
+}
+
+const IdentityIndexTableRow = memo(function IdentityIndexTableRow({
+  node,
+  onOpen,
+}: {
+  node: IdentityIndexRow;
+  onOpen: (identityId: string) => void;
+}) {
+  const openCurrentIdentity = useCallback(() => {
+    onOpen(node.id);
+  }, [node.id, onOpen]);
+  const handleKeyDown = useCallback((event: KeyboardEvent<HTMLTableRowElement>) => {
+    if (event.key === "Enter" || event.key === " ") openCurrentIdentity();
+  }, [openCurrentIdentity]);
+
+  return (
+    <tr
+      onClick={openCurrentIdentity}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
+      <td>{node.id}</td>
+      <td>{node.name}</td>
+      <td>{node.carriedFragment}</td>
+      <td>{node.tagPreview}</td>
+      <td>{node.tagCount}</td>
+    </tr>
+  );
+});
 
 export function ArchiveIndexPage() {
   const { message, status } = useArchiveData();
   const { enterIdentityDetail, graph } = useArchiveStore();
   const [query, setQuery] = useState("");
-  const rows = useMemo(() => getIdentityRows(graph?.nodes ?? [], query), [graph, query]);
+  const identityRows = useMemo(() => createIdentityIndexRows(graph?.nodes ?? EMPTY_NODES), [graph]);
+  const rows = useMemo(() => getVisibleIdentityRows(identityRows, query), [identityRows, query]);
 
-  function openIdentity(identityId: string) {
+  const openIdentity = useCallback((identityId: string) => {
     enterIdentityDetail(identityId);
     window.history.pushState(null, "", "/");
     window.dispatchEvent(new PopStateEvent("popstate"));
-  }
+  }, [enterIdentityDetail]);
 
   if (status === "loading") return <section className="archive-index-page">{message}</section>;
   if (status === "error") return <section className="archive-index-page" role="alert">{message}</section>;
@@ -61,20 +117,11 @@ export function ArchiveIndexPage() {
           </thead>
           <tbody>
             {rows.map((node) => (
-              <tr
+              <IdentityIndexTableRow
                 key={node.id}
-                onClick={() => openIdentity(node.id)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") openIdentity(node.id);
-                }}
-                tabIndex={0}
-              >
-                <td>{node.id}</td>
-                <td>{node.identity_name ?? node.visual.label}</td>
-                <td>{node.carried_fragment}</td>
-                <td>{node.tag_labels.slice(0, 8).join(", ")}</td>
-                <td>{node.tag_labels.length}</td>
-              </tr>
+                node={node}
+                onOpen={openIdentity}
+              />
             ))}
           </tbody>
         </table>

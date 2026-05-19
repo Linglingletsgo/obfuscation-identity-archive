@@ -84,30 +84,47 @@ function createEnvironmentGeometry(positions: Float32Array, colors: Float32Array
     const randomD = ((index * 19937) % 2147483647) / 2147483647;
     const randomE = ((index * 44497) % 2147483647) / 2147483647;
     const randomF = ((index * 96821) % 2147483647) / 2147483647;
-    const source = new THREE.Vector3(positions[offset], positions[offset + 1], positions[offset + 2]);
-    const radial = source.lengthSq() > 0.001 ? source.clone().normalize() : new THREE.Vector3(0, 1, 0);
-    const tangent = new THREE.Vector3(-radial.z, 0.13 + randomE * 0.32, radial.x).normalize();
-    const bitangent = new THREE.Vector3().crossVectors(radial, tangent).normalize();
+    const sourceX = positions[offset];
+    const sourceY = positions[offset + 1];
+    const sourceZ = positions[offset + 2];
+    const sourceLengthSq = sourceX * sourceX + sourceY * sourceY + sourceZ * sourceZ;
+    const sourceLength = sourceLengthSq > 0.001 ? Math.sqrt(sourceLengthSq) : 1;
+    const radialX = sourceLengthSq > 0.001 ? sourceX / sourceLength : 0;
+    const radialY = sourceLengthSq > 0.001 ? sourceY / sourceLength : 1;
+    const radialZ = sourceLengthSq > 0.001 ? sourceZ / sourceLength : 0;
+    const tangentSeedY = 0.13 + randomE * 0.32;
+    const tangentLength = Math.hypot(-radialZ, tangentSeedY, radialX) || 1;
+    const tangentX = -radialZ / tangentLength;
+    const tangentY = tangentSeedY / tangentLength;
+    const tangentZ = radialX / tangentLength;
+    const bitangentSeedX = radialY * tangentZ - radialZ * tangentY;
+    const bitangentSeedY = radialZ * tangentX - radialX * tangentZ;
+    const bitangentSeedZ = radialX * tangentY - radialY * tangentX;
+    const bitangentLength = Math.hypot(bitangentSeedX, bitangentSeedY, bitangentSeedZ) || 1;
+    const bitangentX = bitangentSeedX / bitangentLength;
+    const bitangentY = bitangentSeedY / bitangentLength;
+    const bitangentZ = bitangentSeedZ / bitangentLength;
     const jitterRadius = 0.8 + Math.pow(randomA, 1.25) * 5.8;
     const jitterTheta = randomB * Math.PI * 2;
+    const tangentScale = Math.cos(jitterTheta) * jitterRadius;
+    const bitangentScale = Math.sin(jitterTheta) * jitterRadius * 0.86;
+    const radialScale = (randomD - 0.5) * 4.8;
     const volumeBlend = randomF < 0.34 ? 0.32 + randomD * 0.3 : 0;
-    const volumePoint = new THREE.Vector3(
-      (randomA - 0.5) * 52,
-      (randomB - 0.5) * 30,
-      (randomC - 0.5) * 38 - 6,
-    );
-    const scattered = source
-      .clone()
-      .addScaledVector(tangent, Math.cos(jitterTheta) * jitterRadius)
-      .addScaledVector(bitangent, Math.sin(jitterTheta) * jitterRadius * 0.86)
-      .addScaledVector(radial, (randomD - 0.5) * 4.8)
-      .lerp(volumePoint, volumeBlend);
+    const volumeX = (randomA - 0.5) * 52;
+    const volumeY = (randomB - 0.5) * 30;
+    const volumeZ = (randomC - 0.5) * 38 - 6;
+    const scatteredX =
+      sourceX + tangentX * tangentScale + bitangentX * bitangentScale + radialX * radialScale;
+    const scatteredY =
+      sourceY + tangentY * tangentScale + bitangentY * bitangentScale + radialY * radialScale;
+    const scatteredZ =
+      sourceZ + tangentZ * tangentScale + bitangentZ * bitangentScale + radialZ * radialScale;
     seeds[index] = seed;
     alphaSeeds[index] = randomE;
     sizes[index] = 0.45 + Math.pow(randomF, 2.2) * 1.35;
-    randomizedPositions[offset] = scattered.x;
-    randomizedPositions[offset + 1] = scattered.y;
-    randomizedPositions[offset + 2] = scattered.z;
+    randomizedPositions[offset] = scatteredX + (volumeX - scatteredX) * volumeBlend;
+    randomizedPositions[offset + 1] = scatteredY + (volumeY - scatteredY) * volumeBlend;
+    randomizedPositions[offset + 2] = scatteredZ + (volumeZ - scatteredZ) * volumeBlend;
     softenedColors[offset] = colors[offset] * 0.46 + 0.09;
     softenedColors[offset + 1] = colors[offset + 1] * 0.52 + 0.13;
     softenedColors[offset + 2] = colors[offset + 2] * 0.6 + 0.18;

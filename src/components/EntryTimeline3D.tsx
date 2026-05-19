@@ -15,8 +15,8 @@ const EVENT_PATH_RANGE = EVENT_PATH_START_Y - EVENT_PATH_END_Y;
 const EVENT_PROGRESS_END = 0.86;
 const AVATAR_REVEAL_START = 0.86;
 export const TIMELINE_COLLECTIVE_OFFSET_Y = -68;
-const COLLECTIVE_POSITION = new THREE.Vector3(0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40);
-const COLLECTIVE_TARGET = new THREE.Vector3(0, TIMELINE_COLLECTIVE_OFFSET_Y, 0);
+const COLLECTIVE_POSITION: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40];
+const COLLECTIVE_TARGET: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
 const TIMELINE_LINKS_Y = -48;
 
 function clamp01(value: number): number {
@@ -38,19 +38,28 @@ export function getTimelineEventPosition(index: number, eventCount: number): [nu
 }
 
 export function getTimelineCameraPose(progress: number): TimelineCameraPose {
+  const lookAt: [number, number, number] = [0, 0, 0];
+  const position: [number, number, number] = [0, 0, 0];
+  writeTimelineCameraPose(progress, position, lookAt);
+  return { lookAt, position };
+}
+
+function writeTimelineCameraPose(
+  progress: number,
+  position: [number, number, number],
+  lookAt: [number, number, number],
+) {
   const clampedProgress = clamp01(progress);
   const eventProgress = clamp01(clampedProgress / EVENT_PROGRESS_END);
   const pathY = EVENT_PATH_START_Y + 4 - eventProgress * (EVENT_PATH_RANGE + 10);
-  const timelinePosition = new THREE.Vector3(0, pathY, 18);
-  const timelineTarget = new THREE.Vector3(0, pathY - 8, -4);
   const transition = smoothstep(0.82, 0.96, clampedProgress);
-  const position = timelinePosition.lerp(COLLECTIVE_POSITION, transition);
-  const lookAt = timelineTarget.lerp(COLLECTIVE_TARGET, transition);
 
-  return {
-    lookAt: [lookAt.x, lookAt.y, lookAt.z],
-    position: [position.x, position.y, position.z],
-  };
+  lookAt[0] = COLLECTIVE_TARGET[0] * transition;
+  lookAt[1] = pathY - 8 + (COLLECTIVE_TARGET[1] - (pathY - 8)) * transition;
+  lookAt[2] = -4 + (COLLECTIVE_TARGET[2] + 4) * transition;
+  position[0] = COLLECTIVE_POSITION[0] * transition;
+  position[1] = pathY + (COLLECTIVE_POSITION[1] - pathY) * transition;
+  position[2] = 18 + (COLLECTIVE_POSITION[2] - 18) * transition;
 }
 
 export function getAvatarRevealOpacity(progress: number): number {
@@ -69,11 +78,15 @@ function getEventVisibility(progress: number, index: number, eventCount: number)
 function TimelineCameraRig({ progress }: { progress: number }) {
   const { camera } = useThree();
   const lookTarget = useMemo(() => new THREE.Vector3(), []);
+  const positionTarget = useMemo(() => new THREE.Vector3(), []);
+  const posePosition = useMemo<[number, number, number]>(() => [0, 0, 0], []);
+  const poseLookAt = useMemo<[number, number, number]>(() => [0, 0, 0], []);
 
   useFrame(() => {
-    const pose = getTimelineCameraPose(progress);
-    camera.position.lerp(new THREE.Vector3(...pose.position), 0.18);
-    lookTarget.set(...pose.lookAt);
+    writeTimelineCameraPose(progress, posePosition, poseLookAt);
+    positionTarget.set(posePosition[0], posePosition[1], posePosition[2]);
+    camera.position.lerp(positionTarget, 0.18);
+    lookTarget.set(poseLookAt[0], poseLookAt[1], poseLookAt[2]);
     camera.lookAt(lookTarget);
   });
 

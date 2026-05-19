@@ -38,13 +38,37 @@ function LoadedCollectiveAvatarField({
       mesh.material = materials.map((material) => {
         const cloned = material.clone();
         cloned.transparent = true;
-        cloned.opacity = 0.18 * opacity;
         cloned.depthWrite = false;
         return cloned;
       });
     });
     return scene;
-  }, [gltf.scene, opacity]);
+  }, [gltf.scene]);
+
+  useEffect(() => {
+    materializedScene.traverse((object) => {
+      const mesh = object as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+      for (const material of materials) {
+        material.opacity = 0.18 * opacity;
+      }
+    });
+  }, [materializedScene, opacity]);
+
+  useEffect(
+    () => () => {
+      materializedScene.traverse((object) => {
+        const mesh = object as THREE.Mesh;
+        if (!mesh.isMesh) return;
+        const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+        for (const material of materials) {
+          material.dispose();
+        }
+      });
+    },
+    [materializedScene],
+  );
 
   useEffect(() => {
     onShapePositions(normalizedPositions);
