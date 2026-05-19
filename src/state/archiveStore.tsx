@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
+import { TIMELINE_COLLECTIVE_OFFSET_Y } from "../components/EntryTimeline3D";
 import type {
   ArchiveView,
   ArchiveGraph,
@@ -46,8 +47,12 @@ const initialCollectiveNavigation: CollectiveNavigationState = {
   selectedIdentityId: null,
   hoveredNodeId: null,
   hoveredTagLabel: null,
-  cameraPosition: [...archiveVisualConfig.camera.collectivePosition],
-  cameraTarget: [0, 0, 0],
+  cameraPosition: [
+    archiveVisualConfig.camera.collectivePosition[0],
+    archiveVisualConfig.camera.collectivePosition[1] + TIMELINE_COLLECTIVE_OFFSET_Y,
+    archiveVisualConfig.camera.collectivePosition[2],
+  ],
+  cameraTarget: [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0],
 };
 
 export function ArchiveProvider({ children }: { children: ReactNode }) {
