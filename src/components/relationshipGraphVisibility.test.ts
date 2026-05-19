@@ -238,9 +238,9 @@ describe("RelationshipGraph3D visibility helpers", () => {
     expect(shouldSelectNodeOnCollectiveHover(searchableNode("collective:global", [], "collective", 2), "collective")).toBe(false);
   });
 
-  it("allows click locking on collective identity, tag, and center nodes", () => {
+  it("allows click locking only on collective identity nodes", () => {
     expect(shouldCollectiveNodeClickLock(searchableNode("a", ["Dream"], "submission", 0, ["a"]), "collective")).toBe(true);
-    expect(shouldCollectiveNodeClickLock(searchableNode("collective:global", [], "collective", 2), "collective")).toBe(true);
-    expect(shouldCollectiveNodeClickLock(searchableNode("tag:Dream", ["Dream"], "tag", 2), "collective")).toBe(true);
+    expect(shouldCollectiveNodeClickLock(searchableNode("collective:global", [], "collective", 2), "collective")).toBe(false);
+    expect(shouldCollectiveNodeClickLock(searchableNode("tag:Dream", ["Dream"], "tag", 2), "collective")).toBe(false);
   });
 });

@@ -251,7 +251,7 @@ export function shouldSelectNodeOnCollectiveHover(
 }
 
 export function shouldCollectiveNodeClickLock(node: Pick<ArchiveGraphNode, "type">, view: ArchiveView): boolean {
-  return view === "collective" && (node.type === "submission" || node.type === "tag" || node.type === "collective");
+  return view === "collective" && node.type === "submission";
 }
 
 export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGraph; opacity?: number }) {

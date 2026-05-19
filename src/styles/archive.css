@@ -642,10 +642,10 @@ select {
 }
 
 .collective-identity-overlay {
-  position: absolute;
+  position: fixed;
   bottom: 18px;
   left: 50%;
-  z-index: 7;
+  z-index: 30;
   display: flex;
   gap: 18px;
   align-items: center;
