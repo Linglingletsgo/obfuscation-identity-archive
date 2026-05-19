@@ -117,21 +117,24 @@ async function getCollectiveWebGLPixelCentroid(page: import("@playwright/test").
   }, dataUrl);
 }
 
-test("opens into collective overview with graph controls", async ({ page }) => {
+test("opens into collective overview without in-scene search controls", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByTestId("archive-experience")).toBeVisible();
   await expect(page.getByLabel("Research narrative timeline")).toBeVisible();
   await enterCollectiveFromTimeline(page);
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
-  await expect(page.getByLabel("Archive graph controls")).toBeVisible();
+  await expect(page.getByLabel("Archive graph controls")).toHaveCount(0);
 });
 
-test("search keeps collective graph usable without entering detail", async ({ page }) => {
+test("index database link opens searchable 2D identity table", async ({ page }) => {
   await page.goto("/");
-  await enterCollectiveFromTimeline(page);
-  await page.getByLabel("Search archive").fill("Dream");
-  await expect(page.getByLabel("Archive graph controls")).toBeVisible();
-  await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
+  await page.evaluate(() => {
+    window.scrollTo({ top: document.documentElement.scrollHeight * 0.9, behavior: "auto" });
+  });
+  await expect(page.getByRole("link", { name: "Index Database" })).toBeVisible();
+  await page.getByRole("link", { name: "Index Database" }).click();
+  await expect(page.getByLabel("Archive index database")).toBeVisible();
+  await expect(page.locator(".index-table")).toBeVisible();
 });
 
 test("collective graph survives pointer movement without React or WebGL remount warnings", async ({ page }) => {

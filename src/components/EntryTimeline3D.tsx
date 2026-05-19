@@ -17,6 +17,7 @@ const AVATAR_REVEAL_START = 0.86;
 export const TIMELINE_COLLECTIVE_OFFSET_Y = -68;
 const COLLECTIVE_POSITION = new THREE.Vector3(0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40);
 const COLLECTIVE_TARGET = new THREE.Vector3(0, TIMELINE_COLLECTIVE_OFFSET_Y, 0);
+const TIMELINE_LINKS_Y = -48;
 
 function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
@@ -136,10 +137,24 @@ function TimelineEventPanel({
   );
 }
 
-export function EntryTimeline3D({ progress }: { progress: number }) {
+function TimelineArchiveLinks() {
+  return (
+    <nav className="timeline-3d-archive-links" aria-label="Archive links">
+      <a href="/index">Index Database</a>
+      <a href="https://survey.dominicduan.com/" target="_blank" rel="noreferrer">
+        Obfuscation Identity Archive Survey
+      </a>
+      <a href="/technical" aria-disabled="true">
+        Technical Route
+      </a>
+    </nav>
+  );
+}
+
+export function EntryTimeline3D({ cameraEnabled = true, progress }: { cameraEnabled?: boolean; progress: number }) {
   return (
     <group>
-      <TimelineCameraRig progress={progress} />
+      {cameraEnabled ? <TimelineCameraRig progress={progress} /> : null}
       <TimelineMistField progress={progress} />
       <ambientLight intensity={0.45} />
       <pointLight color="#42d6b3" intensity={0.85} position={[0, 18, 8]} />
@@ -161,6 +176,15 @@ export function EntryTimeline3D({ progress }: { progress: number }) {
           </group>
         );
       })}
+      <Html
+        center
+        distanceFactor={9}
+        position={[0, TIMELINE_LINKS_Y, -3.5]}
+        transform
+        zIndexRange={[20, 0]}
+      >
+        <TimelineArchiveLinks />
+      </Html>
     </group>
   );
 }

@@ -55,9 +55,9 @@ describe("shouldRenderCollectiveAvatarField", () => {
   });
 
   it("locks collective camera controls around the avatar origin", () => {
-    expect(getCameraPositionForStage("collective")).toEqual([0, 10.5, 40]);
+    expect(getCameraPositionForStage("collective")).toEqual([0, -57.5, 40]);
     expect(getCameraPositionForStage("individual")).toEqual([0, 2.8, 8]);
-    expect(getCollectiveCameraTarget()).toEqual([0, 0, 0]);
+    expect(getCollectiveCameraTarget()).toEqual([0, -68, 0]);
     expect(shouldDisableCollectivePan("collective")).toBe(true);
   });
 
@@ -74,7 +74,7 @@ describe("shouldRenderCollectiveAvatarField", () => {
     expect(getCameraPositionForStage("collective", navigation)).toEqual([3, 6, 18]);
     expect(getCameraTargetForStage("collective", navigation)).toEqual([1, 0.5, -2]);
     expect(getCameraPositionForStage("individual", navigation)).toEqual([0, 2.8, 8]);
-    expect(getCameraTargetForStage("individual", navigation)).toEqual([0, 0, 0]);
+    expect(getCameraTargetForStage("individual", navigation)).toEqual([0, -68, 0]);
   });
 
   it("increments the canvas restart version after WebGL context loss", () => {

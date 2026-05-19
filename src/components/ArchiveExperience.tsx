@@ -1,12 +1,8 @@
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { archiveVisualConfig } from "../config/archiveVisualConfig";
-import { loadArchiveSources } from "../data/archiveLoaders";
-import { buildArchiveGraph } from "../data/relationshipGraphBuilder";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useArchiveData } from "../data/useArchiveData";
 import { useArchiveStore } from "../state/archiveStore";
-import { Graph3DControls } from "./Graph3DControls";
-import { IndividualAvatarScene } from "./IndividualAvatarScene";
 import { CollectiveIdentityOverlay } from "./CollectiveIdentityOverlay";
-import { ArchiveScene } from "./ArchiveScene";
+import { ArchiveScene, getCameraPositionForStage, getCollectiveCameraTarget } from "./ArchiveScene";
 import { ResearchTimelineIntro, shouldEnterCollectiveFromTimeline } from "./ResearchTimelineIntro";
 
 const COLLECTIVE_RETURN_PROGRESS = 0.985;
@@ -15,9 +11,8 @@ const COLLECTIVE_WHEEL_ZONE_RIGHT = 0.78;
 const TIMELINE_PROGRESS_DAMPING = 10;
 
 export function ArchiveExperience() {
-  const { graph, setGraph, setTimeline, updateCollectiveNavigation, view } = useArchiveStore();
-  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
-  const [message, setMessage] = useState("Loading archive data");
+  const { graph, updateCollectiveNavigation, view } = useArchiveStore();
+  const { message, status } = useArchiveData();
   const [timelineMode, setTimelineMode] = useState<"timeline" | "collective">("timeline");
   const [timelineProgress, setTimelineProgress] = useState(0);
   const [collectiveResetVersion, setCollectiveResetVersion] = useState(0);
@@ -28,27 +23,6 @@ export function ArchiveExperience() {
   const individualScrollPositionRef = useRef({ x: 0, y: 0 });
   const collectiveScrollPositionRef = useRef({ x: 0, y: 0, progress: 0 });
   const updateCollectiveNavigationRef = useRef(updateCollectiveNavigation);
-
-  useEffect(() => {
-    let active = true;
-
-    loadArchiveSources()
-      .then(({ graph, timeline }) => {
-        if (!active) return;
-        setGraph(buildArchiveGraph(graph, timeline));
-        setTimeline(timeline);
-        setStatus("ready");
-      })
-      .catch((error: unknown) => {
-        if (!active) return;
-        setStatus("error");
-        setMessage(error instanceof Error ? error.message : "Unknown archive loading error");
-      });
-
-    return () => {
-      active = false;
-    };
-  }, [setGraph, setTimeline]);
 
   useEffect(() => {
     timelineProgressRef.current = timelineProgress;
@@ -143,8 +117,8 @@ export function ArchiveExperience() {
       selectedIdentityId: null,
       hoveredNodeId: null,
       hoveredTagLabel: null,
-      cameraPosition: [...archiveVisualConfig.camera.collectivePosition],
-      cameraTarget: [0, 0, 0],
+      cameraPosition: getCameraPositionForStage("collective"),
+      cameraTarget: getCollectiveCameraTarget(),
     });
     setCollectiveResetVersion((current) => current + 1);
   }
@@ -241,29 +215,22 @@ export function ArchiveExperience() {
     );
   }
 
-  const entryStyle = {
-    "--timeline-progress": timelineProgress,
-  } as CSSProperties;
-
   return (
     <section
       className="archive-experience"
-      data-testid="archive-experience"
       data-view={view}
       data-entry-mode={timelineMode}
-      style={entryStyle}
     >
       {timelineMode === "timeline" && view !== "individual" ? (
         <ResearchTimelineIntro progress={timelineProgress} />
       ) : null}
       <div className="archive-scene-shell">
         <ArchiveScene
-          entryMode={timelineMode}
+          collectiveInteractive={timelineMode === "collective"}
           collectiveResetVersion={collectiveResetVersion}
           timelineProgress={timelineProgress}
         />
       </div>
-      <IndividualAvatarScene />
       {timelineMode === "collective" ? (
         <>
           <div className="collective-scroll-gutter collective-scroll-gutter-left" aria-hidden="true" />
@@ -272,7 +239,6 @@ export function ArchiveExperience() {
       ) : null}
       {timelineMode === "collective" ? (
         <>
-          <Graph3DControls />
           <CollectiveIdentityOverlay identities={graph?.nodes.filter((node) => node.type === "submission") ?? []} />
         </>
       ) : null}

@@ -11,9 +11,7 @@ import { RelationshipGraph3D } from "./RelationshipGraph3D";
 import { CollectiveAvatarField } from "./CollectiveAvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 import { CollectiveEnvironmentField } from "./CollectiveEnvironmentField";
-import { EntryTimeline3D, TIMELINE_COLLECTIVE_OFFSET_Y, getAvatarRevealOpacity } from "./EntryTimeline3D";
-
-export type ArchiveEntryMode = "timeline" | "collective";
+import { EntryTimeline3D, TIMELINE_COLLECTIVE_OFFSET_Y, getAvatarRevealOpacity, getTimelineCameraPose } from "./EntryTimeline3D";
 
 type WebGLContextLike = {
   getExtension: (name: string) => { loseContext?: () => void } | null;
@@ -43,12 +41,19 @@ export function getCameraPositionForStage(
   view: ArchiveView,
   collectiveNavigation?: CollectiveNavigationState,
 ): [number, number, number] {
-  if (view === "collective") return [...(collectiveNavigation?.cameraPosition ?? archiveVisualConfig.camera.collectivePosition)];
+  if (view === "collective") {
+    if (collectiveNavigation?.cameraPosition) return [...collectiveNavigation.cameraPosition];
+    return [
+      archiveVisualConfig.camera.collectivePosition[0],
+      archiveVisualConfig.camera.collectivePosition[1] + TIMELINE_COLLECTIVE_OFFSET_Y,
+      archiveVisualConfig.camera.collectivePosition[2],
+    ];
+  }
   return [...archiveVisualConfig.camera.detailPosition];
 }
 
 export function getCollectiveCameraTarget(): [number, number, number] {
-  return [0, 0, 0];
+  return [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
 }
 
 export function getCameraTargetForStage(
@@ -114,7 +119,7 @@ function CollectiveCameraStateSync({
 
     if (view === "collective") {
       updateCollectiveNavigationRef.current({
-        mode: getCollectiveModeForCameraDistance(camera.position.length()),
+        mode: getCollectiveModeForCameraDistance(camera.position.distanceTo(new THREE.Vector3(...target))),
         cameraPosition: position,
         cameraTarget: target,
       });
@@ -124,7 +129,8 @@ function CollectiveCameraStateSync({
   useFrame(() => {
     if (view !== "collective") return;
 
-    const distance = camera.position.length();
+    const controlsTarget = controlsRef.current?.target ?? new THREE.Vector3(...getCollectiveCameraTarget());
+    const distance = camera.position.distanceTo(controlsTarget);
     const mode = getCollectiveModeForCameraDistance(distance);
     const position: [number, number, number] = [camera.position.x, camera.position.y, camera.position.z];
     const previousPosition = lastSyncedCameraRef.current;
@@ -151,12 +157,12 @@ function CollectiveCameraStateSync({
     function onKeyDown(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
 
-      camera.position.set(...archiveVisualConfig.camera.collectivePosition);
+      camera.position.set(...getCameraPositionForStage("collective"));
       controlsRef.current?.target.set(...getCollectiveCameraTarget());
       controlsRef.current?.update();
       updateCollectiveNavigationRef.current({
         mode: "overview",
-        cameraPosition: [...archiveVisualConfig.camera.collectivePosition],
+        cameraPosition: getCameraPositionForStage("collective"),
         cameraTarget: getCollectiveCameraTarget(),
       });
     }
@@ -238,12 +244,12 @@ function GlobalInteractionLights() {
 }
 
 export function ArchiveScene({
+  collectiveInteractive = true,
   collectiveResetVersion = 0,
-  entryMode = "collective",
   timelineProgress = 1,
 }: {
+  collectiveInteractive?: boolean;
   collectiveResetVersion?: number;
-  entryMode?: ArchiveEntryMode;
   timelineProgress?: number;
 }) {
   const { graph, selectNode, view, collectiveNavigation, updateCollectiveNavigation } = useArchiveStore();
@@ -259,14 +265,14 @@ export function ArchiveScene({
     setCanvasElement(element);
   }, []);
   const handlePointerMissed = useCallback(() => {
-    if (view !== "collective" || entryMode !== "collective") return;
+    if (view !== "collective" || !collectiveInteractive) return;
     selectNode(null);
     updateCollectiveNavigation({
       selectedIdentityId: null,
       hoveredNodeId: null,
       hoveredTagLabel: null,
     });
-  }, [entryMode, selectNode, updateCollectiveNavigation, view]);
+  }, [collectiveInteractive, selectNode, updateCollectiveNavigation, view]);
 
   useEffect(() => {
     if (!canvasElement) return undefined;
@@ -297,19 +303,18 @@ export function ArchiveScene({
 
   const canvasCamera = useMemo(
     () => ({
-      position: getCameraPositionForStage(view, collectiveNavigation),
+      position: collectiveInteractive
+        ? getCameraPositionForStage(view, collectiveNavigation)
+        : getTimelineCameraPose(timelineProgress).position,
       fov: 45,
     }),
-    [webglRestartVersion],
+    [collectiveInteractive, timelineProgress, view, collectiveNavigation, webglRestartVersion],
   );
 
-  const isTimelineEntry = entryMode === "timeline";
-  const avatarRevealOpacity = isTimelineEntry ? getAvatarRevealOpacity(timelineProgress) : 1;
+  const avatarRevealOpacity = getAvatarRevealOpacity(timelineProgress);
   const collectiveSceneReady = avatarShapePositions !== null;
   const collectiveSceneOpacity = collectiveSceneReady ? avatarRevealOpacity : 0;
-  const collectiveScenePosition: [number, number, number] = isTimelineEntry
-    ? [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0]
-    : [0, 0, 0];
+  const collectiveScenePosition: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
 
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
   if (!shouldRenderWebGLStage(view)) return <div className="archive-2d-stage-backdrop" aria-hidden="true" />;
@@ -327,7 +332,7 @@ export function ArchiveScene({
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
-      {isTimelineEntry ? <EntryTimeline3D progress={timelineProgress} /> : null}
+      <EntryTimeline3D cameraEnabled={!collectiveInteractive} progress={timelineProgress} />
       {view === "collective" ? (
         <group position={collectiveScenePosition}>
           {collectiveSceneOpacity > 0 ? <GlobalInteractionLights /> : null}
@@ -346,25 +351,24 @@ export function ArchiveScene({
           <AvatarShapeProvider value={avatarShapePositions}>
             <RelationshipGraph3D graph={graph} opacity={collectiveSceneOpacity} />
           </AvatarShapeProvider>
-        ) : !isTimelineEntry && collectiveSceneReady ? (
+        ) : collectiveSceneReady ? (
           <Suspense fallback={null}>
             <RelationshipGraph3D graph={graph} opacity={collectiveSceneOpacity} />
           </Suspense>
         ) : null}
       </group>
-      {!isTimelineEntry ? (
-        <CollectiveCameraStateSync controlsRef={controlsRef} resetKey={`${entryMode}:${collectiveResetVersion}`} />
+      {collectiveInteractive ? (
+        <CollectiveCameraStateSync controlsRef={controlsRef} resetKey={`collective:${collectiveResetVersion}`} />
       ) : null}
-      {!isTimelineEntry ? (
-        <OrbitControls
-          ref={controlsRef}
-          enableDamping
-          enablePan={!shouldDisableCollectivePan(view)}
-          autoRotate={false}
-          minDistance={archiveVisualConfig.camera.minDistance}
-          maxDistance={archiveVisualConfig.camera.maxDistance}
-        />
-      ) : null}
+      <OrbitControls
+        ref={controlsRef}
+        enabled={collectiveInteractive}
+        enableDamping
+        enablePan={!shouldDisableCollectivePan(view)}
+        autoRotate={false}
+        minDistance={archiveVisualConfig.camera.minDistance}
+        maxDistance={archiveVisualConfig.camera.maxDistance}
+      />
     </Canvas>
   );
 }
