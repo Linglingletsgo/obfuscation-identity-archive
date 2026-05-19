@@ -27,7 +27,6 @@ type GraphRenderPolicy = {
   renderOrder: number;
 };
 
-const LABEL_VISIBLE_OPACITY_THRESHOLD = 0.55;
 const PROJECTED_NODE_TYPES = ["submission", "tag"] as const;
 
 function GraphLinkLine({
@@ -329,8 +328,6 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
     [filters.linkDensity, focusedNodeId, graph, view, visibleNodes],
   );
   const graphRenderPolicy = getGraphRenderPolicy(view);
-  const shouldRenderHtmlLabels = view !== "collective" || opacity >= LABEL_VISIBLE_OPACITY_THRESHOLD;
-
   return (
     <group frustumCulled={graphRenderPolicy.frustumCulled} renderOrder={graphRenderPolicy.renderOrder}>
       {visibleLinks.map((link) => {
@@ -380,29 +377,25 @@ export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGrap
           }}
         />
       ))}
-      {shouldRenderHtmlLabels
-        ? visibleNodes.map((node) => (
-            <IdentityBillboardLabel
-              key={`${node.id}:label`}
-              node={node}
-              onClick={() => {
-                if (!shouldCollectiveNodeClickLock(node, view)) return;
-                selectNode(node);
-                updateCollectiveNavigation({ selectedIdentityId: node.id });
-                if (node.type === "submission") previewIdentity(node.id);
-              }}
-              opacity={opacity}
-              visible={shouldShowIdentityBillboard(node, { view, focusedNodeId })}
-            />
-          ))
-        : null}
-      {shouldRenderHtmlLabels
-        ? visibleNodes.map((node) =>
-            shouldShowTagLabel(node, { view, focusedNodeId }) ? (
-              <CollectiveHoverLabel key={`${node.id}:tag-label`} node={node} opacity={opacity} />
-            ) : null,
-          )
-        : null}
+      {visibleNodes.map((node) => (
+        <IdentityBillboardLabel
+          key={`${node.id}:label`}
+          node={node}
+          onClick={() => {
+            if (!shouldCollectiveNodeClickLock(node, view)) return;
+            selectNode(node);
+            updateCollectiveNavigation({ selectedIdentityId: node.id });
+            if (node.type === "submission") previewIdentity(node.id);
+          }}
+          opacity={opacity}
+          visible={shouldShowIdentityBillboard(node, { view, focusedNodeId })}
+        />
+      ))}
+      {visibleNodes.map((node) =>
+        shouldShowTagLabel(node, { view, focusedNodeId }) ? (
+          <CollectiveHoverLabel key={`${node.id}:tag-label`} node={node} opacity={opacity} />
+        ) : null,
+      )}
     </group>
   );
 }

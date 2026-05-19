@@ -108,6 +108,7 @@ function CollectiveCameraStateSync({
   const lastSyncedCameraRef = useRef<[number, number, number]>(collectiveNavigation.cameraPosition);
   const fallbackTargetRef = useRef(new THREE.Vector3(...getCollectiveCameraTarget()));
   const resetTargetRef = useRef(new THREE.Vector3());
+  const wasEnabledRef = useRef(false);
 
   useEffect(() => {
     updateCollectiveNavigationRef.current = updateCollectiveNavigation;
@@ -118,7 +119,8 @@ function CollectiveCameraStateSync({
   }, [collectiveNavigation]);
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled || wasEnabledRef.current) return;
+    wasEnabledRef.current = true;
     const position = getCameraPositionForStage(view, collectiveNavigationRef.current);
     const target = getCameraTargetForStage(view, collectiveNavigationRef.current);
     camera.position.set(...position);
@@ -393,9 +395,11 @@ export function ArchiveScene({
       />
       <OrbitControls
         ref={controlsRef}
-        enabled={collectiveNavigationEnabled}
+        enabled
         enableDamping
-        enablePan={!shouldDisableCollectivePan(view)}
+        enablePan={collectiveNavigationEnabled && !shouldDisableCollectivePan(view)}
+        enableRotate={collectiveNavigationEnabled}
+        enableZoom={collectiveNavigationEnabled}
         autoRotate={false}
         minDistance={archiveVisualConfig.camera.minDistance}
         maxDistance={archiveVisualConfig.camera.maxDistance}

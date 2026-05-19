@@ -23,7 +23,7 @@ export function IdentityBillboardLabel({
     >
       <div
         role="button"
-        style={{ opacity }}
+        style={{ opacity, pointerEvents: opacity > 0.18 ? "auto" : "none" }}
         tabIndex={0}
         onClick={(event) => {
           event.stopPropagation();
