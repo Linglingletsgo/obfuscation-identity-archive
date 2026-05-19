@@ -191,10 +191,8 @@ export function EntryTimeline3D({ cameraEnabled = true, progress }: { cameraEnab
       })}
       <Html
         center
-        distanceFactor={9}
         position={[0, TIMELINE_LINKS_Y, -3.5]}
-        transform
-        zIndexRange={[20, 0]}
+        zIndexRange={[30, 0]}
       >
         <TimelineArchiveLinks />
       </Html>

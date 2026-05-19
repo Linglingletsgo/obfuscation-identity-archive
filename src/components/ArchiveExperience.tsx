@@ -2,27 +2,22 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useArchiveData } from "../data/useArchiveData";
 import { useArchiveStore } from "../state/archiveStore";
 import { CollectiveIdentityOverlay } from "./CollectiveIdentityOverlay";
-import { ArchiveScene, getCameraPositionForStage, getCollectiveCameraTarget } from "./ArchiveScene";
-import { ResearchTimelineIntro, shouldEnterCollectiveFromTimeline } from "./ResearchTimelineIntro";
+import { ArchiveScene } from "./ArchiveScene";
 
-const COLLECTIVE_RETURN_PROGRESS = 0.985;
+const COLLECTIVE_INTERACTION_PROGRESS = 0.995;
 const COLLECTIVE_WHEEL_ZONE_LEFT = 0.22;
 const COLLECTIVE_WHEEL_ZONE_RIGHT = 0.78;
 const TIMELINE_PROGRESS_DAMPING = 10;
 
 export function ArchiveExperience() {
-  const { graph, updateCollectiveNavigation, view } = useArchiveStore();
+  const { graph, view } = useArchiveStore();
   const { message, status } = useArchiveData();
-  const [timelineMode, setTimelineMode] = useState<"timeline" | "collective">("timeline");
   const [timelineProgress, setTimelineProgress] = useState(0);
-  const [collectiveResetVersion, setCollectiveResetVersion] = useState(0);
   const timelineProgressRef = useRef(0);
   const targetTimelineProgressRef = useRef(0);
-  const timelineModeRef = useRef(timelineMode);
   const viewRef = useRef(view);
   const individualScrollPositionRef = useRef({ x: 0, y: 0 });
   const collectiveScrollPositionRef = useRef({ x: 0, y: 0, progress: 0 });
-  const updateCollectiveNavigationRef = useRef(updateCollectiveNavigation);
   const collectiveIdentities = useMemo(
     () => graph?.nodes.filter((node) => node.type === "submission") ?? [],
     [graph],
@@ -31,10 +26,6 @@ export function ArchiveExperience() {
   useEffect(() => {
     timelineProgressRef.current = timelineProgress;
   }, [timelineProgress]);
-
-  useEffect(() => {
-    timelineModeRef.current = timelineMode;
-  }, [timelineMode]);
 
   useLayoutEffect(() => {
     viewRef.current = view;
@@ -64,18 +55,10 @@ export function ArchiveExperience() {
           targetTimelineProgressRef.current = restoredProgress;
           timelineProgressRef.current = restoredProgress;
           setTimelineProgress(restoredProgress);
-          if (shouldEnterCollectiveFromTimeline(restoredProgress)) {
-            timelineModeRef.current = "collective";
-            setTimelineMode("collective");
-          }
         });
       });
     };
   }, [view]);
-
-  useEffect(() => {
-    updateCollectiveNavigationRef.current = updateCollectiveNavigation;
-  }, [updateCollectiveNavigation]);
 
   useEffect(() => {
     if (status !== "ready") return undefined;
@@ -100,45 +83,12 @@ export function ArchiveExperience() {
         setTimelineProgress(nextProgress);
       }
 
-      if (viewRef.current !== "individual") {
-        if (shouldEnterCollectiveFromTimeline(nextProgress)) {
-          enterCollectiveMode();
-        } else if (nextProgress < COLLECTIVE_RETURN_PROGRESS) {
-          returnToTimelineMode();
-        }
-      }
-
       animationFrame = window.requestAnimationFrame(animateProgress);
     }
 
     animationFrame = window.requestAnimationFrame(animateProgress);
     return () => window.cancelAnimationFrame(animationFrame);
   }, [status]);
-
-  function resetCollectiveViewForEntry() {
-    updateCollectiveNavigationRef.current({
-      mode: "overview",
-      selectedIdentityId: null,
-      hoveredNodeId: null,
-      hoveredTagLabel: null,
-      cameraPosition: getCameraPositionForStage("collective"),
-      cameraTarget: getCollectiveCameraTarget(),
-    });
-    setCollectiveResetVersion((current) => current + 1);
-  }
-
-  function enterCollectiveMode() {
-    if (timelineModeRef.current === "collective") return;
-    resetCollectiveViewForEntry();
-    timelineModeRef.current = "collective";
-    setTimelineMode("collective");
-  }
-
-  function returnToTimelineMode() {
-    if (timelineModeRef.current !== "collective") return;
-    timelineModeRef.current = "timeline";
-    setTimelineMode("timeline");
-  }
 
   useEffect(() => {
     if (status !== "ready") return undefined;
@@ -158,7 +108,6 @@ export function ArchiveExperience() {
 
     function handleTimelineKey(event: KeyboardEvent) {
       if (event.key !== " " && event.key !== "Enter") return;
-      if (!shouldEnterCollectiveFromTimeline(targetTimelineProgressRef.current)) return;
       event.preventDefault();
       targetTimelineProgressRef.current = 1;
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
@@ -176,9 +125,10 @@ export function ArchiveExperience() {
   }, [status]);
 
   useEffect(() => {
-    if (status !== "ready" || timelineMode !== "collective") return undefined;
+    if (status !== "ready") return undefined;
 
     function handleCollectiveWheel(event: WheelEvent) {
+      if (targetTimelineProgressRef.current < COLLECTIVE_INTERACTION_PROGRESS) return;
       const viewportWidth = Math.max(1, window.innerWidth);
       const pointerRatio = event.clientX / viewportWidth;
       const shouldZoomCollective =
@@ -190,22 +140,21 @@ export function ArchiveExperience() {
 
     window.addEventListener("wheel", handleCollectiveWheel, { capture: true, passive: false });
     return () => window.removeEventListener("wheel", handleCollectiveWheel, { capture: true });
-  }, [status, timelineMode]);
+  }, [status]);
 
   useEffect(() => {
-    if (status !== "ready" || timelineMode !== "collective") return undefined;
+    if (status !== "ready") return undefined;
 
     function handleReturnKey(event: KeyboardEvent) {
       if (event.key.toLowerCase() !== "t") return;
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       window.scrollTo({ top: maxScroll * 0.94, behavior: "smooth" });
       targetTimelineProgressRef.current = 0.94;
-      returnToTimelineMode();
     }
 
     window.addEventListener("keydown", handleReturnKey);
     return () => window.removeEventListener("keydown", handleReturnKey);
-  }, [status, timelineMode]);
+  }, [status]);
 
   if (status === "loading") {
     return <section className="archive-loading">{message}</section>;
@@ -223,29 +172,15 @@ export function ArchiveExperience() {
     <section
       className="archive-experience"
       data-view={view}
-      data-entry-mode={timelineMode}
+      data-entry-mode="unified"
+      data-testid="archive-experience"
     >
-      {timelineMode === "timeline" && view !== "individual" ? (
-        <ResearchTimelineIntro progress={timelineProgress} />
-      ) : null}
       <div className="archive-scene-shell">
-        <ArchiveScene
-          collectiveInteractive={timelineMode === "collective"}
-          collectiveResetVersion={collectiveResetVersion}
-          timelineProgress={timelineProgress}
-        />
+        <ArchiveScene timelineProgress={timelineProgress} />
       </div>
-      {timelineMode === "collective" ? (
-        <>
-          <div className="collective-scroll-gutter collective-scroll-gutter-left" aria-hidden="true" />
-          <div className="collective-scroll-gutter collective-scroll-gutter-right" aria-hidden="true" />
-        </>
-      ) : null}
-      {timelineMode === "collective" ? (
-        <>
-          <CollectiveIdentityOverlay identities={collectiveIdentities} />
-        </>
-      ) : null}
+      <div className="collective-scroll-gutter collective-scroll-gutter-left" aria-hidden="true" />
+      <div className="collective-scroll-gutter collective-scroll-gutter-right" aria-hidden="true" />
+      <CollectiveIdentityOverlay identities={collectiveIdentities} />
     </section>
   );
 }

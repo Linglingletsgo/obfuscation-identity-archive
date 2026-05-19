@@ -46,11 +46,6 @@ select {
   overflow: hidden;
 }
 
-.archive-experience[data-entry-mode="timeline"] .archive-scene-shell {
-  opacity: 1;
-  pointer-events: auto;
-}
-
 .archive-scene-shell,
 .archive-canvas {
   width: 100vw;

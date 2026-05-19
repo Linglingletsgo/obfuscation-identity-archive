@@ -88,9 +88,11 @@ export function getNextWebGLRestartVersion(currentVersion: number): number {
 
 function CollectiveCameraStateSync({
   controlsRef,
+  enabled,
   resetKey,
 }: {
   controlsRef: RefObject<OrbitControlsImpl | null>;
+  enabled: boolean;
   resetKey: string;
 }) {
   const { camera } = useThree();
@@ -110,6 +112,7 @@ function CollectiveCameraStateSync({
   }, [collectiveNavigation]);
 
   useEffect(() => {
+    if (!enabled) return;
     const position = getCameraPositionForStage(view, collectiveNavigationRef.current);
     const target = getCameraTargetForStage(view, collectiveNavigationRef.current);
     camera.position.set(...position);
@@ -129,10 +132,10 @@ function CollectiveCameraStateSync({
         cameraTarget: target,
       });
     }
-  }, [camera, controlsRef, resetKey, view]);
+  }, [camera, controlsRef, enabled, resetKey, view]);
 
   useFrame(() => {
-    if (view !== "collective") return;
+    if (view !== "collective" || !enabled) return;
 
     const controlsTarget = controlsRef.current?.target ?? fallbackTargetRef.current;
     const distance = camera.position.distanceTo(controlsTarget);
@@ -160,6 +163,7 @@ function CollectiveCameraStateSync({
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
+      if (!enabled) return;
       if (event.key !== "Escape") return;
 
       camera.position.set(...getCameraPositionForStage("collective"));
@@ -174,7 +178,7 @@ function CollectiveCameraStateSync({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [camera, controlsRef]);
+  }, [camera, controlsRef, enabled]);
 
   return null;
 }
@@ -266,12 +270,8 @@ function useBakedPointCloudPreload() {
 }
 
 export function ArchiveScene({
-  collectiveInteractive = true,
-  collectiveResetVersion = 0,
   timelineProgress = 1,
 }: {
-  collectiveInteractive?: boolean;
-  collectiveResetVersion?: number;
   timelineProgress?: number;
 }) {
   const { graph, selectNode, view, collectiveNavigation, updateCollectiveNavigation } = useArchiveStore();
@@ -288,14 +288,14 @@ export function ArchiveScene({
     setCanvasElement(element);
   }, []);
   const handlePointerMissed = useCallback(() => {
-    if (view !== "collective" || !collectiveInteractive) return;
+    if (view !== "collective") return;
     selectNode(null);
     updateCollectiveNavigation({
       selectedIdentityId: null,
       hoveredNodeId: null,
       hoveredTagLabel: null,
     });
-  }, [collectiveInteractive, selectNode, updateCollectiveNavigation, view]);
+  }, [selectNode, updateCollectiveNavigation, view]);
 
   useEffect(() => {
     if (!canvasElement) return undefined;
@@ -326,18 +326,17 @@ export function ArchiveScene({
 
   const canvasCamera = useMemo(
     () => ({
-      position: collectiveInteractive
-        ? getCameraPositionForStage(view, collectiveNavigation)
-        : getTimelineCameraPose(timelineProgress).position,
+      position: getTimelineCameraPose(timelineProgress).position,
       fov: 45,
     }),
-    [collectiveInteractive, timelineProgress, view, collectiveNavigation, webglRestartVersion],
+    [timelineProgress, webglRestartVersion],
   );
 
   const avatarRevealOpacity = getAvatarRevealOpacity(timelineProgress);
   const collectiveSceneReady = avatarShapePositions !== null;
   const collectiveSceneOpacity = collectiveSceneReady ? avatarRevealOpacity : 0;
   const collectiveScenePosition: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
+  const collectiveNavigationEnabled = timelineProgress >= 0.995;
 
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
   if (!shouldRenderWebGLStage(view)) return <div className="archive-2d-stage-backdrop" aria-hidden="true" />;
@@ -356,7 +355,7 @@ export function ArchiveScene({
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
-      <EntryTimeline3D cameraEnabled={!collectiveInteractive} progress={timelineProgress} />
+      <EntryTimeline3D cameraEnabled={!collectiveNavigationEnabled} progress={timelineProgress} />
       {view === "collective" ? (
         <group position={collectiveScenePosition}>
           {collectiveSceneOpacity > 0 ? <GlobalInteractionLights /> : null}
@@ -381,12 +380,14 @@ export function ArchiveScene({
           </Suspense>
         ) : null}
       </group>
-      {collectiveInteractive ? (
-        <CollectiveCameraStateSync controlsRef={controlsRef} resetKey={`collective:${collectiveResetVersion}`} />
-      ) : null}
+      <CollectiveCameraStateSync
+        controlsRef={controlsRef}
+        enabled={collectiveNavigationEnabled}
+        resetKey={`collective:${webglRestartVersion}`}
+      />
       <OrbitControls
         ref={controlsRef}
-        enabled={collectiveInteractive}
+        enabled={collectiveNavigationEnabled}
         enableDamping
         enablePan={!shouldDisableCollectivePan(view)}
         autoRotate={false}
