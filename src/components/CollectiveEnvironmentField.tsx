@@ -17,6 +17,7 @@ const environmentVertexShader = `
   uniform float uTime;
   uniform vec2 uPointer;
   uniform float uDragIntensity;
+  uniform float uGlobalOpacity;
   uniform float uPointerPresence;
   uniform float uPointerVelocity;
 
@@ -39,7 +40,7 @@ const environmentVertexShader = `
     float disturbance = abs(ripple) + pointerLight * 0.95;
     float glow = 0.58 + depthMist * 0.36 + heightMist * 0.2 + disturbance * 0.72;
     vColor = color * glow + vec3(0.1, 0.3, 0.34) * pointerLight;
-    vAlpha = (0.024 + depthMist * 0.026 + heightMist * 0.018 + disturbance * 0.075) * (0.52 + alphaSeed * 0.72);
+    vAlpha = (0.024 + depthMist * 0.026 + heightMist * 0.018 + disturbance * 0.075) * (0.52 + alphaSeed * 0.72) * uGlobalOpacity;
     vDisturbance = disturbance;
 
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
@@ -122,13 +123,14 @@ function createEnvironmentGeometry(positions: Float32Array, colors: Float32Array
   return geometry;
 }
 
-function createEnvironmentMaterial(pointTexture: THREE.Texture) {
+function createEnvironmentMaterial(pointTexture: THREE.Texture, opacity: number) {
   return new THREE.ShaderMaterial({
     vertexShader: environmentVertexShader,
     fragmentShader: environmentFragmentShader,
     uniforms: {
       uTime: { value: 0 },
       uDragIntensity: { value: 0 },
+      uGlobalOpacity: { value: opacity },
       uPointer: { value: new THREE.Vector2(0, 0) },
       uPointerPresence: { value: 0 },
       uPointerVelocity: { value: 0 },
@@ -140,7 +142,7 @@ function createEnvironmentMaterial(pointTexture: THREE.Texture) {
   });
 }
 
-export function CollectiveEnvironmentField() {
+export function CollectiveEnvironmentField({ opacity = 1 }: { opacity?: number }) {
   const { pointer } = useThree();
   const dragActiveRef = useRef(false);
   const dragRef = useRef(0);
@@ -167,7 +169,7 @@ export function CollectiveEnvironmentField() {
     pointTexture.minFilter = THREE.LinearFilter;
     pointTexture.magFilter = THREE.LinearFilter;
     pointTexture.needsUpdate = true;
-    return createEnvironmentMaterial(pointTexture);
+    return createEnvironmentMaterial(pointTexture, opacity);
   }, [pointTexture]);
 
   useEffect(
@@ -218,6 +220,7 @@ export function CollectiveEnvironmentField() {
     pointerPresentRef.current += ((pointerInsideRef.current ? 1 : 0.35) - pointerPresentRef.current) * 0.08;
     material.uniforms.uTime.value = clock.elapsedTime;
     material.uniforms.uDragIntensity.value = dragRef.current;
+    material.uniforms.uGlobalOpacity.value = opacity;
     material.uniforms.uPointer.value.set(pointer.x, pointer.y);
     material.uniforms.uPointerPresence.value = pointerPresentRef.current;
     material.uniforms.uPointerVelocity.value = velocityRef.current;

@@ -4,10 +4,12 @@ import type { ArchiveGraphNode } from "../types/archive";
 export function IdentityBillboardLabel({
   node,
   onClick,
+  opacity = 1,
   visible,
 }: {
   node: ArchiveGraphNode;
   onClick?: () => void;
+  opacity?: number;
   visible: boolean;
 }) {
   if (node.type !== "submission" || !visible) return null;
@@ -21,6 +23,7 @@ export function IdentityBillboardLabel({
     >
       <div
         role="button"
+        style={{ opacity }}
         tabIndex={0}
         onClick={(event) => {
           event.stopPropagation();

@@ -15,6 +15,7 @@ const vertexShader = `
   uniform vec3 uRayDirection;
   uniform float uInfluence;
   uniform float uPointerVelocity;
+  uniform float uGlobalOpacity;
 
   void main() {
     vec3 displaced = position;
@@ -49,6 +50,7 @@ const vertexShader = `
 const fragmentShader = `
   varying vec3 vColor;
   uniform sampler2D uPointTexture;
+  uniform float uGlobalOpacity;
 
   vec3 preserveLowLightChroma(vec3 color) {
     float luma = dot(color, vec3(0.2126, 0.7152, 0.0722));
@@ -72,7 +74,7 @@ const fragmentShader = `
     vec3 emission = chromaColor * (0.3 * core + 0.12 * halo);
     vec3 partTintedCore = normalize(chromaColor + vec3(0.001)) * core * 0.18;
     vec3 highlight = chromaColor * spriteDetail * 0.88 + emission + partTintedCore;
-    float alpha = (halo * 0.16 + core * 0.32) * spriteAlpha;
+    float alpha = (halo * 0.16 + core * 0.32) * spriteAlpha * uGlobalOpacity;
     gl_FragColor = vec4(highlight, alpha);
   }
 `;
@@ -109,7 +111,7 @@ export function createCollectiveModelPartGeometry(
   return geometry;
 }
 
-export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture): THREE.ShaderMaterial {
+export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture, opacity = 1): THREE.ShaderMaterial {
   return new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
@@ -119,6 +121,7 @@ export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture)
       uRayDirection: { value: new THREE.Vector3(0, 0, -1) },
       uInfluence: { value: 0 },
       uPointerVelocity: { value: 0 },
+      uGlobalOpacity: { value: opacity },
       uPointTexture: { value: pointTexture ?? new THREE.Texture() },
     },
     transparent: true,
@@ -129,11 +132,13 @@ export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture)
 
 export function CollectiveModelPointCloud({
   colors,
+  opacity = 1,
   partColors,
   partIds,
   positions,
 }: {
   colors: Float32Array;
+  opacity?: number;
   partColors: Float32Array;
   partIds: Float32Array;
   positions: Float32Array;
@@ -177,6 +182,7 @@ export function CollectiveModelPointCloud({
     material.uniforms.uTime.value = clock.elapsedTime;
     material.uniforms.uInfluence.value = influenceRef.current;
     material.uniforms.uPointerVelocity.value = velocityRef.current;
+    material.uniforms.uGlobalOpacity.value = opacity;
     material.uniforms.uRayOrigin.value.copy(raycaster.ray.origin);
     material.uniforms.uRayDirection.value.copy(raycaster.ray.direction);
   });

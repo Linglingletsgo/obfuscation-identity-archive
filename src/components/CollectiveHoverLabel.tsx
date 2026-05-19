@@ -1,7 +1,7 @@
 import { Html } from "@react-three/drei";
 import type { ArchiveGraphNode } from "../types/archive";
 
-export function CollectiveHoverLabel({ node }: { node: ArchiveGraphNode | null }) {
+export function CollectiveHoverLabel({ node, opacity = 1 }: { node: ArchiveGraphNode | null; opacity?: number }) {
   if (!node || node.type !== "tag") return null;
 
   return (
@@ -12,7 +12,7 @@ export function CollectiveHoverLabel({ node }: { node: ArchiveGraphNode | null }
       className="tag-hover-label"
       zIndexRange={[100, 0]}
     >
-      {node.visual.label}
+      <span style={{ opacity }}>{node.visual.label}</span>
     </Html>
   );
 }

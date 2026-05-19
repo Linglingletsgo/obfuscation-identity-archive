@@ -67,6 +67,14 @@ async function expectCurrentCanvasContextLive(page: import("@playwright/test").P
     .toBe(true);
 }
 
+async function enterCollectiveFromTimeline(page: import("@playwright/test").Page) {
+  await expect(page.getByLabel("Research narrative timeline")).toBeVisible();
+  await page.evaluate(() => {
+    window.scrollTo({ top: document.documentElement.scrollHeight - window.innerHeight, behavior: "auto" });
+  });
+  await expect(page.locator(".archive-experience")).toHaveAttribute("data-entry-mode", "collective", { timeout: 12000 });
+}
+
 async function getCollectiveWebGLPixelCentroid(page: import("@playwright/test").Page) {
   const screenshot = await page.screenshot();
   const dataUrl = `data:image/png;base64,${screenshot.toString("base64")}`;
@@ -112,12 +120,15 @@ async function getCollectiveWebGLPixelCentroid(page: import("@playwright/test").
 test("opens into collective overview with graph controls", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByTestId("archive-experience")).toBeVisible();
+  await expect(page.getByLabel("Research narrative timeline")).toBeVisible();
+  await enterCollectiveFromTimeline(page);
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
   await expect(page.getByLabel("Archive graph controls")).toBeVisible();
 });
 
 test("search keeps collective graph usable without entering detail", async ({ page }) => {
   await page.goto("/");
+  await enterCollectiveFromTimeline(page);
   await page.getByLabel("Search archive").fill("Dream");
   await expect(page.getByLabel("Archive graph controls")).toBeVisible();
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
@@ -140,6 +151,7 @@ test("collective graph survives pointer movement without React or WebGL remount 
   page.on("pageerror", (error) => renderingFailures.push(error.message));
 
   await page.goto("/");
+  await enterCollectiveFromTimeline(page);
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
   await expect(webGLCanvas(page)).toBeVisible();
 
@@ -153,6 +165,7 @@ test("collective graph survives pointer movement without React or WebGL remount 
 
 test("collective orbit drag does not snap back to its initial camera framing", async ({ page }) => {
   await page.goto("/");
+  await enterCollectiveFromTimeline(page);
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
   await expectCollectiveWebGLVisible(page);
 
@@ -171,6 +184,7 @@ test("collective orbit drag does not snap back to its initial camera framing", a
 
 test("collective remounts the WebGL scene after context loss", async ({ page }) => {
   await page.goto("/");
+  await enterCollectiveFromTimeline(page);
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
   await expectCollectiveWebGLVisible(page);
   await page.mouse.move(760, 360);
@@ -187,6 +201,7 @@ test("collective remounts the WebGL scene after context loss", async ({ page }) 
 
 test("collective identity preview enters detail through explicit action", async ({ page }) => {
   await page.goto("/");
+  await enterCollectiveFromTimeline(page);
   await webGLCanvas(page).click({ position: { x: 400, y: 300 } });
 
   const overlay = page.getByLabel("Selected identity preview");

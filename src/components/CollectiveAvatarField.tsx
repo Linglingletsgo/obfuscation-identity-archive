@@ -7,8 +7,10 @@ import { CollectiveModelPointCloud } from "./CollectiveModelPointCloud";
 
 function LoadedCollectiveAvatarField({
   onShapePositions,
+  opacity,
 }: {
   onShapePositions: (positions: Float32Array) => void;
+  opacity: number;
 }) {
   const gltf = useGLTF(archiveVisualConfig.assets.stage2CollectiveModelPath);
   const surface = useMemo(
@@ -36,13 +38,13 @@ function LoadedCollectiveAvatarField({
       mesh.material = materials.map((material) => {
         const cloned = material.clone();
         cloned.transparent = true;
-        cloned.opacity = 0.18;
+        cloned.opacity = 0.18 * opacity;
         cloned.depthWrite = false;
         return cloned;
       });
     });
     return scene;
-  }, [gltf.scene]);
+  }, [gltf.scene, opacity]);
 
   useEffect(() => {
     onShapePositions(normalizedPositions);
@@ -62,6 +64,7 @@ function LoadedCollectiveAvatarField({
       </group>
       <CollectiveModelPointCloud
         colors={surface.colors}
+        opacity={opacity}
         partColors={surface.partColors}
         partIds={surface.partIds}
         positions={normalizedPositions}
@@ -72,12 +75,14 @@ function LoadedCollectiveAvatarField({
 
 export function CollectiveAvatarField({
   onShapePositions,
+  opacity = 1,
 }: {
   onShapePositions: (positions: Float32Array) => void;
+  opacity?: number;
 }) {
   return (
     <Suspense fallback={null}>
-      <LoadedCollectiveAvatarField onShapePositions={onShapePositions} />
+      <LoadedCollectiveAvatarField onShapePositions={onShapePositions} opacity={opacity} />
     </Suspense>
   );
 }

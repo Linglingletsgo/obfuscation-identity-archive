@@ -11,6 +11,9 @@ import { RelationshipGraph3D } from "./RelationshipGraph3D";
 import { CollectiveAvatarField } from "./CollectiveAvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 import { CollectiveEnvironmentField } from "./CollectiveEnvironmentField";
+import { EntryTimeline3D, TIMELINE_COLLECTIVE_OFFSET_Y, getAvatarRevealOpacity } from "./EntryTimeline3D";
+
+export type ArchiveEntryMode = "timeline" | "collective";
 
 type WebGLContextLike = {
   getExtension: (name: string) => { loseContext?: () => void } | null;
@@ -78,8 +81,10 @@ export function getNextWebGLRestartVersion(currentVersion: number): number {
 
 function CollectiveCameraStateSync({
   controlsRef,
+  resetKey,
 }: {
   controlsRef: RefObject<OrbitControlsImpl | null>;
+  resetKey: string;
 }) {
   const { camera } = useThree();
   const { view, collectiveNavigation, updateCollectiveNavigation } = useArchiveStore();
@@ -114,7 +119,7 @@ function CollectiveCameraStateSync({
         cameraTarget: target,
       });
     }
-  }, [camera, controlsRef, view]);
+  }, [camera, controlsRef, resetKey, view]);
 
   useFrame(() => {
     if (view !== "collective") return;
@@ -232,7 +237,15 @@ function GlobalInteractionLights() {
   );
 }
 
-export function ArchiveScene() {
+export function ArchiveScene({
+  collectiveResetVersion = 0,
+  entryMode = "collective",
+  timelineProgress = 1,
+}: {
+  collectiveResetVersion?: number;
+  entryMode?: ArchiveEntryMode;
+  timelineProgress?: number;
+}) {
   const { graph, selectNode, view, collectiveNavigation, updateCollectiveNavigation } = useArchiveStore();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const restartTimerRef = useRef<number | null>(null);
@@ -246,14 +259,14 @@ export function ArchiveScene() {
     setCanvasElement(element);
   }, []);
   const handlePointerMissed = useCallback(() => {
-    if (view !== "collective") return;
+    if (view !== "collective" || entryMode !== "collective") return;
     selectNode(null);
     updateCollectiveNavigation({
       selectedIdentityId: null,
       hoveredNodeId: null,
       hoveredTagLabel: null,
     });
-  }, [selectNode, updateCollectiveNavigation, view]);
+  }, [entryMode, selectNode, updateCollectiveNavigation, view]);
 
   useEffect(() => {
     if (!canvasElement) return undefined;
@@ -290,6 +303,14 @@ export function ArchiveScene() {
     [webglRestartVersion],
   );
 
+  const isTimelineEntry = entryMode === "timeline";
+  const avatarRevealOpacity = isTimelineEntry ? getAvatarRevealOpacity(timelineProgress) : 1;
+  const collectiveSceneReady = avatarShapePositions !== null;
+  const collectiveSceneOpacity = collectiveSceneReady ? avatarRevealOpacity : 0;
+  const collectiveScenePosition: [number, number, number] = isTimelineEntry
+    ? [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0]
+    : [0, 0, 0];
+
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
   if (!shouldRenderWebGLStage(view)) return <div className="archive-2d-stage-backdrop" aria-hidden="true" />;
   if (!hasWebGL()) return <WebGLFallback />;
@@ -306,33 +327,44 @@ export function ArchiveScene() {
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
+      {isTimelineEntry ? <EntryTimeline3D progress={timelineProgress} /> : null}
       {view === "collective" ? (
-        <>
-          <GlobalInteractionLights />
-          <CollectiveEnvironmentField />
-          <pointLight position={[-5, 3, 7]} intensity={1.1} color={archiveVisualConfig.colors.shared} />
-          <pointLight position={[5, -2, -6]} intensity={0.7} color={archiveVisualConfig.colors.tag} />
-        </>
+        <group position={collectiveScenePosition}>
+          {collectiveSceneOpacity > 0 ? <GlobalInteractionLights /> : null}
+          <Suspense fallback={null}>
+            <CollectiveEnvironmentField opacity={collectiveSceneOpacity} />
+          </Suspense>
+          <pointLight position={[-5, 3, 7]} intensity={1.1 * collectiveSceneOpacity} color={archiveVisualConfig.colors.shared} />
+          <pointLight position={[5, -2, -6]} intensity={0.7 * collectiveSceneOpacity} color={archiveVisualConfig.colors.tag} />
+        </group>
       ) : null}
-      {shouldRenderCollectiveAvatarField(view) ? <CollectiveAvatarField onShapePositions={handleShapePositions} /> : null}
-      {shouldRenderGraphOutsideCollectiveAvatarSuspense(view) ? (
-        <AvatarShapeProvider value={avatarShapePositions}>
-          <RelationshipGraph3D graph={graph} />
-        </AvatarShapeProvider>
-      ) : (
-        <Suspense fallback={null}>
-          <RelationshipGraph3D graph={graph} />
-        </Suspense>
-      )}
-      <CollectiveCameraStateSync controlsRef={controlsRef} />
-      <OrbitControls
-        ref={controlsRef}
-        enableDamping
-        enablePan={!shouldDisableCollectivePan(view)}
-        autoRotate={false}
-        minDistance={archiveVisualConfig.camera.minDistance}
-        maxDistance={archiveVisualConfig.camera.maxDistance}
-      />
+      <group position={collectiveScenePosition}>
+        {shouldRenderCollectiveAvatarField(view) ? (
+          <CollectiveAvatarField onShapePositions={handleShapePositions} opacity={collectiveSceneOpacity} />
+        ) : null}
+        {shouldRenderGraphOutsideCollectiveAvatarSuspense(view) && collectiveSceneReady ? (
+          <AvatarShapeProvider value={avatarShapePositions}>
+            <RelationshipGraph3D graph={graph} opacity={collectiveSceneOpacity} />
+          </AvatarShapeProvider>
+        ) : !isTimelineEntry && collectiveSceneReady ? (
+          <Suspense fallback={null}>
+            <RelationshipGraph3D graph={graph} opacity={collectiveSceneOpacity} />
+          </Suspense>
+        ) : null}
+      </group>
+      {!isTimelineEntry ? (
+        <CollectiveCameraStateSync controlsRef={controlsRef} resetKey={`${entryMode}:${collectiveResetVersion}`} />
+      ) : null}
+      {!isTimelineEntry ? (
+        <OrbitControls
+          ref={controlsRef}
+          enableDamping
+          enablePan={!shouldDisableCollectivePan(view)}
+          autoRotate={false}
+          minDistance={archiveVisualConfig.camera.minDistance}
+          maxDistance={archiveVisualConfig.camera.maxDistance}
+        />
+      ) : null}
     </Canvas>
   );
 }

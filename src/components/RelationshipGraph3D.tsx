@@ -27,6 +27,8 @@ type GraphRenderPolicy = {
   renderOrder: number;
 };
 
+const LABEL_VISIBLE_OPACITY_THRESHOLD = 0.55;
+
 export function shouldRenderGraphLink(link: ArchiveGraphLink, focusedNodeId: string | null): boolean {
   if (link.type === "interaction" || link.type === "conflict_tag") return true;
   if (link.type !== "shared_tag") return false;
@@ -200,7 +202,7 @@ export function shouldCollectiveNodeClickLock(node: Pick<ArchiveGraphNode, "type
   return view === "collective" && (node.type === "submission" || node.type === "tag" || node.type === "collective");
 }
 
-export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
+export function RelationshipGraph3D({ graph, opacity = 1 }: { graph: ArchiveGraph; opacity?: number }) {
   const {
     filters,
     previewIdentity,
@@ -262,6 +264,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
     (link) => shouldDisplayGraphLink(link, view, focusedNodeId, filters.linkDensity),
   );
   const graphRenderPolicy = getGraphRenderPolicy(view);
+  const shouldRenderHtmlLabels = view !== "collective" || opacity >= LABEL_VISIBLE_OPACITY_THRESHOLD;
 
   return (
     <group frustumCulled={graphRenderPolicy.frustumCulled} renderOrder={graphRenderPolicy.renderOrder}>
@@ -287,7 +290,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
             depthTest={graphRenderPolicy.depthTest}
             depthWrite={graphRenderPolicy.depthWrite}
             frustumCulled={graphRenderPolicy.frustumCulled}
-            opacity={linkStyle.opacity}
+            opacity={linkStyle.opacity * opacity}
             renderOrder={graphRenderPolicy.renderOrder}
           />
         );
@@ -296,7 +299,7 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
         <GraphNodeSprite
           key={node.id}
           node={node}
-          opacityMultiplier={getNodeOpacityMultiplier(node, query)}
+          opacityMultiplier={getNodeOpacityMultiplier(node, query) * opacity}
           onPointerOver={() => {
             if (shouldSelectNodeOnCollectiveHover(node, view)) selectNode(node);
             updateCollectiveNavigation({
@@ -322,24 +325,29 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
           }}
         />
       ))}
-      {visibleNodes.map((node) => (
-        <IdentityBillboardLabel
-          key={`${node.id}:label`}
-          node={node}
-          onClick={() => {
-            if (!shouldCollectiveNodeClickLock(node, view)) return;
-            selectNode(node);
-            updateCollectiveNavigation({ selectedIdentityId: node.id });
-            if (node.type === "submission") previewIdentity(node.id);
-          }}
-          visible={shouldShowIdentityBillboard(node, { view, focusedNodeId })}
-        />
-      ))}
-      {visibleNodes.map((node) =>
-        shouldShowTagLabel(node, { view, focusedNodeId }) ? (
-          <CollectiveHoverLabel key={`${node.id}:tag-label`} node={node} />
-        ) : null,
-      )}
+      {shouldRenderHtmlLabels
+        ? visibleNodes.map((node) => (
+            <IdentityBillboardLabel
+              key={`${node.id}:label`}
+              node={node}
+              onClick={() => {
+                if (!shouldCollectiveNodeClickLock(node, view)) return;
+                selectNode(node);
+                updateCollectiveNavigation({ selectedIdentityId: node.id });
+                if (node.type === "submission") previewIdentity(node.id);
+              }}
+              opacity={opacity}
+              visible={shouldShowIdentityBillboard(node, { view, focusedNodeId })}
+            />
+          ))
+        : null}
+      {shouldRenderHtmlLabels
+        ? visibleNodes.map((node) =>
+            shouldShowTagLabel(node, { view, focusedNodeId }) ? (
+              <CollectiveHoverLabel key={`${node.id}:tag-label`} node={node} opacity={opacity} />
+            ) : null,
+          )
+        : null}
     </group>
   );
 }
