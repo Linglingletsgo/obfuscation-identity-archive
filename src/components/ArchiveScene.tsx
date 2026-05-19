@@ -12,6 +12,7 @@ import { CollectiveAvatarField } from "./CollectiveAvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 import { CollectiveEnvironmentField } from "./CollectiveEnvironmentField";
 import { EntryTimeline3D, TIMELINE_COLLECTIVE_OFFSET_Y, getAvatarRevealOpacity, getTimelineCameraPose } from "./EntryTimeline3D";
+import { getCanvasDevicePixelRatio } from "../utils/renderingPerformance";
 
 type WebGLContextLike = {
   getExtension: (name: string) => { loseContext?: () => void } | null;
@@ -328,6 +329,7 @@ export function ArchiveScene({
       camera={canvasCamera}
       className="archive-canvas"
       data-webgl-restart-version={webglRestartVersion}
+      dpr={getCanvasDevicePixelRatio()}
       onPointerMissed={handlePointerMissed}
     >
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />

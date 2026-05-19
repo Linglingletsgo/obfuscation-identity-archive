@@ -79,6 +79,8 @@ const fragmentShader = `
   }
 `;
 
+const MIN_RENDER_OPACITY = 0.01;
+
 function createSeeds(pointCount: number): Float32Array {
   const seeds = new Float32Array(pointCount);
   for (let index = 0; index < pointCount; index += 1) {
@@ -192,5 +194,13 @@ export function CollectiveModelPointCloud({
     material.uniforms.uRayDirection.value.copy(raycaster.ray.direction);
   });
 
-  return <points geometry={geometry} material={material} frustumCulled={false} renderOrder={8} />;
+  return (
+    <points
+      geometry={geometry}
+      material={material}
+      frustumCulled={false}
+      renderOrder={8}
+      visible={opacity > MIN_RENDER_OPACITY}
+    />
+  );
 }

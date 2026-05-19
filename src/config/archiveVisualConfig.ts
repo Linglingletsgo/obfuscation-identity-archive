@@ -10,8 +10,10 @@ export const archiveVisualConfig = {
     nearWhiteThreshold: 245,
     stage2CollectiveModelPath: "/models/global_stage2_collective.glb",
     stage2CollectivePointSamples: 160000,
+    stage2CollectivePointSamplesLowPower: 90000,
     collectiveEnvironmentModelPath: "/models/env.glb",
     collectiveEnvironmentPointSamples: 90000,
+    collectiveEnvironmentPointSamplesLowPower: 45000,
     collectiveEnvironmentFieldRadius: 42,
     collectiveEnvironmentTexturePath:
       "/textures/environment_particle_sprite.png",
@@ -27,6 +29,9 @@ export const archiveVisualConfig = {
     collectiveInternalDistanceThreshold: 16,
     collectiveAvatarScale: 1.45,
     collectiveAvatarFieldRadius: 8.4,
+  },
+  rendering: {
+    maxDevicePixelRatio: 1.35,
   },
   graph: {
     seed: "obfuscation-identity-archive-v1",

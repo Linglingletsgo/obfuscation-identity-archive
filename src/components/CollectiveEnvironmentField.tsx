@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { normalizePointCloudPositions, sampleObjectSurface } from "../data/avatarShape";
+import { getCollectiveEnvironmentPointSamples } from "../utils/renderingPerformance";
 
 const environmentVertexShader = `
   attribute vec3 color;
@@ -66,6 +67,8 @@ const environmentFragmentShader = `
     gl_FragColor = vec4(vColor * (0.92 + core * 0.16 + vDisturbance * 0.58), vAlpha * softDisc);
   }
 `;
+
+const MIN_RENDER_OPACITY = 0.01;
 
 function createEnvironmentGeometry(positions: Float32Array, colors: Float32Array): THREE.BufferGeometry {
   const pointCount = Math.floor(positions.length / 3);
@@ -170,7 +173,7 @@ export function CollectiveEnvironmentField({ opacity = 1 }: { opacity?: number }
   const gltf = useGLTF(archiveVisualConfig.assets.collectiveEnvironmentModelPath);
   const pointTexture = useLoader(THREE.TextureLoader, archiveVisualConfig.assets.collectiveEnvironmentTexturePath);
   const surface = useMemo(
-    () => sampleObjectSurface(gltf.scene, archiveVisualConfig.assets.collectiveEnvironmentPointSamples),
+    () => sampleObjectSurface(gltf.scene, getCollectiveEnvironmentPointSamples()),
     [gltf.scene],
   );
   const positions = useMemo(
@@ -243,5 +246,13 @@ export function CollectiveEnvironmentField({ opacity = 1 }: { opacity?: number }
     material.uniforms.uPointerVelocity.value = velocityRef.current;
   });
 
-  return <points geometry={geometry} material={material} frustumCulled={false} renderOrder={1} />;
+  return (
+    <points
+      geometry={geometry}
+      material={material}
+      frustumCulled={false}
+      renderOrder={1}
+      visible={opacity > MIN_RENDER_OPACITY}
+    />
+  );
 }

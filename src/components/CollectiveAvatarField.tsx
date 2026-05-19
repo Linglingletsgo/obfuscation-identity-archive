@@ -3,7 +3,10 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { getAvatarNormalization, normalizePointCloudPositions, sampleObjectSurface } from "../data/avatarShape";
+import { getCollectiveAvatarPointSamples } from "../utils/renderingPerformance";
 import { CollectiveModelPointCloud } from "./CollectiveModelPointCloud";
+
+const MIN_MODEL_OPACITY = 0.01;
 
 function LoadedCollectiveAvatarField({
   onShapePositions,
@@ -14,7 +17,7 @@ function LoadedCollectiveAvatarField({
 }) {
   const gltf = useGLTF(archiveVisualConfig.assets.stage2CollectiveModelPath);
   const surface = useMemo(
-    () => sampleObjectSurface(gltf.scene, archiveVisualConfig.assets.stage2CollectivePointSamples),
+    () => sampleObjectSurface(gltf.scene, getCollectiveAvatarPointSamples()),
     [gltf.scene],
   );
   const visualRadius = archiveVisualConfig.camera.collectiveAvatarFieldRadius * archiveVisualConfig.camera.collectiveAvatarScale;
@@ -84,7 +87,7 @@ function LoadedCollectiveAvatarField({
         ]}
         scale={normalization.scale}
       >
-        <primitive object={materializedScene} />
+        <primitive object={materializedScene} visible={opacity > MIN_MODEL_OPACITY} />
       </group>
       <CollectiveModelPointCloud
         colors={surface.colors}
