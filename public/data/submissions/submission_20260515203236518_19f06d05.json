@@ -1,0 +1,84 @@
+{
+  "submission_id": "submission_20260515203236518_19f06d05",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-15T20:32:36.518Z",
+  "shell_form": "Parallel-world resident",
+  "places": [
+    "Dream",
+    "Home",
+    "School",
+    "Hospital",
+    "Transport system",
+    "Internet"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Species description",
+    "Chat log",
+    "Social media bio"
+  ],
+  "material_sources": [
+    "False memory",
+    "Private code",
+    "Lyric-like fragment",
+    "Dream"
+  ],
+  "social_role_tags": [
+    "Freelancer",
+    "Traveler",
+    "Recorded subject",
+    "Marginal member"
+  ],
+  "spatial_tags": [
+    "Seaside",
+    "Forest",
+    "Rooftop"
+  ],
+  "time_era_tags": [
+    "Millennium",
+    "Periodic disappearance",
+    "Time disorder"
+  ],
+  "platform_behavior_tags": [
+    "Browses without buying",
+    "Minimalist",
+    "Ad avoider"
+  ],
+  "emotion_personality_tags": [
+    "Distant",
+    "Nostalgic",
+    "Highly sensitive",
+    "Restrained"
+  ],
+  "relationship_tags": [
+    "Marginal group member",
+    "Watched",
+    "Keeps distance"
+  ],
+  "aesthetic_cultural_tags": [
+    "Nostalgia",
+    "Folklore",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "Insufficient information",
+    "Blurred profile",
+    "Algorithmic anomaly"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Rabbit",
+    "Snow",
+    "Weather forecast",
+    "Simulated life",
+    "Mirror",
+    "Sensor",
+    "Camera",
+    "Surveillance camera"
+  ],
+  "identity_name": "胐鸢",
+  "carried_fragment": "我在躲藏一种未知的危险，风在耳旁呼啸，景色逐渐变得模糊。我发了疯似的奔跑，尝试无视一切。",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

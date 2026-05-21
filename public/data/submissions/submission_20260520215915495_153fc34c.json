@@ -1,0 +1,100 @@
+{
+  "submission_id": "submission_20260520215915495_153fc34c",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-20T21:59:15.495Z",
+  "shell_form": "Multiple-identity cluster",
+  "places": [
+    "Dream",
+    "Natural environment",
+    "Future world",
+    "No fixed place",
+    "Home",
+    "City"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Poem",
+    "Divination result",
+    "Chat log",
+    "Museum label"
+  ],
+  "material_sources": [
+    "Real memory",
+    "False memory",
+    "Dream",
+    "Family legend",
+    "Lyric-like fragment",
+    "Religious / mythological element",
+    "Location trace",
+    "Shopping preference"
+  ],
+  "social_role_tags": [
+    "Traveler",
+    "Observer",
+    "Host",
+    "Guest",
+    "Archive object"
+  ],
+  "spatial_tags": [
+    "Seaside",
+    "Library",
+    "City center"
+  ],
+  "time_era_tags": [
+    "Parallel timeline",
+    "Periodic disappearance",
+    "2010s",
+    "Near future"
+  ],
+  "platform_behavior_tags": [
+    "Digital subscriber",
+    "Anonymous browser",
+    "Multiple-account switcher",
+    "Saves screenshots",
+    "Collector",
+    "Jumping browser"
+  ],
+  "emotion_personality_tags": [
+    "Anxious",
+    "Warm",
+    "Easily distracted",
+    "Highly expressive",
+    "Hard to determine"
+  ],
+  "relationship_tags": [
+    "Long-distance relationship",
+    "Dependent on a small circle",
+    "Waiting to be recognized"
+  ],
+  "aesthetic_cultural_tags": [
+    "Pop culture",
+    "Nostalgia",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "Ordinary user",
+    "Predictable user",
+    "Archivable user",
+    "Suspected bot",
+    "Algorithmic anomaly"
+  ],
+  "non_human_tags": [
+    "Jellyfish",
+    "An unread email",
+    "Unsent message",
+    "Bridge",
+    "Cup",
+    "Pocket",
+    "Old photo",
+    "Window",
+    "Star",
+    "Flower",
+    "Grass",
+    "Cloud"
+  ],
+  "identity_name": "wurble",
+  "carried_fragment": "haikus",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

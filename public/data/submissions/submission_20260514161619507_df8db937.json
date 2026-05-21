@@ -1,0 +1,85 @@
+{
+  "submission_id": "submission_20260514161619507_df8db937",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T16:16:19.507Z",
+  "shell_form": "Parallel-world resident",
+  "places": [
+    "Game",
+    "Dream",
+    "City",
+    "Natural environment",
+    "Ruin",
+    "Future world"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Poem",
+    "Testimony",
+    "Museum label",
+    "Species description"
+  ],
+  "material_sources": [
+    "Internet meme",
+    "Family legend",
+    "Lyric-like fragment",
+    "Non-human material"
+  ],
+  "social_role_tags": [
+    "Drifter",
+    "Unclassifiable person",
+    "Passerby"
+  ],
+  "spatial_tags": [
+    "Convenience store",
+    "Museum",
+    "Border"
+  ],
+  "time_era_tags": [
+    "Millennium",
+    "Looping time",
+    "Long silence"
+  ],
+  "platform_behavior_tags": [
+    "Jumping browser",
+    "Multiple-account switcher",
+    "Hoarder"
+  ],
+  "emotion_personality_tags": [
+    "Easily distracted",
+    "Hard to determine",
+    "Warm",
+    "Suspicious"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Watched",
+    "Waiting to be recognized"
+  ],
+  "aesthetic_cultural_tags": [
+    "Folklore",
+    "Street-market feeling",
+    "Fake official style"
+  ],
+  "system_tags": [
+    "Noise user",
+    "Suspected bot",
+    "Archivable user"
+  ],
+  "non_human_tags": [
+    "Fungus",
+    "Broken phone",
+    "An eye",
+    "Insect",
+    "Surveillance camera",
+    "Radio",
+    "Trash bin",
+    "Crack",
+    "Compressed file",
+    "Recycle bin"
+  ],
+  "identity_name": "xiti",
+  "carried_fragment": "六个脚趾",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

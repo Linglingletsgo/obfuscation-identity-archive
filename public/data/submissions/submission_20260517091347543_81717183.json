@@ -1,0 +1,102 @@
+{
+  "submission_id": "submission_20260517091347543_81717183",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-17T09:13:47.543Z",
+  "shell_form": "Shadow",
+  "places": [
+    "Internet",
+    "Workplace",
+    "Game",
+    "Dream",
+    "Future world",
+    "Transport system"
+  ],
+  "expression_formats": [
+    "Advertising profile",
+    "System error",
+    "Museum label",
+    "Legend"
+  ],
+  "material_sources": [
+    "False memory",
+    "Dream",
+    "News",
+    "Color",
+    "Non-human material",
+    "Lyric-like fragment"
+  ],
+  "social_role_tags": [
+    "Archive object",
+    "Anonymous user",
+    "Observer",
+    "New resident",
+    "Freelancer",
+    "Researcher"
+  ],
+  "spatial_tags": [
+    "Seaside",
+    "Office building",
+    "Convenience store",
+    "Rooftop"
+  ],
+  "time_era_tags": [
+    "Ancient time",
+    "Parallel timeline",
+    "Time disorder",
+    "Distant future",
+    "Mythic age"
+  ],
+  "platform_behavior_tags": [
+    "Price comparer",
+    "Deletes records",
+    "Anti-recommendation user",
+    "Multiple-account switcher"
+  ],
+  "emotion_personality_tags": [
+    "Hard to determine",
+    "Hesitant",
+    "Highly expressive",
+    "Socially avoidant",
+    "Adventurous",
+    "Easily distracted",
+    "Suspicious"
+  ],
+  "relationship_tags": [
+    "Cared-for person",
+    "Often misunderstood",
+    "Waiting to be recognized",
+    "Stranger",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Folklore",
+    "Academic style",
+    "Museum-like",
+    "Unclassifiable"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Unpredictable user",
+    "Insufficient information",
+    "Suspected human"
+  ],
+  "non_human_tags": [
+    "An unread email",
+    "Artificially cultivated thing",
+    "Hybrid species",
+    "Alien creature",
+    "Shadow",
+    "Untitled file",
+    "Umbrella",
+    "Glass",
+    "Snow",
+    "Tree",
+    "Deer"
+  ],
+  "identity_name": "Arnar Mariuchi",
+  "carried_fragment": "A light footprint",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

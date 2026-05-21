@@ -1,0 +1,84 @@
+{
+  "submission_id": "submission_20260515222533563_14c9e57a",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-15T22:25:33.563Z",
+  "shell_form": "Non-human identity",
+  "places": [
+    "No fixed place",
+    "Archive",
+    "Home"
+  ],
+  "expression_formats": [
+    "Social media bio",
+    "Chat log",
+    "Legend",
+    "Junk file"
+  ],
+  "material_sources": [
+    "Dream",
+    "Chat habit",
+    "Location trace",
+    "Lyric-like fragment",
+    "Religious / mythological element"
+  ],
+  "social_role_tags": [
+    "Researcher",
+    "Freelancer",
+    "Person living alone"
+  ],
+  "spatial_tags": [
+    "Suburb",
+    "Border",
+    "Dormitory",
+    "Ruin"
+  ],
+  "time_era_tags": [
+    "Industrial age",
+    "1990s",
+    "Retro future",
+    "Time disorder"
+  ],
+  "platform_behavior_tags": [
+    "Impulse buyer",
+    "Browses without buying",
+    "Algorithm follower"
+  ],
+  "emotion_personality_tags": [
+    "Warm",
+    "Defensive",
+    "Speechless",
+    "Adventurous",
+    "Pessimistic"
+  ],
+  "relationship_tags": [
+    "Dependent on a small circle",
+    "Caregiver",
+    "Replies frequently",
+    "Frequently unreachable"
+  ],
+  "aesthetic_cultural_tags": [
+    "Religious atmosphere",
+    "Punk",
+    "Minimalism"
+  ],
+  "system_tags": [
+    "Archivable user",
+    "Worth monitoring",
+    "Suspected bot",
+    "Low-confidence data"
+  ],
+  "non_human_tags": [
+    "Snake",
+    "Insect",
+    "Fish",
+    "Jellyfish",
+    "Ant",
+    "Octopus",
+    "Whale"
+  ],
+  "identity_name": "Mango",
+  "carried_fragment": "You are free, you can transform",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

@@ -1,0 +1,113 @@
+{
+  "submission_id": "submission_20260514131000453_8693665e",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T13:10:00.453Z",
+  "shell_form": "Error archive",
+  "places": [
+    "Home",
+    "Database",
+    "Hospital",
+    "Transport system",
+    "Future world",
+    "Archive"
+  ],
+  "expression_formats": [
+    "Divination result",
+    "System error",
+    "Junk file",
+    "Poem",
+    "Private diary"
+  ],
+  "material_sources": [
+    "False memory",
+    "Real memory",
+    "Private code",
+    "Location trace",
+    "Number",
+    "Non-human material",
+    "Random words",
+    "News"
+  ],
+  "social_role_tags": [
+    "Drifter",
+    "Parent",
+    "Student",
+    "Outsider",
+    "Passerby"
+  ],
+  "spatial_tags": [
+    "Seaside",
+    "Mountain area",
+    "Dormitory",
+    "River",
+    "Library",
+    "Basement"
+  ],
+  "time_era_tags": [
+    "Mythic age",
+    "Industrial age",
+    "Distant future",
+    "Nocturnal",
+    "Seasonal appearance",
+    "Time disorder"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Hoarder",
+    "Anti-recommendation user",
+    "Ad avoider",
+    "Saves screenshots",
+    "Long-term lurker"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Suspicious",
+    "Optimistic",
+    "Silent",
+    "Impulsive",
+    "Restrained"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Family-oriented",
+    "Socially active",
+    "Ignored",
+    "Lost contact",
+    "Replies frequently"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Folklore",
+    "Futurism",
+    "Fake official style",
+    "Office style",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "Low-value user",
+    "Risk user",
+    "Blurred profile",
+    "Cannot determine",
+    "Low-confidence data",
+    "Suspected human"
+  ],
+  "non_human_tags": [
+    "Bee",
+    "Moss",
+    "Bird",
+    "Insect",
+    "Wolf",
+    "Seed",
+    "Rain",
+    "Metal",
+    "Mirror",
+    "Umbrella",
+    "Crack",
+    "An eye"
+  ],
+  "identity_name": "Currency",
+  "carried_fragment": "Clean drinking water",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

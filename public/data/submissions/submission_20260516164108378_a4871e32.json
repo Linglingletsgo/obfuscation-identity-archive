@@ -1,0 +1,71 @@
+{
+  "submission_id": "submission_20260516164108378_a4871e32",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-16T16:41:08.378Z",
+  "shell_form": "Error archive",
+  "places": [
+    "Social media platform"
+  ],
+  "expression_formats": [
+    "Chat log"
+  ],
+  "material_sources": [
+    "Lyric-like fragment"
+  ],
+  "social_role_tags": [
+    "Forgotten person",
+    "Person living alone",
+    "Unclassifiable person"
+  ],
+  "spatial_tags": [
+    "Seaside",
+    "Border",
+    "Mountain area"
+  ],
+  "time_era_tags": [
+    "Ancient time",
+    "Long silence",
+    "Retro future"
+  ],
+  "platform_behavior_tags": [
+    "Impulse buyer",
+    "Late-night shopper",
+    "Long-term lurker"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Nostalgic",
+    "Optimistic",
+    "Highly sensitive",
+    "Ironic"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "In an intimate relationship",
+    "Long-distance relationship"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Nostalgia",
+    "Algorithmic aesthetics"
+  ],
+  "system_tags": [
+    "Risk user",
+    "Active user",
+    "Tag conflict"
+  ],
+  "non_human_tags": [
+    "Dog",
+    "An unread email",
+    "Black screen",
+    "QR code",
+    "Untitled file",
+    "Unsent message",
+    "Camera"
+  ],
+  "identity_name": "Rocky",
+  "carried_fragment": "Constantly asks for reassurance.",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

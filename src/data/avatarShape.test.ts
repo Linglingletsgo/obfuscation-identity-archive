@@ -40,7 +40,7 @@ describe("avatarShape", () => {
     expect([...sample.partColors.slice(0, 3)]).toEqual([...sample.partColors.slice(3, 6)]);
   });
 
-  it("keeps nearby texture colors visibly separated by mesh part", () => {
+  it("keeps part colors close to the source material hue", () => {
     const scene = new THREE.Group();
     const sharedMaterial = new THREE.MeshBasicMaterial({ color: "#666058" });
     scene.add(
@@ -61,10 +61,17 @@ describe("avatarShape", () => {
     );
 
     const sample = sampleObjectSurface(scene, 6);
-    const firstLum = sample.partColors[0] + sample.partColors[1] + sample.partColors[2];
-    const secondLum = sample.partColors[9] + sample.partColors[10] + sample.partColors[11];
+    const source = new THREE.Color("#666058");
+    const sourceHsl = { h: 0, s: 0, l: 0 };
+    const firstHsl = { h: 0, s: 0, l: 0 };
+    const secondHsl = { h: 0, s: 0, l: 0 };
+    source.getHSL(sourceHsl);
+    new THREE.Color(sample.partColors[0], sample.partColors[1], sample.partColors[2]).getHSL(firstHsl);
+    new THREE.Color(sample.partColors[9], sample.partColors[10], sample.partColors[11]).getHSL(secondHsl);
 
-    expect(Math.abs(secondLum - firstLum)).toBeGreaterThan(0.45);
+    expect(Math.abs(firstHsl.h - sourceHsl.h)).toBeLessThan(0.001);
+    expect(Math.abs(secondHsl.h - sourceHsl.h)).toBeLessThan(0.001);
+    expect(Math.abs(secondHsl.l - firstHsl.l)).toBeLessThan(0.001);
   });
 
   it("adds deterministic triangle samples when the requested point budget exceeds vertex count", () => {

@@ -1,0 +1,96 @@
+{
+  "submission_id": "submission_20260515160218612_97b66f84",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-15T16:02:18.612Z",
+  "shell_form": "Shadow",
+  "places": [
+    "Internet",
+    "Home",
+    "Dream",
+    "Ruin",
+    "Future world"
+  ],
+  "expression_formats": [
+    "Divination result",
+    "Resume",
+    "Medical record",
+    "System error",
+    "Species description"
+  ],
+  "material_sources": [
+    "False memory",
+    "Real memory",
+    "Dream",
+    "Private code",
+    "Family legend",
+    "Non-human material"
+  ],
+  "social_role_tags": [
+    "Traveler",
+    "Drifter",
+    "Guest",
+    "Regular visitor",
+    "Witness",
+    "Observer"
+  ],
+  "spatial_tags": [
+    "Mountain area",
+    "Border",
+    "Ruin"
+  ],
+  "time_era_tags": [
+    "Distant future",
+    "Looping time",
+    "Retro future",
+    "Parallel timeline",
+    "Time disorder"
+  ],
+  "platform_behavior_tags": [
+    "Platform nomad",
+    "Other: Other",
+    "Deletes records"
+  ],
+  "emotion_personality_tags": [
+    "Distant",
+    "Adventurous",
+    "Pessimistic",
+    "Optimistic",
+    "Highly sensitive",
+    "Ironic",
+    "Impulsive"
+  ],
+  "relationship_tags": [
+    "Watched",
+    "Stranger",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Futurism",
+    "Lo-fi",
+    "Ruin atmosphere",
+    "Unclassifiable"
+  ],
+  "system_tags": [
+    "Abnormal user",
+    "Suspected human",
+    "Suspected bot",
+    "Low-confidence data",
+    "High-noise data",
+    "Wrong match"
+  ],
+  "non_human_tags": [
+    "Seed",
+    "Cloud",
+    "Star",
+    "Expired pill",
+    "Junk file",
+    "Error code",
+    "Ghost",
+    "Simulated life"
+  ],
+  "identity_name": "Miffy",
+  "carried_fragment": "Trans mission :- I am the ghost in the future past :- Trans mission ends",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

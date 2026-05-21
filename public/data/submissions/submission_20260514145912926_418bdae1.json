@@ -1,0 +1,83 @@
+{
+  "submission_id": "submission_20260514145912926_418bdae1",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T14:59:12.926Z",
+  "shell_form": "Shadow",
+  "places": [
+    "Game",
+    "Ruin",
+    "No fixed place"
+  ],
+  "expression_formats": [
+    "Legend",
+    "System error",
+    "Chat log"
+  ],
+  "material_sources": [
+    "False memory",
+    "Lyric-like fragment",
+    "Internet meme",
+    "Game character"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Traveler",
+    "Drifter",
+    "Archive object"
+  ],
+  "spatial_tags": [
+    "Café",
+    "Ruin",
+    "Rooftop"
+  ],
+  "time_era_tags": [
+    "Medieval period",
+    "Time disorder",
+    "Wrong era"
+  ],
+  "platform_behavior_tags": [
+    "Collector",
+    "Ad avoider",
+    "Deletes records"
+  ],
+  "emotion_personality_tags": [
+    "Easily distracted",
+    "Adventurous",
+    "Ironic",
+    "Impulsive"
+  ],
+  "relationship_tags": [
+    "In an intimate relationship",
+    "Keeps distance",
+    "Solitary person",
+    "Dependent on a small circle"
+  ],
+  "aesthetic_cultural_tags": [
+    "Tech geek",
+    "Ruin atmosphere",
+    "Game interface style"
+  ],
+  "system_tags": [
+    "Abnormal user",
+    "Unstable user",
+    "Risk user",
+    "Unpredictable user"
+  ],
+  "non_human_tags": [
+    "Crow",
+    "Old photo",
+    "Echo",
+    "Cat",
+    "Whale",
+    "Jellyfish",
+    "Moth",
+    "Fungus",
+    "Moon",
+    "Mirror"
+  ],
+  "identity_name": "mike hawk",
+  "carried_fragment": "hawk hawk",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

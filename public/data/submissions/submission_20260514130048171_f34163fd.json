@@ -1,0 +1,78 @@
+{
+  "submission_id": "submission_20260514130048171_f34163fd",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T13:00:48.171Z",
+  "shell_form": "Real self",
+  "places": [
+    "School",
+    "Natural environment"
+  ],
+  "expression_formats": [
+    "Poem",
+    "Resume",
+    "Species description"
+  ],
+  "material_sources": [
+    "Dream"
+  ],
+  "social_role_tags": [
+    "Other: Storyteller",
+    "Researcher",
+    "Unclassifiable person",
+    "Observer"
+  ],
+  "spatial_tags": [
+    "City center",
+    "Mountain area",
+    "Café"
+  ],
+  "time_era_tags": [
+    "Time disorder",
+    "2010s",
+    "Active at dawn",
+    "2020s"
+  ],
+  "platform_behavior_tags": [
+    "Other: All of the above",
+    "Long-term lurker",
+    "Brand loyalist",
+    "Low-frequency high-price consumer",
+    "High-frequency low-price consumer"
+  ],
+  "emotion_personality_tags": [
+    "Ironic",
+    "Calm",
+    "Anxious",
+    "Warm",
+    "Cautious"
+  ],
+  "relationship_tags": [
+    "Old friend",
+    "Waiting to be recognized",
+    "Community organizer"
+  ],
+  "aesthetic_cultural_tags": [
+    "Anime / manga culture",
+    "Minimalism",
+    "Environmentalism"
+  ],
+  "system_tags": [
+    "Recommendation difficulty",
+    "Tag conflict",
+    "Identity drift"
+  ],
+  "non_human_tags": [
+    "Rabbit",
+    "Recycle bin",
+    "Cat",
+    "Tree",
+    "Wind",
+    "Fog",
+    "QR code"
+  ],
+  "identity_name": "Tsingwood",
+  "carried_fragment": "Joy of Creation",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

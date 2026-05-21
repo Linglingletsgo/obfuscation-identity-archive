@@ -1,0 +1,100 @@
+{
+  "submission_id": "submission_20260515195317169_faa06fbf",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-15T19:53:17.169Z",
+  "shell_form": "Multiple-identity cluster",
+  "places": [
+    "Workplace",
+    "Dream",
+    "Archive",
+    "Social media platform",
+    "City"
+  ],
+  "expression_formats": [
+    "Resume",
+    "Social media bio",
+    "Private diary",
+    "Official form"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Dream",
+    "Search history",
+    "Random words",
+    "Family legend",
+    "Shopping preference"
+  ],
+  "social_role_tags": [
+    "Outsider",
+    "Drifter",
+    "Researcher",
+    "Forgotten person",
+    "Marginal member"
+  ],
+  "spatial_tags": [
+    "Seaside",
+    "Urban edge",
+    "Suburb",
+    "Basement",
+    "Rental room"
+  ],
+  "time_era_tags": [
+    "Looping time",
+    "Wrong era",
+    "Expired future",
+    "Paused time"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Hoarder",
+    "Long-term lurker",
+    "Deletes records"
+  ],
+  "emotion_personality_tags": [
+    "Easily distracted",
+    "Stubborn",
+    "Warm",
+    "Distant",
+    "Silent",
+    "Speechless"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "In an intimate relationship",
+    "Waiting to be recognized",
+    "Refuses contact",
+    "Ignored"
+  ],
+  "aesthetic_cultural_tags": [
+    "Minimalism",
+    "Futurism",
+    "Academic style",
+    "Unclassifiable",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "Ordinary user",
+    "Abnormal user",
+    "Unpredictable user",
+    "Insufficient information",
+    "Identity drift"
+  ],
+  "non_human_tags": [
+    "Whale",
+    "Tree",
+    "River",
+    "Wind",
+    "Glass",
+    "Empty bottle",
+    "Unclaimed bag",
+    "Weather forecast",
+    "Crack",
+    "Cache",
+    "Browsing history"
+  ],
+  "identity_name": "lala",
+  "carried_fragment": "nearly got there that time...",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

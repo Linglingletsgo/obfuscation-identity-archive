@@ -1,0 +1,96 @@
+{
+  "submission_id": "submission_20260515115447117_99805039",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-15T11:54:47.117Z",
+  "shell_form": "Parallel-world resident",
+  "places": [
+    "School",
+    "City",
+    "Internet",
+    "Shopping mall",
+    "Social media platform",
+    "Dream"
+  ],
+  "expression_formats": [
+    "Divination result",
+    "System error",
+    "Species description",
+    "Junk file",
+    "Official form"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Religious / mythological element",
+    "Game character",
+    "Dream",
+    "Non-human material"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Freelancer",
+    "Caregiver",
+    "Local person",
+    "Outsider",
+    "Drifter"
+  ],
+  "spatial_tags": [
+    "Office building",
+    "Mountain area",
+    "Convenience store",
+    "Ruin"
+  ],
+  "time_era_tags": [
+    "Ancient time",
+    "Mythic age",
+    "After the apocalypse"
+  ],
+  "platform_behavior_tags": [
+    "Ad avoider",
+    "Saves screenshots",
+    "Long-term lurker",
+    "Collector",
+    "Minimalist"
+  ],
+  "emotion_personality_tags": [
+    "Anxious",
+    "Warm",
+    "Gentle",
+    "Stubborn",
+    "Optimistic",
+    "Silent"
+  ],
+  "relationship_tags": [
+    "Anonymous observer",
+    "Waiting to be recognized",
+    "Old friend",
+    "Caregiver"
+  ],
+  "aesthetic_cultural_tags": [
+    "Folklore",
+    "Academic style",
+    "Nostalgia",
+    "Game interface style"
+  ],
+  "system_tags": [
+    "Insufficient information",
+    "Blurred profile",
+    "Recommendation difficulty",
+    "Not worth analyzing",
+    "Outlier"
+  ],
+  "non_human_tags": [
+    "Moss",
+    "Coral",
+    "Fog",
+    "Sun",
+    "Unclaimed bag",
+    "Old photo",
+    "Crack",
+    "Echo"
+  ],
+  "identity_name": "Holder",
+  "carried_fragment": "expanding inwards",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

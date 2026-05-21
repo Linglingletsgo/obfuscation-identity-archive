@@ -1,23 +1,23 @@
 {
   "attributes": {
     "color": {
-      "byteLength": 1919868,
+      "byteLength": 1259868,
       "byteOffset": 0,
       "components": 3
     },
     "partColor": {
-      "byteLength": 1919868,
-      "byteOffset": 1919868,
+      "byteLength": 1259868,
+      "byteOffset": 1259868,
       "components": 3
     },
     "partId": {
-      "byteLength": 639956,
-      "byteOffset": 3839736,
+      "byteLength": 419956,
+      "byteOffset": 2519736,
       "components": 1
     },
     "position": {
-      "byteLength": 1919868,
-      "byteOffset": 4479692,
+      "byteLength": 1259868,
+      "byteOffset": 2939692,
       "components": 3
     }
   },
@@ -25,13 +25,13 @@
   "kind": "collective",
   "normalization": {
     "center": {
-      "x": 0.0000725090503692627,
-      "y": 0.000054001808166503906,
-      "z": -0.00024594366550445557
+      "x": -0.008559495210647583,
+      "y": 0.5446505522850202,
+      "z": -0.0064714401960372925
     },
-    "scale": 12.44105074505008
+    "scale": 20.33573445789607
   },
-  "pointCount": 159989,
+  "pointCount": 104989,
   "source": "public/models/global_stage2_collective.glb",
   "version": 1
 }

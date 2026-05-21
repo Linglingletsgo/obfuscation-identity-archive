@@ -1,0 +1,86 @@
+{
+  "submission_id": "submission_20260514110753727_ac1d3942",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T11:07:53.727Z",
+  "shell_form": "Past version",
+  "places": [
+    "School",
+    "Home",
+    "City",
+    "Natural environment"
+  ],
+  "expression_formats": [
+    "Chat log",
+    "Museum label",
+    "Species description"
+  ],
+  "material_sources": [
+    "False memory",
+    "Real memory",
+    "Chat habit",
+    "Search history",
+    "Private code"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Local person",
+    "Recorded subject",
+    "Passerby"
+  ],
+  "spatial_tags": [
+    "Village",
+    "Library",
+    "Game world"
+  ],
+  "time_era_tags": [
+    "Millennium",
+    "Long silence",
+    "High repetition"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Price comparer",
+    "Ad avoider",
+    "Deletes records",
+    "Saves screenshots"
+  ],
+  "emotion_personality_tags": [
+    "Warm",
+    "Calm",
+    "Anxious",
+    "Silent"
+  ],
+  "relationship_tags": [
+    "Long-distance relationship",
+    "Family-oriented",
+    "Ignored",
+    "Keeps distance"
+  ],
+  "aesthetic_cultural_tags": [
+    "Lo-fi",
+    "Game interface style",
+    "Street-market feeling",
+    "Office style"
+  ],
+  "system_tags": [
+    "Active user",
+    "Low-value user",
+    "Tag conflict",
+    "Not worth analyzing"
+  ],
+  "non_human_tags": [
+    "Whale",
+    "Cloud",
+    "Moon",
+    "Paper",
+    "Map",
+    "Bed",
+    "White noise",
+    "Ghost"
+  ],
+  "identity_name": "good student",
+  "carried_fragment": "I never sleep on class",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

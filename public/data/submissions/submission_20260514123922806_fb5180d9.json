@@ -1,0 +1,115 @@
+{
+  "submission_id": "submission_20260514123922806_fb5180d9",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T12:39:22.806Z",
+  "shell_form": "Substitute",
+  "places": [
+    "Internet",
+    "Game",
+    "Dream",
+    "Future world",
+    "No fixed place",
+    "Database"
+  ],
+  "expression_formats": [
+    "Untitled file",
+    "Junk file",
+    "Official form",
+    "Resume",
+    "Chat log"
+  ],
+  "material_sources": [
+    "Dream",
+    "Internet meme",
+    "Game character",
+    "Real memory",
+    "AI-generated text",
+    "Non-human material",
+    "Private code",
+    "Search history"
+  ],
+  "social_role_tags": [
+    "Freelancer",
+    "Temporary worker",
+    "Caregiver",
+    "Person living alone",
+    "Outsider",
+    "Anonymous user"
+  ],
+  "spatial_tags": [
+    "Urban edge",
+    "Game world",
+    "Museum",
+    "No fixed place",
+    "Rental room",
+    "Data center"
+  ],
+  "time_era_tags": [
+    "Millennium",
+    "2010s",
+    "2020s",
+    "Near future",
+    "After the apocalypse",
+    "Parallel timeline"
+  ],
+  "platform_behavior_tags": [
+    "Price comparer",
+    "Hoarder",
+    "Minimalist",
+    "Browses without buying",
+    "Second-hand preference",
+    "Platform nomad"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Nostalgic",
+    "Suspicious",
+    "Cautious",
+    "Ironic",
+    "Relaxed",
+    "Hard to determine"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Socially active",
+    "Anonymous observer",
+    "Old friend",
+    "Temporary ally",
+    "Marginal group member"
+  ],
+  "aesthetic_cultural_tags": [
+    "Anime / manga culture",
+    "Minimalism",
+    "Nostalgia",
+    "Tech geek",
+    "Game interface style",
+    "Handmade feeling"
+  ],
+  "system_tags": [
+    "Low-value user",
+    "Risk user",
+    "Tag conflict",
+    "Not worth analyzing",
+    "Suspected bot",
+    "Wrong match"
+  ],
+  "non_human_tags": [
+    "Insect",
+    "Octopus",
+    "Crow",
+    "Hybrid species",
+    "Compressed file",
+    "Camera",
+    "Machine",
+    "Door",
+    "Metal",
+    "Alarm clock",
+    "Data packet",
+    "Synthetic species"
+  ],
+  "identity_name": "Yoknowho",
+  "carried_fragment": "Meme pollution",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

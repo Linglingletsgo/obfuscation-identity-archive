@@ -1,0 +1,89 @@
+{
+  "submission_id": "submission_20260519161858873_fcc487c8",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-19T16:18:58.873Z",
+  "shell_form": "Real self",
+  "places": [
+    "Internet",
+    "Home",
+    "Workplace",
+    "Social media platform",
+    "Database"
+  ],
+  "expression_formats": [
+    "Official form",
+    "Private diary",
+    "Social media bio",
+    "Resume"
+  ],
+  "material_sources": [
+    "Real memory",
+    "Private code"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Researcher",
+    "Parent",
+    "Commuter",
+    "Traveler",
+    "Observer"
+  ],
+  "spatial_tags": [
+    "City center",
+    "Urban edge",
+    "Suburb",
+    "Seaside",
+    "Airport",
+    "Social media platform"
+  ],
+  "time_era_tags": [
+    "1960s",
+    "Millennium",
+    "2020s",
+    "Weekend appearance"
+  ],
+  "platform_behavior_tags": [
+    "Minimalist",
+    "Browses without buying",
+    "Digital subscriber",
+    "Saves screenshots"
+  ],
+  "emotion_personality_tags": [
+    "Nostalgic",
+    "Easily distracted",
+    "Optimistic",
+    "Alert"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "In an intimate relationship",
+    "Socially active",
+    "Old friend",
+    "Dependent on a small circle"
+  ],
+  "aesthetic_cultural_tags": [
+    "Pop culture",
+    "Minimalism",
+    "Tech geek",
+    "Environmentalism"
+  ],
+  "system_tags": [
+    "Active user",
+    "High-value user",
+    "Worth monitoring",
+    "Suspected human"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Deer",
+    "Rabbit",
+    "Stone",
+    "Star",
+    "Machine"
+  ],
+  "identity_name": "Wendy",
+  "carried_fragment": "Wendy pretends on the outside to be normal but inside has dark and obscure thoughts.  She has trauma that is well hidden but occasionally makes an appearance in the form of willful disobedience or purposeful sabotage.",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

@@ -1,0 +1,102 @@
+{
+  "submission_id": "submission_20260515121428855_f8dcaf32",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-15T12:14:28.855Z",
+  "shell_form": "Future version",
+  "places": [
+    "Dream",
+    "Archive",
+    "Natural environment",
+    "Ruin",
+    "Home",
+    "City"
+  ],
+  "expression_formats": [
+    "Poem",
+    "Divination result",
+    "Legend",
+    "Species description",
+    "Museum label"
+  ],
+  "material_sources": [
+    "Private code",
+    "Family legend",
+    "Location trace",
+    "Number",
+    "Lyric-like fragment"
+  ],
+  "social_role_tags": [
+    "Researcher",
+    "Person living alone",
+    "Local person",
+    "Traveler",
+    "Witness"
+  ],
+  "spatial_tags": [
+    "Family home",
+    "Border",
+    "Seaside",
+    "Ruin",
+    "Museum"
+  ],
+  "time_era_tags": [
+    "Ancient time",
+    "1970s",
+    "Paused time",
+    "Active at dawn",
+    "Seasonal appearance"
+  ],
+  "platform_behavior_tags": [
+    "Second-hand preference",
+    "Collector",
+    "Platform nomad",
+    "Saves screenshots"
+  ],
+  "emotion_personality_tags": [
+    "Warm",
+    "Adventurous",
+    "Highly sensitive",
+    "Socially avoidant",
+    "Nostalgic",
+    "Hard to determine"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Socially active",
+    "Community organizer",
+    "Lost contact",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Nostalgia",
+    "Folklore",
+    "Environmentalism",
+    "Punk"
+  ],
+  "system_tags": [
+    "Unpredictable user",
+    "Identity drift",
+    "Low-value user",
+    "Suspected human",
+    "Algorithmic anomaly"
+  ],
+  "non_human_tags": [
+    "Wolf",
+    "Octopus",
+    "Seed",
+    "Stone",
+    "River",
+    "Wind",
+    "Star",
+    "Cloth",
+    "Old key",
+    "Map",
+    "Untitled file",
+    "Hybrid species"
+  ],
+  "identity_name": "Ridgecrest",
+  "carried_fragment": "muscled hope and the memory of the Milky Way",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

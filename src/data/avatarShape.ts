@@ -143,18 +143,26 @@ function materialColor(material: THREE.Material | THREE.Material[] | undefined, 
   return textureColor ? textureColor.multiply(baseColor) : baseColor;
 }
 
-function enhancedPartColor(color: THREE.Color, partIndex: number): THREE.Color {
-  const hsl = { h: 0, s: 0, l: 0 };
-  color.getHSL(hsl);
-  const hueOffsets = [0, 0.035, -0.028, 0.06, -0.05, 0.018, -0.042];
-  const lightnessBands = [-0.24, 0.24, -0.12, 0.32, 0.06];
-  const hueOffset = hueOffsets[partIndex % hueOffsets.length];
-  const lightnessOffset = lightnessBands[partIndex % lightnessBands.length];
-  return new THREE.Color().setHSL(
-    THREE.MathUtils.euclideanModulo(hsl.h + hueOffset, 1),
-    Math.min(0.94, hsl.s * 1.48 + 0.16),
-    Math.min(0.9, Math.max(0.16, hsl.l * 1.08 + lightnessOffset)),
+function materialAveragePartColor(color: THREE.Color): THREE.Color {
+  const luma = color.r * 0.2126 + color.g * 0.7152 + color.b * 0.0722;
+  const saturation = 1.2;
+  const brightness = 0.92;
+  return new THREE.Color(
+    Math.min(1, Math.max(0, (luma + (color.r - luma) * saturation) * brightness)),
+    Math.min(1, Math.max(0, (luma + (color.g - luma) * saturation) * brightness)),
+    Math.min(1, Math.max(0, (luma + (color.b - luma) * saturation) * brightness)),
   );
+}
+
+function materialPaintWeight(color: THREE.Color): number {
+  const maxChannel = Math.max(color.r, color.g, color.b);
+  const minChannel = Math.min(color.r, color.g, color.b);
+  const chroma = maxChannel - minChannel;
+  const luma = color.r * 0.2126 + color.g * 0.7152 + color.b * 0.0722;
+  const notInk = THREE.MathUtils.smoothstep(luma, 0.06, 0.22);
+  const notPaper = 1 - THREE.MathUtils.smoothstep(luma, 0.66, 0.9);
+  const chromaWeight = THREE.MathUtils.smoothstep(chroma, 0.035, 0.22);
+  return Math.max(0, chromaWeight * notInk * notPaper);
 }
 
 function triangleVertexIndex(mesh: THREE.Mesh, triangleIndex: number, corner: number): number {
@@ -262,12 +270,21 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
     let partColorG = 0;
     let partColorB = 0;
     let partColorCount = 0;
+    let paintColorR = 0;
+    let paintColorG = 0;
+    let paintColorB = 0;
+    let paintColorWeight = 0;
 
     function addPartColor(color: THREE.Color) {
       partColorR += color.r;
       partColorG += color.g;
       partColorB += color.b;
       partColorCount += 1;
+      const weight = materialPaintWeight(color);
+      paintColorR += color.r * weight;
+      paintColorG += color.g * weight;
+      paintColorB += color.b * weight;
+      paintColorWeight += weight;
     }
 
     for (let index = 0; index < position.count; index += step) {
@@ -292,7 +309,11 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
       partColorCount > 0
         ? new THREE.Color(partColorR / partColorCount, partColorG / partColorCount, partColorB / partColorCount)
         : new THREE.Color(0.78, 0.82, 0.76);
-    const partColor = enhancedPartColor(averagePartColor, partIndex);
+    const paintPartColor =
+      paintColorWeight > partColorCount * 0.08
+        ? new THREE.Color(paintColorR / paintColorWeight, paintColorG / paintColorWeight, paintColorB / paintColorWeight)
+        : averagePartColor;
+    const partColor = materialAveragePartColor(paintPartColor);
     for (let offset = partColorStart; offset < sampleCount * 3; offset += 3) {
       partColors[offset] = partColor.r;
       partColors[offset + 1] = partColor.g;

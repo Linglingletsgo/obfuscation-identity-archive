@@ -2975,6 +2975,157 @@
       }
     },
     {
+      "id": "submission_20260519161858873_fcc487c8",
+      "type": "submission",
+      "stage": 0,
+      "source_ids": [
+        "submission_20260519161858873_fcc487c8"
+      ],
+      "identity_name": "Wendy",
+      "carried_fragment": "Wendy pretends on the outside to be normal but inside has dark and obscure thoughts.  She has trauma that is well hidden but occasionally makes an appearance in the form of willful disobedience or purposeful sabotage.",
+      "tag_labels": [
+        "1960s",
+        "2020s",
+        "Active user",
+        "Airport",
+        "Alert",
+        "Browses without buying",
+        "Cat",
+        "City center",
+        "Commuter",
+        "Database",
+        "Deer",
+        "Dependent on a small circle",
+        "Digital subscriber",
+        "Easily distracted",
+        "Environmentalism",
+        "Family-oriented",
+        "High-value user",
+        "Home",
+        "In an intimate relationship",
+        "Internet",
+        "Machine",
+        "Millennium",
+        "Minimalism",
+        "Minimalist",
+        "Nostalgic",
+        "Observer",
+        "Official form",
+        "Old friend",
+        "Optimistic",
+        "Parent",
+        "Pop culture",
+        "Private code",
+        "Private diary",
+        "Rabbit",
+        "Real memory",
+        "Researcher",
+        "Resume",
+        "Saves screenshots",
+        "Seaside",
+        "Social media bio",
+        "Social media platform",
+        "Socially active",
+        "Star",
+        "Stone",
+        "Student",
+        "Suburb",
+        "Suspected human",
+        "Tech geek",
+        "Traveler",
+        "Urban edge",
+        "Weekend appearance",
+        "Workplace",
+        "Worth monitoring"
+      ],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "id": "submission_20260520215915495_153fc34c",
+      "type": "submission",
+      "stage": 0,
+      "source_ids": [
+        "submission_20260520215915495_153fc34c"
+      ],
+      "identity_name": "wurble",
+      "carried_fragment": "haikus",
+      "tag_labels": [
+        "2010s",
+        "Algorithmic anomaly",
+        "An unread email",
+        "Anonymous browser",
+        "Anxious",
+        "Archivable user",
+        "Archive object",
+        "Bridge",
+        "Chat log",
+        "City",
+        "City center",
+        "Cloud",
+        "Collector",
+        "Cup",
+        "Dependent on a small circle",
+        "Digital subscriber",
+        "Divination result",
+        "Dream",
+        "Easily distracted",
+        "False memory",
+        "Family legend",
+        "Flower",
+        "Future world",
+        "Grass",
+        "Guest",
+        "Handmade feeling",
+        "Hard to determine",
+        "Highly expressive",
+        "Home",
+        "Host",
+        "Jellyfish",
+        "Jumping browser",
+        "Library",
+        "Location trace",
+        "Long-distance relationship",
+        "Lyric-like fragment",
+        "Multiple-account switcher",
+        "Museum label",
+        "Natural environment",
+        "Near future",
+        "No fixed place",
+        "Nostalgia",
+        "Observer",
+        "Old photo",
+        "Ordinary user",
+        "Parallel timeline",
+        "Periodic disappearance",
+        "Pocket",
+        "Poem",
+        "Pop culture",
+        "Predictable user",
+        "Private diary",
+        "Real memory",
+        "Religious / mythological element",
+        "Saves screenshots",
+        "Seaside",
+        "Shopping preference",
+        "Star",
+        "Suspected bot",
+        "Traveler",
+        "Unsent message",
+        "Waiting to be recognized",
+        "Warm",
+        "Window"
+      ],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
       "id": "tag:1920s",
       "type": "tag",
       "stage": 2,
@@ -3261,6 +3412,20 @@
       "source_ids": [],
       "tag_labels": [
         "Alarm clock"
+      ],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "id": "tag:Alert",
+      "type": "tag",
+      "stage": 2,
+      "source_ids": [],
+      "tag_labels": [
+        "Alert"
       ],
       "position": {
         "x": 0,
@@ -6517,6 +6682,20 @@
       }
     },
     {
+      "id": "tag:Pocket",
+      "type": "tag",
+      "stage": 2,
+      "source_ids": [],
+      "tag_labels": [
+        "Pocket"
+      ],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
       "id": "tag:Poem",
       "type": "tag",
       "stage": 2,
@@ -8171,7 +8350,9 @@
         "submission_20260515203236518_19f06d05",
         "submission_20260515222533563_14c9e57a",
         "submission_20260516164108378_a4871e32",
-        "submission_20260517091347543_81717183"
+        "submission_20260517091347543_81717183",
+        "submission_20260519161858873_fcc487c8",
+        "submission_20260520215915495_153fc34c"
       ],
       "tag_labels": [],
       "position": {
@@ -21845,6 +22026,708 @@
       "weight": 1
     },
     {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Internet",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Home",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Workplace",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Social media platform",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Database",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Official form",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Private diary",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Social media bio",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Resume",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Real memory",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Private code",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Student",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Researcher",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Parent",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Commuter",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Traveler",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Observer",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:City center",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Urban edge",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Suburb",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Seaside",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Airport",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:1960s",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Millennium",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:2020s",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Weekend appearance",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Minimalist",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Browses without buying",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Digital subscriber",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Saves screenshots",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Nostalgic",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Easily distracted",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Optimistic",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Alert",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Family-oriented",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:In an intimate relationship",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Socially active",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Old friend",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Dependent on a small circle",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Pop culture",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Minimalism",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Tech geek",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Environmentalism",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Active user",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:High-value user",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Worth monitoring",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Suspected human",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Cat",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Deer",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Rabbit",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Stone",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Star",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "tag:Machine",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Dream",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Natural environment",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Future world",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:No fixed place",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Home",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:City",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Private diary",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Poem",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Divination result",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Chat log",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Museum label",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Real memory",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:False memory",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Family legend",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Lyric-like fragment",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Religious / mythological element",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Location trace",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Shopping preference",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Traveler",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Observer",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Host",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Guest",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Archive object",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Seaside",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Library",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:City center",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Parallel timeline",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Periodic disappearance",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:2010s",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Near future",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Digital subscriber",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Anonymous browser",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Multiple-account switcher",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Saves screenshots",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Collector",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Jumping browser",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Anxious",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Warm",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Easily distracted",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Highly expressive",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Hard to determine",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Long-distance relationship",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Dependent on a small circle",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Waiting to be recognized",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Pop culture",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Nostalgia",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Handmade feeling",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Ordinary user",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Predictable user",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Archivable user",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Suspected bot",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Algorithmic anomaly",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Jellyfish",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:An unread email",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Unsent message",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Bridge",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Cup",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Pocket",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Old photo",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Window",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Star",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Flower",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Grass",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
+      "source": "submission_20260520215915495_153fc34c",
+      "target": "tag:Cloud",
+      "type": "shared_tag",
+      "weight": 1
+    },
+    {
       "source": "submission_20260501153958445_ddc8dd42",
       "target": "submission_20260505201354964_55dd2e1b",
       "type": "interaction",
@@ -23331,6 +24214,84 @@
       }
     },
     {
+      "source": "submission_20260501153958445_ddc8dd42",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.437698852173913,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0,
+        "contamination": 0.5751524959742351,
+        "masking": 0.32,
+        "mutation": 0.30385210950080516,
+        "total": 0.437698852173913
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Social media platform",
+          "Private code",
+          "Traveler",
+          "Easily distracted",
+          "Family-oriented",
+          "Socially active",
+          "Pop culture",
+          "High-value user",
+          "Active user",
+          "Cat"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Social media platform"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260501153958445_ddc8dd42",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6063886983277592,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.485,
+        "contamination": 0.6353120401337794,
+        "masking": 0.44,
+        "mutation": 0.5392817391304348,
+        "total": 0.6063886983277592
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "Future world",
+          "Poem",
+          "Lyric-like fragment",
+          "Traveler",
+          "Parallel timeline",
+          "Easily distracted",
+          "Highly expressive",
+          "Pop culture",
+          "Flower"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260505201354964_55dd2e1b",
       "target": "submission_20260505201906947_1e5e51c1",
       "type": "interaction",
@@ -24682,6 +25643,73 @@
           [
             "Socially active",
             "Socially avoidant"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260505201354964_55dd2e1b",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.3811357658536586,
+      "scores": {
+        "affinity": 1,
+        "route": 0.045,
+        "conflict": 0,
+        "contamination": 0.5903774164408311,
+        "masking": 0.44,
+        "mutation": 0.30870988256549237,
+        "total": 0.3811357658536586
+      },
+      "evidence": {
+        "sharedTags": [
+          "Student",
+          "City center",
+          "Social media platform",
+          "Millennium",
+          "Browses without buying",
+          "Socially active",
+          "Tech geek",
+          "Cat",
+          "Rabbit"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260505201354964_55dd2e1b",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5298256120075047,
+      "scores": {
+        "affinity": 0.875,
+        "route": 0.045,
+        "conflict": 0.485,
+        "contamination": 0.6505369606003752,
+        "masking": 0.5599999999999999,
+        "mutation": 0.544139512195122,
+        "total": 0.5298256120075047
+      },
+      "evidence": {
+        "sharedTags": [
+          "Poem",
+          "False memory",
+          "Dream",
+          "Guest",
+          "City center",
+          "Handmade feeling",
+          "Predictable user"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Warm",
+            "Distant"
           ]
         ]
       }
@@ -26145,6 +27173,97 @@
           [
             "Mythic age",
             "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260505201906947_1e5e51c1",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.47272931428571424,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.045,
+        "contamination": 0.583057671957672,
+        "masking": 0.48,
+        "mutation": 0.32329560846560845,
+        "total": 0.47272931428571424
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Workplace",
+          "Private diary",
+          "Real memory",
+          "Student",
+          "Traveler",
+          "Urban edge",
+          "Seaside",
+          "2020s",
+          "Nostalgic",
+          "Easily distracted",
+          "In an intimate relationship",
+          "Family-oriented",
+          "Dependent on a small circle",
+          "Environmentalism",
+          "Active user",
+          "Cat"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Workplace"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260505201906947_1e5e51c1",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7060991604395606,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.75,
+        "contamination": 0.6432172161172163,
+        "masking": 0.6000000000000001,
+        "mutation": 0.6577252380952382,
+        "total": 0.7060991604395606
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Natural environment",
+          "Private diary",
+          "Real memory",
+          "False memory",
+          "Family legend",
+          "Traveler",
+          "Seaside",
+          "2010s",
+          "Collector",
+          "Easily distracted",
+          "Dependent on a small circle",
+          "Algorithmic anomaly"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Natural environment"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
           ]
         ]
       }
@@ -27726,6 +28845,88 @@
       }
     },
     {
+      "source": "submission_20260505202528908_37fe7684",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.618269225,
+      "scores": {
+        "affinity": 1,
+        "route": 0.18,
+        "conflict": 0.485,
+        "contamination": 0.8311231481481482,
+        "masking": 0.52,
+        "mutation": 0.5999972453703704,
+        "total": 0.618269225
+      },
+      "evidence": {
+        "sharedTags": [
+          "Private diary",
+          "Resume",
+          "Real memory",
+          "Traveler",
+          "Observer",
+          "Airport",
+          "Minimalist",
+          "Nostalgic",
+          "Cat"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260505202528908_37fe7684",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6778918711538462,
+      "scores": {
+        "affinity": 1,
+        "route": 0.62,
+        "conflict": 0.31,
+        "contamination": 0.9440826923076926,
+        "masking": 0.64,
+        "mutation": 0.5542668750000002,
+        "total": 0.6778918711538462
+      },
+      "evidence": {
+        "sharedTags": [
+          "Natural environment",
+          "No fixed place",
+          "Private diary",
+          "Poem",
+          "Divination result",
+          "Lyric-like fragment",
+          "Family legend",
+          "Real memory",
+          "Traveler",
+          "Observer",
+          "Multiple-account switcher",
+          "Hard to determine",
+          "Warm",
+          "An unread email"
+        ],
+        "sharedPlaces": [
+          "Natural environment",
+          "No fixed place"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260505233452757_426c2417",
       "target": "submission_20260506070525471_4109cf85",
       "type": "interaction",
@@ -29091,6 +30292,89 @@
       }
     },
     {
+      "source": "submission_20260505233452757_426c2417",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.43099346666666666,
+      "scores": {
+        "affinity": 1,
+        "route": 0.265,
+        "conflict": 0,
+        "contamination": 0.6555037037037038,
+        "masking": 0.4,
+        "mutation": 0.32727148148148155,
+        "total": 0.43099346666666666
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Private diary",
+          "Real memory",
+          "Traveler",
+          "Observer",
+          "City center",
+          "Seaside",
+          "Minimalist",
+          "Nostalgic",
+          "Optimistic",
+          "In an intimate relationship",
+          "Old friend",
+          "Minimalism",
+          "High-value user",
+          "Cat"
+        ],
+        "sharedPlaces": [
+          "Internet"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260505233452757_426c2417",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6199761128205128,
+      "scores": {
+        "affinity": 1,
+        "route": 0.7050000000000001,
+        "conflict": 0.265,
+        "contamination": 0.7684632478632479,
+        "masking": 0.52,
+        "mutation": 0.47954111111111114,
+        "total": 0.6199761128205128
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Dream",
+          "Future world",
+          "Private diary",
+          "Divination result",
+          "Museum label",
+          "Real memory",
+          "Family legend",
+          "Religious / mythological element",
+          "Traveler",
+          "Observer",
+          "City center",
+          "Seaside",
+          "Near future",
+          "Highly expressive"
+        ],
+        "sharedPlaces": [
+          "City",
+          "Dream",
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260506070525471_4109cf85",
       "target": "submission_20260506124058569_f041683a",
       "type": "interaction",
@@ -30326,6 +31610,78 @@
           [
             "Ancient time",
             "Near future"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506070525471_4109cf85",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6188023777777778,
+      "scores": {
+        "affinity": 1,
+        "route": 0.7050000000000001,
+        "conflict": 0.135,
+        "contamination": 0.843674074074074,
+        "masking": 0.7200000000000001,
+        "mutation": 0.446005,
+        "total": 0.6188023777777778
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Database",
+          "Internet",
+          "Observer",
+          "Urban edge",
+          "Millennium",
+          "Browses without buying",
+          "Saves screenshots",
+          "Worth monitoring"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Database",
+          "Internet"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260506070525471_4109cf85",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.637839423931624,
+      "scores": {
+        "affinity": 1,
+        "route": 0.265,
+        "conflict": 0.4,
+        "contamination": 0.8510336182336183,
+        "masking": 0.8400000000000001,
+        "mutation": 0.5665946296296297,
+        "total": 0.637839423931624
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Religious / mythological element",
+          "False memory",
+          "Family legend",
+          "Dream",
+          "Observer",
+          "Near future",
+          "Anonymous browser",
+          "Saves screenshots",
+          "Highly expressive"
+        ],
+        "sharedPlaces": [
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
           ]
         ]
       }
@@ -31749,6 +33105,98 @@
           [
             "Ancient time",
             "Near future"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506124058569_f041683a",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6131959619047619,
+      "scores": {
+        "affinity": 0.875,
+        "route": 0.135,
+        "conflict": 0.62,
+        "contamination": 0.7781576719576719,
+        "masking": 0.48,
+        "mutation": 0.6469843386243386,
+        "total": 0.6131959619047619
+      },
+      "evidence": {
+        "sharedTags": [
+          "Private diary",
+          "Real memory",
+          "Traveler",
+          "Observer",
+          "City center",
+          "Seaside",
+          "Tech geek"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506124058569_f041683a",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.8646650080586082,
+      "scores": {
+        "affinity": 1,
+        "route": 0.795,
+        "conflict": 0.885,
+        "contamination": 0.9175172161172163,
+        "masking": 0.6000000000000001,
+        "mutation": 0.8071739682539683,
+        "total": 0.8646650080586082
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Future world",
+          "No fixed place",
+          "Divination result",
+          "Private diary",
+          "Real memory",
+          "Dream",
+          "Location trace",
+          "Lyric-like fragment",
+          "False memory",
+          "Traveler",
+          "Observer",
+          "City center",
+          "Library",
+          "Seaside",
+          "Near future",
+          "Hard to determine"
+        ],
+        "sharedPlaces": [
+          "City",
+          "Future world",
+          "No fixed place"
+        ],
+        "conflictPairs": [
+          [
+            "Archivable user",
+            "Classification failure"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Warm",
+            "Distant"
           ]
         ]
       }
@@ -33221,6 +34669,111 @@
       }
     },
     {
+      "source": "submission_20260506141449565_a50b12ee",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.7043076125000001,
+      "scores": {
+        "affinity": 1,
+        "route": 0.665,
+        "conflict": 0.485,
+        "contamination": 0.7707606481481483,
+        "masking": 0.84,
+        "mutation": 0.5777088078703705,
+        "total": 0.7043076125000001
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Database",
+          "Private diary",
+          "Private code",
+          "Easily distracted",
+          "Optimistic",
+          "Family-oriented",
+          "Dependent on a small circle",
+          "Old friend",
+          "Cat",
+          "Rabbit",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Database"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506141449565_a50b12ee",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.8508038586538462,
+      "scores": {
+        "affinity": 1,
+        "route": 0.885,
+        "conflict": 0.75,
+        "contamination": 0.8573201923076923,
+        "masking": 0.9600000000000001,
+        "mutation": 0.7220584375000001,
+        "total": 0.8508038586538462
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Home",
+          "Natural environment",
+          "Private diary",
+          "Poem",
+          "False memory",
+          "Dream",
+          "Lyric-like fragment",
+          "Religious / mythological element",
+          "Family legend",
+          "Archive object",
+          "No fixed place",
+          "Parallel timeline",
+          "Collector",
+          "Easily distracted",
+          "Dependent on a small circle",
+          "Nostalgia",
+          "Archivable user",
+          "Algorithmic anomaly",
+          "Flower",
+          "Star",
+          "Unsent message"
+        ],
+        "sharedPlaces": [
+          "City",
+          "Home",
+          "Natural environment"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260506142646474_adc90a10",
       "target": "submission_20260506142903947_7257f333",
       "type": "interaction",
@@ -34477,6 +36030,90 @@
           "Dream"
         ],
         "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260506142646474_adc90a10",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6026126,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.265,
+        "contamination": 0.8162481481481482,
+        "masking": 0.48,
+        "mutation": 0.4992753703703704,
+        "total": 0.6026126
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Database",
+          "Traveler",
+          "Observer",
+          "Minimalist",
+          "Minimalism",
+          "Suspected human"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Database"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506142646474_adc90a10",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7713024461538462,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.75,
+        "contamination": 0.8764076923076924,
+        "masking": 0.6000000000000001,
+        "mutation": 0.734705,
+        "total": 0.7713024461538462
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Dream",
+          "Poem",
+          "Museum label",
+          "Religious / mythological element",
+          "Traveler",
+          "Observer",
+          "No fixed place",
+          "Jumping browser",
+          "Nostalgia",
+          "Bridge"
+        ],
+        "sharedPlaces": [
+          "City",
+          "Dream"
+        ],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
       }
     },
     {
@@ -35809,6 +37446,96 @@
       }
     },
     {
+      "source": "submission_20260506142903947_7257f333",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.4297234769230769,
+      "scores": {
+        "affinity": 1,
+        "route": 0.045,
+        "conflict": 0.22,
+        "contamination": 0.5787404558404559,
+        "masking": 0.27999999999999997,
+        "mutation": 0.4035480626780627,
+        "total": 0.4297234769230769
+      },
+      "evidence": {
+        "sharedTags": [
+          "Private diary",
+          "Traveler",
+          "Observer",
+          "Minimalist",
+          "Optimistic",
+          "Nostalgic",
+          "Family-oriented",
+          "Socially active",
+          "Old friend",
+          "Pop culture",
+          "High-value user",
+          "Suspected human",
+          "Cat",
+          "Star"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Mythic age",
+            "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506142903947_7257f333",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6833861230769233,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.7050000000000001,
+        "contamination": 0.6917000000000001,
+        "masking": 0.4,
+        "mutation": 0.6548176923076925,
+        "total": 0.6833861230769233
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "Future world",
+          "Private diary",
+          "Family legend",
+          "Religious / mythological element",
+          "Traveler",
+          "Observer",
+          "Parallel timeline",
+          "Collector",
+          "Warm",
+          "Pop culture",
+          "Star",
+          "Old photo"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260506145602031_227b2d40",
       "target": "submission_20260506150110422_52688fae",
       "type": "interaction",
@@ -37107,6 +38834,98 @@
       }
     },
     {
+      "source": "submission_20260506145602031_227b2d40",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.49202638805970145,
+      "scores": {
+        "affinity": 1,
+        "route": 0.575,
+        "conflict": 0.09,
+        "contamination": 0.6007302377003869,
+        "masking": 0.4,
+        "mutation": 0.3520927584300719,
+        "total": 0.49202638805970145
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Database",
+          "Private diary",
+          "Real memory",
+          "Student",
+          "Urban edge",
+          "Suburb",
+          "City center",
+          "Millennium",
+          "Nostalgic",
+          "Easily distracted",
+          "Family-oriented",
+          "Pop culture",
+          "High-value user",
+          "Cat",
+          "Deer"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Database"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260506145602031_227b2d40",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6829098342135476,
+      "scores": {
+        "affinity": 1,
+        "route": 0.355,
+        "conflict": 0.795,
+        "contamination": 0.6344897818599312,
+        "masking": 0.52,
+        "mutation": 0.6786023880597015,
+        "total": 0.6829098342135476
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "Private diary",
+          "Poem",
+          "Chat log",
+          "Museum label",
+          "Real memory",
+          "False memory",
+          "Lyric-like fragment",
+          "City center",
+          "Anxious",
+          "Easily distracted",
+          "Long-distance relationship",
+          "Pop culture",
+          "Handmade feeling",
+          "Grass",
+          "Cup"
+        ],
+        "sharedPlaces": [
+          "Dream"
+        ],
+        "conflictPairs": [
+          [
+            "Archivable user",
+            "Classification failure"
+          ],
+          [
+            "Ancient time",
+            "Near future"
+          ],
+          [
+            "Warm",
+            "Distant"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260506150110422_52688fae",
       "target": "submission_20260506150537591_effb78b1",
       "type": "interaction",
@@ -38251,6 +40070,84 @@
           [
             "Mythic age",
             "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506150110422_52688fae",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5974490260869566,
+      "scores": {
+        "affinity": 1,
+        "route": 0.135,
+        "conflict": 0.66,
+        "contamination": 0.5956524959742352,
+        "masking": 0.52,
+        "mutation": 0.6074368921095009,
+        "total": 0.5974490260869566
+      },
+      "evidence": {
+        "sharedTags": [
+          "Official form",
+          "Student",
+          "Parent",
+          "Urban edge",
+          "Airport",
+          "Millennium",
+          "2020s",
+          "Optimistic",
+          "Family-oriented",
+          "Minimalism",
+          "Pop culture",
+          "High-value user"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Socially active",
+            "Socially avoidant"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ],
+          [
+            "Minimalist",
+            "Hoarder"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506150110422_52688fae",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.4965719389074693,
+      "scores": {
+        "affinity": 0.6666666666666666,
+        "route": 0.355,
+        "conflict": 0.265,
+        "contamination": 0.6822120401337793,
+        "masking": 0.64,
+        "mutation": 0.4547865217391305,
+        "total": 0.4965719389074693
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "False memory",
+          "Anxious",
+          "Pop culture"
+        ],
+        "sharedPlaces": [
+          "City"
+        ],
+        "conflictPairs": [
+          [
+            "Ancient time",
+            "Near future"
           ]
         ]
       }
@@ -39496,6 +41393,97 @@
       }
     },
     {
+      "source": "submission_20260506150537591_effb78b1",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6556680837209302,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.66,
+        "contamination": 0.6276272179155901,
+        "masking": 0.44,
+        "mutation": 0.6153129285099053,
+        "total": 0.6556680837209302
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Social media platform",
+          "Social media bio",
+          "Student",
+          "City center",
+          "2020s",
+          "Digital subscriber",
+          "Pop culture",
+          "Minimalism",
+          "High-value user",
+          "Active user",
+          "Cat",
+          "Rabbit"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Social media platform"
+        ],
+        "conflictPairs": [
+          [
+            "Socially active",
+            "Socially avoidant"
+          ],
+          [
+            "Family-oriented",
+            "Refuses contact"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506150537591_effb78b1",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5878315298747764,
+      "scores": {
+        "affinity": 1,
+        "route": 0.265,
+        "conflict": 0.485,
+        "contamination": 0.6613867620751342,
+        "masking": 0.5599999999999999,
+        "mutation": 0.5458225581395348,
+        "total": 0.5878315298747764
+      },
+      "evidence": {
+        "sharedTags": [
+          "No fixed place",
+          "Chat log",
+          "City center",
+          "2010s",
+          "Near future",
+          "Digital subscriber",
+          "Anxious",
+          "Pop culture",
+          "Flower"
+        ],
+        "sharedPlaces": [
+          "No fixed place"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Warm",
+            "Distant"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260506155642549_a9d3bb42",
       "target": "submission_20260506160039011_d42a0081",
       "type": "interaction",
@@ -40589,6 +42577,100 @@
       }
     },
     {
+      "source": "submission_20260506155642549_a9d3bb42",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5954696,
+      "scores": {
+        "affinity": 1,
+        "route": 0.7050000000000001,
+        "conflict": 0.31,
+        "contamination": 0.5983864460204886,
+        "masking": 0.64,
+        "mutation": 0.44547377462568954,
+        "total": 0.5954696
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Workplace",
+          "Social media platform",
+          "Social media bio",
+          "Resume",
+          "Real memory",
+          "Millennium",
+          "2020s",
+          "Browses without buying",
+          "Easily distracted",
+          "Socially active",
+          "Minimalism",
+          "Pop culture",
+          "Cat",
+          "Rabbit",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Workplace",
+          "Social media platform"
+        ],
+        "conflictPairs": [
+          [
+            "Active user",
+            "Wrong match"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506155642549_a9d3bb42",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6994794461538462,
+      "scores": {
+        "affinity": 1,
+        "route": 0.7050000000000001,
+        "conflict": 0.575,
+        "contamination": 0.6585459901800328,
+        "masking": 0.76,
+        "mutation": 0.5819034042553192,
+        "total": 0.6994794461538462
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Natural environment",
+          "Dream",
+          "Location trace",
+          "Real memory",
+          "Archive object",
+          "Collector",
+          "Warm",
+          "Easily distracted",
+          "Waiting to be recognized",
+          "Pop culture",
+          "Flower",
+          "Star",
+          "An unread email"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Natural environment",
+          "Dream"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260506160039011_d42a0081",
       "target": "submission_20260506165618707_3ddc6e60",
       "type": "interaction",
@@ -41512,6 +43594,80 @@
           [
             "Suspected bot",
             "Suspected human"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506160039011_d42a0081",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.4401434000000001,
+      "scores": {
+        "affinity": 0.875,
+        "route": 0.045,
+        "conflict": 0.265,
+        "contamination": 0.5940481481481482,
+        "masking": 0.44,
+        "mutation": 0.4297653703703704,
+        "total": 0.4401434000000001
+      },
+      "evidence": {
+        "sharedTags": [
+          "Urban edge",
+          "Minimalist",
+          "Nostalgic",
+          "Easily distracted",
+          "Optimistic",
+          "Family-oriented",
+          "Minimalism"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506160039011_d42a0081",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6066396461538461,
+      "scores": {
+        "affinity": 1,
+        "route": 0.265,
+        "conflict": 0.53,
+        "contamination": 0.6806076923076924,
+        "masking": 0.5599999999999999,
+        "mutation": 0.5741149999999999,
+        "total": 0.6066396461538461
+      },
+      "evidence": {
+        "sharedTags": [
+          "Future world",
+          "Poem",
+          "Religious / mythological element",
+          "Guest",
+          "Easily distracted",
+          "Long-distance relationship",
+          "Archivable user",
+          "Suspected bot",
+          "Window"
+        ],
+        "sharedPlaces": [
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Calm",
+            "Anxious"
           ]
         ]
       }
@@ -42569,6 +44725,105 @@
           [
             "Mythic age",
             "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506165618707_3ddc6e60",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.7736542204081633,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.925,
+        "contamination": 0.692266515495087,
+        "masking": 0.72,
+        "mutation": 0.7525854724111867,
+        "total": 0.7736542204081633
+      },
+      "evidence": {
+        "sharedTags": [
+          "Workplace",
+          "Home",
+          "Official form",
+          "Social media bio",
+          "Resume",
+          "Observer",
+          "2020s",
+          "Digital subscriber",
+          "Optimistic",
+          "Family-oriented",
+          "Dependent on a small circle",
+          "Environmentalism"
+        ],
+        "sharedPlaces": [
+          "Workplace",
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "High-value user",
+            "Low-value user"
+          ],
+          [
+            "Socially active",
+            "Socially avoidant"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Minimalist",
+            "Hoarder"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506165618707_3ddc6e60",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6836240665620095,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.53,
+        "contamination": 0.7524260596546312,
+        "masking": 0.84,
+        "mutation": 0.5920151020408164,
+        "total": 0.6836240665620095
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Natural environment",
+          "Family legend",
+          "Observer",
+          "No fixed place",
+          "Parallel timeline",
+          "Digital subscriber",
+          "Warm",
+          "Dependent on a small circle",
+          "Handmade feeling",
+          "Ordinary user",
+          "Cloud",
+          "Old photo"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Natural environment"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
           ]
         ]
       }
@@ -43738,6 +45993,115 @@
       }
     },
     {
+      "source": "submission_20260506170942275_93cbccd2",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5399153690140845,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.31,
+        "contamination": 0.6702777256129369,
+        "masking": 0.48000000000000004,
+        "mutation": 0.4720726238914971,
+        "total": 0.5399153690140845
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Social media bio",
+          "Official form",
+          "Real memory",
+          "Student",
+          "Suburb",
+          "City center",
+          "Seaside",
+          "Airport",
+          "2020s",
+          "Browses without buying",
+          "Saves screenshots",
+          "Easily distracted",
+          "Optimistic",
+          "Nostalgic",
+          "Family-oriented",
+          "Socially active",
+          "Pop culture",
+          "Minimalism",
+          "Tech geek",
+          "High-value user",
+          "Cat"
+        ],
+        "sharedPlaces": [
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506170942275_93cbccd2",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.8360644151679307,
+      "scores": {
+        "affinity": 1,
+        "route": 0.97,
+        "conflict": 0.795,
+        "contamination": 0.8096372697724811,
+        "masking": 0.6,
+        "mutation": 0.7312622535211268,
+        "total": 0.8360644151679307
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "No fixed place",
+          "Dream",
+          "Natural environment",
+          "Poem",
+          "Chat log",
+          "Real memory",
+          "False memory",
+          "City center",
+          "Seaside",
+          "2010s",
+          "Saves screenshots",
+          "Anxious",
+          "Easily distracted",
+          "Long-distance relationship",
+          "Pop culture",
+          "Nostalgia",
+          "Ordinary user",
+          "Old photo",
+          "Unsent message"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "No fixed place",
+          "Dream",
+          "Natural environment"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260506191112228_5d260333",
       "target": "submission_20260506214208982_870536f6",
       "type": "interaction",
@@ -44623,6 +46987,97 @@
       }
     },
     {
+      "source": "submission_20260506191112228_5d260333",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.4690881090909091,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.22,
+        "contamination": 0.556257239057239,
+        "masking": 0.32,
+        "mutation": 0.3965530976430977,
+        "total": 0.4690881090909091
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Private diary",
+          "Social media bio",
+          "Resume",
+          "Real memory",
+          "Student",
+          "Commuter",
+          "Traveler",
+          "City center",
+          "Airport",
+          "Millennium",
+          "Minimalist",
+          "Nostalgic",
+          "Family-oriented",
+          "Old friend",
+          "Minimalism",
+          "Cat",
+          "Rabbit"
+        ],
+        "sharedPlaces": [
+          "Internet"
+        ],
+        "conflictPairs": [
+          [
+            "High-value user",
+            "Low-value user"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506191112228_5d260333",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5730979552447553,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.485,
+        "contamination": 0.6164167832167833,
+        "masking": 0.44,
+        "mutation": 0.5329827272727273,
+        "total": 0.5730979552447553
+      },
+      "evidence": {
+        "sharedTags": [
+          "Future world",
+          "Private diary",
+          "Poem",
+          "Real memory",
+          "Family legend",
+          "Shopping preference",
+          "Traveler",
+          "City center",
+          "Nostalgia",
+          "Handmade feeling",
+          "Ordinary user",
+          "Flower",
+          "Old photo"
+        ],
+        "sharedPlaces": [
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260506214208982_870536f6",
       "target": "submission_20260507093805308_8415663b",
       "type": "interaction",
@@ -45405,6 +47860,83 @@
           [
             "Ancient time",
             "Near future"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506214208982_870536f6",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5465176727272728,
+      "scores": {
+        "affinity": 1,
+        "route": 0.045,
+        "conflict": 0.44,
+        "contamination": 0.6975254208754208,
+        "masking": 0.52,
+        "mutation": 0.5392630976430977,
+        "total": 0.5465176727272728
+      },
+      "evidence": {
+        "sharedTags": [
+          "Private diary",
+          "Student",
+          "Millennium",
+          "Environmentalism",
+          "High-value user",
+          "Active user",
+          "Cat",
+          "Star"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Socially active",
+            "Socially avoidant"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260506214208982_870536f6",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5636539188811189,
+      "scores": {
+        "affinity": 1,
+        "route": 0.265,
+        "conflict": 0.265,
+        "contamination": 0.784084965034965,
+        "masking": 0.64,
+        "mutation": 0.4856127272727273,
+        "total": 0.5636539188811189
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "Private diary",
+          "No fixed place",
+          "Near future",
+          "Periodic disappearance",
+          "Jumping browser",
+          "Anonymous browser",
+          "Highly expressive",
+          "Long-distance relationship",
+          "Flower",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Dream"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
           ]
         ]
       }
@@ -46460,6 +48992,121 @@
       }
     },
     {
+      "source": "submission_20260507093805308_8415663b",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.7507611675675676,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.925,
+        "contamination": 0.6399238238238238,
+        "masking": 0.52,
+        "mutation": 0.7398287487487488,
+        "total": 0.7507611675675676
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Workplace",
+          "Private diary",
+          "Social media bio",
+          "Resume",
+          "Real memory",
+          "Private code",
+          "Student",
+          "Researcher",
+          "Parent",
+          "City center",
+          "Suburb",
+          "Seaside",
+          "1960s",
+          "Digital subscriber",
+          "Family-oriented",
+          "Dependent on a small circle",
+          "Minimalism",
+          "Tech geek",
+          "Active user",
+          "Deer"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Workplace"
+        ],
+        "conflictPairs": [
+          [
+            "High-value user",
+            "Low-value user"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ],
+          [
+            "Minimalist",
+            "Hoarder"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260507093805308_8415663b",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7678974137214137,
+      "scores": {
+        "affinity": 1,
+        "route": 0.75,
+        "conflict": 0.75,
+        "contamination": 0.726483367983368,
+        "masking": 0.64,
+        "mutation": 0.6861783783783784,
+        "total": 0.7678974137214137
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Home",
+          "No fixed place",
+          "Private diary",
+          "Poem",
+          "Real memory",
+          "Dream",
+          "Family legend",
+          "Shopping preference",
+          "City center",
+          "Seaside",
+          "Digital subscriber",
+          "Anxious",
+          "Dependent on a small circle",
+          "Old photo"
+        ],
+        "sharedPlaces": [
+          "City",
+          "Home",
+          "No fixed place"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Warm",
+            "Distant"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260508164416797_b13e1f70",
       "target": "submission_20260511182106779_6b1d4b6d",
       "type": "interaction",
@@ -47328,6 +49975,107 @@
       }
     },
     {
+      "source": "submission_20260508164416797_b13e1f70",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6579022229508198,
+      "scores": {
+        "affinity": 1,
+        "route": 0.7050000000000001,
+        "conflict": 0.485,
+        "contamination": 0.6494694596235581,
+        "masking": 0.6000000000000001,
+        "mutation": 0.5402462720097146,
+        "total": 0.6579022229508198
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Home",
+          "Social media platform",
+          "Private diary",
+          "Real memory",
+          "Student",
+          "Minimalist",
+          "Nostalgic",
+          "Optimistic",
+          "In an intimate relationship",
+          "Dependent on a small circle",
+          "Family-oriented",
+          "Minimalism",
+          "Active user",
+          "Worth monitoring",
+          "Deer"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Home",
+          "Social media platform"
+        ],
+        "conflictPairs": [
+          [
+            "Socially active",
+            "Socially avoidant"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260508164416797_b13e1f70",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7397184691046659,
+      "scores": {
+        "affinity": 1,
+        "route": 0.925,
+        "conflict": 0.53,
+        "contamination": 0.7360290037831022,
+        "masking": 0.72,
+        "mutation": 0.5855959016393443,
+        "total": 0.7397184691046659
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Home",
+          "Dream",
+          "Future world",
+          "Poem",
+          "Museum label",
+          "Private diary",
+          "Real memory",
+          "Family legend",
+          "Religious / mythological element",
+          "Lyric-like fragment",
+          "Location trace",
+          "Collector",
+          "Dependent on a small circle",
+          "Nostalgia",
+          "Old photo"
+        ],
+        "sharedPlaces": [
+          "City",
+          "Home",
+          "Dream",
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Ancient time",
+            "Near future"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260511182106779_6b1d4b6d",
       "target": "submission_20260513163448258_5bc27ffd",
       "type": "interaction",
@@ -48090,6 +50838,84 @@
           [
             "Mythic age",
             "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260511182106779_6b1d4b6d",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5326439773584906,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.09,
+        "contamination": 0.7614651292802237,
+        "masking": 0.44,
+        "mutation": 0.40243621942697416,
+        "total": 0.5326439773584906
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Social media platform",
+          "Real memory",
+          "Private code",
+          "Suburb",
+          "Seaside",
+          "2020s",
+          "Minimalist",
+          "Digital subscriber",
+          "Optimistic",
+          "Minimalism",
+          "Tech geek",
+          "Active user"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Social media platform"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260511182106779_6b1d4b6d",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5941674235123368,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.355,
+        "contamination": 0.7952246734397678,
+        "masking": 0.56,
+        "mutation": 0.5309458490566038,
+        "total": 0.5941674235123368
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Poem",
+          "Real memory",
+          "Lyric-like fragment",
+          "Religious / mythological element",
+          "Host",
+          "Seaside",
+          "Near future",
+          "Digital subscriber",
+          "Anonymous browser",
+          "Highly expressive",
+          "Algorithmic anomaly",
+          "Jellyfish"
+        ],
+        "sharedPlaces": [
+          "City"
+        ],
+        "conflictPairs": [
+          [
+            "Calm",
+            "Anxious"
           ]
         ]
       }
@@ -48896,6 +51722,113 @@
       }
     },
     {
+      "source": "submission_20260513163448258_5bc27ffd",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.47847744516129037,
+      "scores": {
+        "affinity": 1,
+        "route": 0.265,
+        "conflict": 0.22,
+        "contamination": 0.6042223416965354,
+        "masking": 0.36,
+        "mutation": 0.4122006929510156,
+        "total": 0.47847744516129037
+      },
+      "evidence": {
+        "sharedTags": [
+          "Social media platform",
+          "Private diary",
+          "Real memory",
+          "Student",
+          "Millennium",
+          "Weekend appearance",
+          "Nostalgic",
+          "Optimistic",
+          "Pop culture",
+          "Minimalism",
+          "High-value user",
+          "Active user",
+          "Suspected human",
+          "Cat",
+          "Rabbit"
+        ],
+        "sharedPlaces": [
+          "Social media platform"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260513163448258_5bc27ffd",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.8537904913151365,
+      "scores": {
+        "affinity": 1,
+        "route": 1,
+        "conflict": 0.925,
+        "contamination": 0.7525818858560794,
+        "masking": 0.48000000000000004,
+        "mutation": 0.7730903225806451,
+        "total": 0.8537904913151365
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Dream",
+          "Natural environment",
+          "Future world",
+          "No fixed place",
+          "Private diary",
+          "Chat log",
+          "Divination result",
+          "False memory",
+          "Real memory",
+          "Shopping preference",
+          "Location trace",
+          "Collector",
+          "Jumping browser",
+          "Anxious",
+          "Warm",
+          "Highly expressive",
+          "Pop culture",
+          "Nostalgia",
+          "Cloud"
+        ],
+        "sharedPlaces": [
+          "City",
+          "Dream",
+          "Natural environment",
+          "Future world",
+          "No fixed place"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260514110753727_ac1d3942",
       "target": "submission_20260514114652604_8c1eece0",
       "type": "interaction",
@@ -49595,6 +52528,90 @@
       }
     },
     {
+      "source": "submission_20260514110753727_ac1d3942",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.558051905882353,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.22,
+        "contamination": 0.7297599128540305,
+        "masking": 0.84,
+        "mutation": 0.4442460566448802,
+        "total": 0.558051905882353
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Real memory",
+          "Private code",
+          "Student",
+          "Millennium",
+          "Minimalist",
+          "Saves screenshots",
+          "Family-oriented",
+          "Active user"
+        ],
+        "sharedPlaces": [
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "High-value user",
+            "Low-value user"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514110753727_ac1d3942",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7470345520361991,
+      "scores": {
+        "affinity": 1,
+        "route": 0.75,
+        "conflict": 0.485,
+        "contamination": 0.8427194570135746,
+        "masking": 0.9600000000000001,
+        "mutation": 0.5965156862745098,
+        "total": 0.7470345520361991
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "City",
+          "Natural environment",
+          "Chat log",
+          "Museum label",
+          "False memory",
+          "Real memory",
+          "Library",
+          "Saves screenshots",
+          "Warm",
+          "Anxious",
+          "Long-distance relationship",
+          "Cloud"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "City",
+          "Natural environment"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260514114652604_8c1eece0",
       "target": "submission_20260514122715090_0fdbfb63",
       "type": "interaction",
@@ -50227,6 +53244,94 @@
           [
             "Ancient time",
             "Near future"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514114652604_8c1eece0",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6869120597014925,
+      "scores": {
+        "affinity": 1,
+        "route": 0.575,
+        "conflict": 0.4,
+        "contamination": 0.8941630735212823,
+        "masking": 0.6799999999999999,
+        "mutation": 0.5826076838032062,
+        "total": 0.6869120597014925
+      },
+      "evidence": {
+        "sharedTags": [
+          "Database",
+          "Internet",
+          "Private diary",
+          "Private code",
+          "Social media platform",
+          "Airport",
+          "Digital subscriber",
+          "Saves screenshots",
+          "Old friend",
+          "Dependent on a small circle",
+          "Tech geek",
+          "Environmentalism",
+          "Worth monitoring",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Database",
+          "Internet"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514114652604_8c1eece0",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7059491058553388,
+      "scores": {
+        "affinity": 1,
+        "route": 0.135,
+        "conflict": 0.665,
+        "contamination": 0.9015226176808266,
+        "masking": 0.8,
+        "mutation": 0.7031973134328359,
+        "total": 0.7059491058553388
+      },
+      "evidence": {
+        "sharedTags": [
+          "Private diary",
+          "False memory",
+          "Archive object",
+          "No fixed place",
+          "Periodic disappearance",
+          "Near future",
+          "Digital subscriber",
+          "Anonymous browser",
+          "Saves screenshots",
+          "Highly expressive",
+          "Dependent on a small circle",
+          "Algorithmic anomaly",
+          "Star",
+          "An unread email",
+          "Unsent message"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Warm",
+            "Distant"
           ]
         ]
       }
@@ -50882,6 +53987,100 @@
           [
             "High-value user",
             "Low-value user"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514122715090_0fdbfb63",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5685865253731344,
+      "scores": {
+        "affinity": 1,
+        "route": 0.18,
+        "conflict": 0.53,
+        "contamination": 0.5470615809839691,
+        "masking": 0.72,
+        "mutation": 0.5307645494748481,
+        "total": 0.5685865253731344
+      },
+      "evidence": {
+        "sharedTags": [
+          "Private code",
+          "Researcher",
+          "Observer",
+          "Urban edge",
+          "Browses without buying",
+          "Digital subscriber",
+          "Saves screenshots",
+          "Old friend",
+          "Rabbit"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "High-value user",
+            "Low-value user"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514122715090_0fdbfb63",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7575691715269806,
+      "scores": {
+        "affinity": 1,
+        "route": 0.62,
+        "conflict": 0.795,
+        "contamination": 0.6600211251435134,
+        "masking": 0.8400000000000001,
+        "mutation": 0.6830341791044778,
+        "total": 0.7575691715269806
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "No fixed place",
+          "Museum label",
+          "Chat log",
+          "False memory",
+          "Shopping preference",
+          "Guest",
+          "Observer",
+          "Parallel timeline",
+          "Periodic disappearance",
+          "Digital subscriber",
+          "Saves screenshots",
+          "Anxious",
+          "Waiting to be recognized",
+          "Nostalgia",
+          "Handmade feeling",
+          "Predictable user",
+          "Old photo"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "No fixed place"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ],
+          [
+            "Warm",
+            "Distant"
           ]
         ]
       }
@@ -51565,6 +54764,114 @@
       }
     },
     {
+      "source": "submission_20260514123922806_fb5180d9",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.781463725,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 1,
+        "contamination": 0.7053106481481481,
+        "masking": 0.4,
+        "mutation": 0.7949097453703704,
+        "total": 0.781463725
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Database",
+          "Official form",
+          "Resume",
+          "Real memory",
+          "Private code",
+          "Urban edge",
+          "Millennium",
+          "2020s",
+          "Minimalist",
+          "Browses without buying",
+          "Nostalgic",
+          "Socially active",
+          "Old friend",
+          "Minimalism",
+          "Tech geek",
+          "Machine"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Database"
+        ],
+        "conflictPairs": [
+          [
+            "High-value user",
+            "Low-value user"
+          ],
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Active user",
+            "Wrong match"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Minimalist",
+            "Hoarder"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514123922806_fb5180d9",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7250999711538462,
+      "scores": {
+        "affinity": 1,
+        "route": 0.75,
+        "conflict": 0.575,
+        "contamination": 0.7918701923076924,
+        "masking": 0.52,
+        "mutation": 0.628759375,
+        "total": 0.7250999711538462
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "Future world",
+          "No fixed place",
+          "Chat log",
+          "Real memory",
+          "2010s",
+          "Near future",
+          "Parallel timeline",
+          "Hard to determine",
+          "Nostalgia",
+          "Handmade feeling",
+          "Suspected bot"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "Future world",
+          "No fixed place"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260514130048171_f34163fd",
       "target": "submission_20260514131000453_8693665e",
       "type": "interaction",
@@ -52006,6 +55313,74 @@
           [
             "Mythic age",
             "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514130048171_f34163fd",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.41798923720930237,
+      "scores": {
+        "affinity": 1,
+        "route": 0.045,
+        "conflict": 0,
+        "contamination": 0.6994783807062878,
+        "masking": 0.52,
+        "mutation": 0.3442868819982774,
+        "total": 0.41798923720930237
+      },
+      "evidence": {
+        "sharedTags": [
+          "Resume",
+          "Researcher",
+          "Observer",
+          "City center",
+          "2020s",
+          "Old friend",
+          "Minimalism",
+          "Environmentalism",
+          "Rabbit",
+          "Cat"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260514130048171_f34163fd",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5644854833631485,
+      "scores": {
+        "affinity": 1,
+        "route": 0.265,
+        "conflict": 0.265,
+        "contamination": 0.7860379248658319,
+        "masking": 0.64,
+        "mutation": 0.488636511627907,
+        "total": 0.5644854833631485
+      },
+      "evidence": {
+        "sharedTags": [
+          "Natural environment",
+          "Poem",
+          "Dream",
+          "Observer",
+          "City center",
+          "2010s",
+          "Anxious",
+          "Warm",
+          "Waiting to be recognized"
+        ],
+        "sharedPlaces": [
+          "Natural environment"
+        ],
+        "conflictPairs": [
+          [
+            "Calm",
+            "Anxious"
           ]
         ]
       }
@@ -52568,6 +55943,107 @@
       }
     },
     {
+      "source": "submission_20260514131000453_8693665e",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.7278332153846154,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.8400000000000001,
+        "contamination": 0.6473891737891739,
+        "masking": 0.52,
+        "mutation": 0.7038317806267808,
+        "total": 0.7278332153846154
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Database",
+          "Private diary",
+          "Real memory",
+          "Private code",
+          "Parent",
+          "Student",
+          "Seaside",
+          "Minimalist",
+          "Saves screenshots",
+          "Optimistic",
+          "Family-oriented",
+          "Socially active",
+          "Minimalism",
+          "Suspected human"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Database"
+        ],
+        "conflictPairs": [
+          [
+            "High-value user",
+            "Low-value user"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ],
+          [
+            "Minimalist",
+            "Hoarder"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514131000453_8693665e",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7671630615384616,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.885,
+        "contamination": 0.7075487179487181,
+        "masking": 0.64,
+        "mutation": 0.7412614102564102,
+        "total": 0.7671630615384616
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Future world",
+          "Divination result",
+          "Poem",
+          "Private diary",
+          "False memory",
+          "Real memory",
+          "Location trace",
+          "Seaside",
+          "Library",
+          "Saves screenshots",
+          "Handmade feeling"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260514141519771_dd02f86f",
       "target": "submission_20260514145912926_418bdae1",
       "type": "interaction",
@@ -53022,6 +56498,108 @@
       }
     },
     {
+      "source": "submission_20260514141519771_dd02f86f",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6310418000000001,
+      "scores": {
+        "affinity": 1,
+        "route": 0.09,
+        "conflict": 0.53,
+        "contamination": 0.870364814814815,
+        "masking": 0.56,
+        "mutation": 0.6312853703703705,
+        "total": 0.6310418000000001
+      },
+      "evidence": {
+        "sharedTags": [
+          "Real memory",
+          "Observer",
+          "Seaside",
+          "Nostalgic",
+          "Family-oriented",
+          "Old friend",
+          "High-value user",
+          "Star"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514141519771_dd02f86f",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.955296923076923,
+      "scores": {
+        "affinity": 1,
+        "route": 0.97,
+        "conflict": 1,
+        "contamination": 1,
+        "masking": 0.68,
+        "mutation": 0.8808076923076923,
+        "total": 0.955296923076923
+      },
+      "evidence": {
+        "sharedTags": [
+          "No fixed place",
+          "Dream",
+          "Natural environment",
+          "Future world",
+          "Poem",
+          "Divination result",
+          "Real memory",
+          "Religious / mythological element",
+          "Observer",
+          "Seaside",
+          "Anonymous browser",
+          "Hard to determine",
+          "Long-distance relationship",
+          "Nostalgia",
+          "Algorithmic anomaly",
+          "Cloud",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "No fixed place",
+          "Dream",
+          "Natural environment",
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Archivable user",
+            "Classification failure"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Ancient time",
+            "Near future"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ],
+          [
+            "Warm",
+            "Distant"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260514145912926_418bdae1",
       "target": "submission_20260514161619507_df8db937",
       "type": "interaction",
@@ -53355,6 +56933,82 @@
           "Game"
         ],
         "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260514145912926_418bdae1",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.454272275,
+      "scores": {
+        "affinity": 0.875,
+        "route": 0.045,
+        "conflict": 0.4,
+        "contamination": 0.536985648148148,
+        "masking": 0.32,
+        "mutation": 0.47163099537037034,
+        "total": 0.454272275
+      },
+      "evidence": {
+        "sharedTags": [
+          "Student",
+          "Traveler",
+          "Easily distracted",
+          "In an intimate relationship",
+          "Dependent on a small circle",
+          "Tech geek",
+          "Cat"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514145912926_418bdae1",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6207685211538462,
+      "scores": {
+        "affinity": 1,
+        "route": 0.265,
+        "conflict": 0.665,
+        "contamination": 0.6235451923076923,
+        "masking": 0.44,
+        "mutation": 0.615980625,
+        "total": 0.6207685211538462
+      },
+      "evidence": {
+        "sharedTags": [
+          "No fixed place",
+          "Chat log",
+          "False memory",
+          "Lyric-like fragment",
+          "Traveler",
+          "Archive object",
+          "Collector",
+          "Easily distracted",
+          "Dependent on a small circle",
+          "Old photo",
+          "Jellyfish"
+        ],
+        "sharedPlaces": [
+          "No fixed place"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
       }
     },
     {
@@ -53710,6 +57364,82 @@
       }
     },
     {
+      "source": "submission_20260514161619507_df8db937",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.4877222,
+      "scores": {
+        "affinity": 0.375,
+        "route": 0.09,
+        "conflict": 0.53,
+        "contamination": 0.7023481481481483,
+        "masking": 0.6,
+        "mutation": 0.5796553703703704,
+        "total": 0.4877222
+      },
+      "evidence": {
+        "sharedTags": [
+          "Private diary",
+          "Millennium",
+          "Easily distracted"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Minimalist",
+            "Hoarder"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260514161619507_df8db937",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6676376461538461,
+      "scores": {
+        "affinity": 1,
+        "route": 0.97,
+        "conflict": 0.135,
+        "contamination": 0.8681076923076922,
+        "masking": 0.7200000000000001,
+        "mutation": 0.45076499999999997,
+        "total": 0.6676376461538461
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "City",
+          "Natural environment",
+          "Future world",
+          "Private diary",
+          "Poem",
+          "Museum label",
+          "Family legend",
+          "Lyric-like fragment",
+          "Jumping browser",
+          "Multiple-account switcher",
+          "Easily distracted",
+          "Hard to determine",
+          "Warm",
+          "Waiting to be recognized",
+          "Suspected bot",
+          "Archivable user"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "City",
+          "Natural environment",
+          "Future world"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
       "source": "submission_20260515115447117_99805039",
       "target": "submission_20260515121428855_f8dcaf32",
       "type": "interaction",
@@ -54045,6 +57775,89 @@
       }
     },
     {
+      "source": "submission_20260515115447117_99805039",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5816568065573771,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.355,
+        "contamination": 0.695118639951427,
+        "masking": 0.4,
+        "mutation": 0.5002361080752884,
+        "total": 0.5816568065573771
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Social media platform",
+          "Official form",
+          "Real memory",
+          "Student",
+          "Saves screenshots",
+          "Minimalist",
+          "Optimistic",
+          "Old friend"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Social media platform"
+        ],
+        "conflictPairs": [
+          [
+            "Mythic age",
+            "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260515115447117_99805039",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6856666527112232,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.62,
+        "contamination": 0.7552781841109711,
+        "masking": 0.52,
+        "mutation": 0.6366657377049181,
+        "total": 0.6856666527112232
+      },
+      "evidence": {
+        "sharedTags": [
+          "City",
+          "Dream",
+          "Divination result",
+          "Real memory",
+          "Religious / mythological element",
+          "Saves screenshots",
+          "Collector",
+          "Anxious",
+          "Warm",
+          "Waiting to be recognized",
+          "Nostalgia",
+          "Old photo"
+        ],
+        "sharedPlaces": [
+          "City",
+          "Dream"
+        ],
+        "conflictPairs": [
+          [
+            "Ordinary user",
+            "Outlier"
+          ],
+          [
+            "Ancient time",
+            "Near future"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260515121428855_f8dcaf32",
       "target": "submission_20260515125815828_67e91fcc",
       "type": "interaction",
@@ -54342,6 +58155,113 @@
       }
     },
     {
+      "source": "submission_20260515121428855_f8dcaf32",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5921670029850746,
+      "scores": {
+        "affinity": 1,
+        "route": 0.355,
+        "conflict": 0.485,
+        "contamination": 0.5571660585959094,
+        "masking": 0.8,
+        "mutation": 0.5103929076838033,
+        "total": 0.5921670029850746
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Private code",
+          "Researcher",
+          "Traveler",
+          "Seaside",
+          "Saves screenshots",
+          "Nostalgic",
+          "Socially active",
+          "Old friend",
+          "Environmentalism",
+          "Suspected human",
+          "Stone",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "High-value user",
+            "Low-value user"
+          ],
+          [
+            "Socially active",
+            "Socially avoidant"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260515121428855_f8dcaf32",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.8854192491389208,
+      "scores": {
+        "affinity": 1,
+        "route": 1,
+        "conflict": 0.97,
+        "contamination": 0.6947256027554536,
+        "masking": 0.92,
+        "mutation": 0.7690425373134329,
+        "total": 0.8854192491389208
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "Natural environment",
+          "Home",
+          "City",
+          "Poem",
+          "Divination result",
+          "Museum label",
+          "Family legend",
+          "Location trace",
+          "Lyric-like fragment",
+          "Traveler",
+          "Seaside",
+          "Collector",
+          "Saves screenshots",
+          "Warm",
+          "Hard to determine",
+          "Nostalgia",
+          "Algorithmic anomaly",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "Natural environment",
+          "Home",
+          "City"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Ancient time",
+            "Near future"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260515125815828_67e91fcc",
       "target": "submission_20260515160218612_97b66f84",
       "type": "interaction",
@@ -54587,6 +58507,95 @@
       }
     },
     {
+      "source": "submission_20260515125815828_67e91fcc",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5922652666666667,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.265,
+        "contamination": 0.6893407407407408,
+        "masking": 0.7999999999999999,
+        "mutation": 0.4535290740740741,
+        "total": 0.5922652666666667
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Workplace",
+          "Resume",
+          "Real memory",
+          "Student",
+          "Seaside",
+          "Urban edge",
+          "2020s",
+          "Minimalist",
+          "Easily distracted",
+          "Optimistic",
+          "Family-oriented",
+          "In an intimate relationship",
+          "Old friend",
+          "Pop culture",
+          "Minimalism",
+          "Suspected human",
+          "Stone"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Workplace"
+        ],
+        "conflictPairs": [
+          [
+            "Active user",
+            "Wrong match"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260515125815828_67e91fcc",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6537887128205129,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.53,
+        "contamination": 0.723100284900285,
+        "masking": 0.92,
+        "mutation": 0.5820387037037038,
+        "total": 0.6537887128205129
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Real memory",
+          "Library",
+          "Seaside",
+          "Periodic disappearance",
+          "Anonymous browser",
+          "Warm",
+          "Easily distracted",
+          "Pop culture",
+          "Ordinary user"
+        ],
+        "sharedPlaces": [
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260515160218612_97b66f84",
       "target": "submission_20260515195317169_faa06fbf",
       "type": "interaction",
@@ -54788,6 +58797,102 @@
       }
     },
     {
+      "source": "submission_20260515160218612_97b66f84",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.736329337704918,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.71,
+        "contamination": 0.8269940497874925,
+        "masking": 0.48,
+        "mutation": 0.7020897146326655,
+        "total": 0.736329337704918
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Home",
+          "Resume",
+          "Real memory",
+          "Private code",
+          "Traveler",
+          "Observer",
+          "Optimistic",
+          "Old friend",
+          "Suspected human",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Active user",
+            "Wrong match"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260515160218612_97b66f84",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.8828255838587643,
+      "scores": {
+        "affinity": 1,
+        "route": 0.75,
+        "conflict": 0.9750000000000001,
+        "contamination": 0.9135535939470367,
+        "masking": 0.6000000000000001,
+        "mutation": 0.8464393442622952,
+        "total": 0.8828255838587643
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Dream",
+          "Future world",
+          "Divination result",
+          "False memory",
+          "Real memory",
+          "Family legend",
+          "Traveler",
+          "Guest",
+          "Observer",
+          "Parallel timeline",
+          "Suspected bot",
+          "Cloud",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Dream",
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Warm",
+            "Distant"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260515195317169_faa06fbf",
       "target": "submission_20260515203236518_19f06d05",
       "type": "interaction",
@@ -54940,6 +59045,100 @@
       }
     },
     {
+      "source": "submission_20260515195317169_faa06fbf",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6548378153846153,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.62,
+        "contamination": 0.6436558404558407,
+        "masking": 0.52,
+        "mutation": 0.6030034472934473,
+        "total": 0.6548378153846153
+      },
+      "evidence": {
+        "sharedTags": [
+          "Workplace",
+          "Social media platform",
+          "Resume",
+          "Social media bio",
+          "Private diary",
+          "Official form",
+          "Real memory",
+          "Researcher",
+          "Seaside",
+          "Urban edge",
+          "Suburb",
+          "Minimalist",
+          "Easily distracted",
+          "Family-oriented",
+          "In an intimate relationship",
+          "Minimalism"
+        ],
+        "sharedPlaces": [
+          "Workplace",
+          "Social media platform"
+        ],
+        "conflictPairs": [
+          [
+            "Family-oriented",
+            "Refuses contact"
+          ],
+          [
+            "Minimalist",
+            "Hoarder"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260515195317169_faa06fbf",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6941676615384615,
+      "scores": {
+        "affinity": 1,
+        "route": 0.485,
+        "conflict": 0.665,
+        "contamination": 0.7038153846153847,
+        "masking": 0.64,
+        "mutation": 0.6404330769230769,
+        "total": 0.6941676615384615
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "City",
+          "Private diary",
+          "Real memory",
+          "Family legend",
+          "Shopping preference",
+          "Seaside",
+          "Easily distracted",
+          "Warm",
+          "Waiting to be recognized",
+          "Handmade feeling",
+          "Ordinary user"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "City"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Warm",
+            "Distant"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260515203236518_19f06d05",
       "target": "submission_20260515222533563_14c9e57a",
       "type": "interaction",
@@ -55045,6 +59244,88 @@
       }
     },
     {
+      "source": "submission_20260515203236518_19f06d05",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.4653962530612245,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.045,
+        "contamination": 0.5795032501889646,
+        "masking": 0.4,
+        "mutation": 0.32262894179894186,
+        "total": 0.4653962530612245
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Internet",
+          "Private diary",
+          "Social media bio",
+          "Private code",
+          "Traveler",
+          "Seaside",
+          "Millennium",
+          "Browses without buying",
+          "Minimalist",
+          "Nostalgic",
+          "Cat",
+          "Rabbit"
+        ],
+        "sharedPlaces": [
+          "Home",
+          "Internet"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260515203236518_19f06d05",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.6340860992150706,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.53,
+        "contamination": 0.6396627943485088,
+        "masking": 0.52,
+        "mutation": 0.5580585714285715,
+        "total": 0.6340860992150706
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "Home",
+          "Private diary",
+          "Chat log",
+          "False memory",
+          "Lyric-like fragment",
+          "Traveler",
+          "Seaside",
+          "Periodic disappearance",
+          "Nostalgia",
+          "Handmade feeling",
+          "Algorithmic anomaly"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ],
+          [
+            "Warm",
+            "Distant"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260515222533563_14c9e57a",
       "target": "submission_20260516164108378_a4871e32",
       "type": "interaction",
@@ -55107,6 +59388,87 @@
       }
     },
     {
+      "source": "submission_20260515222533563_14c9e57a",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.5548504653061225,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.485,
+        "contamination": 0.5612665154950869,
+        "masking": 0.4,
+        "mutation": 0.5178875132275131,
+        "total": 0.5548504653061225
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Social media bio",
+          "Researcher",
+          "Suburb",
+          "Browses without buying",
+          "Dependent on a small circle",
+          "Minimalism",
+          "Worth monitoring"
+        ],
+        "sharedPlaces": [
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260515222533563_14c9e57a",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5719867114599686,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.31,
+        "contamination": 0.647826059654631,
+        "masking": 0.52,
+        "mutation": 0.4642371428571428,
+        "total": 0.5719867114599686
+      },
+      "evidence": {
+        "sharedTags": [
+          "No fixed place",
+          "Home",
+          "Chat log",
+          "Dream",
+          "Location trace",
+          "Lyric-like fragment",
+          "Religious / mythological element",
+          "Warm",
+          "Dependent on a small circle",
+          "Archivable user",
+          "Suspected bot",
+          "Jellyfish"
+        ],
+        "sharedPlaces": [
+          "No fixed place",
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
+    },
+    {
       "source": "submission_20260516164108378_a4871e32",
       "target": "submission_20260517091347543_81717183",
       "type": "interaction",
@@ -55132,6 +59494,215 @@
         "sharedPlaces": [],
         "conflictPairs": []
       }
+    },
+    {
+      "source": "submission_20260516164108378_a4871e32",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.47394053333333336,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.045,
+        "contamination": 0.7460425925925928,
+        "masking": 0.36,
+        "mutation": 0.38075259259259264,
+        "total": 0.47394053333333336
+      },
+      "evidence": {
+        "sharedTags": [
+          "Social media platform",
+          "Seaside",
+          "Nostalgic",
+          "Optimistic",
+          "Family-oriented",
+          "In an intimate relationship",
+          "Minimalism",
+          "Active user"
+        ],
+        "sharedPlaces": [
+          "Social media platform"
+        ],
+        "conflictPairs": []
+      }
+    },
+    {
+      "source": "submission_20260516164108378_a4871e32",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5801439794871796,
+      "scores": {
+        "affinity": 0.875,
+        "route": 0.09,
+        "conflict": 0.53,
+        "contamination": 0.7798021367521368,
+        "masking": 0.48,
+        "mutation": 0.6082622222222223,
+        "total": 0.5801439794871796
+      },
+      "evidence": {
+        "sharedTags": [
+          "Chat log",
+          "Lyric-like fragment",
+          "Seaside",
+          "Long-distance relationship",
+          "Nostalgia",
+          "An unread email",
+          "Unsent message"
+        ],
+        "sharedPlaces": [],
+        "conflictPairs": [
+          [
+            "Ancient time",
+            "Near future"
+          ],
+          [
+            "Calm",
+            "Anxious"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260517091347543_81717183",
+      "target": "submission_20260519161858873_fcc487c8",
+      "type": "interaction",
+      "weight": 0.6711530029850746,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.485,
+        "contamination": 0.7517481481481482,
+        "masking": 0.76,
+        "mutation": 0.5727787285793257,
+        "total": 0.6711530029850746
+      },
+      "evidence": {
+        "sharedTags": [
+          "Internet",
+          "Workplace",
+          "Observer",
+          "Researcher",
+          "Seaside",
+          "Easily distracted",
+          "Old friend",
+          "Minimalism",
+          "High-value user",
+          "Suspected human",
+          "Deer"
+        ],
+        "sharedPlaces": [
+          "Internet",
+          "Workplace"
+        ],
+        "conflictPairs": [
+          [
+            "Socially active",
+            "Socially avoidant"
+          ],
+          [
+            "Mythic age",
+            "2020s"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260517091347543_81717183",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.7751628491389209,
+      "scores": {
+        "affinity": 1,
+        "route": 0.53,
+        "conflict": 0.75,
+        "contamination": 0.8119076923076923,
+        "masking": 0.88,
+        "mutation": 0.7092083582089552,
+        "total": 0.7751628491389209
+      },
+      "evidence": {
+        "sharedTags": [
+          "Dream",
+          "Future world",
+          "Museum label",
+          "False memory",
+          "Lyric-like fragment",
+          "Archive object",
+          "Observer",
+          "Seaside",
+          "Parallel timeline",
+          "Multiple-account switcher",
+          "Hard to determine",
+          "Highly expressive",
+          "Easily distracted",
+          "Waiting to be recognized",
+          "An unread email"
+        ],
+        "sharedPlaces": [
+          "Dream",
+          "Future world"
+        ],
+        "conflictPairs": [
+          [
+            "Predictable user",
+            "Unpredictable user"
+          ],
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Ancient time",
+            "Near future"
+          ]
+        ]
+      }
+    },
+    {
+      "source": "submission_20260519161858873_fcc487c8",
+      "target": "submission_20260520215915495_153fc34c",
+      "type": "interaction",
+      "weight": 0.5849770461538462,
+      "scores": {
+        "affinity": 1,
+        "route": 0.31,
+        "conflict": 0.485,
+        "contamination": 0.6136558404558405,
+        "masking": 0.6000000000000001,
+        "mutation": 0.5308303703703704,
+        "total": 0.5849770461538462
+      },
+      "evidence": {
+        "sharedTags": [
+          "Home",
+          "Private diary",
+          "Real memory",
+          "Traveler",
+          "Observer",
+          "City center",
+          "Seaside",
+          "Digital subscriber",
+          "Saves screenshots",
+          "Easily distracted",
+          "Dependent on a small circle",
+          "Pop culture",
+          "Star"
+        ],
+        "sharedPlaces": [
+          "Home"
+        ],
+        "conflictPairs": [
+          [
+            "Suspected bot",
+            "Suspected human"
+          ],
+          [
+            "Home",
+            "No fixed place"
+          ]
+        ]
+      }
     }
   ],
   "metadata": {
@@ -55141,6 +59712,6 @@
       "/Volumes/Acasis/1学业相关/_FashionFutures/RIF2/general/obfuscation-identity-archive/public/data/algorithm/interaction_graph_real_submissions.json",
       "/Volumes/Acasis/1学业相关/_FashionFutures/RIF2/general/obfuscation-identity-archive/public/data/algorithm/timeline/anchor_timeline_real_submissions.json"
     ],
-    "source_count": 41
+    "source_count": 43
   }
 }

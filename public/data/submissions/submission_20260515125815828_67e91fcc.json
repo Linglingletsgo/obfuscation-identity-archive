@@ -1,0 +1,89 @@
+{
+  "submission_id": "submission_20260515125815828_67e91fcc",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-15T12:58:15.828Z",
+  "shell_form": "Real self",
+  "places": [
+    "Home",
+    "School",
+    "Workplace",
+    "Game",
+    "Hospital",
+    "Shopping mall"
+  ],
+  "expression_formats": [
+    "Resume",
+    "Medical record",
+    "Species description",
+    "Testimony"
+  ],
+  "material_sources": [
+    "Real memory"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Unemployed person",
+    "Local person",
+    "Unknown person",
+    "Passerby",
+    "Witness"
+  ],
+  "spatial_tags": [
+    "School",
+    "Dormitory",
+    "Library",
+    "Seaside",
+    "Urban edge"
+  ],
+  "time_era_tags": [
+    "2020s",
+    "After the apocalypse",
+    "Looping time",
+    "Long silence",
+    "Periodic disappearance"
+  ],
+  "platform_behavior_tags": [
+    "Long-term lurker",
+    "Price comparer",
+    "Minimalist",
+    "High-frequency low-price consumer",
+    "Anonymous browser"
+  ],
+  "emotion_personality_tags": [
+    "Warm",
+    "Gentle",
+    "Easily distracted",
+    "Optimistic",
+    "Highly sensitive",
+    "Relaxed"
+  ],
+  "relationship_tags": [
+    "Family-oriented",
+    "In an intimate relationship",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Pop culture",
+    "Minimalism",
+    "Ruin atmosphere"
+  ],
+  "system_tags": [
+    "Ordinary user",
+    "Wrong match",
+    "Suspected human"
+  ],
+  "non_human_tags": [
+    "Fish",
+    "Bee",
+    "Vine",
+    "Stone",
+    "Sun",
+    "Map",
+    "Alarm clock"
+  ],
+  "identity_name": "鬼魅幻影之老实人",
+  "carried_fragment": "we are the world",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

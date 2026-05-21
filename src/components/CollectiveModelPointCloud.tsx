@@ -17,6 +17,7 @@ const vertexShader = `
   uniform vec3 uRayDirection;
   uniform float uInfluence;
   uniform float uPointerVelocity;
+  uniform float uDragIntensity;
   uniform float uGlobalOpacity;
 
   void main() {
@@ -28,18 +29,22 @@ const vertexShader = `
     float wave = sin(seed * 18.0 + partPhase + uTime * 2.7) * 0.5 + 0.5;
     float filament = sin(seed * 31.0 + partPhase * 1.7 + uTime * 4.1 + rayT * 0.22) * 0.5 + 0.5;
     float partPulse = sin(partPhase * 3.0 + uTime * 1.4) * 0.5 + 0.5;
-    float localInfluence = uInfluence * exp(-distanceToRay * 0.42) * (0.55 + filament * 0.62);
-    float pointerField = exp(-distanceToRay * 0.42) * uPointerVelocity;
+    float pointerFalloff = exp(-distanceToRay * 0.62);
+    float motionPower = uPointerVelocity * 1.05 + uDragIntensity * 0.78;
+    float localInfluence = uInfluence * pointerFalloff * (0.5 + filament * 0.52);
+    float pointerField = pointerFalloff * motionPower;
+    float ripple = sin(distanceToRay * 3.2 - uTime * 8.4 + seed * 6.2831853) * pointerFalloff * motionPower;
+    float interaction = abs(ripple) + pointerField * 0.72 + localInfluence * 0.18;
     vec3 direction = normalize(position + vec3(0.001, 0.013, 0.007));
     vec3 swirl = normalize(cross(uRayDirection, direction) + vec3(0.001, 0.002, 0.003));
     vec3 lightDirection = normalize(vec3(-0.32, 0.55, 0.78));
     float spatialLight = dot(direction, lightDirection) * 0.5 + 0.5;
     float selfShadow = smoothstep(0.0, 0.9, length(position.xy) * 0.055 + position.y * 0.018);
-    displaced += direction * (0.045 * wave + localInfluence * (0.2 + wave * 0.12) + pointerField * 0.12);
-    displaced += swirl * (localInfluence * 0.18 + pointerField * 0.18) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
+    displaced += direction * (0.045 * wave + localInfluence * (0.2 + wave * 0.12) + pointerField * 0.18 + ripple * 0.14);
+    displaced += swirl * (localInfluence * 0.2 + pointerField * 0.24 + ripple * 0.22) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
 
-    vec3 baseColor = mix(partColor, color, 0.16);
-    vec3 accentGlow = partColor * (0.07 + partPulse * 0.12 + localInfluence * 0.1 + pointerField * 0.18);
+    vec3 baseColor = mix(partColor, color, 0.72);
+    vec3 accentGlow = baseColor * (0.07 + partPulse * 0.12 + localInfluence * 0.1 + pointerField * 0.18);
     float rim = pow(1.0 - abs(dot(direction, vec3(0.0, 0.0, 1.0))), 2.2);
     float lightShade = 0.48 + spatialLight * 0.72 + selfShadow * 0.24 + rim * 0.32;
     vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * 0.16 + pointerField * 0.24) + accentGlow;
@@ -130,6 +135,7 @@ export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture,
       uRayDirection: { value: new THREE.Vector3(0, 0, -1) },
       uInfluence: { value: 0 },
       uPointerVelocity: { value: 0 },
+      uDragIntensity: { value: 0 },
       uGlobalOpacity: { value: opacity },
       uPointTexture: { value: pointTexture ?? new THREE.Texture() },
     },
@@ -155,7 +161,12 @@ export function CollectiveModelPointCloud({
   const pointsRef = useRef<THREE.Points>(null);
   const influenceRef = useRef(0);
   const velocityRef = useRef(0);
+  const dragIntensityRef = useRef(0);
+  const pointerDownRef = useRef(false);
   const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
+  const inverseWorldMatrixRef = useRef(new THREE.Matrix4());
+  const localRayOriginRef = useRef(new THREE.Vector3());
+  const localRayDirectionRef = useRef(new THREE.Vector3());
   const pointTexture = useLoader(THREE.TextureLoader, archiveVisualConfig.assets.collectiveParticleTexturePath);
   const geometry = useMemo(
     () => createCollectiveModelPartGeometry(positions, colors, partColors, partIds),
@@ -178,6 +189,21 @@ export function CollectiveModelPointCloud({
     gl.compile(dummyPoints, camera);
   }, [gl, camera, geometry, material]);
 
+  useEffect(() => {
+    const handlePointerDown = () => {
+      pointerDownRef.current = true;
+    };
+    const handlePointerUp = () => {
+      pointerDownRef.current = false;
+    };
+    window.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("pointerup", handlePointerUp);
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, []);
+
   useEffect(
     () => () => {
       geometry.dispose();
@@ -190,8 +216,9 @@ export function CollectiveModelPointCloud({
     const previousPointer = previousPointerRef.current;
     const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
     previousPointer.set(pointer.x, pointer.y);
-    velocityRef.current += (Math.min(1, pointerDelta * 18) - velocityRef.current) * 0.22;
-    influenceRef.current += (0.38 - influenceRef.current) * 0.08;
+    velocityRef.current += (Math.min(1, pointerDelta * 24) - velocityRef.current) * 0.26;
+    dragIntensityRef.current += ((pointerDownRef.current ? 0.56 : 0) - dragIntensityRef.current) * 0.16;
+    influenceRef.current += (0.34 - influenceRef.current) * 0.08;
     raycaster.setFromCamera(pointer, camera);
 
     const progress = timelineProgressRef.current;
@@ -200,12 +227,21 @@ export function CollectiveModelPointCloud({
     material.uniforms.uTime.value = clock.elapsedTime;
     material.uniforms.uInfluence.value = influenceRef.current;
     material.uniforms.uPointerVelocity.value = velocityRef.current;
+    material.uniforms.uDragIntensity.value = dragIntensityRef.current;
     material.uniforms.uGlobalOpacity.value = opacity;
-    material.uniforms.uRayOrigin.value.copy(raycaster.ray.origin);
-    material.uniforms.uRayDirection.value.copy(raycaster.ray.direction);
 
-    if (pointsRef.current) {
-      pointsRef.current.visible = opacity > MIN_RENDER_OPACITY;
+    const points = pointsRef.current;
+    if (points) {
+      points.updateWorldMatrix(true, false);
+      inverseWorldMatrixRef.current.copy(points.matrixWorld).invert();
+      localRayOriginRef.current.copy(raycaster.ray.origin).applyMatrix4(inverseWorldMatrixRef.current);
+      localRayDirectionRef.current.copy(raycaster.ray.direction).transformDirection(inverseWorldMatrixRef.current);
+      material.uniforms.uRayOrigin.value.copy(localRayOriginRef.current);
+      material.uniforms.uRayDirection.value.copy(localRayDirectionRef.current);
+    }
+
+    if (points) {
+      points.visible = opacity > MIN_RENDER_OPACITY;
     }
   });
 

@@ -1,0 +1,97 @@
+{
+  "submission_id": "submission_20260513163448258_5bc27ffd",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-13T16:34:48.258Z",
+  "shell_form": "Unnameable",
+  "places": [
+    "City",
+    "Dream",
+    "Social media platform",
+    "Natural environment",
+    "Future world",
+    "No fixed place"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "Chat log",
+    "Legend",
+    "Untitled file",
+    "Divination result"
+  ],
+  "material_sources": [
+    "False memory",
+    "Real memory",
+    "Dream",
+    "Shopping preference",
+    "Location trace",
+    "Color",
+    "Chat habit"
+  ],
+  "social_role_tags": [
+    "Student",
+    "Unknown person",
+    "Forgotten person",
+    "Freelancer"
+  ],
+  "spatial_tags": [
+    "Forest",
+    "River",
+    "Café"
+  ],
+  "time_era_tags": [
+    "Millennium",
+    "Weekend appearance",
+    "Seasonal appearance"
+  ],
+  "platform_behavior_tags": [
+    "Late-night shopper",
+    "Collector",
+    "Membership user",
+    "Jumping browser"
+  ],
+  "emotion_personality_tags": [
+    "Anxious",
+    "Warm",
+    "Calm",
+    "Nostalgic",
+    "Stubborn",
+    "Optimistic",
+    "Highly expressive"
+  ],
+  "relationship_tags": [
+    "Solitary person",
+    "Cared-for person",
+    "Frequently unreachable",
+    "Replies frequently",
+    "Watched"
+  ],
+  "aesthetic_cultural_tags": [
+    "Academic style",
+    "Luxury",
+    "Pop culture",
+    "Minimalism",
+    "Nostalgia"
+  ],
+  "system_tags": [
+    "High-value user",
+    "Active user",
+    "Unpredictable user",
+    "Suspected human"
+  ],
+  "non_human_tags": [
+    "Cat",
+    "Dog",
+    "Fox",
+    "Rabbit",
+    "Tree",
+    "Vine",
+    "Cloud",
+    "Fog",
+    "Moon"
+  ],
+  "identity_name": "11223",
+  "carried_fragment": "..-……",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

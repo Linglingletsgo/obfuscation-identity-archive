@@ -1,0 +1,95 @@
+{
+  "submission_id": "submission_20260514141519771_dd02f86f",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T14:15:19.771Z",
+  "shell_form": "Non-human identity",
+  "places": [
+    "No fixed place",
+    "Dream",
+    "Archive",
+    "Natural environment",
+    "Future world",
+    "Other: everywhere that I am"
+  ],
+  "expression_formats": [
+    "Poem",
+    "Divination result",
+    "Other: Spine Chilling Wind/vibes that make your arm hairs stand up."
+  ],
+  "material_sources": [
+    "Real memory",
+    "Religious / mythological element",
+    "Dream",
+    "Non-human material",
+    "Other: Forgotten Memory"
+  ],
+  "social_role_tags": [
+    "Unclassifiable person",
+    "Anonymous user",
+    "Observer"
+  ],
+  "spatial_tags": [
+    "No fixed place",
+    "Seaside",
+    "Mountain area",
+    "River",
+    "Forest",
+    "Ruin"
+  ],
+  "time_era_tags": [
+    "Other: Everything, everywhere, all at once.",
+    "Ancient time",
+    "Mythic age"
+  ],
+  "platform_behavior_tags": [
+    "Anonymous browser",
+    "Disappears after browsing",
+    "Deletes records"
+  ],
+  "emotion_personality_tags": [
+    "Hard to determine",
+    "Calm",
+    "Nostalgic",
+    "Distant",
+    "Other: wise"
+  ],
+  "relationship_tags": [
+    "Long-distance relationship",
+    "Family-oriented",
+    "Solitary person",
+    "Often misunderstood",
+    "Lost contact",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Religious atmosphere",
+    "Nostalgia",
+    "Unclassifiable",
+    "Futurism"
+  ],
+  "system_tags": [
+    "Classification failure",
+    "Cannot determine",
+    "Algorithmic anomaly",
+    "Blurred profile",
+    "Insufficient information",
+    "High-value user"
+  ],
+  "non_human_tags": [
+    "Fire",
+    "Wind",
+    "Rain",
+    "Snow",
+    "Moon",
+    "Sun",
+    "Cloud",
+    "Fog",
+    "Star",
+    "River"
+  ],
+  "identity_name": "?",
+  "carried_fragment": "advice, warning, revelation, help, kindness, wrath, revenge",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

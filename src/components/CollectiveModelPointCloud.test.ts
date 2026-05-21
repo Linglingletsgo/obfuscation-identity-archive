@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import * as THREE from "three";
 import {
   createCollectiveModelPartGeometry,
   createCollectiveModelPointGeometry,
@@ -44,8 +45,10 @@ describe("CollectiveModelPointCloud", () => {
     expect(material.uniforms.uRayDirection).toBeDefined();
     expect(material.uniforms.uInfluence).toBeDefined();
     expect(material.uniforms.uPointerVelocity).toBeDefined();
+    expect(material.uniforms.uDragIntensity).toBeDefined();
     expect(material.uniforms.uPointTexture).toBeDefined();
     expect(material.transparent).toBe(true);
+    expect(material.blending).toBe(THREE.AdditiveBlending);
 
     material.dispose();
   });

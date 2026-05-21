@@ -1,0 +1,102 @@
+{
+  "submission_id": "submission_20260514122715090_0fdbfb63",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T12:27:15.090Z",
+  "shell_form": "Parallel-world resident",
+  "places": [
+    "Dream",
+    "Ruin",
+    "No fixed place",
+    "Transport system",
+    "Archive"
+  ],
+  "expression_formats": [
+    "Untitled file",
+    "Museum label",
+    "Chat log"
+  ],
+  "material_sources": [
+    "Search history",
+    "False memory",
+    "Dream",
+    "Private code",
+    "Shopping preference"
+  ],
+  "social_role_tags": [
+    "Researcher",
+    "Person living alone",
+    "Guest",
+    "Observer",
+    "Marginal member"
+  ],
+  "spatial_tags": [
+    "Urban edge",
+    "Subway",
+    "Museum",
+    "Basement"
+  ],
+  "time_era_tags": [
+    "1990s",
+    "Looping time",
+    "Expired future",
+    "Parallel timeline",
+    "Periodic disappearance"
+  ],
+  "platform_behavior_tags": [
+    "Browses without buying",
+    "Digital subscriber",
+    "Anti-recommendation user",
+    "Ad avoider",
+    "Saves screenshots",
+    "Long-term lurker"
+  ],
+  "emotion_personality_tags": [
+    "Calm",
+    "Anxious",
+    "Distant",
+    "Gentle",
+    "Hesitant",
+    "Restrained"
+  ],
+  "relationship_tags": [
+    "Marginal group member",
+    "Often misunderstands others",
+    "Waiting to be recognized",
+    "Keeps distance",
+    "Old friend"
+  ],
+  "aesthetic_cultural_tags": [
+    "Nostalgia",
+    "Folklore",
+    "Handmade feeling",
+    "Archive atmosphere",
+    "Museum-like",
+    "Ruin atmosphere"
+  ],
+  "system_tags": [
+    "Low-value user",
+    "Predictable user",
+    "Insufficient information",
+    "Tag conflict",
+    "Duplicate archive"
+  ],
+  "non_human_tags": [
+    "Rabbit",
+    "Horse",
+    "Moth",
+    "Moss",
+    "Mirror",
+    "Dust",
+    "Receipt",
+    "Old photo",
+    "Crack",
+    "Handrail",
+    "Untitled file",
+    "Echo"
+  ],
+  "identity_name": "Crumpled Paper",
+  "carried_fragment": "Half-poems",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}

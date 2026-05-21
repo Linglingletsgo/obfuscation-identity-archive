@@ -1,0 +1,102 @@
+{
+  "submission_id": "submission_20260514114652604_8c1eece0",
+  "dataset": "Obfuscation Identity Archive",
+  "is_test_data": false,
+  "submitted_at": "2026-05-14T11:46:52.604Z",
+  "shell_form": "Error archive",
+  "places": [
+    "Archive",
+    "Database",
+    "Internet",
+    "Ruin"
+  ],
+  "expression_formats": [
+    "Private diary",
+    "System error",
+    "Junk file"
+  ],
+  "material_sources": [
+    "False memory",
+    "Internet meme",
+    "Search history",
+    "Private code"
+  ],
+  "social_role_tags": [
+    "Drifter",
+    "Unclassifiable person",
+    "Marginal member",
+    "Archive object",
+    "Housemate"
+  ],
+  "spatial_tags": [
+    "Border",
+    "Data center",
+    "Social media platform",
+    "Ruin",
+    "Airport",
+    "No fixed place"
+  ],
+  "time_era_tags": [
+    "Looping time",
+    "Periodic disappearance",
+    "High repetition",
+    "Near future"
+  ],
+  "platform_behavior_tags": [
+    "Digital subscriber",
+    "Algorithm follower",
+    "Ad avoider",
+    "Anonymous browser",
+    "Saves screenshots",
+    "Platform nomad"
+  ],
+  "emotion_personality_tags": [
+    "Impulsive",
+    "Highly expressive",
+    "Stubborn",
+    "Suspicious",
+    "Distant",
+    "Highly sensitive",
+    "Excited"
+  ],
+  "relationship_tags": [
+    "Frequently unreachable",
+    "Anonymous observer",
+    "Often misunderstands others",
+    "Old friend",
+    "Dependent on a small circle"
+  ],
+  "aesthetic_cultural_tags": [
+    "Archive atmosphere",
+    "Algorithmic aesthetics",
+    "Punk",
+    "Tech geek",
+    "Environmentalism"
+  ],
+  "system_tags": [
+    "Abnormal user",
+    "Noise user",
+    "Identity drift",
+    "Worth monitoring",
+    "High-noise data",
+    "Algorithmic anomaly"
+  ],
+  "non_human_tags": [
+    "Star",
+    "Receipt",
+    "Crack",
+    "Sensor",
+    "Compressed file",
+    "Synthetic species",
+    "Artificially cultivated thing",
+    "An unread email",
+    "Unsent message",
+    "Glass",
+    "Wind",
+    "Fox"
+  ],
+  "identity_name": "Caiscaix",
+  "carried_fragment": "anomaly detection guide",
+  "consent_data_use_scope": "I have read and agree to the stated use scope, including artistic machine-based organization or generation within this project, and I am willing to submit this obfuscation identity archive.",
+  "consent_artistic_machine_processing_required": true
+}
