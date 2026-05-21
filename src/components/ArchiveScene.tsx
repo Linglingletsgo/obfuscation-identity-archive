@@ -41,6 +41,7 @@ export function createWebGLSupportChecker(createCanvas: () => HTMLCanvasElement)
 }
 
 const hasWebGL = createWebGLSupportChecker(() => document.createElement("canvas"));
+const COLLECTIVE_SCENE_POSITION: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
 
 export function getCollectiveModeForCameraDistance(distance: number): CollectiveNavigationMode {
   return distance <= archiveVisualConfig.camera.collectiveInternalDistanceThreshold ? "internal" : "overview";
@@ -373,7 +374,6 @@ export function ArchiveScene({ canvasEventSource }: { canvasEventSource?: HTMLEl
     [webglRestartVersion],
   );
   const collectiveSceneReady = avatarShapePositions !== null;
-  const collectiveScenePosition: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
   const [collectiveNavigationEnabled, setCollectiveNavigationEnabled] = useState(false);
 
   if (!graph || graph.nodes.length === 0) return <EmptyState message="No archive nodes are available" />;
@@ -398,7 +398,7 @@ export function ArchiveScene({ canvasEventSource }: { canvasEventSource?: HTMLEl
       <InteractionTracker>
         <EntryTimeline3D />
         {view === "collective" ? (
-          <group position={collectiveScenePosition}>
+          <group position={COLLECTIVE_SCENE_POSITION}>
             <GlobalInteractionLights />
             <Suspense fallback={null}>
               <CollectiveEnvironmentField />
@@ -406,7 +406,7 @@ export function ArchiveScene({ canvasEventSource }: { canvasEventSource?: HTMLEl
             <TransitionLights />
           </group>
         ) : null}
-        <group position={collectiveScenePosition}>
+        <group position={COLLECTIVE_SCENE_POSITION}>
           {shouldRenderCollectiveAvatarField(view) ? (
             <CollectiveAvatarField onShapePositions={handleShapePositions} />
           ) : null}

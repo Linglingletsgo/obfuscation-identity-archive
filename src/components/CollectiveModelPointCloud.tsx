@@ -32,27 +32,27 @@ const vertexShader = `
     float filament = sin(seed * 31.0 + partPhase * 1.7 + uTime * 4.1 + rayT * 0.22) * 0.5 + 0.5;
     float partPulse = sin(partPhase * 3.0 + uTime * 1.4) * 0.5 + 0.5;
     float pointerFalloff = exp(-distanceToRay * 0.62);
-    float motionPower = uPointerVelocity * 1.05 + uDragIntensity * 0.78;
-    float hoverPower = uPointerPresence * pointerFalloff;
-    float localInfluence = (uInfluence * 0.9 + uPointerPresence * 0.82) * pointerFalloff * (0.5 + filament * 0.52);
+    float motionPower = uPointerVelocity * 0.72 + uDragIntensity * 0.48;
+    float hoverPower = uPointerPresence * pointerFalloff * 0.58;
+    float localInfluence = (uInfluence * 0.76 + uPointerPresence * 0.46) * pointerFalloff * (0.5 + filament * 0.52);
     float pointerField = pointerFalloff * motionPower;
-    float ripple = sin(distanceToRay * 3.2 - uTime * 8.4 + seed * 6.2831853) * pointerFalloff * (motionPower + hoverPower * 0.42);
+    float ripple = sin(distanceToRay * 3.2 - uTime * 8.4 + seed * 6.2831853) * pointerFalloff * (motionPower + hoverPower * 0.28);
     float interaction = abs(ripple) + pointerField * 0.72 + localInfluence * 0.18;
     vec3 direction = normalize(position + vec3(0.001, 0.013, 0.007));
     vec3 swirl = normalize(cross(uRayDirection, direction) + vec3(0.001, 0.002, 0.003));
     vec3 lightDirection = normalize(vec3(-0.32, 0.55, 0.78));
     float spatialLight = dot(direction, lightDirection) * 0.5 + 0.5;
     float selfShadow = smoothstep(0.0, 0.9, length(position.xy) * 0.055 + position.y * 0.018);
-    displaced += direction * (0.045 * wave + localInfluence * (0.28 + wave * 0.16) + pointerField * 0.18 + hoverPower * 0.09 + ripple * 0.14);
-    displaced += swirl * (localInfluence * 0.28 + pointerField * 0.24 + hoverPower * 0.14 + ripple * 0.22) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
+    displaced += direction * (0.045 * wave + localInfluence * (0.2 + wave * 0.11) + pointerField * 0.11 + hoverPower * 0.05 + ripple * 0.08);
+    displaced += swirl * (localInfluence * 0.17 + pointerField * 0.14 + hoverPower * 0.08 + ripple * 0.13) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
 
     vec3 baseColor = mix(partColor, color, 0.72);
-    vec3 accentGlow = baseColor * (0.07 + partPulse * 0.12 + localInfluence * 0.16 + pointerField * 0.18 + hoverPower * 0.16);
+    vec3 accentGlow = baseColor * (0.07 + partPulse * 0.12 + localInfluence * 0.1 + pointerField * 0.11 + hoverPower * 0.08);
     float rim = pow(1.0 - abs(dot(direction, vec3(0.0, 0.0, 1.0))), 2.2);
     float lightShade = 0.48 + spatialLight * 0.72 + selfShadow * 0.24 + rim * 0.32;
-    vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * 0.22 + pointerField * 0.24 + hoverPower * 0.2) + accentGlow;
+    vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * 0.14 + pointerField * 0.15 + hoverPower * 0.1) + accentGlow;
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
-    gl_PointSize = (0.18 + wave * 0.105 + partPulse * 0.04 + localInfluence * 0.18 + pointerField * 0.21 + hoverPower * 0.1) * (620.0 / -modelViewPosition.z);
+    gl_PointSize = (0.18 + wave * 0.105 + partPulse * 0.04 + localInfluence * 0.1 + pointerField * 0.12 + hoverPower * 0.05) * (620.0 / -modelViewPosition.z);
     gl_Position = projectionMatrix * modelViewPosition;
   }
 `;
@@ -207,9 +207,9 @@ export function CollectiveModelPointCloud({
     const previousPointer = previousPointerRef.current;
     const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
     previousPointer.copy(pointer);
-    velocityRef.current += (Math.min(1, pointerDelta * 24) - velocityRef.current) * 0.26;
-    dragIntensityRef.current += ((isDragging ? 0.56 : 0) - dragIntensityRef.current) * 0.16;
-    pointerPresenceRef.current += ((isInside ? 1 : 0) - pointerPresenceRef.current) * 0.18;
+    velocityRef.current += (Math.min(0.72, pointerDelta * 17) - velocityRef.current) * 0.22;
+    dragIntensityRef.current += ((isDragging ? 0.34 : 0) - dragIntensityRef.current) * 0.14;
+    pointerPresenceRef.current += ((isInside ? 0.72 : 0) - pointerPresenceRef.current) * 0.16;
     influenceRef.current += (0.34 - influenceRef.current) * 0.08;
     raycaster.setFromCamera(pointer, camera);
 

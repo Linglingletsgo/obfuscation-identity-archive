@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { memo, useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import { RotateCcw } from "lucide-react";
 import { useArchiveStore } from "../state/archiveStore";
 import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
@@ -69,7 +69,7 @@ export function getIndividualSceneState(
   };
 }
 
-function IndividualTagNodeItem({
+const IndividualTagNodeItem = memo(function IndividualTagNodeItem({
   isActive,
   node,
   onActivate,
@@ -96,7 +96,7 @@ function IndividualTagNodeItem({
       <b>{node.label}</b>
     </li>
   );
-}
+});
 
 function IndividualDetailSidebar({
   activeTagLabel,
@@ -150,6 +150,9 @@ export function IndividualAvatarScene() {
     () => (view === "individual" ? getIndividualSceneState(graph, selectedIdentityId) : null),
     [graph, selectedIdentityId, view],
   );
+  const tagLabelSet = useMemo(() => new Set(sceneState?.tagLabels ?? []), [sceneState?.tagLabels]);
+  const activateTag = useCallback((label: string) => setActiveTagLabel(label), []);
+  const deactivateTag = useCallback(() => setActiveTagLabel(null), []);
 
   useEffect(() => {
     if (!sceneState) return undefined;
@@ -157,7 +160,6 @@ export function IndividualAvatarScene() {
 
     let frameId = 0;
     let lastHoverLabel: string | null = null;
-    const tagLabels = new Set(sceneState.tagLabels);
 
     function findHoveredTagLabel(clientX: number, clientY: number): string | null {
       let nextHoverLabel: string | null = null;
@@ -165,7 +167,7 @@ export function IndividualAvatarScene() {
         const element = document.elementFromPoint(clientX, clientY);
         const tagElement = element instanceof Element ? element.closest<HTMLElement>("[data-individual-tag-label]") : null;
         const label = tagElement?.dataset.individualTagLabel ?? null;
-        nextHoverLabel = label && tagLabels.has(label) ? label : null;
+        nextHoverLabel = label && tagLabelSet.has(label) ? label : null;
       }
       return nextHoverLabel;
     }
@@ -206,7 +208,7 @@ export function IndividualAvatarScene() {
       window.removeEventListener("pointerup", syncHoveredTagFromEvent, options);
       document.removeEventListener("pointerup", syncHoveredTagFromEvent, options);
     };
-  }, [sceneState]);
+  }, [sceneState, tagLabelSet]);
 
   if (!sceneState) return null;
 
@@ -235,16 +237,16 @@ export function IndividualAvatarScene() {
               isActive={node.label === activeTagLabel}
               key={node.label}
               node={node}
-              onActivate={setActiveTagLabel}
-              onDeactivate={() => setActiveTagLabel(null)}
+              onActivate={activateTag}
+              onDeactivate={deactivateTag}
             />
           ))}
         </ol>
       </div>
       <IndividualDetailSidebar
         activeTagLabel={activeTagLabel}
-        onActivateTag={setActiveTagLabel}
-        onDeactivateTag={() => setActiveTagLabel(null)}
+        onActivateTag={activateTag}
+        onDeactivateTag={deactivateTag}
         sceneState={sceneState}
       />
     </section>

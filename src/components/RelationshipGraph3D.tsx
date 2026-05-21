@@ -216,6 +216,8 @@ export function getViewScopedGraphLinks(
   view: ArchiveView,
   linkDensity = 1,
 ): ArchiveGraphLink[] {
+  if (view !== "collective") return [];
+
   const visibleIds = new Set<string>();
   for (const node of scopedNodes) {
     visibleIds.add(node.id);
@@ -223,9 +225,32 @@ export function getViewScopedGraphLinks(
 
   return graph.links.filter((link) => {
     if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return false;
-    if (view === "collective") return shouldRenderCollectiveGraphLink(link, focusedNodeId, linkDensity);
-    return false;
+    return shouldRenderCollectiveGraphLink(link, focusedNodeId, linkDensity);
   });
+}
+
+function getVisibleGraphLinks(
+  graph: ArchiveGraph,
+  visibleNodes: ArchiveGraphNode[],
+  focusedNodeId: string | null,
+  view: ArchiveView,
+  linkDensity: number,
+): ArchiveGraphLink[] {
+  if (view !== "collective") return [];
+
+  const visibleIds = new Set<string>();
+  for (const node of visibleNodes) {
+    visibleIds.add(node.id);
+  }
+
+  const visibleLinks: ArchiveGraphLink[] = [];
+  for (const link of graph.links) {
+    if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) continue;
+    if (!shouldRenderCollectiveGraphLink(link, focusedNodeId, linkDensity)) continue;
+    if (!shouldDisplayGraphLink(link, view, focusedNodeId, linkDensity)) continue;
+    visibleLinks.push(link);
+  }
+  return visibleLinks;
 }
 
 export function shouldShowIdentityBillboard(
@@ -317,20 +342,14 @@ export function RelationshipGraph3D({ graph }: { graph: ArchiveGraph }) {
 
   const visibleNodes = useMemo(() => {
     if (!filters.tag) return shapedNodes;
-    return shapedNodes.filter((node) => {
-      const matchesTag = !filters.tag || node.tag_labels.includes(filters.tag);
-      return matchesTag;
-    });
+    return shapedNodes.filter((node) => node.tag_labels.includes(filters.tag));
   }, [filters.tag, shapedNodes]);
 
   const visibleLinks = useMemo(
-    () =>
-      getViewScopedGraphLinks(graph, visibleNodes, focusedNodeId, view, filters.linkDensity).filter((link) =>
-        shouldDisplayGraphLink(link, view, focusedNodeId, filters.linkDensity),
-      ),
+    () => getVisibleGraphLinks(graph, visibleNodes, focusedNodeId, view, filters.linkDensity),
     [filters.linkDensity, focusedNodeId, graph, view, visibleNodes],
   );
-  const graphRenderPolicy = getGraphRenderPolicy(view);
+  const graphRenderPolicy = useMemo(() => getGraphRenderPolicy(view), [view]);
 
   const linkElements = useMemo(() => {
     return visibleLinks.map((link) => {

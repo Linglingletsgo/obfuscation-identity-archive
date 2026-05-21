@@ -26,9 +26,11 @@ function linkId(source: string, target: string, type: string, suffix = ""): stri
 }
 
 function uniqueLabels(tags: SourceGraphTag[] | undefined): string[] {
-  return [...new Set((tags ?? []).map((tag) => tag.label).filter(Boolean))].sort((a, b) =>
-    a.localeCompare(b),
-  );
+  const labels = new Set<string>();
+  for (const tag of tags ?? []) {
+    if (tag.label) labels.add(tag.label);
+  }
+  return [...labels].sort((a, b) => a.localeCompare(b));
 }
 
 function identityLabel(node: SourceGraphNode): string {
@@ -64,7 +66,12 @@ function createTagNodes(sourceNodes: SourceGraphNode[]): ArchiveGraphNode[] {
 
   for (const node of sourceNodes) {
     for (const tag of node.tags ?? []) {
-      byLabel.set(tag.label, [...(byLabel.get(tag.label) ?? []), tag]);
+      const tags = byLabel.get(tag.label);
+      if (tags) {
+        tags.push(tag);
+      } else {
+        byLabel.set(tag.label, [tag]);
+      }
     }
   }
 
