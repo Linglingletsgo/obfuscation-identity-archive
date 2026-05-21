@@ -451,6 +451,22 @@ select {
   background: rgba(66, 214, 179, 0.12);
   border: 1px solid rgba(66, 214, 179, 0.24);
   border-radius: 999px;
+  transition:
+    background 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
+}
+
+.individual-detail-sidebar li.is-active {
+  color: #ffffff;
+  background: rgba(88, 168, 255, 0.34);
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 0 10px rgba(88, 168, 255, 0.42),
+    0 0 22px rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
 }
 
 .stage-detail-avatar-visual {
@@ -557,19 +573,26 @@ select {
 }
 
 .stage-detail-tag-node:hover b,
-.stage-detail-tag-node:focus-visible b {
+.stage-detail-tag-node:focus-visible b,
+.stage-detail-tag-node.is-active b {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
 .stage-detail-tag-node:hover,
-.stage-detail-tag-node:focus-visible {
+.stage-detail-tag-node:focus-visible,
+.stage-detail-tag-node.is-active {
   z-index: 8;
 }
 
 .stage-detail-tag-node:hover span,
-.stage-detail-tag-node:focus-visible span {
+.stage-detail-tag-node:focus-visible span,
+.stage-detail-tag-node.is-active span {
   transform: scale(1.42);
+  background: rgba(88, 168, 255, 0.9);
+  box-shadow:
+    0 0 12px rgba(88, 168, 255, 0.58),
+    0 0 24px rgba(255, 255, 255, 0.2);
 }
 
 @keyframes stage-detail-breathe {

@@ -1,4 +1,4 @@
-import { useMemo, type CSSProperties } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import { RotateCcw } from "lucide-react";
 import { useArchiveStore } from "../state/archiveStore";
 import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
@@ -68,13 +68,28 @@ export function getIndividualSceneState(
   };
 }
 
-function IndividualTagNodeItem({ node }: { node: IndividualTagNode }) {
+function IndividualTagNodeItem({
+  isActive,
+  node,
+  onActivate,
+  onDeactivate,
+}: {
+  isActive: boolean;
+  node: IndividualTagNode;
+  onActivate: (label: string) => void;
+  onDeactivate: () => void;
+}) {
   return (
     <li
-      className="stage-detail-tag-node"
+      className={`stage-detail-tag-node${isActive ? " is-active" : ""}`}
       style={{ "--tag-x": `${node.x}%`, "--tag-y": `${node.y}%`, "--tag-delay": `${node.x * -0.027}s` } as CSSProperties}
       title={node.label}
       tabIndex={0}
+      aria-selected={isActive}
+      onBlur={onDeactivate}
+      onFocus={() => onActivate(node.label)}
+      onMouseEnter={() => onActivate(node.label)}
+      onMouseLeave={onDeactivate}
     >
       <span aria-hidden="true" />
       <b>{node.label}</b>
@@ -82,7 +97,13 @@ function IndividualTagNodeItem({ node }: { node: IndividualTagNode }) {
   );
 }
 
-function IndividualDetailSidebar({ sceneState }: { sceneState: IndividualSceneState }) {
+function IndividualDetailSidebar({
+  activeTagLabel,
+  sceneState,
+}: {
+  activeTagLabel: string | null;
+  sceneState: IndividualSceneState;
+}) {
   return (
     <aside className="individual-detail-sidebar" aria-label="Individual details">
       <header>
@@ -98,7 +119,9 @@ function IndividualDetailSidebar({ sceneState }: { sceneState: IndividualSceneSt
         <h3>Tags</h3>
         <ul>
           {sceneState.tagLabels.map((label) => (
-            <li key={label}>{label}</li>
+            <li className={label === activeTagLabel ? "is-active" : undefined} key={label}>
+              {label}
+            </li>
           ))}
         </ul>
       </section>
@@ -108,6 +131,7 @@ function IndividualDetailSidebar({ sceneState }: { sceneState: IndividualSceneSt
 
 export function IndividualAvatarScene() {
   const { graph, openCollective, selectedIdentityId, view } = useArchiveStore();
+  const [activeTagLabel, setActiveTagLabel] = useState<string | null>(null);
   const sceneState = useMemo(
     () => (view === "individual" ? getIndividualSceneState(graph, selectedIdentityId) : null),
     [graph, selectedIdentityId, view],
@@ -136,11 +160,17 @@ export function IndividualAvatarScene() {
         </div>
         <ol className="stage-detail-tags" aria-label="Active avatar tags">
           {sceneState.tagNodes.map((node) => (
-            <IndividualTagNodeItem key={node.label} node={node} />
+            <IndividualTagNodeItem
+              isActive={node.label === activeTagLabel}
+              key={node.label}
+              node={node}
+              onActivate={setActiveTagLabel}
+              onDeactivate={() => setActiveTagLabel(null)}
+            />
           ))}
         </ol>
       </div>
-      <IndividualDetailSidebar sceneState={sceneState} />
+      <IndividualDetailSidebar activeTagLabel={activeTagLabel} sceneState={sceneState} />
     </section>
   );
 }

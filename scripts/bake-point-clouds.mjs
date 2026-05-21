@@ -19,7 +19,7 @@ const bakeTargets = [
     bin: "collective_model_high.bin",
     json: "collective_model_high.json",
     kind: "collective",
-    maxSamples: 150000,
+    maxSamples: 180000,
     modelPath: COLLECTIVE_MODEL_PATH,
   },
   {

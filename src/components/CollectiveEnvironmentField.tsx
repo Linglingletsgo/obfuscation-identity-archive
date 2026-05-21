@@ -47,7 +47,7 @@ const environmentVertexShader = `
     vDisturbance = disturbance;
 
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
-    gl_PointSize = (0.28 + size * 0.95 + heightMist * 0.18 + depthMist * 0.16 + pointerLight * 1.35) * (300.0 / -modelViewPosition.z);
+    gl_PointSize = (0.18 + size * 0.68 + heightMist * 0.12 + depthMist * 0.1 + pointerLight * 0.9) * (300.0 / -modelViewPosition.z);
     gl_Position = projectionMatrix * modelViewPosition;
   }
 `;

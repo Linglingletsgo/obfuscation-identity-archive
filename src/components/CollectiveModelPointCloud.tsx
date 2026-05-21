@@ -49,7 +49,7 @@ const vertexShader = `
     float lightShade = 0.48 + spatialLight * 0.72 + selfShadow * 0.24 + rim * 0.32;
     vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * 0.16 + pointerField * 0.24) + accentGlow;
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
-    gl_PointSize = (0.24 + wave * 0.14 + partPulse * 0.05 + localInfluence * 0.2 + pointerField * 0.28) * (620.0 / -modelViewPosition.z);
+    gl_PointSize = (0.18 + wave * 0.105 + partPulse * 0.04 + localInfluence * 0.15 + pointerField * 0.21) * (620.0 / -modelViewPosition.z);
     gl_Position = projectionMatrix * modelViewPosition;
   }
 `;
