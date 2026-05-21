@@ -14,6 +14,7 @@ export function ArchiveExperience() {
   const { graph, view, timelineProgressRef } = useArchiveStore();
   const { message, status } = useArchiveData();
   const targetTimelineProgressRef = useRef(0);
+  const [sceneShellElement, setSceneShellElement] = useState<HTMLDivElement | null>(null);
   const viewRef = useRef(view);
   const individualScrollPositionRef = useRef({ x: 0, y: 0 });
   const collectiveScrollPositionRef = useRef({ x: 0, y: 0, progress: 0 });
@@ -168,8 +169,8 @@ export function ArchiveExperience() {
       data-entry-mode="unified"
       data-testid="archive-experience"
     >
-      <div className="archive-scene-shell">
-        <ArchiveScene />
+      <div className="archive-scene-shell" ref={setSceneShellElement}>
+        <ArchiveScene canvasEventSource={sceneShellElement ?? undefined} />
       </div>
       <div className="collective-scroll-gutter collective-scroll-gutter-left" aria-hidden="true" />
       <div className="collective-scroll-gutter collective-scroll-gutter-right" aria-hidden="true" />

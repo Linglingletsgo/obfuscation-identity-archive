@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { useArchiveStore } from "../state/archiveStore";
 import { getAvatarRevealOpacity } from "./EntryTimeline3D";
+import { useInteractionState } from "./InteractionContext";
 
 const vertexShader = `
   attribute vec3 color;
@@ -16,6 +17,7 @@ const vertexShader = `
   uniform vec3 uRayOrigin;
   uniform vec3 uRayDirection;
   uniform float uInfluence;
+  uniform float uPointerPresence;
   uniform float uPointerVelocity;
   uniform float uDragIntensity;
   uniform float uGlobalOpacity;
@@ -31,25 +33,26 @@ const vertexShader = `
     float partPulse = sin(partPhase * 3.0 + uTime * 1.4) * 0.5 + 0.5;
     float pointerFalloff = exp(-distanceToRay * 0.62);
     float motionPower = uPointerVelocity * 1.05 + uDragIntensity * 0.78;
-    float localInfluence = uInfluence * pointerFalloff * (0.5 + filament * 0.52);
+    float hoverPower = uPointerPresence * pointerFalloff;
+    float localInfluence = (uInfluence * 0.9 + uPointerPresence * 0.82) * pointerFalloff * (0.5 + filament * 0.52);
     float pointerField = pointerFalloff * motionPower;
-    float ripple = sin(distanceToRay * 3.2 - uTime * 8.4 + seed * 6.2831853) * pointerFalloff * motionPower;
+    float ripple = sin(distanceToRay * 3.2 - uTime * 8.4 + seed * 6.2831853) * pointerFalloff * (motionPower + hoverPower * 0.42);
     float interaction = abs(ripple) + pointerField * 0.72 + localInfluence * 0.18;
     vec3 direction = normalize(position + vec3(0.001, 0.013, 0.007));
     vec3 swirl = normalize(cross(uRayDirection, direction) + vec3(0.001, 0.002, 0.003));
     vec3 lightDirection = normalize(vec3(-0.32, 0.55, 0.78));
     float spatialLight = dot(direction, lightDirection) * 0.5 + 0.5;
     float selfShadow = smoothstep(0.0, 0.9, length(position.xy) * 0.055 + position.y * 0.018);
-    displaced += direction * (0.045 * wave + localInfluence * (0.2 + wave * 0.12) + pointerField * 0.18 + ripple * 0.14);
-    displaced += swirl * (localInfluence * 0.2 + pointerField * 0.24 + ripple * 0.22) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
+    displaced += direction * (0.045 * wave + localInfluence * (0.28 + wave * 0.16) + pointerField * 0.18 + hoverPower * 0.09 + ripple * 0.14);
+    displaced += swirl * (localInfluence * 0.28 + pointerField * 0.24 + hoverPower * 0.14 + ripple * 0.22) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
 
     vec3 baseColor = mix(partColor, color, 0.72);
-    vec3 accentGlow = baseColor * (0.07 + partPulse * 0.12 + localInfluence * 0.1 + pointerField * 0.18);
+    vec3 accentGlow = baseColor * (0.07 + partPulse * 0.12 + localInfluence * 0.16 + pointerField * 0.18 + hoverPower * 0.16);
     float rim = pow(1.0 - abs(dot(direction, vec3(0.0, 0.0, 1.0))), 2.2);
     float lightShade = 0.48 + spatialLight * 0.72 + selfShadow * 0.24 + rim * 0.32;
-    vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * 0.16 + pointerField * 0.24) + accentGlow;
+    vColor = baseColor * lightShade * (0.5 + wave * 0.16 + partPulse * 0.14 + localInfluence * 0.22 + pointerField * 0.24 + hoverPower * 0.2) + accentGlow;
     vec4 modelViewPosition = modelViewMatrix * vec4(displaced, 1.0);
-    gl_PointSize = (0.18 + wave * 0.105 + partPulse * 0.04 + localInfluence * 0.15 + pointerField * 0.21) * (620.0 / -modelViewPosition.z);
+    gl_PointSize = (0.18 + wave * 0.105 + partPulse * 0.04 + localInfluence * 0.18 + pointerField * 0.21 + hoverPower * 0.1) * (620.0 / -modelViewPosition.z);
     gl_Position = projectionMatrix * modelViewPosition;
   }
 `;
@@ -134,6 +137,7 @@ export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture,
       uRayOrigin: { value: new THREE.Vector3(0, 0, 999) },
       uRayDirection: { value: new THREE.Vector3(0, 0, -1) },
       uInfluence: { value: 0 },
+      uPointerPresence: { value: 0 },
       uPointerVelocity: { value: 0 },
       uDragIntensity: { value: 0 },
       uGlobalOpacity: { value: opacity },
@@ -160,10 +164,10 @@ export function CollectiveModelPointCloud({
   const { timelineProgressRef } = useArchiveStore();
   const pointsRef = useRef<THREE.Points>(null);
   const influenceRef = useRef(0);
+  const pointerPresenceRef = useRef(0);
   const velocityRef = useRef(0);
   const dragIntensityRef = useRef(0);
-  const pointerDownRef = useRef(false);
-  const pointerRef = useRef(new THREE.Vector2(0, 0));
+  const interactionRef = useInteractionState();
   const previousPointerRef = useRef(new THREE.Vector2(0, 0));
   const inverseWorldMatrixRef = useRef(new THREE.Matrix4());
   const localRayOriginRef = useRef(new THREE.Vector3());
@@ -190,29 +194,6 @@ export function CollectiveModelPointCloud({
     gl.compile(dummyPoints, camera);
   }, [gl, camera, geometry, material]);
 
-  useEffect(() => {
-    const handlePointerMove = (event: PointerEvent) => {
-      pointerRef.current.set(
-        (event.clientX / Math.max(1, window.innerWidth)) * 2 - 1,
-        -(event.clientY / Math.max(1, window.innerHeight)) * 2 + 1,
-      );
-    };
-    const handlePointerDown = () => {
-      pointerDownRef.current = true;
-    };
-    const handlePointerUp = () => {
-      pointerDownRef.current = false;
-    };
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    window.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("pointerup", handlePointerUp);
-    return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("pointerup", handlePointerUp);
-    };
-  }, []);
-
   useEffect(
     () => () => {
       geometry.dispose();
@@ -222,12 +203,13 @@ export function CollectiveModelPointCloud({
   );
 
   useFrame(({ clock }) => {
-    const pointer = pointerRef.current;
+    const { pointer, isDragging, isInside } = interactionRef.current;
     const previousPointer = previousPointerRef.current;
     const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
-    previousPointer.set(pointer.x, pointer.y);
+    previousPointer.copy(pointer);
     velocityRef.current += (Math.min(1, pointerDelta * 24) - velocityRef.current) * 0.26;
-    dragIntensityRef.current += ((pointerDownRef.current ? 0.56 : 0) - dragIntensityRef.current) * 0.16;
+    dragIntensityRef.current += ((isDragging ? 0.56 : 0) - dragIntensityRef.current) * 0.16;
+    pointerPresenceRef.current += ((isInside ? 1 : 0) - pointerPresenceRef.current) * 0.18;
     influenceRef.current += (0.34 - influenceRef.current) * 0.08;
     raycaster.setFromCamera(pointer, camera);
 
@@ -236,6 +218,7 @@ export function CollectiveModelPointCloud({
 
     material.uniforms.uTime.value = clock.elapsedTime;
     material.uniforms.uInfluence.value = influenceRef.current;
+    material.uniforms.uPointerPresence.value = pointerPresenceRef.current;
     material.uniforms.uPointerVelocity.value = velocityRef.current;
     material.uniforms.uDragIntensity.value = dragIntensityRef.current;
     material.uniforms.uGlobalOpacity.value = opacity;

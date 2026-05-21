@@ -11,6 +11,7 @@ import { RelationshipGraph3D } from "./RelationshipGraph3D";
 import { CollectiveAvatarField } from "./CollectiveAvatarField";
 import { AvatarShapeProvider } from "./AvatarShapeContext";
 import { CollectiveEnvironmentField } from "./CollectiveEnvironmentField";
+import { InteractionTracker, useInteractionState } from "./InteractionContext";
 import {
   COLLECTIVE_CAMERA_TRANSITION_END,
   EntryTimeline3D,
@@ -90,6 +91,16 @@ export function shouldRenderWebGLStage(view: ArchiveView): boolean {
 
 export function getNextWebGLRestartVersion(currentVersion: number): number {
   return currentVersion + 1;
+}
+
+export function shouldHandleBackgroundPointerMiss(
+  eventTarget: EventTarget | null,
+  canvasElement: HTMLCanvasElement | null,
+  eventSource?: HTMLElement,
+): boolean {
+  if (!(eventTarget instanceof HTMLElement)) return false;
+  if (eventTarget.closest(".identity-billboard, .tag-hover-label, .collective-identity-overlay")) return false;
+  return eventTarget === canvasElement || eventTarget === eventSource || eventTarget.classList.contains("archive-scene-shell");
 }
 
 function CollectiveCameraStateSync({
@@ -192,43 +203,26 @@ function CollectiveCameraStateSync({
 }
 
 function GlobalInteractionLights() {
-  const { camera, pointer, raycaster } = useThree();
+  const { camera, raycaster } = useThree();
   const { timelineProgressRef } = useArchiveStore();
   const keyLightRef = useRef<THREE.PointLight>(null);
   const fillLightRef = useRef<THREE.PointLight>(null);
-  const dragActiveRef = useRef(false);
+  const interactionRef = useInteractionState();
   const dragBoostRef = useRef(0);
   const velocityRef = useRef(0);
-  const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
+  const previousPointerRef = useRef(new THREE.Vector2(0, 0));
   const lightTargetRef = useRef(new THREE.Vector3(0, 0, 0));
   const keyLightTargetRef = useRef(new THREE.Vector3(0, 0, 8));
   const fillLightTargetRef = useRef(new THREE.Vector3(0, 0, -8));
   const lightPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), []);
 
-  useEffect(() => {
-    function handlePointerDown() {
-      dragActiveRef.current = true;
-      dragBoostRef.current = 1;
-    }
-
-    function handlePointerUp() {
-      dragActiveRef.current = false;
-    }
-
-    window.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("pointerup", handlePointerUp);
-    return () => {
-      window.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("pointerup", handlePointerUp);
-    };
-  }, []);
-
   useFrame(() => {
+    const { pointer, isDragging } = interactionRef.current;
     const previousPointer = previousPointerRef.current;
     const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
-    previousPointer.set(pointer.x, pointer.y);
+    previousPointer.copy(pointer);
     velocityRef.current += (Math.min(1, pointerDelta * 16) - velocityRef.current) * 0.18;
-    dragBoostRef.current += ((dragActiveRef.current ? 1 : 0) - dragBoostRef.current) * 0.12;
+    dragBoostRef.current += ((isDragging ? 1 : 0) - dragBoostRef.current) * 0.12;
 
     raycaster.setFromCamera(pointer, camera);
     raycaster.ray.intersectPlane(lightPlane, lightTargetRef.current);
@@ -319,7 +313,7 @@ function NavigationStateSync({
   return null;
 }
 
-export function ArchiveScene() {
+export function ArchiveScene({ canvasEventSource }: { canvasEventSource?: HTMLElement } = {}) {
   const { graph, selectNode, view, collectiveNavigation, updateCollectiveNavigation, timelineProgressRef } = useArchiveStore();
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const restartTimerRef = useRef<number | null>(null);
@@ -333,7 +327,8 @@ export function ArchiveScene() {
   const handleCanvasRef = useCallback((element: HTMLCanvasElement | null) => {
     setCanvasElement(element);
   }, []);
-  const handlePointerMissed = useCallback(() => {
+  const handlePointerMissed = useCallback((event: MouseEvent) => {
+    if (!shouldHandleBackgroundPointerMiss(event.target, canvasElement, canvasEventSource)) return;
     if (view !== "collective") return;
     selectNode(null);
     updateCollectiveNavigation({
@@ -341,7 +336,7 @@ export function ArchiveScene() {
       hoveredNodeId: null,
       hoveredTagLabel: null,
     });
-  }, [selectNode, updateCollectiveNavigation, view]);
+  }, [canvasElement, canvasEventSource, selectNode, updateCollectiveNavigation, view]);
 
   useEffect(() => {
     if (!canvasElement) return undefined;
@@ -377,7 +372,6 @@ export function ArchiveScene() {
     }),
     [webglRestartVersion],
   );
-
   const collectiveSceneReady = avatarShapePositions !== null;
   const collectiveScenePosition: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
   const [collectiveNavigationEnabled, setCollectiveNavigationEnabled] = useState(false);
@@ -394,52 +388,56 @@ export function ArchiveScene() {
       className="archive-canvas"
       data-webgl-restart-version={webglRestartVersion}
       dpr={getCanvasDevicePixelRatio()}
+      eventPrefix={canvasEventSource ? "client" : undefined}
+      eventSource={canvasEventSource}
       onPointerMissed={handlePointerMissed}
     >
       <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
-      <EntryTimeline3D />
-      {view === "collective" ? (
+      <InteractionTracker>
+        <EntryTimeline3D />
+        {view === "collective" ? (
+          <group position={collectiveScenePosition}>
+            <GlobalInteractionLights />
+            <Suspense fallback={null}>
+              <CollectiveEnvironmentField />
+            </Suspense>
+            <TransitionLights />
+          </group>
+        ) : null}
         <group position={collectiveScenePosition}>
-          <GlobalInteractionLights />
-          <Suspense fallback={null}>
-            <CollectiveEnvironmentField />
-          </Suspense>
-          <TransitionLights />
+          {shouldRenderCollectiveAvatarField(view) ? (
+            <CollectiveAvatarField onShapePositions={handleShapePositions} />
+          ) : null}
+          {shouldRenderGraphOutsideCollectiveAvatarSuspense(view) && collectiveSceneReady ? (
+            <AvatarShapeProvider value={avatarShapePositions}>
+              <RelationshipGraph3D graph={graph} />
+            </AvatarShapeProvider>
+          ) : collectiveSceneReady ? (
+            <Suspense fallback={null}>
+              <RelationshipGraph3D graph={graph} />
+            </Suspense>
+          ) : null}
         </group>
-      ) : null}
-      <group position={collectiveScenePosition}>
-        {shouldRenderCollectiveAvatarField(view) ? (
-          <CollectiveAvatarField onShapePositions={handleShapePositions} />
-        ) : null}
-        {shouldRenderGraphOutsideCollectiveAvatarSuspense(view) && collectiveSceneReady ? (
-          <AvatarShapeProvider value={avatarShapePositions}>
-            <RelationshipGraph3D graph={graph} />
-          </AvatarShapeProvider>
-        ) : collectiveSceneReady ? (
-          <Suspense fallback={null}>
-            <RelationshipGraph3D graph={graph} />
-          </Suspense>
-        ) : null}
-      </group>
-      <NavigationStateSync setEnabled={setCollectiveNavigationEnabled} enabled={collectiveNavigationEnabled} />
-      <CollectiveCameraStateSync
-        controlsRef={controlsRef}
-        enabled={collectiveNavigationEnabled}
-        resetKey={`collective:${webglRestartVersion}`}
-      />
-      <OrbitControls
-        ref={controlsRef}
-        enabled={collectiveNavigationEnabled}
-        enableDamping
-        enablePan={collectiveNavigationEnabled && !shouldDisableCollectivePan(view)}
-        enableRotate={collectiveNavigationEnabled}
-        enableZoom={collectiveNavigationEnabled}
-        autoRotate={false}
-        minDistance={archiveVisualConfig.camera.minDistance}
-        maxDistance={archiveVisualConfig.camera.maxDistance}
-      />
+        <NavigationStateSync setEnabled={setCollectiveNavigationEnabled} enabled={collectiveNavigationEnabled} />
+        <CollectiveCameraStateSync
+          controlsRef={controlsRef}
+          enabled={collectiveNavigationEnabled}
+          resetKey={`collective:${webglRestartVersion}`}
+        />
+        <OrbitControls
+          ref={controlsRef}
+          enabled={collectiveNavigationEnabled}
+          enableDamping
+          enablePan={collectiveNavigationEnabled && !shouldDisableCollectivePan(view)}
+          enableRotate={collectiveNavigationEnabled}
+          enableZoom={collectiveNavigationEnabled}
+          autoRotate={false}
+          minDistance={archiveVisualConfig.camera.minDistance}
+          maxDistance={archiveVisualConfig.camera.maxDistance}
+        />
+      </InteractionTracker>
     </Canvas>
   );
 }

@@ -54,6 +54,8 @@ describe("CollectiveIdentityOverlay", () => {
     expect(screen.getByTestId("view")).toHaveTextContent("collective");
 
     expect(screen.queryByText("Dream")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Selected identity preview")).toHaveStyle({ pointerEvents: "none" });
+    expect(screen.getByRole("button", { name: "Enter individual" })).toHaveStyle({ pointerEvents: "auto" });
 
     fireEvent.click(screen.getByRole("button", { name: "Enter individual" }));
     expect(screen.getByTestId("view")).toHaveTextContent("individual");

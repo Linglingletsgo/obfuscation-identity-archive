@@ -6,6 +6,7 @@ import {
   getNextWebGLRestartVersion,
   getCollectiveCameraTarget,
   shouldDisableCollectivePan,
+  shouldHandleBackgroundPointerMiss,
   shouldRenderCollectiveAvatarField,
   shouldRenderGraphOutsideCollectiveAvatarSuspense,
   shouldRenderWebGLStage,
@@ -55,9 +56,9 @@ describe("shouldRenderCollectiveAvatarField", () => {
   });
 
   it("locks collective camera controls around the avatar origin", () => {
-    expect(getCameraPositionForStage("collective")).toEqual([0, -57.5, 40]);
+    expect(getCameraPositionForStage("collective")).toEqual([0, -67.5, 40]);
     expect(getCameraPositionForStage("individual")).toEqual([0, 2.8, 8]);
-    expect(getCollectiveCameraTarget()).toEqual([0, -68, 0]);
+    expect(getCollectiveCameraTarget()).toEqual([0, -78, 0]);
     expect(shouldDisableCollectivePan("collective")).toBe(true);
   });
 
@@ -74,11 +75,24 @@ describe("shouldRenderCollectiveAvatarField", () => {
     expect(getCameraPositionForStage("collective", navigation)).toEqual([3, 6, 18]);
     expect(getCameraTargetForStage("collective", navigation)).toEqual([1, 0.5, -2]);
     expect(getCameraPositionForStage("individual", navigation)).toEqual([0, 2.8, 8]);
-    expect(getCameraTargetForStage("individual", navigation)).toEqual([0, -68, 0]);
+    expect(getCameraTargetForStage("individual", navigation)).toEqual([0, -78, 0]);
   });
 
   it("increments the canvas restart version after WebGL context loss", () => {
     expect(getNextWebGLRestartVersion(0)).toBe(1);
     expect(getNextWebGLRestartVersion(4)).toBe(5);
+  });
+
+  it("keeps background deselection limited to direct canvas misses", () => {
+    const canvas = document.createElement("canvas");
+    const shell = document.createElement("div");
+    shell.className = "archive-scene-shell";
+    const labelTarget = document.createElement("span");
+    labelTarget.className = "identity-billboard";
+
+    expect(shouldHandleBackgroundPointerMiss(canvas, canvas)).toBe(true);
+    expect(shouldHandleBackgroundPointerMiss(shell, canvas, shell)).toBe(true);
+    expect(shouldHandleBackgroundPointerMiss(labelTarget, canvas)).toBe(false);
+    expect(shouldHandleBackgroundPointerMiss(null, canvas)).toBe(false);
   });
 });

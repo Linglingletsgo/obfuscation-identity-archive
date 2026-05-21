@@ -12,12 +12,21 @@ export function CollectiveIdentityOverlay({ identities }: { identities: ArchiveG
   if (view !== "collective" || !selectedIdentity) return null;
 
   return (
-    <aside className="collective-identity-overlay" aria-label="Selected identity preview">
+    <aside
+      className="collective-identity-overlay"
+      style={{ pointerEvents: "none" }}
+      aria-label="Selected identity preview"
+    >
       <div>
         <strong>Name: {selectedIdentity.identity_name || selectedIdentity.id}</strong>
         {selectedIdentity.carried_fragment ? <p>{selectedIdentity.carried_fragment}</p> : null}
       </div>
-      <button type="button" onClick={() => enterIdentityDetail(selectedIdentity.id)} aria-label="Enter individual">
+      <button
+        type="button"
+        style={{ pointerEvents: "auto" }}
+        onClick={() => enterIdentityDetail(selectedIdentity.id)}
+        aria-label="Enter individual"
+      >
         Enter Individual
       </button>
     </aside>

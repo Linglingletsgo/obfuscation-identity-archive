@@ -50,6 +50,11 @@ select {
 .archive-canvas {
   width: 100vw;
   height: 100vh;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .archive-scene-shell {
@@ -125,6 +130,63 @@ select {
     0 0 0 1px rgba(66, 214, 179, 0.06),
     0 18px 48px rgba(0, 0, 0, 0.34);
   transition: opacity 120ms linear;
+}
+
+.timeline-3d-intro-card {
+  display: grid;
+  width: min(780px, 72vw);
+  gap: 16px;
+  padding: 24px 26px;
+  color: #fff8e8;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9);
+  background: rgba(7, 10, 10, 0.5);
+  border: 1px solid rgba(255, 248, 232, 0.18);
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 1px rgba(66, 214, 179, 0.07),
+    0 22px 58px rgba(0, 0, 0, 0.38);
+  transition: opacity 120ms linear;
+}
+
+.timeline-3d-intro-card span {
+  color: #42d6b3;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.timeline-3d-intro-card h1,
+.timeline-3d-intro-card p {
+  margin: 0;
+}
+
+.timeline-3d-intro-card h1 {
+  color: #fff8e8;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.timeline-3d-intro-card p {
+  max-width: 720px;
+  color: rgba(255, 248, 232, 0.8);
+  font-size: clamp(14px, 1.3vw, 18px);
+  line-height: 1.45;
+}
+
+.timeline-3d-intro-card a {
+  color: #dffcf2;
+  font-weight: 750;
+  text-decoration-color: rgba(66, 214, 179, 0.54);
+  text-underline-offset: 3px;
+}
+
+.timeline-3d-intro-card a:hover,
+.timeline-3d-intro-card a:focus-visible {
+  color: #ffffff;
+  outline: none;
+  text-decoration-color: rgba(255, 255, 255, 0.86);
 }
 
 .timeline-3d-event-card:hover,
@@ -447,6 +509,7 @@ select {
 .individual-detail-sidebar li {
   padding: 4px 7px;
   color: #dffcf2;
+  cursor: default;
   font-size: 12px;
   background: rgba(66, 214, 179, 0.12);
   border: 1px solid rgba(66, 214, 179, 0.24);
@@ -457,6 +520,11 @@ select {
     box-shadow 140ms ease,
     color 140ms ease,
     transform 140ms ease;
+}
+
+.individual-detail-sidebar li:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.72);
+  outline-offset: 2px;
 }
 
 .individual-detail-sidebar li.is-active {

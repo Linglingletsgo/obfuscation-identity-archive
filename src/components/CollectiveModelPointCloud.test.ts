@@ -44,6 +44,7 @@ describe("CollectiveModelPointCloud", () => {
     expect(material.uniforms.uRayOrigin).toBeDefined();
     expect(material.uniforms.uRayDirection).toBeDefined();
     expect(material.uniforms.uInfluence).toBeDefined();
+    expect(material.uniforms.uPointerPresence).toBeDefined();
     expect(material.uniforms.uPointerVelocity).toBeDefined();
     expect(material.uniforms.uDragIntensity).toBeDefined();
     expect(material.uniforms.uPointTexture).toBeDefined();

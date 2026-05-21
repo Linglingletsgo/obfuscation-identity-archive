@@ -8,6 +8,7 @@ import { loadBakedEnvironmentPointCloud, type BakedEnvironmentPointCloud } from 
 import { normalizePointCloudPositions, sampleObjectSurface } from "../data/avatarShape";
 import { useArchiveStore } from "../state/archiveStore";
 import { getAvatarRevealOpacity } from "./EntryTimeline3D";
+import { useInteractionState } from "./InteractionContext";
 
 const environmentVertexShader = `
   attribute vec3 color;
@@ -26,7 +27,7 @@ const environmentVertexShader = `
 
   void main() {
     vec3 displaced = position;
-    vec2 pointerWorld = uPointer * vec2(15.0, 8.5);
+    vec2 pointerWorld = uPointer;
     float pointerDistance = distance(position.xy, pointerWorld);
     float interactionPower = uPointerPresence * 0.2 + uPointerVelocity * 0.82 + uDragIntensity * 0.95;
     float ripple = sin(pointerDistance * 5.0 - uTime * 7.6 + seed * 2.0) * exp(-pointerDistance * 0.62) * interactionPower;
@@ -232,16 +233,17 @@ function PreparedEnvironmentField({
   geometry?: THREE.BufferGeometry;
   pointTexture: THREE.Texture;
 }) {
-  const { gl, camera } = useThree();
+  const { gl, camera, raycaster } = useThree();
   const { timelineProgressRef } = useArchiveStore();
   const pointsRef = useRef<THREE.Points>(null);
-  const dragActiveRef = useRef(false);
+  const interactionRef = useInteractionState();
   const dragRef = useRef(0);
   const pointerPresentRef = useRef(0);
-  const pointerInsideRef = useRef(false);
   const velocityRef = useRef(0);
-  const pointerRef = useRef(new THREE.Vector2(0, 0));
   const previousPointerRef = useRef(new THREE.Vector2(0, 0));
+  const inverseWorldMatrixRef = useRef(new THREE.Matrix4());
+  const localPointerWorldRef = useRef(new THREE.Vector3(0, 0, 0));
+  const pointerPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), []);
   const geometry = useMemo(
     () => fallbackGeometry ?? (bakedPointCloud ? createBakedEnvironmentGeometry(bakedPointCloud) : new THREE.BufferGeometry()),
     [bakedPointCloud, fallbackGeometry],
@@ -271,55 +273,14 @@ function PreparedEnvironmentField({
     [geometry, material],
   );
 
-  useEffect(() => {
-    function handlePointerMove(event: PointerEvent) {
-      pointerRef.current.set(
-        (event.clientX / Math.max(1, window.innerWidth)) * 2 - 1,
-        -(event.clientY / Math.max(1, window.innerHeight)) * 2 + 1,
-      );
-      pointerInsideRef.current = true;
-    }
-
-    function handlePointerEnter() {
-      pointerInsideRef.current = true;
-    }
-
-    function handlePointerLeave() {
-      pointerInsideRef.current = false;
-    }
-
-    function handlePointerDown() {
-      pointerInsideRef.current = true;
-      dragActiveRef.current = true;
-      dragRef.current = 1;
-    }
-
-    function handlePointerUp() {
-      dragActiveRef.current = false;
-    }
-
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    window.addEventListener("pointerenter", handlePointerEnter);
-    window.addEventListener("pointerleave", handlePointerLeave);
-    window.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("pointerup", handlePointerUp);
-    return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("pointerenter", handlePointerEnter);
-      window.removeEventListener("pointerleave", handlePointerLeave);
-      window.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("pointerup", handlePointerUp);
-    };
-  }, []);
-
   useFrame(({ clock }) => {
-    const pointer = pointerRef.current;
+    const { pointer, isDragging, isInside } = interactionRef.current;
     const previousPointer = previousPointerRef.current;
     const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
-    previousPointer.set(pointer.x, pointer.y);
+    previousPointer.copy(pointer);
     velocityRef.current += (Math.min(1, pointerDelta * 14) - velocityRef.current) * 0.16;
-    dragRef.current += ((dragActiveRef.current ? 1 : 0) - dragRef.current) * 0.12;
-    pointerPresentRef.current += ((pointerInsideRef.current ? 1 : 0.35) - pointerPresentRef.current) * 0.08;
+    dragRef.current += ((isDragging ? 1 : 0) - dragRef.current) * 0.12;
+    pointerPresentRef.current += ((isInside ? 1 : 0.35) - pointerPresentRef.current) * 0.08;
 
     const progress = timelineProgressRef.current;
     const opacity = getAvatarRevealOpacity(progress);
@@ -327,7 +288,27 @@ function PreparedEnvironmentField({
     material.uniforms.uTime.value = clock.elapsedTime;
     material.uniforms.uDragIntensity.value = dragRef.current;
     material.uniforms.uGlobalOpacity.value = opacity;
-    material.uniforms.uPointer.value.set(pointer.x, pointer.y);
+
+    raycaster.setFromCamera(pointer, camera);
+    const points = pointsRef.current;
+    if (points) {
+      points.updateWorldMatrix(true, false);
+      inverseWorldMatrixRef.current.copy(points.matrixWorld).invert();
+
+      const localRayOrigin = new THREE.Vector3().copy(raycaster.ray.origin).applyMatrix4(inverseWorldMatrixRef.current);
+      const localRayDirection = new THREE.Vector3().copy(raycaster.ray.direction).transformDirection(inverseWorldMatrixRef.current);
+      const localRay = new THREE.Ray(localRayOrigin, localRayDirection);
+
+      localRay.intersectPlane(pointerPlane, localPointerWorldRef.current);
+
+      material.uniforms.uPointer.value.set(
+        localPointerWorldRef.current.x * 0.51,
+        localPointerWorldRef.current.y * 0.51
+      );
+    } else {
+      material.uniforms.uPointer.value.set(pointer.x * 15.0, pointer.y * 8.5);
+    }
+
     material.uniforms.uPointerPresence.value = pointerPresentRef.current;
     material.uniforms.uPointerVelocity.value = velocityRef.current;
 

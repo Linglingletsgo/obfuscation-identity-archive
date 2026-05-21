@@ -69,6 +69,8 @@ test("opens into collective overview without in-scene search controls", async ({
 
 test("index database link opens searchable 2D identity table", async ({ page }) => {
   await page.goto("/");
+  await expect(page.getByTestId("archive-experience")).toBeVisible();
+  await page.waitForFunction(() => document.documentElement.scrollHeight > 1000);
   await page.evaluate(() => {
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     window.scrollTo({ top: maxScroll * 0.76, behavior: "auto" });
@@ -117,9 +119,9 @@ test("collective orbit drag does not snap back to its initial camera framing", a
   await expectCollectiveWebGLVisible(page);
 
   const before = await getCollectiveWebGLPixelCentroid(page);
-  await page.mouse.move(760, 360);
+  await page.mouse.move(200, 200);
   await page.mouse.down();
-  await page.mouse.move(840, 420, { steps: 8 });
+  await page.mouse.move(600, 200, { steps: 8 });
   await page.mouse.up();
   await page.waitForTimeout(1400);
   const after = await getCollectiveWebGLPixelCentroid(page);
@@ -134,9 +136,9 @@ test("collective remounts the WebGL scene after context loss", async ({ page }) 
   await enterCollectiveFromTimeline(page);
   await expect(page.locator(".archive-experience")).toHaveAttribute("data-view", "collective");
   await expectCollectiveWebGLVisible(page);
-  await page.mouse.move(760, 360);
+  await page.mouse.move(200, 200);
   await page.mouse.down();
-  await page.mouse.move(820, 390, { steps: 6 });
+  await page.mouse.move(300, 200, { steps: 6 });
   await page.mouse.up();
   await expectCollectiveWebGLVisible(page);
 
@@ -149,7 +151,7 @@ test("collective remounts the WebGL scene after context loss", async ({ page }) 
 test("collective identity preview enters detail through explicit action", async ({ page }) => {
   await page.goto("/");
   await enterCollectiveFromTimeline(page);
-  await webGLCanvas(page).click({ position: { x: 400, y: 300 } });
+  await page.mouse.click(400, 300);
 
   const overlay = page.getByLabel("Selected identity preview");
   if (await overlay.isVisible()) {

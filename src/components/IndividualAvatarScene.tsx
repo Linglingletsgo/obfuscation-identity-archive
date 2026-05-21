@@ -1,8 +1,9 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { RotateCcw } from "lucide-react";
 import { useArchiveStore } from "../state/archiveStore";
 import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
 import { AvatarImage } from "./AvatarImage";
+import { ensureGlobalInteractionListeners, getGlobalClientInteractionSnapshot } from "./InteractionContext";
 
 type IndividualTagNode = {
   label: string;
@@ -82,12 +83,12 @@ function IndividualTagNodeItem({
   return (
     <li
       className={`stage-detail-tag-node${isActive ? " is-active" : ""}`}
+      data-individual-tag-label={node.label}
       style={{ "--tag-x": `${node.x}%`, "--tag-y": `${node.y}%`, "--tag-delay": `${node.x * -0.027}s` } as CSSProperties}
       title={node.label}
-      tabIndex={0}
-      aria-selected={isActive}
-      onBlur={onDeactivate}
-      onFocus={() => onActivate(node.label)}
+      onPointerEnter={() => onActivate(node.label)}
+      onPointerMove={() => onActivate(node.label)}
+      onPointerLeave={onDeactivate}
       onMouseEnter={() => onActivate(node.label)}
       onMouseLeave={onDeactivate}
     >
@@ -99,9 +100,13 @@ function IndividualTagNodeItem({
 
 function IndividualDetailSidebar({
   activeTagLabel,
+  onActivateTag,
+  onDeactivateTag,
   sceneState,
 }: {
   activeTagLabel: string | null;
+  onActivateTag: (label: string) => void;
+  onDeactivateTag: () => void;
   sceneState: IndividualSceneState;
 }) {
   return (
@@ -119,7 +124,16 @@ function IndividualDetailSidebar({
         <h3>Tags</h3>
         <ul>
           {sceneState.tagLabels.map((label) => (
-            <li className={label === activeTagLabel ? "is-active" : undefined} key={label}>
+            <li
+              className={label === activeTagLabel ? "is-active" : undefined}
+              data-individual-tag-label={label}
+              key={label}
+              onPointerEnter={() => onActivateTag(label)}
+              onPointerMove={() => onActivateTag(label)}
+              onPointerLeave={onDeactivateTag}
+              onMouseEnter={() => onActivateTag(label)}
+              onMouseLeave={onDeactivateTag}
+            >
               {label}
             </li>
           ))}
@@ -136,6 +150,63 @@ export function IndividualAvatarScene() {
     () => (view === "individual" ? getIndividualSceneState(graph, selectedIdentityId) : null),
     [graph, selectedIdentityId, view],
   );
+
+  useEffect(() => {
+    if (!sceneState) return undefined;
+    ensureGlobalInteractionListeners();
+
+    let frameId = 0;
+    let lastHoverLabel: string | null = null;
+    const tagLabels = new Set(sceneState.tagLabels);
+
+    function findHoveredTagLabel(clientX: number, clientY: number): string | null {
+      let nextHoverLabel: string | null = null;
+      if (clientX >= 0 && clientY >= 0 && clientX <= window.innerWidth && clientY <= window.innerHeight) {
+        const element = document.elementFromPoint(clientX, clientY);
+        const tagElement = element instanceof Element ? element.closest<HTMLElement>("[data-individual-tag-label]") : null;
+        const label = tagElement?.dataset.individualTagLabel ?? null;
+        nextHoverLabel = label && tagLabels.has(label) ? label : null;
+      }
+      return nextHoverLabel;
+    }
+
+    function setHoveredLabel(nextHoverLabel: string | null) {
+      if (nextHoverLabel !== lastHoverLabel) {
+        lastHoverLabel = nextHoverLabel;
+        setActiveTagLabel(nextHoverLabel);
+      }
+    }
+
+    function syncHoveredTagFromPointer() {
+      const pointer = getGlobalClientInteractionSnapshot();
+      setHoveredLabel(pointer.hasPointer ? findHoveredTagLabel(pointer.clientX, pointer.clientY) : null);
+
+      frameId = window.requestAnimationFrame(syncHoveredTagFromPointer);
+    }
+
+    function syncHoveredTagFromEvent(event: PointerEvent | MouseEvent) {
+      setHoveredLabel(findHoveredTagLabel(event.clientX, event.clientY));
+    }
+
+    frameId = window.requestAnimationFrame(syncHoveredTagFromPointer);
+    const options = { capture: true, passive: true } as const;
+    window.addEventListener("pointermove", syncHoveredTagFromEvent, options);
+    document.addEventListener("pointermove", syncHoveredTagFromEvent, options);
+    window.addEventListener("mousemove", syncHoveredTagFromEvent, options);
+    document.addEventListener("mousemove", syncHoveredTagFromEvent, options);
+    window.addEventListener("pointerup", syncHoveredTagFromEvent, options);
+    document.addEventListener("pointerup", syncHoveredTagFromEvent, options);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener("pointermove", syncHoveredTagFromEvent, options);
+      document.removeEventListener("pointermove", syncHoveredTagFromEvent, options);
+      window.removeEventListener("mousemove", syncHoveredTagFromEvent, options);
+      document.removeEventListener("mousemove", syncHoveredTagFromEvent, options);
+      window.removeEventListener("pointerup", syncHoveredTagFromEvent, options);
+      document.removeEventListener("pointerup", syncHoveredTagFromEvent, options);
+    };
+  }, [sceneState]);
 
   if (!sceneState) return null;
 
@@ -170,7 +241,12 @@ export function IndividualAvatarScene() {
           ))}
         </ol>
       </div>
-      <IndividualDetailSidebar activeTagLabel={activeTagLabel} sceneState={sceneState} />
+      <IndividualDetailSidebar
+        activeTagLabel={activeTagLabel}
+        onActivateTag={setActiveTagLabel}
+        onDeactivateTag={() => setActiveTagLabel(null)}
+        sceneState={sceneState}
+      />
     </section>
   );
 }

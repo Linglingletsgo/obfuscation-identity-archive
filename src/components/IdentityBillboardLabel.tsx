@@ -26,13 +26,11 @@ export function IdentityBillboardLabel({
         style={{ pointerEvents: "auto" }}
         tabIndex={0}
         onClick={(event) => {
-          event.stopPropagation();
           onClick?.();
         }}
         onKeyDown={(event) => {
           if (event.key !== "Enter" && event.key !== " ") return;
           event.preventDefault();
-          event.stopPropagation();
           onClick?.();
         }}
       >
