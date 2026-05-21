@@ -232,7 +232,7 @@ function PreparedEnvironmentField({
   geometry?: THREE.BufferGeometry;
   pointTexture: THREE.Texture;
 }) {
-  const { pointer, gl, camera } = useThree();
+  const { gl, camera } = useThree();
   const { timelineProgressRef } = useArchiveStore();
   const pointsRef = useRef<THREE.Points>(null);
   const dragActiveRef = useRef(false);
@@ -240,7 +240,8 @@ function PreparedEnvironmentField({
   const pointerPresentRef = useRef(0);
   const pointerInsideRef = useRef(false);
   const velocityRef = useRef(0);
-  const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
+  const pointerRef = useRef(new THREE.Vector2(0, 0));
+  const previousPointerRef = useRef(new THREE.Vector2(0, 0));
   const geometry = useMemo(
     () => fallbackGeometry ?? (bakedPointCloud ? createBakedEnvironmentGeometry(bakedPointCloud) : new THREE.BufferGeometry()),
     [bakedPointCloud, fallbackGeometry],
@@ -271,6 +272,14 @@ function PreparedEnvironmentField({
   );
 
   useEffect(() => {
+    function handlePointerMove(event: PointerEvent) {
+      pointerRef.current.set(
+        (event.clientX / Math.max(1, window.innerWidth)) * 2 - 1,
+        -(event.clientY / Math.max(1, window.innerHeight)) * 2 + 1,
+      );
+      pointerInsideRef.current = true;
+    }
+
     function handlePointerEnter() {
       pointerInsideRef.current = true;
     }
@@ -289,11 +298,13 @@ function PreparedEnvironmentField({
       dragActiveRef.current = false;
     }
 
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
     window.addEventListener("pointerenter", handlePointerEnter);
     window.addEventListener("pointerleave", handlePointerLeave);
     window.addEventListener("pointerdown", handlePointerDown);
     window.addEventListener("pointerup", handlePointerUp);
     return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerenter", handlePointerEnter);
       window.removeEventListener("pointerleave", handlePointerLeave);
       window.removeEventListener("pointerdown", handlePointerDown);
@@ -302,6 +313,7 @@ function PreparedEnvironmentField({
   }, []);
 
   useFrame(({ clock }) => {
+    const pointer = pointerRef.current;
     const previousPointer = previousPointerRef.current;
     const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
     previousPointer.set(pointer.x, pointer.y);

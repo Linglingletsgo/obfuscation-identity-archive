@@ -156,14 +156,15 @@ export function CollectiveModelPointCloud({
   partIds: Float32Array;
   positions: Float32Array;
 }) {
-  const { camera, pointer, raycaster, gl } = useThree();
+  const { camera, raycaster, gl } = useThree();
   const { timelineProgressRef } = useArchiveStore();
   const pointsRef = useRef<THREE.Points>(null);
   const influenceRef = useRef(0);
   const velocityRef = useRef(0);
   const dragIntensityRef = useRef(0);
   const pointerDownRef = useRef(false);
-  const previousPointerRef = useRef(new THREE.Vector2(pointer.x, pointer.y));
+  const pointerRef = useRef(new THREE.Vector2(0, 0));
+  const previousPointerRef = useRef(new THREE.Vector2(0, 0));
   const inverseWorldMatrixRef = useRef(new THREE.Matrix4());
   const localRayOriginRef = useRef(new THREE.Vector3());
   const localRayDirectionRef = useRef(new THREE.Vector3());
@@ -190,15 +191,23 @@ export function CollectiveModelPointCloud({
   }, [gl, camera, geometry, material]);
 
   useEffect(() => {
+    const handlePointerMove = (event: PointerEvent) => {
+      pointerRef.current.set(
+        (event.clientX / Math.max(1, window.innerWidth)) * 2 - 1,
+        -(event.clientY / Math.max(1, window.innerHeight)) * 2 + 1,
+      );
+    };
     const handlePointerDown = () => {
       pointerDownRef.current = true;
     };
     const handlePointerUp = () => {
       pointerDownRef.current = false;
     };
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
     window.addEventListener("pointerdown", handlePointerDown);
     window.addEventListener("pointerup", handlePointerUp);
     return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("pointerup", handlePointerUp);
     };
@@ -213,6 +222,7 @@ export function CollectiveModelPointCloud({
   );
 
   useFrame(({ clock }) => {
+    const pointer = pointerRef.current;
     const previousPointer = previousPointerRef.current;
     const pointerDelta = Math.hypot(pointer.x - previousPointer.x, pointer.y - previousPointer.y);
     previousPointer.set(pointer.x, pointer.y);
