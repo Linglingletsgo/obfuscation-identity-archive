@@ -336,6 +336,9 @@ function createEnvironmentAttributes(positions, colors) {
     const randomD = ((index * 19937) % 2147483647) / 2147483647;
     const randomE = ((index * 44497) % 2147483647) / 2147483647;
     const randomF = ((index * 96821) % 2147483647) / 2147483647;
+    const randomG = ((index * 15619) % 2147483647) / 2147483647;
+    const randomH = ((index * 78233) % 2147483647) / 2147483647;
+    const randomI = ((index * 39157) % 2147483647) / 2147483647;
     const sourceX = positions[offset];
     const sourceY = positions[offset + 1];
     const sourceZ = positions[offset + 2];
@@ -356,21 +359,26 @@ function createEnvironmentAttributes(positions, colors) {
     const bitangentX = bitangentSeedX / bitangentLength;
     const bitangentY = bitangentSeedY / bitangentLength;
     const bitangentZ = bitangentSeedZ / bitangentLength;
-    const jitterRadius = 0.8 + Math.pow(randomA, 1.25) * 5.8;
+    const jitterRadius = 1.8 + Math.pow(randomA, 1.08) * 9.4;
     const jitterTheta = randomB * Math.PI * 2;
     const tangentScale = Math.cos(jitterTheta) * jitterRadius;
-    const bitangentScale = Math.sin(jitterTheta) * jitterRadius * 0.86;
-    const radialScale = (randomD - 0.5) * 4.8;
-    const volumeBlend = randomF < 0.34 ? 0.32 + randomD * 0.3 : 0;
-    const volumeX = (randomA - 0.5) * 52;
-    const volumeY = (randomB - 0.5) * 30;
-    const volumeZ = (randomC - 0.5) * 38 - 6;
+    const bitangentScale = Math.sin(jitterTheta) * jitterRadius * 1.18;
+    const radialScale = (randomD - 0.5) * 8.6;
+    const volumeBlend = randomF < 0.62 ? 0.46 + randomD * 0.38 : 0;
+    const volumeX = (randomA - 0.5) * 72;
+    const volumeY = (randomB - 0.5) * 42;
+    const volumeZ = (randomC - 0.5) * 56 - 8;
+    const nearScatter = Math.max(0, 1 - sourceLength / 36);
+    const nearScatterScale = 3.2 + nearScatter * nearScatter * 16;
+    const nearScatterX = (randomG - 0.5) * nearScatterScale;
+    const nearScatterY = (randomH - 0.5) * nearScatterScale * 0.82;
+    const nearScatterZ = (randomI - 0.5) * nearScatterScale;
     const scatteredX =
-      sourceX + tangentX * tangentScale + bitangentX * bitangentScale + radialX * radialScale;
+      sourceX + tangentX * tangentScale + bitangentX * bitangentScale + radialX * radialScale + nearScatterX;
     const scatteredY =
-      sourceY + tangentY * tangentScale + bitangentY * bitangentScale + radialY * radialScale;
+      sourceY + tangentY * tangentScale + bitangentY * bitangentScale + radialY * radialScale + nearScatterY;
     const scatteredZ =
-      sourceZ + tangentZ * tangentScale + bitangentZ * bitangentScale + radialZ * radialScale;
+      sourceZ + tangentZ * tangentScale + bitangentZ * bitangentScale + radialZ * radialScale + nearScatterZ;
     seeds[index] = seed;
     alphaSeeds[index] = randomE;
     sizes[index] = 0.45 + Math.pow(randomF, 2.2) * 1.35;

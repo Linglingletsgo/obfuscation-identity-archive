@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { CanvasTexture, Color, Sprite, SpriteMaterial } from "three";
+import { useLoader } from "@react-three/fiber";
+import { CanvasTexture, Color, SRGBColorSpace, Sprite, SpriteMaterial, Texture, TextureLoader } from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import type { ArchiveGraphNode } from "../types/archive";
 
@@ -10,6 +11,13 @@ export type NodeSpriteSpec = {
   color: string;
   scale: number;
   opacity: number;
+};
+
+const NODE_SPRITE_TEXTURE_PATHS: Record<SpriteShape, string> = {
+  "identity-mark": "/assets/handdrawn/ui/node-identity.png",
+  "dot-mark": "/assets/handdrawn/ui/node-tag.png",
+  "timeline-mark": "/assets/handdrawn/ui/node-tag.png",
+  "collective-mark": "/assets/handdrawn/ui/node-collective.png",
 };
 
 export function getNodeSpriteSpec(node: ArchiveGraphNode): NodeSpriteSpec {
@@ -48,6 +56,80 @@ export function getNodeSpriteSpec(node: ArchiveGraphNode): NodeSpriteSpec {
   };
 }
 
+function jitter(value: number, seed: number, amount: number): number {
+  return value + Math.sin(seed * 12.9898 + value * 78.233) * amount;
+}
+
+function drawRoughEllipse(
+  context: CanvasRenderingContext2D,
+  centerX: number,
+  centerY: number,
+  radiusX: number,
+  radiusY: number,
+  rotation: number,
+  seed: number,
+) {
+  for (let pass = 0; pass < 2; pass += 1) {
+    context.beginPath();
+    for (let index = 0; index <= 32; index += 1) {
+      const angle = (index / 32) * Math.PI * 2;
+      const roughRadiusX = jitter(radiusX, seed + index + pass * 31, 2.8);
+      const roughRadiusY = jitter(radiusY, seed + index + pass * 47, 2.4);
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+      const rotatedX = cos * roughRadiusX * Math.cos(rotation) - sin * roughRadiusY * Math.sin(rotation);
+      const rotatedY = cos * roughRadiusX * Math.sin(rotation) + sin * roughRadiusY * Math.cos(rotation);
+      const x = centerX + rotatedX;
+      const y = centerY + rotatedY;
+      if (index === 0) {
+        context.moveTo(x, y);
+      } else {
+        context.lineTo(x, y);
+      }
+    }
+    context.closePath();
+    if (pass === 0) context.fill();
+    context.stroke();
+  }
+}
+
+function drawRoughPolygon(
+  context: CanvasRenderingContext2D,
+  points: Array<[number, number]>,
+  seed: number,
+) {
+  for (let pass = 0; pass < 2; pass += 1) {
+    context.beginPath();
+    points.forEach(([pointX, pointY], index) => {
+      const x = jitter(pointX, seed + index + pass * 13, 3.2);
+      const y = jitter(pointY, seed + index + pass * 17, 3.2);
+      if (index === 0) {
+        context.moveTo(x, y);
+      } else {
+        context.lineTo(x, y);
+      }
+    });
+    context.closePath();
+    if (pass === 0) context.fill();
+    context.stroke();
+  }
+}
+
+function addCrayonTexture(context: CanvasRenderingContext2D, color: string, opacity: number) {
+  context.save();
+  context.globalAlpha = opacity;
+  context.strokeStyle = color;
+  context.lineWidth = 1.4;
+  for (let index = 0; index < 32; index += 1) {
+    const y = 24 + index * 2.6;
+    context.beginPath();
+    context.moveTo(22 + jitter(0, index, 5), y + jitter(0, index + 3, 2));
+    context.lineTo(106 + jitter(0, index + 7, 5), y + jitter(0, index + 11, 2));
+    context.stroke();
+  }
+  context.restore();
+}
+
 function createSpriteTexture(spec: NodeSpriteSpec): CanvasTexture {
   const canvas = document.createElement("canvas");
   canvas.width = 128;
@@ -57,42 +139,32 @@ function createSpriteTexture(spec: NodeSpriteSpec): CanvasTexture {
   if (!context) return new CanvasTexture(canvas);
 
   context.clearRect(0, 0, canvas.width, canvas.height);
-  context.strokeStyle = archiveVisualConfig.colors.ink;
+  context.lineCap = "round";
+  context.lineJoin = "round";
+  context.strokeStyle = "#17120f";
   context.fillStyle = spec.color;
-  context.globalAlpha = spec.opacity;
-  context.lineWidth = spec.shape === "dot-mark" ? 5 : 8;
+  context.globalAlpha = Math.min(1, spec.opacity + 0.2);
+  context.lineWidth = spec.shape === "dot-mark" ? 4.8 : 7.6;
+  context.shadowColor = "rgba(23, 18, 15, 0.3)";
+  context.shadowBlur = spec.shape === "dot-mark" ? 2 : 4;
+  context.shadowOffsetX = 2;
+  context.shadowOffsetY = 2;
 
   if (spec.shape === "dot-mark") {
-    context.beginPath();
-    context.ellipse(64, 64, 18, 13, -0.3, 0, Math.PI * 2);
-    context.fill();
-    context.stroke();
+    drawRoughEllipse(context, 64, 64, 19, 13, -0.28, 1);
+    addCrayonTexture(context, "#fffdf8", 0.16);
   } else if (spec.shape === "timeline-mark") {
-    context.beginPath();
-    context.moveTo(34, 30);
-    context.lineTo(96, 64);
-    context.lineTo(34, 98);
-    context.closePath();
-    context.fill();
-    context.stroke();
+    drawRoughPolygon(context, [[33, 28], [98, 64], [32, 100]], 2);
+    addCrayonTexture(context, "#fff3c8", 0.12);
   } else if (spec.shape === "collective-mark") {
-    context.beginPath();
-    context.arc(64, 64, 34, 0, Math.PI * 2);
-    context.fill();
-    context.stroke();
+    drawRoughEllipse(context, 64, 64, 35, 31, 0.18, 3);
+    addCrayonTexture(context, "#fffdf8", 0.12);
     context.globalAlpha = spec.opacity * 0.45;
-    context.beginPath();
-    context.arc(64, 64, 48, 0, Math.PI * 2);
-    context.stroke();
+    context.lineWidth = 3.5;
+    drawRoughEllipse(context, 64, 64, 49, 45, -0.1, 4);
   } else {
-    context.beginPath();
-    context.moveTo(25, 42);
-    context.quadraticCurveTo(58, 15, 95, 36);
-    context.quadraticCurveTo(112, 68, 88, 98);
-    context.quadraticCurveTo(50, 114, 24, 86);
-    context.quadraticCurveTo(10, 62, 25, 42);
-    context.fill();
-    context.stroke();
+    drawRoughPolygon(context, [[25, 42], [58, 18], [94, 34], [107, 68], [88, 98], [49, 112], [23, 86], [14, 61]], 5);
+    addCrayonTexture(context, "#fffdf8", 0.14);
   }
 
   const texture = new CanvasTexture(canvas);
@@ -120,9 +192,13 @@ export function configureGraphNodeSpriteObject(object: Sprite): Sprite {
   return object;
 }
 
-export function createGraphNodeSpriteObject(spec: NodeSpriteSpec, opacityMultiplier: number): Sprite {
+export function createGraphNodeSpriteObject(
+  spec: NodeSpriteSpec,
+  opacityMultiplier: number,
+  texture?: Texture,
+): Sprite {
   const material = new SpriteMaterial({
-    map: createSpriteTexture(spec),
+    map: texture ?? createSpriteTexture(spec),
     color: new Color("#ffffff"),
     transparent: true,
     opacity: spec.opacity * opacityMultiplier,
@@ -142,9 +218,12 @@ export function GraphNodeSprite({
   onPointerOver,
 }: GraphNodeSpriteProps) {
   const spec = getNodeSpriteSpec(node);
+  const texture = useLoader(TextureLoader, NODE_SPRITE_TEXTURE_PATHS[spec.shape]);
+  texture.colorSpace = SRGBColorSpace;
+  texture.needsUpdate = true;
   const sprite = useMemo(
-    () => createGraphNodeSpriteObject(spec, opacityMultiplier),
-    [opacityMultiplier, spec.color, spec.opacity, spec.scale, spec.shape],
+    () => createGraphNodeSpriteObject(spec, opacityMultiplier, texture),
+    [opacityMultiplier, spec.color, spec.opacity, spec.scale, spec.shape, texture],
   );
 
   sprite.position.set(node.position.x, node.position.y, node.position.z);

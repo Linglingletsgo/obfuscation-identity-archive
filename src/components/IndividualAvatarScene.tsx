@@ -3,6 +3,7 @@ import { RotateCcw } from "lucide-react";
 import { useArchiveStore } from "../state/archiveStore";
 import type { ArchiveGraph, ArchiveGraphNode } from "../types/archive";
 import { AvatarImage } from "./AvatarImage";
+import { INDIVIDUAL_RETURN_PATH_KEY } from "./ArchiveIndexPage";
 import { ensureGlobalInteractionListeners, getGlobalClientInteractionSnapshot } from "./InteractionContext";
 
 type IndividualTagNode = {
@@ -146,6 +147,9 @@ function IndividualDetailSidebar({
 export function IndividualAvatarScene() {
   const { graph, openCollective, selectedIdentityId, view } = useArchiveStore();
   const [activeTagLabel, setActiveTagLabel] = useState<string | null>(null);
+  const [returnPath, setReturnPath] = useState<string | null>(() => {
+    return typeof window === "undefined" ? null : window.sessionStorage.getItem(INDIVIDUAL_RETURN_PATH_KEY);
+  });
   const sceneState = useMemo(
     () => (view === "individual" ? getIndividualSceneState(graph, selectedIdentityId) : null),
     [graph, selectedIdentityId, view],
@@ -153,6 +157,22 @@ export function IndividualAvatarScene() {
   const tagLabelSet = useMemo(() => new Set(sceneState?.tagLabels ?? []), [sceneState?.tagLabels]);
   const activateTag = useCallback((label: string) => setActiveTagLabel(label), []);
   const deactivateTag = useCallback(() => setActiveTagLabel(null), []);
+  const returnFromIndividual = useCallback(() => {
+    const nextReturnPath = window.sessionStorage.getItem(INDIVIDUAL_RETURN_PATH_KEY);
+    window.sessionStorage.removeItem(INDIVIDUAL_RETURN_PATH_KEY);
+    setReturnPath(null);
+    openCollective();
+
+    if (nextReturnPath === "/index") {
+      window.history.pushState(null, "", nextReturnPath);
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    }
+  }, [openCollective]);
+
+  useEffect(() => {
+    if (view !== "individual") return;
+    setReturnPath(window.sessionStorage.getItem(INDIVIDUAL_RETURN_PATH_KEY));
+  }, [selectedIdentityId, view]);
 
   useEffect(() => {
     if (!sceneState) return undefined;
@@ -212,16 +232,19 @@ export function IndividualAvatarScene() {
 
   if (!sceneState) return null;
 
+  const backTargetLabel = returnPath === "/index" ? "Index" : "Collective";
+  const backTargetDescription = returnPath === "/index" ? "index database" : "collective";
+
   return (
     <section className="individual-avatar-scene" aria-label="Individual avatar scene">
       <button
         type="button"
         className="individual-back-button"
-        onClick={openCollective}
-        aria-label="Return to collective"
+        onClick={returnFromIndividual}
+        aria-label={`Return to ${backTargetDescription}`}
       >
         <RotateCcw size={18} />
-        <span>Collective</span>
+        <span>{backTargetLabel}</span>
       </button>
       <div className="individual-avatar-stage">
         <div className="stage-detail-avatar-visual">

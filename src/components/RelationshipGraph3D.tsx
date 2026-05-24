@@ -110,12 +110,17 @@ function shouldRenderCollectiveGraphLink(
 }
 
 export function getCollectiveLinkOpacity(link: ArchiveGraphLink, focusedNodeId: string | null): number {
+  const defaultCollectiveOpacity = link.type === "shared_tag" ? 0.56 : 0.48;
   if (!focusedNodeId) {
-    return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag" ? 0.38 : 0;
+    return link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag"
+      ? defaultCollectiveOpacity
+      : 0;
   }
   const connected = link.source === focusedNodeId || link.target === focusedNodeId;
   if (!connected) return 0;
-  if (link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag") return 0.38;
+  if (link.type === "shared_tag" || link.type === "interaction" || link.type === "conflict_tag") {
+    return defaultCollectiveOpacity;
+  }
   return link.visual.opacity;
 }
 
@@ -124,8 +129,8 @@ export function getGraphLinkStyle(link: ArchiveGraphLink, view: ArchiveView, foc
 
   if (link.type === "shared_tag") {
     return {
-      color: view === "collective" ? "#42d6b3" : archiveVisualConfig.colors.tag,
-      lineWidth: 0.7,
+      color: view === "collective" ? "#ffd95a" : archiveVisualConfig.colors.tag,
+      lineWidth: view === "collective" ? 0.42 : 0.7,
       opacity: collectiveOpacity,
       dashed: false,
     };
@@ -134,7 +139,7 @@ export function getGraphLinkStyle(link: ArchiveGraphLink, view: ArchiveView, foc
   if (link.type === "interaction") {
     return {
       color: view === "collective" ? "#1f6fff" : archiveVisualConfig.colors.shared,
-      lineWidth: view === "collective" ? 0.7 : 1,
+      lineWidth: view === "collective" ? 0.38 : 1,
       opacity: collectiveOpacity,
       dashed: false,
     };
@@ -143,7 +148,7 @@ export function getGraphLinkStyle(link: ArchiveGraphLink, view: ArchiveView, foc
   if (link.type === "conflict_tag") {
     return {
       color: view === "collective" ? "#ff5c7a" : archiveVisualConfig.colors.conflict,
-      lineWidth: view === "collective" ? 0.7 : 1,
+      lineWidth: view === "collective" ? 0.38 : 1,
       opacity: collectiveOpacity,
       dashed: true,
     };

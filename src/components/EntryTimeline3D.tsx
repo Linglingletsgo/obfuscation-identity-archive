@@ -283,7 +283,7 @@ export function EntryTimeline3D() {
       <TimelineCameraRig />
       <TimelineMistField />
       <ambientLight intensity={0.45} />
-      <pointLight color="#42d6b3" intensity={0.85} position={[0, 18, 8]} />
+      <pointLight color="#f5c842" intensity={0.85} position={[0, 18, 8]} />
       <Html center distanceFactor={10} position={[0, INTRO_PANEL_Y, -3.5]} transform zIndexRange={[90, 50]}>
         <TimelineIntroPanel ref={introRef} />
       </Html>

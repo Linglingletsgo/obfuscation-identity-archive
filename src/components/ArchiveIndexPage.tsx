@@ -5,6 +5,7 @@ import type { ArchiveGraphNode } from "../types/archive";
 
 const EMPTY_NODES: ArchiveGraphNode[] = [];
 const MAX_VISIBLE_TAGS = 8;
+export const INDIVIDUAL_RETURN_PATH_KEY = "obfuscation-identity-return-path";
 
 type IdentityIndexRow = {
   carriedFragment: string;
@@ -85,6 +86,7 @@ export function ArchiveIndexPage() {
   const rows = useMemo(() => getVisibleIdentityRows(identityRows, query), [identityRows, query]);
 
   const openIdentity = useCallback((identityId: string) => {
+    window.sessionStorage.setItem(INDIVIDUAL_RETURN_PATH_KEY, "/index");
     enterIdentityDetail(identityId);
     window.history.pushState(null, "", "/");
     window.dispatchEvent(new PopStateEvent("popstate"));

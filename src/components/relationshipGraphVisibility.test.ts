@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { ArchiveGraph, ArchiveGraphLink, ArchiveGraphNode } from "../types/archive";
+import type {
+  ArchiveGraph,
+  ArchiveGraphLink,
+  ArchiveGraphNode,
+} from "../types/archive";
 import {
   getCollectiveLinkOpacity,
   getGraphLinkStyle,
@@ -15,7 +19,11 @@ import {
   shouldShowTagLabel,
 } from "./RelationshipGraph3D";
 
-function link(type: ArchiveGraphLink["type"], source = "a", target = "b"): ArchiveGraphLink {
+function link(
+  type: ArchiveGraphLink["type"],
+  source = "a",
+  target = "b",
+): ArchiveGraphLink {
   return {
     id: `${type}:${source}:${target}`,
     source,
@@ -57,7 +65,11 @@ function searchableNode(
 }
 
 const graph: ArchiveGraph = {
-  nodes: [searchableNode("a", ["Dream"]), searchableNode("b", ["Dream"]), searchableNode("c", ["Other"])],
+  nodes: [
+    searchableNode("a", ["Dream"]),
+    searchableNode("b", ["Dream"]),
+    searchableNode("c", ["Other"]),
+  ],
   links: [],
   metadata: {
     layout: "deterministic-avatar-map",
@@ -98,24 +110,41 @@ describe("RelationshipGraph3D visibility helpers", () => {
       selectedIdentityId: null,
     });
 
-    expect(getViewScopedGraphLinks(scopedGraph, scopedNodes, null, "collective").map((item) => item.id)).toEqual([
+    expect(
+      getViewScopedGraphLinks(scopedGraph, scopedNodes, null, "collective").map(
+        (item) => item.id,
+      ),
+    ).toEqual([
       "shared_tag:a:tag:Dream",
       "interaction:a:b",
       "conflict_tag:b:tag:Dream",
     ]);
-    expect(getViewScopedGraphLinks(scopedGraph, scopedNodes, "a", "collective").map((item) => item.id)).toEqual([
-      "shared_tag:a:tag:Dream",
-      "interaction:a:b",
-    ]);
-    expect(getCollectiveLinkOpacity(link("shared_tag", "a", "tag:Dream"), null)).toBe(0.38);
-    expect(getCollectiveLinkOpacity(link("interaction", "a", "b"), null)).toBe(0.38);
-    expect(getCollectiveLinkOpacity(link("conflict_tag", "a", "b"), null)).toBe(0.38);
+    expect(
+      getViewScopedGraphLinks(scopedGraph, scopedNodes, "a", "collective").map(
+        (item) => item.id,
+      ),
+    ).toEqual(["shared_tag:a:tag:Dream", "interaction:a:b"]);
+    expect(
+      getCollectiveLinkOpacity(link("shared_tag", "a", "tag:Dream"), null),
+    ).toBe(0.56);
+    expect(getCollectiveLinkOpacity(link("interaction", "a", "b"), null)).toBe(
+      0.48,
+    );
+    expect(getCollectiveLinkOpacity(link("conflict_tag", "a", "b"), null)).toBe(
+      0.48,
+    );
   });
 
   it("applies link density only to the default collective state", () => {
-    const denseNodes = Array.from({ length: 81 }, (_, index) => searchableNode(`node:${index}`, ["Dream"]));
+    const denseNodes = Array.from({ length: 81 }, (_, index) =>
+      searchableNode(`node:${index}`, ["Dream"]),
+    );
     const denseLinks = Array.from({ length: 80 }, (_, index) =>
-      link(index % 2 === 0 ? "interaction" : "shared_tag", `node:${index}`, `node:${index + 1}`),
+      link(
+        index % 2 === 0 ? "interaction" : "shared_tag",
+        `node:${index}`,
+        `node:${index + 1}`,
+      ),
     );
     const denseGraph: ArchiveGraph = {
       ...graph,
@@ -127,33 +156,59 @@ describe("RelationshipGraph3D visibility helpers", () => {
       selectedIdentityId: null,
     });
 
-    const fullDefaultLinks = getViewScopedGraphLinks(denseGraph, scopedNodes, null, "collective", 1);
-    const sparseDefaultLinks = getViewScopedGraphLinks(denseGraph, scopedNodes, null, "collective", 0.1);
-    const focusedLinks = getViewScopedGraphLinks(denseGraph, scopedNodes, "node:0", "collective", 0);
+    const fullDefaultLinks = getViewScopedGraphLinks(
+      denseGraph,
+      scopedNodes,
+      null,
+      "collective",
+      1,
+    );
+    const sparseDefaultLinks = getViewScopedGraphLinks(
+      denseGraph,
+      scopedNodes,
+      null,
+      "collective",
+      0.1,
+    );
+    const focusedLinks = getViewScopedGraphLinks(
+      denseGraph,
+      scopedNodes,
+      "node:0",
+      "collective",
+      0,
+    );
 
     expect(fullDefaultLinks).toHaveLength(80);
     expect(sparseDefaultLinks.length).toBeGreaterThan(0);
     expect(sparseDefaultLinks.length).toBeLessThan(fullDefaultLinks.length);
-    expect(focusedLinks.map((item) => item.id)).toEqual(["interaction:node:0:node:1"]);
+    expect(focusedLinks.map((item) => item.id)).toEqual([
+      "interaction:node:0:node:1",
+    ]);
   });
 
   it("uses relationship-specific collective link colors and traces", () => {
-    expect(getGraphLinkStyle(link("shared_tag"), "collective", "a")).toMatchObject({
-      color: "#42d6b3",
-      lineWidth: 0.7,
-      opacity: 0.38,
+    expect(
+      getGraphLinkStyle(link("shared_tag"), "collective", "a"),
+    ).toMatchObject({
+      color: "#ffd95a",
+      lineWidth: 0.42,
+      opacity: 0.56,
       dashed: false,
     });
-    expect(getGraphLinkStyle(link("interaction"), "collective", "a")).toMatchObject({
+    expect(
+      getGraphLinkStyle(link("interaction"), "collective", "a"),
+    ).toMatchObject({
       color: "#1f6fff",
-      lineWidth: 0.7,
-      opacity: 0.38,
+      lineWidth: 0.38,
+      opacity: 0.48,
       dashed: false,
     });
-    expect(getGraphLinkStyle(link("conflict_tag"), "collective", "a")).toMatchObject({
+    expect(
+      getGraphLinkStyle(link("conflict_tag"), "collective", "a"),
+    ).toMatchObject({
       color: "#ff5c7a",
-      lineWidth: 0.7,
-      opacity: 0.38,
+      lineWidth: 0.38,
+      opacity: 0.48,
       dashed: true,
     });
   });
@@ -162,8 +217,12 @@ describe("RelationshipGraph3D visibility helpers", () => {
     const conflict = link("conflict_tag", "a", "tag:Dream");
     conflict.visual.opacity = 0.72;
 
-    expect(shouldDisplayGraphLink(conflict, "collective", null, 0.2)).toBe(true);
-    expect(shouldDisplayGraphLink(conflict, "individual", null, 0.2)).toBe(false);
+    expect(shouldDisplayGraphLink(conflict, "collective", null, 0.2)).toBe(
+      true,
+    );
+    expect(shouldDisplayGraphLink(conflict, "individual", null, 0.2)).toBe(
+      false,
+    );
   });
 
   it("uses a depth-independent render policy for collective graph objects", () => {
@@ -186,7 +245,9 @@ describe("RelationshipGraph3D visibility helpers", () => {
       nodes: [
         searchableNode("a", ["Dream"], "submission", 0, ["a"]),
         searchableNode("tag:Dream", ["Dream"], "tag", 2),
-        searchableNode("timeline:a-stage0", ["Dream"], "timeline_item", 0, ["a"]),
+        searchableNode("timeline:a-stage0", ["Dream"], "timeline_item", 0, [
+          "a",
+        ]),
         searchableNode("collective:global", [], "collective", 2),
       ],
     };
@@ -220,27 +281,76 @@ describe("RelationshipGraph3D visibility helpers", () => {
   it("shows identity billboards for all collective identities only", () => {
     const identity = searchableNode("a", ["Dream"], "submission", 0, ["a"]);
 
-    expect(shouldShowIdentityBillboard(identity, { view: "collective", focusedNodeId: null })).toBe(true);
-    expect(shouldShowIdentityBillboard(identity, { view: "individual", focusedNodeId: "a" })).toBe(false);
+    expect(
+      shouldShowIdentityBillboard(identity, {
+        view: "collective",
+        focusedNodeId: null,
+      }),
+    ).toBe(true);
+    expect(
+      shouldShowIdentityBillboard(identity, {
+        view: "individual",
+        focusedNodeId: "a",
+      }),
+    ).toBe(false);
   });
 
   it("shows tag labels in individual view but keeps collective tag labels hover-only", () => {
     const tag = searchableNode("tag:Dream", ["Dream"], "tag", 2, []);
 
-    expect(shouldShowTagLabel(tag, { view: "individual", focusedNodeId: null })).toBe(true);
-    expect(shouldShowTagLabel(tag, { view: "collective", focusedNodeId: null })).toBe(false);
-    expect(shouldShowTagLabel(tag, { view: "collective", focusedNodeId: "tag:Dream" })).toBe(true);
+    expect(
+      shouldShowTagLabel(tag, { view: "individual", focusedNodeId: null }),
+    ).toBe(true);
+    expect(
+      shouldShowTagLabel(tag, { view: "collective", focusedNodeId: null }),
+    ).toBe(false);
+    expect(
+      shouldShowTagLabel(tag, {
+        view: "collective",
+        focusedNodeId: "tag:Dream",
+      }),
+    ).toBe(true);
   });
 
   it("keeps collective hover from opening a selected-node side panel", () => {
-    expect(shouldSelectNodeOnCollectiveHover(searchableNode("tag:Dream", ["Dream"], "tag", 2), "collective")).toBe(false);
-    expect(shouldSelectNodeOnCollectiveHover(searchableNode("a", ["Dream"], "submission", 0, ["a"]), "collective")).toBe(false);
-    expect(shouldSelectNodeOnCollectiveHover(searchableNode("collective:global", [], "collective", 2), "collective")).toBe(false);
+    expect(
+      shouldSelectNodeOnCollectiveHover(
+        searchableNode("tag:Dream", ["Dream"], "tag", 2),
+        "collective",
+      ),
+    ).toBe(false);
+    expect(
+      shouldSelectNodeOnCollectiveHover(
+        searchableNode("a", ["Dream"], "submission", 0, ["a"]),
+        "collective",
+      ),
+    ).toBe(false);
+    expect(
+      shouldSelectNodeOnCollectiveHover(
+        searchableNode("collective:global", [], "collective", 2),
+        "collective",
+      ),
+    ).toBe(false);
   });
 
   it("allows click locking only on collective identity nodes", () => {
-    expect(shouldCollectiveNodeClickLock(searchableNode("a", ["Dream"], "submission", 0, ["a"]), "collective")).toBe(true);
-    expect(shouldCollectiveNodeClickLock(searchableNode("collective:global", [], "collective", 2), "collective")).toBe(false);
-    expect(shouldCollectiveNodeClickLock(searchableNode("tag:Dream", ["Dream"], "tag", 2), "collective")).toBe(false);
+    expect(
+      shouldCollectiveNodeClickLock(
+        searchableNode("a", ["Dream"], "submission", 0, ["a"]),
+        "collective",
+      ),
+    ).toBe(true);
+    expect(
+      shouldCollectiveNodeClickLock(
+        searchableNode("collective:global", [], "collective", 2),
+        "collective",
+      ),
+    ).toBe(false);
+    expect(
+      shouldCollectiveNodeClickLock(
+        searchableNode("tag:Dream", ["Dream"], "tag", 2),
+        "collective",
+      ),
+    ).toBe(false);
   });
 });
