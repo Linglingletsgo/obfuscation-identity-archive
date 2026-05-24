@@ -159,6 +159,12 @@ function materialPaintWeight(color) {
   return Math.max(0, chromaWeight * notInk * notPaper);
 }
 
+function meshPartNumber(mesh, fallback) {
+  const source = `${mesh.name || ""} ${mesh.parent?.name || ""}`;
+  const match = source.match(/\bpart[_-]?(\d+)\b/i);
+  return match ? Number(match[1]) : fallback;
+}
+
 function triangleVertexIndex(mesh, triangleIndex, corner) {
   const index = mesh.geometry.index;
   const vertexOffset = triangleIndex * 3 + corner;
@@ -230,9 +236,10 @@ function sampleObjectSurface(scene, maxSamples) {
   const colors = new Float32Array(pointCapacity * 3);
   const partColors = new Float32Array(pointCapacity * 3);
   const partIds = new Float32Array(pointCapacity);
+  const partNumbers = new Float32Array(pointCapacity);
   let sampleCount = 0;
 
-  function pushSample(position, color, normalizedPartId) {
+  function pushSample(position, color, normalizedPartId, partNumber) {
     if (sampleCount >= pointCapacity) return false;
     const offset = sampleCount * 3;
     sampled[offset] = position.x;
@@ -245,6 +252,7 @@ function sampleObjectSurface(scene, maxSamples) {
     partColors[offset + 1] = color.g;
     partColors[offset + 2] = color.b;
     partIds[sampleCount] = normalizedPartId;
+    partNumbers[sampleCount] = partNumber;
     sampleCount += 1;
     return true;
   }
@@ -254,6 +262,7 @@ function sampleObjectSurface(scene, maxSamples) {
     const uv = mesh.geometry?.attributes.uv;
     if (!position) return;
     const normalizedPartId = partIndex / Math.max(1, meshCount - 1);
+    const partNumber = meshPartNumber(mesh, partIndex);
     const partColorStart = sampleCount * 3;
     let partColorR = 0;
     let partColorG = 0;
@@ -281,7 +290,7 @@ function sampleObjectSurface(scene, maxSamples) {
       const uvPoint = uv ? new THREE.Vector2(uv.getX(index), uv.getY(index)) : undefined;
       const baseColor = materialColor(mesh.material, uvPoint);
       mesh.localToWorld(vector);
-      if (!pushSample(vector, baseColor, normalizedPartId)) break;
+      if (!pushSample(vector, baseColor, normalizedPartId, partNumber)) break;
       addPartColor(baseColor);
     }
 
@@ -290,7 +299,7 @@ function sampleObjectSurface(scene, maxSamples) {
     for (let extraIndex = 0; extraIndex < meshExtraSamples && triangles > 0; extraIndex += 1) {
       const triangleIndex = (extraIndex * 37 + partIndex * 131) % triangles;
       const point = interpolatedTrianglePoint(mesh, triangleIndex, extraIndex + partIndex * 8191 + 1);
-      if (!pushSample(point.position, point.color, normalizedPartId)) break;
+      if (!pushSample(point.position, point.color, normalizedPartId, partNumber)) break;
       addPartColor(point.color);
     }
 
@@ -315,6 +324,7 @@ function sampleObjectSurface(scene, maxSamples) {
     colors: colors.slice(0, sampleCount * 3),
     partColors: partColors.slice(0, sampleCount * 3),
     partIds: partIds.slice(0, sampleCount),
+    partNumbers: partNumbers.slice(0, sampleCount),
     positions: sampled.slice(0, sampleCount * 3),
   };
 }
@@ -444,6 +454,7 @@ async function writeBakedTarget(target) {
           color: { array: surface.colors, components: 3 },
           partColor: { array: surface.partColors, components: 3 },
           partId: { array: surface.partIds, components: 1 },
+          partNumber: { array: surface.partNumbers, components: 1 },
           position: { array: normalized.positions, components: 3 },
         }
       : Object.fromEntries(

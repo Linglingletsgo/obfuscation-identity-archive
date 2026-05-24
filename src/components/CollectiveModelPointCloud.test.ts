@@ -17,6 +17,7 @@ describe("CollectiveModelPointCloud", () => {
     expect(geometry.getAttribute("color").count).toBe(2);
     expect(geometry.getAttribute("partColor").count).toBe(2);
     expect(geometry.getAttribute("partId").count).toBe(2);
+    expect(geometry.getAttribute("partNumber").count).toBe(2);
     expect(geometry.getAttribute("seed").count).toBe(2);
 
     geometry.dispose();
@@ -28,12 +29,14 @@ describe("CollectiveModelPointCloud", () => {
       new Float32Array([1, 0, 0, 0, 1, 0]),
       new Float32Array([0.8, 0.4, 0.2, 0.2, 0.5, 0.9]),
       new Float32Array([0, 1]),
+      new Float32Array([20, 21]),
     );
 
     expect([...geometry.getAttribute("partColor").array].map((value) => Number(value.toFixed(2)))).toEqual([
       0.8, 0.4, 0.2, 0.2, 0.5, 0.9,
     ]);
     expect([...geometry.getAttribute("partId").array]).toEqual([0, 1]);
+    expect([...geometry.getAttribute("partNumber").array]).toEqual([20, 21]);
 
     geometry.dispose();
   });

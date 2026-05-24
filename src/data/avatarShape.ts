@@ -12,6 +12,7 @@ export type AvatarSurfaceSample = {
   colors: Float32Array;
   partColors: Float32Array;
   partIds: Float32Array;
+  partNumbers: Float32Array;
 };
 
 const textureImageDataCache = new WeakMap<THREE.Texture, ImageData | null>();
@@ -165,6 +166,12 @@ function materialPaintWeight(color: THREE.Color): number {
   return Math.max(0, chromaWeight * notInk * notPaper);
 }
 
+function meshPartNumber(mesh: THREE.Mesh, fallback: number): number {
+  const source = `${mesh.name} ${mesh.parent?.name ?? ""}`;
+  const match = source.match(/\bpart[_-]?(\d+)\b/i);
+  return match ? Number(match[1]) : fallback;
+}
+
 function triangleVertexIndex(mesh: THREE.Mesh, triangleIndex: number, corner: number): number {
   const index = mesh.geometry.index;
   const vertexOffset = triangleIndex * 3 + corner;
@@ -241,9 +248,15 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
   const colors = new Float32Array(pointCapacity * 3);
   const partColors = new Float32Array(pointCapacity * 3);
   const partIds = new Float32Array(pointCapacity);
+  const partNumbers = new Float32Array(pointCapacity);
   let sampleCount = 0;
 
-  function pushSample(position: THREE.Vector3, color: THREE.Color, normalizedPartId: number): boolean {
+  function pushSample(
+    position: THREE.Vector3,
+    color: THREE.Color,
+    normalizedPartId: number,
+    partNumber: number,
+  ): boolean {
     if (sampleCount >= pointCapacity) return false;
     const offset = sampleCount * 3;
     sampled[offset] = position.x;
@@ -256,6 +269,7 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
     partColors[offset + 1] = color.g;
     partColors[offset + 2] = color.b;
     partIds[sampleCount] = normalizedPartId;
+    partNumbers[sampleCount] = partNumber;
     sampleCount += 1;
     return true;
   }
@@ -265,6 +279,7 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
     const uv = mesh.geometry?.attributes.uv;
     if (!position) return;
     const normalizedPartId = partIndex / Math.max(1, meshCount - 1);
+    const partNumber = meshPartNumber(mesh, partIndex);
     const partColorStart = sampleCount * 3;
     let partColorR = 0;
     let partColorG = 0;
@@ -292,7 +307,7 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
       const uvPoint = uv ? new THREE.Vector2(uv.getX(index), uv.getY(index)) : undefined;
       const baseColor = materialColor(mesh.material, uvPoint);
       mesh.localToWorld(vector);
-      if (!pushSample(vector, baseColor, normalizedPartId)) break;
+      if (!pushSample(vector, baseColor, normalizedPartId, partNumber)) break;
       addPartColor(baseColor);
     }
 
@@ -301,7 +316,7 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
     for (let extraIndex = 0; extraIndex < meshExtraSamples && triangles > 0; extraIndex += 1) {
       const triangleIndex = (extraIndex * 37 + partIndex * 131) % triangles;
       const point = interpolatedTrianglePoint(mesh, triangleIndex, extraIndex + partIndex * 8191 + 1);
-      if (!pushSample(point.position, point.color, normalizedPartId)) break;
+      if (!pushSample(point.position, point.color, normalizedPartId, partNumber)) break;
       addPartColor(point.color);
     }
 
@@ -328,6 +343,7 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
       colors: new Float32Array([0.78, 0.82, 0.76, 0.78, 0.82, 0.76, 0.78, 0.82, 0.76]),
       partColors: new Float32Array([0.86, 0.54, 0.3, 0.86, 0.54, 0.3, 0.86, 0.54, 0.3]),
       partIds: new Float32Array([0, 0, 0]),
+      partNumbers: new Float32Array([0, 0, 0]),
     };
   }
 
@@ -336,6 +352,7 @@ export function sampleObjectSurface(scene: Object3D, maxSamples = 12000): Avatar
     colors: colors.slice(0, sampleCount * 3),
     partColors: partColors.slice(0, sampleCount * 3),
     partIds: partIds.slice(0, sampleCount),
+    partNumbers: partNumbers.slice(0, sampleCount),
   };
 }
 

@@ -15,9 +15,14 @@
       "byteOffset": 4319688,
       "components": 1
     },
+    "partNumber": {
+      "byteLength": 719948,
+      "byteOffset": 5039636,
+      "components": 1
+    },
     "position": {
       "byteLength": 2159844,
-      "byteOffset": 5039636,
+      "byteOffset": 5759584,
       "components": 3
     }
   },

@@ -19,6 +19,7 @@ export type BakedCollectiveModelPointCloud = {
   normalization: AvatarNormalization;
   partColors: Float32Array;
   partIds: Float32Array;
+  partNumbers: Float32Array;
   positions: Float32Array;
 };
 
@@ -80,8 +81,8 @@ export async function loadBakedCollectiveModelPointCloud(
   manifestUrl: string,
 ): Promise<BakedCollectiveModelPointCloud> {
   const { buffer, manifest } = await loadBakedPointCloud(manifestUrl);
-  const { color, partColor, partId, position } = manifest.attributes;
-  if (!manifest.normalization || !position || !color || !partColor || !partId) {
+  const { color, partColor, partId, partNumber, position } = manifest.attributes;
+  if (!manifest.normalization || !position || !color || !partColor || !partId || !partNumber) {
     throw new Error(`Invalid baked collective model point cloud manifest: ${manifestUrl}`);
   }
 
@@ -90,6 +91,7 @@ export async function loadBakedCollectiveModelPointCloud(
     normalization: manifest.normalization,
     partColors: floatAttribute(buffer, partColor),
     partIds: floatAttribute(buffer, partId),
+    partNumbers: floatAttribute(buffer, partNumber),
     positions: floatAttribute(buffer, position),
   };
 }

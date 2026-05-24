@@ -11,6 +11,7 @@ const vertexShader = `
   attribute vec3 color;
   attribute vec3 partColor;
   attribute float partId;
+  attribute float partNumber;
   attribute float seed;
   varying vec3 vColor;
   uniform float uTime;
@@ -106,6 +107,7 @@ export function createCollectiveModelPointGeometry(positions: Float32Array, colo
   geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   geometry.setAttribute("partColor", new THREE.BufferAttribute(colors, 3));
   geometry.setAttribute("partId", new THREE.BufferAttribute(new Float32Array(pointCount), 1));
+  geometry.setAttribute("partNumber", new THREE.BufferAttribute(new Float32Array(pointCount), 1));
   geometry.setAttribute("seed", new THREE.BufferAttribute(createSeeds(pointCount), 1));
   geometry.computeBoundingSphere();
   return geometry;
@@ -116,6 +118,7 @@ export function createCollectiveModelPartGeometry(
   colors: Float32Array,
   partColors: Float32Array,
   partIds: Float32Array,
+  partNumbers: Float32Array,
 ): THREE.BufferGeometry {
   const geometry = new THREE.BufferGeometry();
   const pointCount = Math.floor(positions.length / 3);
@@ -123,6 +126,7 @@ export function createCollectiveModelPartGeometry(
   geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   geometry.setAttribute("partColor", new THREE.BufferAttribute(partColors, 3));
   geometry.setAttribute("partId", new THREE.BufferAttribute(partIds, 1));
+  geometry.setAttribute("partNumber", new THREE.BufferAttribute(partNumbers, 1));
   geometry.setAttribute("seed", new THREE.BufferAttribute(createSeeds(pointCount), 1));
   geometry.computeBoundingSphere();
   return geometry;
@@ -153,11 +157,13 @@ export function CollectiveModelPointCloud({
   colors,
   partColors,
   partIds,
+  partNumbers,
   positions,
 }: {
   colors: Float32Array;
   partColors: Float32Array;
   partIds: Float32Array;
+  partNumbers: Float32Array;
   positions: Float32Array;
 }) {
   const { camera, raycaster, gl } = useThree();
@@ -174,8 +180,8 @@ export function CollectiveModelPointCloud({
   const localRayDirectionRef = useRef(new THREE.Vector3());
   const pointTexture = useLoader(THREE.TextureLoader, archiveVisualConfig.assets.collectiveParticleTexturePath);
   const geometry = useMemo(
-    () => createCollectiveModelPartGeometry(positions, colors, partColors, partIds),
-    [colors, partColors, partIds, positions],
+    () => createCollectiveModelPartGeometry(positions, colors, partColors, partIds, partNumbers),
+    [colors, partColors, partIds, partNumbers, positions],
   );
   const material = useMemo(() => {
     pointTexture.colorSpace = THREE.SRGBColorSpace;
@@ -187,7 +193,6 @@ export function CollectiveModelPointCloud({
     pointTexture.needsUpdate = true;
     return createCollectiveModelPointMaterial(pointTexture);
   }, [pointTexture]);
-
   useEffect(() => {
     // Precompile model point cloud shaders
     const dummyPoints = new THREE.Points(geometry, material);
@@ -236,16 +241,19 @@ export function CollectiveModelPointCloud({
     if (points) {
       points.visible = opacity > MIN_RENDER_OPACITY;
     }
+
   });
 
   return (
-    <points
-      ref={pointsRef}
-      geometry={geometry}
-      material={material}
-      frustumCulled={false}
-      renderOrder={8}
-      visible={false}
-    />
+    <group>
+      <points
+        ref={pointsRef}
+        geometry={geometry}
+        material={material}
+        frustumCulled={false}
+        renderOrder={8}
+        visible={false}
+      />
+    </group>
   );
 }

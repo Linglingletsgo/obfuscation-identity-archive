@@ -17,6 +17,7 @@ type PreparedCollectiveAvatarFieldProps = {
   onShapePositions: (positions: Float32Array) => void;
   partColors: Float32Array;
   partIds: Float32Array;
+  partNumbers: Float32Array;
   positions: Float32Array;
   scene?: THREE.Object3D;
 };
@@ -47,6 +48,7 @@ function PreparedCollectiveAvatarField({
   onShapePositions,
   partColors,
   partIds,
+  partNumbers,
   positions,
   scene,
 }: PreparedCollectiveAvatarFieldProps) {
@@ -101,6 +103,7 @@ function PreparedCollectiveAvatarField({
         colors={colors}
         partColors={partColors}
         partIds={partIds}
+        partNumbers={partNumbers}
         positions={positions}
       />
     </group>
@@ -121,6 +124,7 @@ function BakedCollectiveAvatarField({
       onShapePositions={onShapePositions}
       partColors={bakedPointCloud.partColors}
       partIds={bakedPointCloud.partIds}
+      partNumbers={bakedPointCloud.partNumbers}
       positions={bakedPointCloud.positions}
     />
   );
@@ -181,6 +185,7 @@ function FallbackCollectiveAvatarField({
       onShapePositions={onShapePositions}
       partColors={fallbackSurface.partColors}
       partIds={fallbackSurface.partIds}
+      partNumbers={fallbackSurface.partNumbers}
       positions={normalizedPositions}
       scene={materializedScene}
     />
