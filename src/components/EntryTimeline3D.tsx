@@ -2,7 +2,10 @@ import { Html } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { forwardRef, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { researchTimelineEvents, type ResearchTimelineEvent } from "../data/researchTimeline";
+import {
+  researchTimelineEvents,
+  type ResearchTimelineEvent,
+} from "../data/researchTimeline";
 import { useArchiveStore } from "../state/archiveStore";
 
 export type TimelineCameraPose = {
@@ -20,8 +23,16 @@ const AVATAR_REVEAL_END = 0.9;
 const COLLECTIVE_CAMERA_TRANSITION_START = 0.7;
 export const COLLECTIVE_CAMERA_TRANSITION_END = 0.88;
 export const TIMELINE_COLLECTIVE_OFFSET_Y = -78;
-const COLLECTIVE_POSITION: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40];
-const COLLECTIVE_TARGET: [number, number, number] = [0, TIMELINE_COLLECTIVE_OFFSET_Y, 0];
+const COLLECTIVE_POSITION: [number, number, number] = [
+  0,
+  TIMELINE_COLLECTIVE_OFFSET_Y + 10.5,
+  40,
+];
+const COLLECTIVE_TARGET: [number, number, number] = [
+  0,
+  TIMELINE_COLLECTIVE_OFFSET_Y,
+  0,
+];
 const TIMELINE_LINKS_Y = -60;
 const TIMELINE_LINKS_VISIBLE_START = 0.66;
 const TIMELINE_LINKS_VISIBLE_END = 0.88;
@@ -36,7 +47,10 @@ function smoothstep(edge0: number, edge1: number, value: number): number {
   return t * t * (3 - 2 * t);
 }
 
-export function getTimelineEventPosition(index: number, eventCount: number): [number, number, number] {
+export function getTimelineEventPosition(
+  index: number,
+  eventCount: number,
+): [number, number, number] {
   const progress = eventCount <= 1 ? 0 : index / (eventCount - 1);
   const side = index % 2 === 0 ? -1 : 1;
   const x = side * (4.8 + (index % 3) * 1.25);
@@ -61,8 +75,13 @@ function writeTimelineCameraPose(
   const eventProgress = clamp01(clampedProgress / EVENT_PROGRESS_END);
   const cameraPathStartY = INTRO_PANEL_Y + 2;
   const cameraPathEndY = EVENT_PATH_END_Y - 6;
-  const pathY = cameraPathStartY + (cameraPathEndY - cameraPathStartY) * eventProgress;
-  const transition = smoothstep(COLLECTIVE_CAMERA_TRANSITION_START, COLLECTIVE_CAMERA_TRANSITION_END, clampedProgress);
+  const pathY =
+    cameraPathStartY + (cameraPathEndY - cameraPathStartY) * eventProgress;
+  const transition = smoothstep(
+    COLLECTIVE_CAMERA_TRANSITION_START,
+    COLLECTIVE_CAMERA_TRANSITION_END,
+    clampedProgress,
+  );
 
   lookAt[0] = COLLECTIVE_TARGET[0] * transition;
   lookAt[1] = pathY - 4 + (COLLECTIVE_TARGET[1] - (pathY - 4)) * transition;
@@ -76,7 +95,11 @@ export function getAvatarRevealOpacity(progress: number): number {
   return smoothstep(AVATAR_REVEAL_START, AVATAR_REVEAL_END, progress);
 }
 
-function getEventVisibility(progress: number, index: number, eventCount: number): number {
+function getEventVisibility(
+  progress: number,
+  index: number,
+  eventCount: number,
+): number {
   const eventProgress = eventCount <= 1 ? 0 : index / (eventCount - 1);
   const timelineProgress = clamp01(progress / EVENT_PROGRESS_END);
   const distance = Math.abs(eventProgress - timelineProgress);
@@ -86,8 +109,19 @@ function getEventVisibility(progress: number, index: number, eventCount: number)
 }
 
 export function getTimelineArchiveLinksOpacity(progress: number): number {
-  return smoothstep(TIMELINE_LINKS_VISIBLE_START, TIMELINE_LINKS_VISIBLE_START + 0.05, progress) *
-    (1 - smoothstep(TIMELINE_LINKS_VISIBLE_END - 0.04, TIMELINE_LINKS_VISIBLE_END, progress));
+  return (
+    smoothstep(
+      TIMELINE_LINKS_VISIBLE_START,
+      TIMELINE_LINKS_VISIBLE_START + 0.05,
+      progress,
+    ) *
+    (1 -
+      smoothstep(
+        TIMELINE_LINKS_VISIBLE_END - 0.04,
+        TIMELINE_LINKS_VISIBLE_END,
+        progress,
+      ))
+  );
 }
 
 function getTimelineIntroOpacity(progress: number): number {
@@ -126,7 +160,8 @@ function TimelineMistField() {
       const seedB = ((index * 48271) % 2147483647) / 2147483647;
       const seedC = ((index * 69621) % 2147483647) / 2147483647;
       positions[index * 3] = (seedA - 0.5) * 22;
-      positions[index * 3 + 1] = EVENT_PATH_START_Y + 10 - seedB * (EVENT_PATH_RANGE + 26);
+      positions[index * 3 + 1] =
+        EVENT_PATH_START_Y + 10 - seedB * (EVENT_PATH_RANGE + 26);
       positions[index * 3 + 2] = -5 - seedC * 18;
     }
     return positions;
@@ -136,7 +171,8 @@ function TimelineMistField() {
     if (!materialRef.current) return;
     const progress = timelineProgressRef.current;
     const introFade = smoothstep(0.12, 0.24, progress);
-    materialRef.current.opacity = introFade * (0.05 + (1 - getAvatarRevealOpacity(progress)) * 0.13);
+    materialRef.current.opacity =
+      introFade * (0.05 + (1 - getAvatarRevealOpacity(progress)) * 0.13);
   });
 
   return (
@@ -191,7 +227,11 @@ const TimelineArchiveLinks = forwardRef<HTMLElement>((_, ref) => {
       style={{ opacity: 0, pointerEvents: "none", display: "none" }}
     >
       <a href="/index">Index Database</a>
-      <a href="https://survey.dominicduan.com/" target="_blank" rel="noreferrer">
+      <a
+        href="https://survey.dominicduan.com/"
+        target="_blank"
+        rel="noreferrer"
+      >
         Obfuscation Identity Archive Survey
       </a>
       <a href="/technical" aria-disabled="true">
@@ -212,25 +252,37 @@ const TimelineIntroPanel = forwardRef<HTMLElement>((_, ref) => {
     >
       <h1>Obfuscation Identity Archive</h1>
       <p>
-        With the rise of AI algorithms, surveillance, categorisation, and tagging systems, how much agency do we still
-        have over the content we consume, and how much subjectivity do we have in defining our own identity?
+        With the rise of AI algorithms, surveillance, categorisation, and
+        tagging systems, how much agency do we still have over the content we
+        consume, and how much subjectivity do we have in defining our own
+        identity?
       </p>
       <p>
-        Instead of asking who we “really” are, this project invites participants to assemble a tag-based obfuscated
-        identity defined by themselves.
+        Instead of asking who we “really” are, this project invites participants
+        to assemble a tag-based obfuscated identity defined by themselves.
       </p>
       <p>
-        So far, 43 participants have contributed to this archive. Their submissions form individual avatar pages, tag
-        relations, narrative fragments, and a collective avatar.
+        So far, 43 participants have contributed to this archive. Their
+        submissions form individual avatar pages, tag relations, narrative
+        fragments, and a collective avatar.
       </p>
       <p>
         You are welcome to fill in the{" "}
-        <a href="https://survey.dominicduan.com/" target="_blank" rel="noreferrer">
+        <a
+          href="https://survey.dominicduan.com/"
+          target="_blank"
+          rel="noreferrer"
+        >
           Obfuscation Identity Archive Survey
         </a>
-        . Although your response will not be included in this website, it will be automatically archived in this{" "}
-        <a href="https://github.com/Linglingletsgo/obfuscation-identity-archive-survey" target="_blank" rel="noreferrer">
-          repository
+        . Although your response will not be included in this website, it will
+        be automatically archived in this{" "}
+        <a
+          href="https://github.com/Linglingletsgo/obfuscation-identity-archive-survey"
+          target="_blank"
+          rel="noreferrer"
+        >
+          repository for the following research
         </a>
         .
       </p>
@@ -284,11 +336,20 @@ export function EntryTimeline3D() {
       <TimelineMistField />
       <ambientLight intensity={0.45} />
       <pointLight color="#f5c842" intensity={0.85} position={[0, 18, 8]} />
-      <Html center distanceFactor={10} position={[0, INTRO_PANEL_Y, -3.5]} transform zIndexRange={[90, 50]}>
+      <Html
+        center
+        distanceFactor={10}
+        position={[0, INTRO_PANEL_Y, -3.5]}
+        transform
+        zIndexRange={[90, 50]}
+      >
         <TimelineIntroPanel ref={introRef} />
       </Html>
       {researchTimelineEvents.map((event, index) => {
-        const position = getTimelineEventPosition(index, researchTimelineEvents.length);
+        const position = getTimelineEventPosition(
+          index,
+          researchTimelineEvents.length,
+        );
         return (
           <group key={`${event.year}:${event.title}`} position={position}>
             <Html
