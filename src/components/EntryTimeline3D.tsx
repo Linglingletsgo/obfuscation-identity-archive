@@ -284,7 +284,7 @@ const TimelineIntroPanel = forwardRef<HTMLElement>((_, ref) => {
         >
           repository
         </a>
-        for the following research.
+        {" "}for the following research.
       </p>
     </section>
   );
