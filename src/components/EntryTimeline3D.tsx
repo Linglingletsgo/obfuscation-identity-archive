@@ -282,9 +282,9 @@ const TimelineIntroPanel = forwardRef<HTMLElement>((_, ref) => {
           target="_blank"
           rel="noreferrer"
         >
-          repository for the following research
+          repository
         </a>
-        .
+        for the following research.
       </p>
     </section>
   );
