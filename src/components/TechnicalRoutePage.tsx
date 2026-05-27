@@ -96,12 +96,20 @@ const technicalRouteSteps: TechnicalRouteStep[] = [
   },
 ];
 
-function TechnicalRouteStepCard({ step, index }: { index: number; step: TechnicalRouteStep }) {
+function TechnicalRouteStepCard({
+  step,
+  index,
+}: {
+  index: number;
+  step: TechnicalRouteStep;
+}) {
   return (
     <article className="technical-route-step">
       <div className="technical-route-step-copy">
         <span>{step.eyebrow}</span>
-        <h2>{index + 1}. {step.title}</h2>
+        <h2>
+          {index + 1}. {step.title}
+        </h2>
         <p>{step.description}</p>
       </div>
       <pre aria-label={`${step.title} JSON example`}>
@@ -113,19 +121,26 @@ function TechnicalRouteStepCard({ step, index }: { index: number; step: Technica
 
 export function TechnicalRoutePage() {
   return (
-    <section className="technical-route-page" aria-label="Technical route explanation">
+    <section
+      className="technical-route-page"
+      aria-label="Technical route explanation"
+    >
       <header className="technical-route-hero">
-        <a href="/" className="index-back-link">Collective Space</a>
-        <p>Obfuscation Identity Archive</p>
+        <a href="/" className="index-back-link">
+          Collective Space
+        </a>
         <h1>Technical Route</h1>
         <div>
-          This page explains how questionnaire responses are translated into computational identity tags. It follows the
-          route from survey fragments to reverse-inferred avatar tags, stopping before any website rendering or interface
-          layer.
+          This page explains how questionnaire responses are translated into
+          computational identity tags. It follows the route from survey
+          fragments to reverse-inferred avatar tags.
         </div>
       </header>
 
-      <div className="technical-route-flow" aria-label="Survey-to-avatar-tag route">
+      <div
+        className="technical-route-flow"
+        aria-label="Survey-to-avatar-tag route"
+      >
         {technicalRouteSteps.map((step, index) => (
           <TechnicalRouteStepCard key={step.title} step={step} index={index} />
         ))}
