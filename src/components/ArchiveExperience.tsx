@@ -4,16 +4,19 @@ import { useArchiveStore } from "../state/archiveStore";
 import { CollectiveIdentityOverlay } from "./CollectiveIdentityOverlay";
 import { ArchiveScene } from "./ArchiveScene";
 import { COLLECTIVE_CAMERA_TRANSITION_END } from "./EntryTimeline3D";
+import { ResearchTimelineIntro } from "./ResearchTimelineIntro";
 
 const COLLECTIVE_INTERACTION_PROGRESS = COLLECTIVE_CAMERA_TRANSITION_END;
 const COLLECTIVE_WHEEL_ZONE_LEFT = 0.22;
 const COLLECTIVE_WHEEL_ZONE_RIGHT = 0.78;
 const TIMELINE_PROGRESS_DAMPING = 10;
+const TIMELINE_BACKGROUND_STATE_STEP = 0.003;
 
 export function ArchiveExperience() {
   const { graph, view, timelineProgressRef } = useArchiveStore();
   const { message, status } = useArchiveData();
   const targetTimelineProgressRef = useRef(0);
+  const [timelineOverlayProgress, setTimelineOverlayProgress] = useState(0);
   const [sceneShellElement, setSceneShellElement] = useState<HTMLDivElement | null>(null);
   const viewRef = useRef(view);
   const individualScrollPositionRef = useRef({ x: 0, y: 0 });
@@ -50,6 +53,7 @@ export function ArchiveExperience() {
           window.scrollTo(x, y);
           targetTimelineProgressRef.current = restoredProgress;
           timelineProgressRef.current = restoredProgress;
+          setTimelineOverlayProgress(restoredProgress);
         });
       });
     };
@@ -75,6 +79,11 @@ export function ArchiveExperience() {
 
       if (nextProgress !== currentProgress) {
         timelineProgressRef.current = nextProgress;
+        setTimelineOverlayProgress((currentOverlayProgress) =>
+          Math.abs(currentOverlayProgress - nextProgress) < TIMELINE_BACKGROUND_STATE_STEP
+            ? currentOverlayProgress
+            : nextProgress,
+        );
       }
 
       animationFrame = window.requestAnimationFrame(animateProgress);
@@ -172,6 +181,7 @@ export function ArchiveExperience() {
       <div className="archive-scene-shell" ref={setSceneShellElement}>
         <ArchiveScene canvasEventSource={sceneShellElement ?? undefined} />
       </div>
+      <ResearchTimelineIntro progress={timelineOverlayProgress} />
       <div className="collective-scroll-gutter collective-scroll-gutter-left" aria-hidden="true" />
       <div className="collective-scroll-gutter collective-scroll-gutter-right" aria-hidden="true" />
       <CollectiveIdentityOverlay identities={collectiveIdentities} />

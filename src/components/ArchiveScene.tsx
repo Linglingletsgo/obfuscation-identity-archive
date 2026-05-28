@@ -390,9 +390,9 @@ export function ArchiveScene({ canvasEventSource }: { canvasEventSource?: HTMLEl
       dpr={getCanvasDevicePixelRatio()}
       eventPrefix={canvasEventSource ? "client" : undefined}
       eventSource={canvasEventSource}
+      gl={{ alpha: true }}
       onPointerMissed={handlePointerMissed}
     >
-      <color attach="background" args={[archiveVisualConfig.colors.paper]} />
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 5, 8]} intensity={1.2} />
       <InteractionTracker>

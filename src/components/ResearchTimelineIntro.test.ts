@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { shouldEnterCollectiveFromTimeline } from "./ResearchTimelineIntro";
+import {
+  getTimelineBackgroundProgress,
+  getTimelineBackgroundOpacity,
+  shouldEnterCollectiveFromTimeline,
+} from "./ResearchTimelineIntro";
 import { researchTimelineEvents } from "../data/researchTimeline";
 import {
   TIMELINE_COLLECTIVE_OFFSET_Y,
@@ -27,6 +31,18 @@ describe("ResearchTimelineIntro helpers", () => {
     expect(getAvatarRevealOpacity(0.95)).toBeGreaterThan(0);
     expect(getAvatarRevealOpacity(0.98)).toBeGreaterThan(0);
     expect(getTimelineCameraPose(1).position).toEqual([0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40]);
+  });
+
+  it("fades the timeline background before entering the collective scene", () => {
+    expect(getTimelineBackgroundOpacity(0)).toBe(1);
+    expect(getTimelineBackgroundOpacity(0.7)).toBeLessThan(1);
+    expect(getTimelineBackgroundOpacity(0.9)).toBe(0);
+  });
+
+  it("maps the custom long background across the timeline depth", () => {
+    expect(getTimelineBackgroundProgress(-0.2)).toBe(0);
+    expect(getTimelineBackgroundProgress(0.5)).toBe(0.5);
+    expect(getTimelineBackgroundProgress(1.2)).toBe(1);
   });
 
   it("provides protest visual references for key timeline events", () => {

@@ -1,9 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap");
 
 @font-face {
-  font-family: "Key Virtue";
-  src: url("/fonts/KeyVirtue.otf") format("opentype");
+  font-family: "Tajamuka Script";
+  src: url("/fonts/TajamukaScript.ttf") format("truetype");
   font-display: swap;
+}
+
+@font-face {
+  font-family: "Garamondt";
+  src: url("/fonts/Garamondt-Regular.woff") format("woff");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 900;
+}
+
+@font-face {
+  font-family: "Garamondt";
+  src: url("/fonts/Garamondt-Italic.woff") format("woff");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400 900;
 }
 
 :root {
@@ -18,10 +34,10 @@
   --yellow: #ffd000;
   --blue: #1d7bff;
   --pink: #ff3f9a;
-  --display: "Key Virtue", "ZCOOL KuaiLe", "Comic Sans MS", Impact, fantasy;
-  --mono: "Comic Sans MS", "ZCOOL KuaiLe", ui-monospace, monospace;
-  --serif: "Key Virtue", "ZCOOL KuaiLe", "Comic Sans MS", Georgia, serif;
-  --zh-font: "ZCOOL KuaiLe", "Comic Sans MS", cursive;
+  --display: "Tajamuka Script", "ZCOOL XiaoWei", fantasy;
+  --mono: "Garamondt", "ZCOOL XiaoWei", ui-serif, serif;
+  --serif: "Garamondt", "ZCOOL XiaoWei", ui-serif, serif;
+  --zh-font: "ZCOOL XiaoWei", serif;
   --asset-frame-card-large: url("/assets/handdrawn/ui/frame-card-large.png");
   --asset-frame-panel-tall: url("/assets/handdrawn/ui/frame-panel-tall.png");
   --asset-frame-intro-poster: url("/assets/handdrawn/ui/frame-intro-poster.png");
@@ -94,6 +110,7 @@ select {
 .archive-scene-shell {
   position: fixed;
   inset: 0;
+  z-index: 2;
 }
 
 .collective-scroll-gutter {
@@ -119,15 +136,44 @@ select {
 .research-timeline-intro {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 1;
   color: var(--paper-warm);
   background: transparent;
   pointer-events: none;
 }
 
+.timeline-background-collage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: calc(var(--timeline-background-opacity, 1) * 0.72);
+  pointer-events: none;
+  transition: opacity 120ms linear;
+}
+
+.timeline-background-collage::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: rgba(22, 8, 7, 0.28);
+}
+
+.timeline-background-collage img {
+  position: absolute;
+  top: calc(-8vh + var(--timeline-background-progress, 0) * (108vh - 281.25vw));
+  left: 0;
+  display: block;
+  width: 100vw;
+  min-width: 100vw;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
 .research-timeline-space {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -182,6 +228,21 @@ select {
   transform: rotate(-0.35deg);
 }
 
+.timeline-3d-event-card::after,
+.timeline-3d-intro-card::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background: rgb(112, 31, 24);
+  border-radius: inherit;
+}
+
+.timeline-3d-intro-card::after {
+  background: rgb(36, 12, 10);
+}
+
 .timeline-3d-event-card {
   display: grid;
   width: min(520px, 42vw);
@@ -190,10 +251,11 @@ select {
   color: var(--paper-warm);
   text-decoration: none;
   text-shadow: 2px 2px 0 rgba(9, 6, 5, 0.86);
-  background: rgba(79, 23, 20, 0.94);
+  background: rgb(112, 31, 24);
   border: 2px solid var(--paper-yellow);
   border-radius: 13px 9px 16px 11px;
   box-shadow:
+    inset 0 0 0 9999px rgb(112, 31, 24),
     7px 8px 0 rgba(0, 0, 0, 0.82),
     -3px -2px 0 rgba(255, 45, 24, 0.36),
     inset 0 0 0 1px rgba(255, 248, 223, 0.16);
@@ -207,10 +269,11 @@ select {
   padding: 28px 30px;
   color: var(--paper-warm);
   text-shadow: 2px 2px 0 rgba(9, 6, 5, 0.86);
-  background: var(--bg);
+  background: rgb(36, 12, 10);
   border: 2px solid var(--paper);
   border-radius: 26px 16px 30px 18px;
   box-shadow:
+    inset 0 0 0 9999px rgb(36, 12, 10),
     12px 13px 0 rgba(0, 0, 0, 0.86),
     -4px -3px 0 rgba(255, 45, 24, 0.38),
     inset 0 0 0 2px rgba(255, 225, 90, 0.14);
@@ -261,7 +324,7 @@ select {
 
 .timeline-3d-event-card:hover,
 .timeline-3d-event-card:focus-visible {
-  background: rgba(158, 13, 8, 0.94);
+  background: rgb(184, 34, 22);
   border-color: var(--yellow);
   outline: none;
   transform: rotate(-0.25deg) translateY(-1px);
