@@ -177,6 +177,7 @@ export function ArchiveExperience() {
       data-view={view}
       data-entry-mode="unified"
       data-testid="archive-experience"
+      style={{ "--archive-3d-texture-opacity": Math.max(0, Math.min(1, (timelineOverlayProgress - 0.82) / 0.14)).toString() } as React.CSSProperties}
     >
       <div className="archive-scene-shell" ref={setSceneShellElement}>
         <ArchiveScene canvasEventSource={sceneShellElement ?? undefined} />

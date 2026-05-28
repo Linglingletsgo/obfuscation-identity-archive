@@ -4,7 +4,7 @@ import { CanvasTexture, Color, SRGBColorSpace, Sprite, SpriteMaterial, Texture, 
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import type { ArchiveGraphNode } from "../types/archive";
 
-type SpriteShape = "identity-mark" | "dot-mark" | "timeline-mark" | "collective-mark";
+type SpriteShape = "identity-mark" | "dot-mark" | "timeline-mark";
 
 export type NodeSpriteSpec = {
   shape: SpriteShape;
@@ -14,10 +14,9 @@ export type NodeSpriteSpec = {
 };
 
 const NODE_SPRITE_TEXTURE_PATHS: Record<SpriteShape, string> = {
-  "identity-mark": "/assets/handdrawn/ui/node-identity.png",
-  "dot-mark": "/assets/handdrawn/ui/node-tag.png",
-  "timeline-mark": "/assets/handdrawn/ui/node-tag.png",
-  "collective-mark": "/assets/handdrawn/ui/node-collective.png",
+  "identity-mark": "/assets/ui/node-identity.png",
+  "dot-mark": "/assets/ui/node-tag.png",
+  "timeline-mark": "/assets/ui/node-tag.png",
 };
 
 export function getNodeSpriteSpec(node: ArchiveGraphNode): NodeSpriteSpec {
@@ -41,7 +40,7 @@ export function getNodeSpriteSpec(node: ArchiveGraphNode): NodeSpriteSpec {
 
   if (node.type === "collective") {
     return {
-      shape: "collective-mark",
+      shape: "identity-mark",
       color: archiveVisualConfig.colors.collective,
       scale: 1.1,
       opacity: 0.36,
@@ -156,12 +155,6 @@ function createSpriteTexture(spec: NodeSpriteSpec): CanvasTexture {
   } else if (spec.shape === "timeline-mark") {
     drawRoughPolygon(context, [[33, 28], [98, 64], [32, 100]], 2);
     addCrayonTexture(context, "#fff3c8", 0.12);
-  } else if (spec.shape === "collective-mark") {
-    drawRoughEllipse(context, 64, 64, 35, 31, 0.18, 3);
-    addCrayonTexture(context, "#fffdf8", 0.12);
-    context.globalAlpha = spec.opacity * 0.45;
-    context.lineWidth = 3.5;
-    drawRoughEllipse(context, 64, 64, 49, 45, -0.1, 4);
   } else {
     drawRoughPolygon(context, [[25, 42], [58, 18], [94, 34], [107, 68], [88, 98], [49, 112], [23, 86], [14, 61]], 5);
     addCrayonTexture(context, "#fffdf8", 0.14);
