@@ -4,7 +4,6 @@ import {
   getTimelineBackgroundOpacity,
   shouldEnterCollectiveFromTimeline,
 } from "./ResearchTimelineIntro";
-import { researchTimelineEvents } from "../data/researchTimeline";
 import {
   TIMELINE_COLLECTIVE_OFFSET_Y,
   getTimelineCameraPose,
@@ -45,23 +44,4 @@ describe("ResearchTimelineIntro helpers", () => {
     expect(getTimelineBackgroundProgress(1.2)).toBe(1);
   });
 
-  it("provides protest visual references for key timeline events", () => {
-    const eventsWithImages = researchTimelineEvents.filter((event) => event.image);
-    const imagePaths = eventsWithImages.map((event) => event.image?.src);
-
-    expect(eventsWithImages.length).toBeGreaterThanOrEqual(6);
-    expect(
-      eventsWithImages.every((event) =>
-        event.image?.src.startsWith("/assets/timeline/"),
-      ),
-    ).toBe(true);
-    expect(eventsWithImages.every((event) => Boolean(event.image?.alt))).toBe(
-      true,
-    );
-    expect(new Set(imagePaths).size).toBe(imagePaths.length);
-    expect(imagePaths).toContain("/assets/timeline/snowden-prism-slide.jpg");
-    expect(imagePaths).toContain(
-      "/assets/timeline/cambridge-analytica-protest.jpg",
-    );
-  });
 });

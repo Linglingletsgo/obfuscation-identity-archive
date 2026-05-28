@@ -54,7 +54,7 @@ export function ResearchTimelineIntro({
     >
       <div className="timeline-background-collage" aria-hidden="true">
         <img
-          src="/assets/timeline-background/timeline-background-long.jpg"
+          src="/assets/ui/timeline-background-long.jpg"
           alt=""
           loading="eager"
         />

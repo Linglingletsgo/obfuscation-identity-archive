@@ -1,6 +1,6 @@
 import { Html } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { forwardRef, useMemo, useRef, type SyntheticEvent } from "react";
+import { forwardRef, useMemo, useRef } from "react";
 import * as THREE from "three";
 import {
   researchTimelineEvents,
@@ -128,10 +128,6 @@ function getTimelineIntroOpacity(progress: number): number {
   return 1 - smoothstep(0.08, INTRO_VISIBLE_END, progress);
 }
 
-function hideMissingTimelineImage(event: SyntheticEvent<HTMLImageElement>) {
-  event.currentTarget.closest("figure")?.setAttribute("hidden", "true");
-}
-
 function TimelineCameraRig() {
   const { camera } = useThree();
   const { timelineProgressRef } = useArchiveStore();
@@ -215,16 +211,6 @@ const TimelineEventPanel = forwardRef<
       target="_blank"
     >
       <span>{event.year}</span>
-      {event.image ? (
-        <figure className="timeline-3d-event-image">
-          <img
-            src={event.image.src}
-            alt={event.image.alt}
-            loading="lazy"
-            onError={hideMissingTimelineImage}
-          />
-        </figure>
-      ) : null}
       <h2>{event.title}</h2>
       <p>{event.description}</p>
     </a>
