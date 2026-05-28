@@ -3,8 +3,15 @@ export type ResearchTimelineLink = {
   url: string;
 };
 
+export type ResearchTimelineImage = {
+  alt: string;
+  src: string;
+  tone: "crowd" | "paper" | "database" | "surveillance" | "law" | "leak";
+};
+
 export type ResearchTimelineEvent = {
   description: string;
+  image?: ResearchTimelineImage;
   links: ResearchTimelineLink[];
   title: string;
   year: string;
@@ -15,6 +22,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2006",
     "title": "AOL Search Data Leak",
     "description": "AOL released a de-identified dataset of about 650,000 users and 20 million search queries. Although usernames were replaced by numeric IDs, search histories could still reveal personal details and enable re-identification.",
+    "image": {
+      "src": "/assets/timeline/data-leak.jpg",
+      "alt": "A fragmented archive image suggesting leaked data records",
+      "tone": "leak"
+    },
     "links": [
       {
         "label": "EPIC",
@@ -37,6 +49,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2006",
     "title": "TrackMeNot",
     "description": "TrackMeNot was developed as a browser tool that sends automatically generated search queries to search engines. It was designed to obscure real search interests by adding misleading query noise to the profile built from search data.",
+    "image": {
+      "src": "/assets/timeline/database-grid.jpg",
+      "alt": "An abstract database grid crossed by noisy protest signals",
+      "tone": "database"
+    },
     "links": [
       {
         "label": "TrackMeNot paper",
@@ -70,6 +87,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2013",
     "title": "Snowden / PRISM",
     "description": "Documents disclosed by Edward Snowden reported that the NSA's PRISM program obtained data from major internet services. The disclosures brought large-scale state surveillance and platform-mediated data access into global public debate.",
+    "image": {
+      "src": "/assets/timeline/surveillance-camera.jpg",
+      "alt": "A surveillance lens rendered as a red and blue protest poster",
+      "tone": "surveillance"
+    },
     "links": [
       {
         "label": "Guardian",
@@ -92,6 +114,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2014",
     "title": "FTC Data Brokers Report",
     "description": "The FTC investigated nine data brokers and reported that they collected, combined, analyzed and sold consumer information from many online and offline sources. The report described consumer segmentation and scoring practices that were often invisible to the people being categorized.",
+    "image": {
+      "src": "/assets/timeline/newspaper-archive.jpg",
+      "alt": "Stacked paper columns evoking an exposed data broker archive",
+      "tone": "paper"
+    },
     "links": [
       {
         "label": "FTC report",
@@ -114,6 +141,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2015",
     "title": "Ashley Madison Data Breach",
     "description": "Ashley Madison was hacked and account, profile, billing and security information for about 36 million users was published. The breach exposed intimate and relationship-related data connected to identifiable accounts.",
+    "image": {
+      "src": "/assets/timeline/data-leak.jpg",
+      "alt": "Fragmented records crossed by sharp leak markings",
+      "tone": "leak"
+    },
     "links": [
       {
         "label": "FTC settlement",
@@ -125,6 +157,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2015",
     "title": "Obfuscation: A User’s Guide for Privacy and Protest",
     "description": "Finn Brunton and Helen Nissenbaum published *Obfuscation: A User's Guide for Privacy and Protest*, describing obfuscation as the deliberate production of misleading, ambiguous or confusing information to interfere with data collection and profiling.",
+    "image": {
+      "src": "/assets/timeline/newspaper-archive.jpg",
+      "alt": "A torn newspaper archive pattern for privacy and protest writing",
+      "tone": "paper"
+    },
     "links": [
       {
         "label": "MIT Press",
@@ -136,6 +173,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2016",
     "title": "COMPAS / Machine Bias",
     "description": "ProPublica analyzed COMPAS, a criminal justice risk assessment tool used to estimate recidivism risk. The investigation reported racial disparities in false positive and false negative rates, making risk scoring and automated prediction a public controversy.",
+    "image": {
+      "src": "/assets/timeline/crowd-protest.jpg",
+      "alt": "A crowd-like protest collage confronting automated scoring",
+      "tone": "crowd"
+    },
     "links": [
       {
         "label": "ProPublica",
@@ -158,6 +200,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2018",
     "title": "GDPR Begins to Apply",
     "description": "The General Data Protection Regulation began to apply in the European Union on 25 May 2018. It established a legal framework for personal data processing, data-subject rights, consent, access, erasure, portability and compliance obligations.",
+    "image": {
+      "src": "/assets/timeline/legal-document.jpg",
+      "alt": "A stamped legal document rendered as a high-contrast poster",
+      "tone": "law"
+    },
     "links": [
       {
         "label": "European Commission",
@@ -169,6 +216,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2018",
     "title": "Facebook–Cambridge Analytica",
     "description": "Cambridge Analytica obtained personal information from tens of millions of Facebook users through the Facebook app ecosystem. The FTC stated that the data was used for voter profiling, microtargeting and political campaign services.",
+    "image": {
+      "src": "/assets/timeline/crowd-protest.jpg",
+      "alt": "An abstract crowd poster for political data extraction",
+      "tone": "crowd"
+    },
     "links": [
       {
         "label": "FTC complaint / settlement",
@@ -235,6 +287,11 @@ export const researchTimelineEvents: ResearchTimelineEvent[] = [
     "year": "2024",
     "title": "EU AI Act",
     "description": "The EU AI Act entered into force, creating a risk-based regulatory framework for AI systems. It covers prohibited practices, high-risk systems, biometrics, transparency duties, governance requirements and enforcement mechanisms.",
+    "image": {
+      "src": "/assets/timeline/legal-document.jpg",
+      "alt": "A protest-style legal document image for AI regulation",
+      "tone": "law"
+    },
     "links": [
       {
         "label": "European Commission",

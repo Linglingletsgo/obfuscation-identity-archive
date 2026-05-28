@@ -211,6 +211,11 @@ const TimelineEventPanel = forwardRef<
       target="_blank"
     >
       <span>{event.year}</span>
+      {event.image ? (
+        <figure className="timeline-3d-event-image">
+          <img src={event.image.src} alt={event.image.alt} loading="lazy" />
+        </figure>
+      ) : null}
       <h2>{event.title}</h2>
       <p>{event.description}</p>
     </a>

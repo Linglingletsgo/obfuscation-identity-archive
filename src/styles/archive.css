@@ -1,19 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap");
 
+@font-face {
+  font-family: "Key Virtue";
+  src: url("/fonts/KeyVirtue.otf") format("opentype");
+  font-display: swap;
+}
+
 :root {
-  --bg: #17120f;
-  --panel-dark: #54473f;
-  --ink: #17120f;
-  --paper: #fffdf8;
-  --paper-warm: #fffaf0;
-  --paper-yellow: #fff3c8;
-  --red: #e34835;
-  --red-dark: #bd2d23;
-  --yellow: #f5c842;
-  --blue: #5aa9ff;
-  --pink: #ff7aaa;
+  --bg: #160807;
+  --panel-dark: #4f1714;
+  --ink: #090605;
+  --paper: #fff8df;
+  --paper-warm: #ffe9ba;
+  --paper-yellow: #ffe15a;
+  --red: #ff2d18;
+  --red-dark: #9e0d08;
+  --yellow: #ffd000;
+  --blue: #1d7bff;
+  --pink: #ff3f9a;
+  --display: "Key Virtue", "ZCOOL KuaiLe", "Comic Sans MS", Impact, fantasy;
   --mono: "Comic Sans MS", "ZCOOL KuaiLe", ui-monospace, monospace;
-  --serif: "Comic Sans MS", "ZCOOL KuaiLe", Georgia, serif;
+  --serif: "Key Virtue", "ZCOOL KuaiLe", "Comic Sans MS", Georgia, serif;
   --zh-font: "ZCOOL KuaiLe", "Comic Sans MS", cursive;
   --asset-frame-card-large: url("/assets/handdrawn/ui/frame-card-large.png");
   --asset-frame-panel-tall: url("/assets/handdrawn/ui/frame-panel-tall.png");
@@ -41,9 +48,10 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at 12% 8%, rgba(245, 200, 66, 0.08), transparent 24%),
-    radial-gradient(circle at 88% 16%, rgba(90, 169, 255, 0.07), transparent 26%),
-    linear-gradient(180deg, var(--bg), #0d0a08 100%);
+    radial-gradient(circle at 12% 8%, rgba(255, 208, 0, 0.2), transparent 24%),
+    radial-gradient(circle at 88% 16%, rgba(29, 123, 255, 0.16), transparent 26%),
+    radial-gradient(circle at 55% 88%, rgba(255, 45, 24, 0.2), transparent 32%),
+    linear-gradient(180deg, var(--bg), #090605 100%);
 }
 
 button,
@@ -55,8 +63,9 @@ select {
 .archive-app {
   min-height: 100vh;
   background:
-    linear-gradient(rgba(255, 250, 240, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 250, 240, 0.014) 1px, transparent 1px),
+    linear-gradient(rgba(255, 225, 90, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 45, 24, 0.04) 1px, transparent 1px),
+    repeating-linear-gradient(112deg, transparent 0 18px, rgba(255, 248, 223, 0.018) 18px 19px),
     var(--bg);
   background-size: 24px 24px;
 }
@@ -189,15 +198,17 @@ select {
   padding: 22px 24px;
   color: var(--paper-warm);
   text-decoration: none;
-  text-shadow: 2px 2px 0 rgba(23, 18, 15, 0.78);
+  text-shadow: 2px 2px 0 rgba(9, 6, 5, 0.86);
   background:
-    linear-gradient(135deg, rgba(255, 253, 248, 0.16), rgba(84, 71, 63, 0.52)),
-    rgba(84, 71, 63, 0.72);
+    linear-gradient(135deg, rgba(255, 45, 24, 0.2), rgba(9, 6, 5, 0.82)),
+    linear-gradient(22deg, rgba(255, 208, 0, 0.1), transparent 42%),
+    rgba(79, 23, 20, 0.86);
   border: 2px solid var(--paper-yellow);
   border-radius: 13px 9px 16px 11px;
   box-shadow:
-    6px 7px 0 rgba(23, 18, 15, 0.72),
-    inset 0 0 0 1px rgba(255, 253, 248, 0.12);
+    7px 8px 0 rgba(0, 0, 0, 0.82),
+    -3px -2px 0 rgba(255, 45, 24, 0.36),
+    inset 0 0 0 1px rgba(255, 248, 223, 0.16);
   transition: opacity 120ms linear;
 }
 
@@ -207,14 +218,17 @@ select {
   gap: 16px;
   padding: 28px 30px;
   color: var(--paper-warm);
-  text-shadow: 2px 2px 0 rgba(23, 18, 15, 0.78);
-  background: var(--bg);
+  text-shadow: 2px 2px 0 rgba(9, 6, 5, 0.86);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 24, 0.22), rgba(9, 6, 5, 0.9)),
+    repeating-linear-gradient(6deg, rgba(255, 248, 223, 0.06) 0 1px, transparent 1px 11px),
+    var(--bg);
   border: 2px solid var(--paper);
   border-radius: 26px 16px 30px 18px;
   box-shadow:
-    12px 13px 0 rgba(23, 18, 15, 0.82),
-    -4px -3px 0 rgba(227, 72, 53, 0.2),
-    inset 0 0 0 2px rgba(255, 243, 200, 0.1);
+    12px 13px 0 rgba(0, 0, 0, 0.86),
+    -4px -3px 0 rgba(255, 45, 24, 0.38),
+    inset 0 0 0 2px rgba(255, 225, 90, 0.14);
   transition: opacity 120ms linear;
 }
 
@@ -233,7 +247,7 @@ select {
 
 .timeline-3d-intro-card h1 {
   color: var(--paper);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(36px, 5vw, 72px);
   line-height: 0.95;
   letter-spacing: 0;
@@ -263,8 +277,9 @@ select {
 .timeline-3d-event-card:hover,
 .timeline-3d-event-card:focus-visible {
   background:
-    linear-gradient(135deg, rgba(255, 253, 248, 0.2), rgba(84, 71, 63, 0.62)),
-    rgba(84, 71, 63, 0.84);
+    linear-gradient(135deg, rgba(255, 63, 154, 0.2), rgba(9, 6, 5, 0.72)),
+    linear-gradient(22deg, rgba(255, 208, 0, 0.16), transparent 46%),
+    rgba(158, 13, 8, 0.86);
   border-color: var(--yellow);
   outline: none;
   transform: rotate(-0.25deg) translateY(-1px);
@@ -279,10 +294,43 @@ select {
 .timeline-3d-event-card h2 {
   margin: 0;
   color: var(--paper);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(24px, 3vw, 46px);
   line-height: 1;
   letter-spacing: 0;
+}
+
+.timeline-3d-event-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  background: var(--ink);
+  border: 2px solid var(--red);
+  border-radius: 8px 4px 10px 5px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 248, 223, 0.16),
+    3px 4px 0 rgba(0, 0, 0, 0.48);
+}
+
+.timeline-3d-event-image::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(120deg, rgba(255, 45, 24, 0.25), transparent 38%),
+    repeating-linear-gradient(0deg, rgba(255, 248, 223, 0.09), rgba(255, 248, 223, 0.09) 1px, transparent 1px, transparent 5px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.timeline-3d-event-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.22) saturate(1.35) grayscale(0.18);
 }
 
 .timeline-3d-event-card p {
@@ -313,10 +361,14 @@ select {
   justify-content: center;
   padding: 13px 18px;
   color: var(--paper-yellow);
-  background: rgba(84, 71, 63, 0.76);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 24, 0.18), rgba(9, 6, 5, 0.88)),
+    rgba(79, 23, 20, 0.86);
   border: 2px solid var(--paper-yellow);
   border-radius: 17px 11px 15px 12px;
-  box-shadow: 5px 5px 0 rgba(23, 18, 15, 0.78);
+  box-shadow:
+    5px 5px 0 rgba(0, 0, 0, 0.82),
+    -2px -2px 0 rgba(29, 123, 255, 0.26);
   pointer-events: auto;
   transform: rotate(0.35deg);
 }
@@ -502,11 +554,16 @@ select {
   padding: 10px 14px;
   color: var(--paper);
   cursor: pointer;
+  font-family: var(--display);
   pointer-events: auto;
-  background: rgba(84, 71, 63, 0.86);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 24, 0.24), rgba(9, 6, 5, 0.82)),
+    rgba(79, 23, 20, 0.9);
   border: 2px solid var(--paper-yellow);
   border-radius: 15px 11px 16px 10px;
-  box-shadow: 4px 4px 0 rgba(23, 18, 15, 0.74);
+  box-shadow:
+    4px 4px 0 rgba(0, 0, 0, 0.82),
+    -2px -2px 0 rgba(255, 208, 0, 0.22);
   transform: rotate(-1deg);
 }
 
@@ -529,11 +586,14 @@ select {
   color: var(--paper);
   pointer-events: auto;
   background:
-    linear-gradient(135deg, rgba(84, 71, 63, 0.94), rgba(23, 18, 15, 0.88)),
+    linear-gradient(135deg, rgba(255, 45, 24, 0.22), rgba(9, 6, 5, 0.9)),
+    linear-gradient(18deg, rgba(29, 123, 255, 0.12), transparent 48%),
     var(--panel-dark);
   border: 2px solid var(--paper-yellow);
   border-radius: 19px 13px 22px 12px;
-  box-shadow: 8px 8px 0 rgba(23, 18, 15, 0.78);
+  box-shadow:
+    8px 8px 0 rgba(0, 0, 0, 0.84),
+    -3px -2px 0 rgba(255, 45, 24, 0.34);
 }
 
 .individual-detail-sidebar::before {
@@ -559,7 +619,7 @@ select {
 
 .individual-detail-sidebar h2 {
   color: var(--paper);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: 22px;
   line-height: 1.1;
 }
@@ -610,7 +670,7 @@ select {
   color: var(--paper);
   cursor: default;
   font-size: 12px;
-  background: rgba(90, 169, 255, 0.24);
+  background: rgba(29, 123, 255, 0.28);
   border: 2px solid var(--blue);
   border-radius: 999px 780px 920px 760px;
   transition:
@@ -628,11 +688,11 @@ select {
 
 .individual-detail-sidebar li.is-active {
   color: var(--paper);
-  background: rgba(90, 169, 255, 0.42);
+  background: rgba(255, 63, 154, 0.36);
   border-color: var(--blue);
   box-shadow:
-    0 0 10px rgba(90, 169, 255, 0.42),
-    3px 3px 0 rgba(23, 18, 15, 0.42);
+    0 0 10px rgba(255, 63, 154, 0.46),
+    3px 3px 0 rgba(0, 0, 0, 0.48);
   transform: translateY(-1px);
 }
 
@@ -844,11 +904,12 @@ select {
   padding: 15px 18px;
   color: var(--ink);
   background:
-    linear-gradient(135deg, rgba(255, 253, 248, 0.94), rgba(255, 243, 200, 0.9)),
+    linear-gradient(135deg, rgba(255, 248, 223, 0.96), rgba(255, 225, 90, 0.86)),
+    linear-gradient(22deg, rgba(255, 45, 24, 0.12), transparent 44%),
     var(--paper-warm);
   border: 2px solid var(--ink);
   border-radius: 17px 12px 19px 11px;
-  box-shadow: 7px 7px 0 rgba(23, 18, 15, 0.62);
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.72);
   transform: translateX(-50%);
 }
 
@@ -875,6 +936,10 @@ select {
   overflow-wrap: anywhere;
 }
 
+.collective-identity-overlay strong {
+  font-family: var(--display);
+}
+
 .collective-identity-overlay p {
   margin: 3px 0;
 }
@@ -885,8 +950,9 @@ select {
   padding: 34px clamp(18px, 4vw, 64px) 56px;
   color: var(--paper-warm);
   background:
-    radial-gradient(circle at 15% 14%, rgba(227, 72, 53, 0.08), transparent 26%),
-    radial-gradient(circle at 88% 18%, rgba(90, 169, 255, 0.08), transparent 24%),
+    radial-gradient(circle at 15% 14%, rgba(255, 45, 24, 0.16), transparent 26%),
+    radial-gradient(circle at 88% 18%, rgba(29, 123, 255, 0.14), transparent 24%),
+    radial-gradient(circle at 48% 92%, rgba(255, 208, 0, 0.12), transparent 34%),
     var(--bg);
 }
 
@@ -908,7 +974,7 @@ select {
 .archive-index-page h1 {
   margin: 0;
   color: var(--paper);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(36px, 7vw, 92px);
   line-height: 0.92;
   letter-spacing: 0;
@@ -920,7 +986,10 @@ select {
   max-width: 1180px;
   margin: 0 auto 34px;
   padding: clamp(22px, 4vw, 42px);
-  background: color-mix(in srgb, var(--bg) 86%, var(--brown) 14%);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 24, 0.2), rgba(9, 6, 5, 0.9)),
+    repeating-linear-gradient(4deg, rgba(255, 248, 223, 0.05) 0 1px, transparent 1px 12px),
+    var(--bg);
   border-color: transparent;
   border-image-source: var(--asset-frame-intro-poster);
   border-image-slice: 36;
@@ -943,7 +1012,7 @@ select {
   max-width: 900px;
   margin: 0;
   color: var(--paper);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(42px, 8vw, 112px);
   line-height: 0.88;
   letter-spacing: 0;
@@ -971,7 +1040,9 @@ select {
   gap: clamp(18px, 3vw, 34px);
   align-items: stretch;
   padding: clamp(20px, 3vw, 34px);
-  background: rgba(84, 71, 63, 0.42);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 24, 0.16), rgba(9, 6, 5, 0.78)),
+    rgba(79, 23, 20, 0.58);
   border-color: transparent;
   border-image-source: var(--asset-frame-card-large);
   border-image-slice: 34;
@@ -1005,7 +1076,7 @@ select {
 .technical-route-step h2 {
   margin: 0;
   color: var(--paper);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(27px, 4vw, 54px);
   line-height: 0.98;
   letter-spacing: 0;
@@ -1031,8 +1102,8 @@ select {
   line-height: 1.42;
   white-space: pre;
   background:
-    linear-gradient(170deg, rgba(23, 18, 15, 0.82), rgba(23, 18, 15, 0.55)),
-    rgba(23, 18, 15, 0.6);
+    linear-gradient(170deg, rgba(9, 6, 5, 0.9), rgba(79, 23, 20, 0.62)),
+    rgba(9, 6, 5, 0.72);
   border: 2px dashed color-mix(in srgb, var(--paper-yellow) 42%, transparent);
   border-radius: 14px 9px 16px 11px;
   box-shadow: inset 0 0 0 1px rgba(255, 253, 248, 0.06);
@@ -1048,12 +1119,14 @@ select {
   color: var(--paper);
   font-size: 13px;
   font-weight: 750;
-  background: rgba(84, 71, 63, 0.72);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 24, 0.2), rgba(9, 6, 5, 0.82)),
+    rgba(79, 23, 20, 0.84);
   border: 2px solid var(--blue);
   border-radius: 13px 9px 15px 10px;
   text-decoration: none;
   text-transform: uppercase;
-  box-shadow: 3px 3px 0 rgba(23, 18, 15, 0.58);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.72);
 }
 
 .index-search {
@@ -1073,7 +1146,9 @@ select {
   padding: 0 12px;
   color: var(--paper);
   font-size: 16px;
-  background: rgba(84, 71, 63, 0.58);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 24, 0.1), rgba(9, 6, 5, 0.72)),
+    rgba(79, 23, 20, 0.66);
   border: 2px solid var(--paper-yellow);
   border-radius: 12px 8px 13px 9px;
 }
@@ -1087,10 +1162,14 @@ select {
 .index-table-wrap {
   overflow: auto;
   padding: 26px 24px 18px;
-  background: rgba(84, 71, 63, 0.5);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 24, 0.14), rgba(9, 6, 5, 0.82)),
+    rgba(79, 23, 20, 0.62);
   border: 2px solid var(--paper-yellow);
   border-radius: 16px 10px 18px 12px;
-  box-shadow: 7px 7px 0 rgba(23, 18, 15, 0.62);
+  box-shadow:
+    7px 7px 0 rgba(0, 0, 0, 0.78),
+    -3px -2px 0 rgba(255, 45, 24, 0.28);
 }
 
 .index-table {
@@ -1114,7 +1193,7 @@ select {
   pointer-events: none;
   content: "";
   background:
-    linear-gradient(175deg, rgba(23, 18, 15, 0.96), rgba(23, 18, 15, 0.9)),
+    linear-gradient(175deg, rgba(9, 6, 5, 0.96), rgba(79, 23, 20, 0.92)),
     var(--ink);
   border-radius: 13px 8px 15px 9px;
   transform: rotate(-0.12deg);
@@ -1152,7 +1231,7 @@ select {
 .index-table tbody tr:hover,
 .index-table tbody tr:focus-visible {
   color: var(--paper);
-  background: rgba(90, 169, 255, 0.16);
+  background: rgba(29, 123, 255, 0.2);
   outline: none;
 }
 

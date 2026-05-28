@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { shouldEnterCollectiveFromTimeline } from "./ResearchTimelineIntro";
+import { researchTimelineEvents } from "../data/researchTimeline";
 import {
   TIMELINE_COLLECTIVE_OFFSET_Y,
   getTimelineCameraPose,
@@ -26,5 +27,19 @@ describe("ResearchTimelineIntro helpers", () => {
     expect(getAvatarRevealOpacity(0.95)).toBeGreaterThan(0);
     expect(getAvatarRevealOpacity(0.98)).toBeGreaterThan(0);
     expect(getTimelineCameraPose(1).position).toEqual([0, TIMELINE_COLLECTIVE_OFFSET_Y + 10.5, 40]);
+  });
+
+  it("provides protest visual references for key timeline events", () => {
+    const eventsWithImages = researchTimelineEvents.filter((event) => event.image);
+
+    expect(eventsWithImages.length).toBeGreaterThanOrEqual(6);
+    expect(
+      eventsWithImages.every((event) =>
+        event.image?.src.startsWith("/assets/timeline/"),
+      ),
+    ).toBe(true);
+    expect(eventsWithImages.every((event) => Boolean(event.image?.alt))).toBe(
+      true,
+    );
   });
 });
