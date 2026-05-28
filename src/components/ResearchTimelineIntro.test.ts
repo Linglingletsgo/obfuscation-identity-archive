@@ -31,6 +31,7 @@ describe("ResearchTimelineIntro helpers", () => {
 
   it("provides protest visual references for key timeline events", () => {
     const eventsWithImages = researchTimelineEvents.filter((event) => event.image);
+    const imagePaths = eventsWithImages.map((event) => event.image?.src);
 
     expect(eventsWithImages.length).toBeGreaterThanOrEqual(6);
     expect(
@@ -40,6 +41,11 @@ describe("ResearchTimelineIntro helpers", () => {
     ).toBe(true);
     expect(eventsWithImages.every((event) => Boolean(event.image?.alt))).toBe(
       true,
+    );
+    expect(new Set(imagePaths).size).toBe(imagePaths.length);
+    expect(imagePaths).toContain("/assets/timeline/snowden-prism-slide.jpg");
+    expect(imagePaths).toContain(
+      "/assets/timeline/cambridge-analytica-protest.jpg",
     );
   });
 });
