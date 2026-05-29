@@ -26,6 +26,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: auto-archive-submissions
+  cancel-in-progress: false
+
 jobs:
   archive:
     runs-on: ubuntu-latest
