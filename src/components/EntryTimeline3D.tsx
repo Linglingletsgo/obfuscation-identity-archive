@@ -259,24 +259,21 @@ const TimelineIntroPanel = forwardRef<HTMLElement>((_, ref) => {
       </p>
       <p>
         Instead of asking who we “really” are, this project invites participants
-        to assemble a tag-based obfuscated identity defined by themselves.
-      </p>
-      <p>
-        So far, 43 participants have contributed to this archive. Their
-        submissions form individual avatar pages, tag relations, narrative
-        fragments, and a collective avatar.
-      </p>
-      <p>
-        You are welcome to fill in the{" "}
+        to assemble a tag-based obfuscated identity defined by themselves. If you
+        also want to obfuscate surveillance systems and define your own identity,
+        please join this archive{" "}
         <a
           href="https://survey.dominicduan.com/"
           target="_blank"
           rel="noreferrer"
         >
-          Obfuscation Identity Archive Survey
+          here
         </a>
-        . Although your response will not be included in this website, it will
-        be automatically archived in this{" "}
+        {","} your individual avatar will be automaticly included in the archive
+        soon.
+      </p>
+      <p>
+        It will also be archived in this{" "}
         <a
           href="https://github.com/Linglingletsgo/obfuscation-identity-archive-survey"
           target="_blank"
@@ -285,6 +282,11 @@ const TimelineIntroPanel = forwardRef<HTMLElement>((_, ref) => {
           repository
         </a>
         {" "}for the following research.
+      </p>
+      <p>
+        So far, 43 participants have contributed to this archive. Their
+        submissions form individual avatar pages, tag relations, narrative
+        fragments, and a collective avatar.
       </p>
     </section>
   );
