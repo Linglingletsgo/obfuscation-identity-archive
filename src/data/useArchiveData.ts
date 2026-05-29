@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useArchiveStore } from "../state/archiveStore";
 import { loadArchiveSources } from "./archiveLoaders";
+import { mergeGeneratedOverlay } from "./generatedOverlayMerge";
 import { buildArchiveGraph } from "./relationshipGraphBuilder";
 
 export type ArchiveDataStatus = "loading" | "ready" | "error";
@@ -19,9 +20,9 @@ export function useArchiveData(): { message: string; status: ArchiveDataStatus }
     let active = true;
 
     loadArchiveSources()
-      .then(({ graph: sourceGraph, timeline: sourceTimeline }) => {
+      .then(({ graph: sourceGraph, timeline: sourceTimeline, generatedOverlay }) => {
         if (!active) return;
-        setGraph(buildArchiveGraph(sourceGraph, sourceTimeline));
+        setGraph(mergeGeneratedOverlay(buildArchiveGraph(sourceGraph, sourceTimeline), generatedOverlay));
         setTimeline(sourceTimeline);
         setStatus("ready");
       })

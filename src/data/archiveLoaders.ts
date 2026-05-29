@@ -1,4 +1,9 @@
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
+import {
+  assertGeneratedOverlay,
+  emptyGeneratedOverlay,
+  type GeneratedOverlayGraph,
+} from "./generatedOverlay";
 import type { SourceInteractionGraph, SourceTimeline } from "../types/archive";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -144,14 +149,38 @@ async function loadJson<T>(path: string, assertValue: (value: unknown) => assert
   return value;
 }
 
+async function loadOptionalJson<T>(
+  path: string,
+  assertValue: (value: unknown) => asserts value is T,
+  fallback: T,
+): Promise<T> {
+  const response = await fetch(path);
+  if (response.status === 404) {
+    return fallback;
+  }
+  if (!response.ok) {
+    throw new Error(`Unable to load ${path}: ${response.status} ${response.statusText}`);
+  }
+
+  const value: unknown = await response.json();
+  assertValue(value);
+  return value;
+}
+
 export async function loadArchiveSources(): Promise<{
   graph: SourceInteractionGraph;
   timeline: SourceTimeline;
+  generatedOverlay: GeneratedOverlayGraph;
 }> {
-  const [graph, timeline] = await Promise.all([
+  const [graph, timeline, generatedOverlay] = await Promise.all([
     loadJson(archiveVisualConfig.data.interactionGraphPath, assertInteractionGraph),
     loadJson(archiveVisualConfig.data.timelinePath, assertTimeline),
+    loadOptionalJson(
+      archiveVisualConfig.data.generatedOverlayPath,
+      assertGeneratedOverlay,
+      emptyGeneratedOverlay(),
+    ),
   ]);
 
-  return { graph, timeline };
+  return { graph, timeline, generatedOverlay };
 }

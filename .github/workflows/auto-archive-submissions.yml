@@ -1,0 +1,87 @@
+# Required secrets in Linglingletsgo/obfuscation-identity-archive:
+# - OPENROUTER_API_KEY: OpenRouter image generation API key.
+# - SURVEY_REPO_TOKEN: optional fine-grained token if cross-repo checkout needs explicit access.
+# Optional trigger:
+# - The survey repo calls repository_dispatch with type "survey-submission-updated" after submissions/** changes.
+
+name: Auto Archive Submissions
+
+on:
+  workflow_dispatch:
+    inputs:
+      generate_images:
+        description: "Generate missing avatar images"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+  schedule:
+    - cron: "0 3 * * 1"
+  repository_dispatch:
+    types:
+      - survey-submission-updated
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v4
+        with:
+          path: site
+
+      - name: Checkout survey submissions
+        uses: actions/checkout@v4
+        with:
+          repository: Linglingletsgo/obfuscation-identity-archive-survey
+          path: survey
+          token: ${{ secrets.SURVEY_REPO_TOKEN || github.token }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Generate overlay
+        working-directory: site
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          AUTO_ARCHIVE_SUBMISSIONS_DIR: ../survey/submissions
+        run: |
+          if [ "${{ github.event.inputs.generate_images || 'true' }}" = "true" ]; then
+            npm run auto-archive:submissions -- --generate-images
+          else
+            npm run auto-archive:submissions
+          fi
+
+      - name: Test ingestion helpers
+        working-directory: site
+        run: npm run test:auto-archive
+
+      - name: Build
+        working-directory: site
+        run: npm run build
+
+      - name: Commit generated archive updates
+        working-directory: site
+        run: |
+          if git diff --quiet -- public/data/generated public/assets/avatars/generated; then
+            echo "No generated archive changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/generated public/assets/avatars/generated
+          git commit -m "chore: archive generated submissions"
+          git push

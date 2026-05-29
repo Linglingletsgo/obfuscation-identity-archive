@@ -14,7 +14,9 @@
     "audit:algorithm": "node scripts/audit-algorithm-output.mjs",
     "bake:point-clouds": "node scripts/bake-point-clouds.mjs",
     "build:graph3d-cache": "node scripts/build-graph3d-cache.mjs",
-    "validate:archive-data": "node scripts/validate-archive-data.mjs"
+    "validate:archive-data": "node scripts/validate-archive-data.mjs",
+    "auto-archive:submissions": "node scripts/auto-archive-submissions.mjs",
+    "test:auto-archive": "node --test scripts/auto-archive-submissions.node-test.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",

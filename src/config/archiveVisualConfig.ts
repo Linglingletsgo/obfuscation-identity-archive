@@ -5,6 +5,7 @@ export const archiveVisualConfig = {
     timelinePath:
       "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
     graphCachePath: "/data/graph/relationship_graph_3d.json",
+    generatedOverlayPath: "/data/generated/submission_overlay_graph.json",
   },
   assets: {
     nearWhiteThreshold: 245,

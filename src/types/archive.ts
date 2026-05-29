@@ -147,6 +147,7 @@ export type ArchiveGraphNode = {
   avatar_tags?: Record<string, string[]>;
   asset_path?: string;
   model_path?: string;
+  source_group?: "base" | "generated";
   position: { x: number; y: number; z: number };
   visual: {
     size: number;
@@ -182,6 +183,7 @@ export type ArchiveGraph = {
     seed: string;
     source_files: string[];
     generated_at: string;
+    generated_overlay_at?: string;
   };
 };
 
