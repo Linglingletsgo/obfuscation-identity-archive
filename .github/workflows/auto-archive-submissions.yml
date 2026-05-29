@@ -76,7 +76,7 @@ jobs:
       - name: Commit generated archive updates
         working-directory: site
         run: |
-          if git diff --quiet -- public/data/generated public/assets/avatars/generated; then
+          if [ -z "$(git status --short -- public/data/generated public/assets/avatars/generated)" ]; then
             echo "No generated archive changes."
             exit 0
           fi
