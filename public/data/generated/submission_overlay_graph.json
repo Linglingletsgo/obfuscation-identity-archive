@@ -1,0 +1,419 @@
+{
+  "version": 1,
+  "generated_at": "2026-05-29T11:37:29.170Z",
+  "base_graph_source": "/data/algorithm/interaction_graph_real_submissions.json",
+  "base_timeline_source": "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
+  "nodes": [
+    {
+      "id": "submission_20260522111137276_c5867795",
+      "type": "submission",
+      "label": "OUCH",
+      "carried_fragment": "CREATING COMMUNITY WITH NEW STRUCTURES",
+      "asset_path": "/assets/avatars/generated/submission_20260522111137276_c5867795.png",
+      "tags": [
+        {
+          "label": "Active at dawn",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Algorithmic anomaly",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous browser",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anti-recommendation user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Blurred profile",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Caregiver",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cloth",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Color",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Community organizer",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Coral",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dream",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Expired future",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Forest",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Handmade feeling",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Highly expressive",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Lyric-like fragment",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Marginal group member",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moon",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mythic age",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "New resident",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "No fixed place",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nocturnal",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Non-human material",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgia",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old friend",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Optimistic",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Poem",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Private diary",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Real memory",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Second-hand preference",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Simulated life",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Traveler",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unclassifiable",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unclassifiable person",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unstable user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Untitled file",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Village",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Warm",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "White noise",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Wind",
+          "category": "system",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
+    }
+  ],
+  "edges": [
+    {
+      "id": "generated_shared:submission_20260522111137276_c5867795->submission_20260514141519771_dd02f86f",
+      "source": "submission_20260522111137276_c5867795",
+      "target": "submission_20260514141519771_dd02f86f",
+      "relation": "interaction",
+      "weight": 17,
+      "shared_tags": [
+        "Algorithmic anomaly",
+        "Anonymous browser",
+        "Blurred profile",
+        "Calm",
+        "Dream",
+        "Forest",
+        "Moon",
+        "Mythic age",
+        "No fixed place",
+        "Non-human material",
+        "Nostalgia",
+        "Old friend",
+        "Poem",
+        "Real memory",
+        "Unclassifiable",
+        "Unclassifiable person",
+        "Wind"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260522111137276_c5867795->submission_20260506141449565_a50b12ee",
+      "source": "submission_20260522111137276_c5867795",
+      "target": "submission_20260506141449565_a50b12ee",
+      "relation": "interaction",
+      "weight": 16,
+      "shared_tags": [
+        "Algorithmic anomaly",
+        "Calm",
+        "Coral",
+        "Dream",
+        "Lyric-like fragment",
+        "Moon",
+        "Mythic age",
+        "No fixed place",
+        "Non-human material",
+        "Nostalgia",
+        "Old friend",
+        "Optimistic",
+        "Poem",
+        "Private diary",
+        "Unclassifiable person",
+        "Untitled file"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260522111137276_c5867795->submission_20260505202528908_37fe7684",
+      "source": "submission_20260522111137276_c5867795",
+      "target": "submission_20260505202528908_37fe7684",
+      "relation": "interaction",
+      "weight": 15,
+      "shared_tags": [
+        "Color",
+        "Coral",
+        "Forest",
+        "Lyric-like fragment",
+        "Mythic age",
+        "No fixed place",
+        "Poem",
+        "Private diary",
+        "Real memory",
+        "Second-hand preference",
+        "Simulated life",
+        "Traveler",
+        "Unstable user",
+        "Untitled file",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260522111137276_c5867795->submission_20260505233452757_426c2417",
+      "source": "submission_20260522111137276_c5867795",
+      "target": "submission_20260505233452757_426c2417",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Active at dawn",
+        "Blurred profile",
+        "Caregiver",
+        "Dream",
+        "Forest",
+        "Highly expressive",
+        "Moon",
+        "Nocturnal",
+        "Old friend",
+        "Optimistic",
+        "Private diary",
+        "Real memory",
+        "Traveler",
+        "Unclassifiable"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260522111137276_c5867795->submission_20260513163448258_5bc27ffd",
+      "source": "submission_20260522111137276_c5867795",
+      "target": "submission_20260513163448258_5bc27ffd",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Anxious",
+        "Calm",
+        "Color",
+        "Dream",
+        "Forest",
+        "Highly expressive",
+        "Moon",
+        "No fixed place",
+        "Nostalgia",
+        "Optimistic",
+        "Private diary",
+        "Real memory",
+        "Untitled file",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260522111137276_c5867795->submission_20260515121428855_f8dcaf32",
+      "source": "submission_20260522111137276_c5867795",
+      "target": "submission_20260515121428855_f8dcaf32",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Active at dawn",
+        "Algorithmic anomaly",
+        "Cloth",
+        "Community organizer",
+        "Dream",
+        "Lyric-like fragment",
+        "Nostalgia",
+        "Old friend",
+        "Poem",
+        "Second-hand preference",
+        "Traveler",
+        "Untitled file",
+        "Warm",
+        "Wind"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260522111137276_c5867795->submission_20260520215915495_153fc34c",
+      "source": "submission_20260522111137276_c5867795",
+      "target": "submission_20260520215915495_153fc34c",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Algorithmic anomaly",
+        "Anonymous browser",
+        "Anxious",
+        "Dream",
+        "Handmade feeling",
+        "Highly expressive",
+        "Lyric-like fragment",
+        "No fixed place",
+        "Nostalgia",
+        "Poem",
+        "Private diary",
+        "Real memory",
+        "Traveler",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260522111137276_c5867795->submission_20260506124058569_f041683a",
+      "source": "submission_20260522111137276_c5867795",
+      "target": "submission_20260506124058569_f041683a",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Anti-recommendation user",
+        "Dream",
+        "Lyric-like fragment",
+        "Mythic age",
+        "No fixed place",
+        "Non-human material",
+        "Private diary",
+        "Real memory",
+        "Traveler",
+        "Unclassifiable",
+        "Unclassifiable person",
+        "Unstable user",
+        "Untitled file"
+      ]
+    }
+  ]
+}
