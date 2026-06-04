@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-06-04T13:48:20.090Z",
+  "generated_at": "2026-06-04T14:06:17.319Z",
   "base_graph_source": "/data/algorithm/interaction_graph_real_submissions.json",
   "base_timeline_source": "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
   "nodes": [
@@ -988,6 +988,256 @@
         }
       ],
       "source_group": "generated"
+    },
+    {
+      "id": "submission_20260604140245873_9f7a6ab1",
+      "type": "submission",
+      "label": "Grindizer",
+      "carried_fragment": "I can secretly know how to fly, but I don't want to tell anyone",
+      "asset_path": "/assets/avatars/generated/submission_20260604140245873_9f7a6ab1.png",
+      "tags": [
+        {
+          "label": "Active user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Airport",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Alien creature",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anti-recommendation user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Artificially cultivated thing",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bird",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cloud",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Data center",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant future",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dog",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dream",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family-oriented",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Futurism",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game character",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game interface style",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Hoarder",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Host",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "In an intimate relationship",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Insufficient information",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Legend",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Luxury",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Machine",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mountain area",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum label",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Near future",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgia",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Often misunderstood",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Optimistic",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Platform nomad",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Recommendation difficulty",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Retro future",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "River",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Saves screenshots",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Sensor",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Simulated life",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Socially active",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Star",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Stubborn",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Tech geek",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Traveler",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unpredictable user",
+          "category": "system",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
     }
   ],
   "edges": [
@@ -1770,6 +2020,199 @@
         "Forest",
         "Mythic age",
         "Nostalgia"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604140245873_9f7a6ab1->submission_20260506170942275_93cbccd2",
+      "source": "submission_20260604140245873_9f7a6ab1",
+      "target": "submission_20260506170942275_93cbccd2",
+      "relation": "interaction",
+      "weight": 19,
+      "shared_tags": [
+        "Airport",
+        "Anxious",
+        "Bird",
+        "Calm",
+        "Cat",
+        "City center",
+        "Dog",
+        "Dream",
+        "Family-oriented",
+        "Game",
+        "Game character",
+        "Mountain area",
+        "Nostalgia",
+        "Optimistic",
+        "Saves screenshots",
+        "Socially active",
+        "Stubborn",
+        "Tech geek",
+        "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604140245873_9f7a6ab1->submission_20260501153958445_ddc8dd42",
+      "source": "submission_20260604140245873_9f7a6ab1",
+      "target": "submission_20260501153958445_ddc8dd42",
+      "relation": "interaction",
+      "weight": 16,
+      "shared_tags": [
+        "Active user",
+        "Alien creature",
+        "Calm",
+        "Cat",
+        "Distant future",
+        "Dream",
+        "Family-oriented",
+        "Futurism",
+        "Game",
+        "Game character",
+        "Luxury",
+        "Museum",
+        "River",
+        "Socially active",
+        "Traveler",
+        "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604140245873_9f7a6ab1->submission_20260506142903947_7257f333",
+      "source": "submission_20260604140245873_9f7a6ab1",
+      "target": "submission_20260506142903947_7257f333",
+      "relation": "interaction",
+      "weight": 15,
+      "shared_tags": [
+        "Calm",
+        "Cat",
+        "Distant future",
+        "Dog",
+        "Dream",
+        "Family-oriented",
+        "Game",
+        "Game character",
+        "Legend",
+        "Optimistic",
+        "River",
+        "Socially active",
+        "Star",
+        "Traveler",
+        "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604140245873_9f7a6ab1->submission_20260514123922806_fb5180d9",
+      "source": "submission_20260604140245873_9f7a6ab1",
+      "target": "submission_20260514123922806_fb5180d9",
+      "relation": "interaction",
+      "weight": 15,
+      "shared_tags": [
+        "Anonymous user",
+        "Calm",
+        "Data center",
+        "Dream",
+        "Game",
+        "Game character",
+        "Game interface style",
+        "Hoarder",
+        "Machine",
+        "Museum",
+        "Near future",
+        "Nostalgia",
+        "Platform nomad",
+        "Socially active",
+        "Tech geek"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604140245873_9f7a6ab1->submission_20260506141449565_a50b12ee",
+      "source": "submission_20260604140245873_9f7a6ab1",
+      "target": "submission_20260506141449565_a50b12ee",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Anonymous user",
+        "Calm",
+        "Cat",
+        "Data center",
+        "Dream",
+        "Family-oriented",
+        "Legend",
+        "Museum",
+        "Nostalgia",
+        "Optimistic",
+        "Platform nomad",
+        "River",
+        "Star",
+        "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604140245873_9f7a6ab1->submission_20260507093805308_8415663b",
+      "source": "submission_20260604140245873_9f7a6ab1",
+      "target": "submission_20260507093805308_8415663b",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Active user",
+        "Anxious",
+        "City center",
+        "Dog",
+        "Dream",
+        "Family-oriented",
+        "Futurism",
+        "Game",
+        "Game character",
+        "Hoarder",
+        "Mountain area",
+        "Stubborn",
+        "Tech geek",
+        "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604140245873_9f7a6ab1->submission_20260508164416797_b13e1f70",
+      "source": "submission_20260604140245873_9f7a6ab1",
+      "target": "submission_20260508164416797_b13e1f70",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Active user",
+        "Distant future",
+        "Dog",
+        "Dream",
+        "Family-oriented",
+        "In an intimate relationship",
+        "Legend",
+        "Mountain area",
+        "Museum",
+        "Museum label",
+        "Nostalgia",
+        "Often misunderstood",
+        "Optimistic",
+        "River"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604140245873_9f7a6ab1->submission_20260513163448258_5bc27ffd",
+      "source": "submission_20260604140245873_9f7a6ab1",
+      "target": "submission_20260513163448258_5bc27ffd",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Active user",
+        "Anxious",
+        "Calm",
+        "Cat",
+        "Cloud",
+        "Dog",
+        "Dream",
+        "Legend",
+        "Luxury",
+        "Nostalgia",
+        "Optimistic",
+        "River",
+        "Stubborn",
+        "Unpredictable user"
       ]
     }
   ]
