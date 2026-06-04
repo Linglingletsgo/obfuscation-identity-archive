@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-06-04T13:43:27.081Z",
+  "generated_at": "2026-06-04T13:48:20.090Z",
   "base_graph_source": "/data/algorithm/interaction_graph_real_submissions.json",
   "base_timeline_source": "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
   "nodes": [
@@ -803,6 +803,191 @@
         }
       ],
       "source_group": "generated"
+    },
+    {
+      "id": "submission_20260604134450235_239412dc",
+      "type": "submission",
+      "label": "Jinglejangles",
+      "carried_fragment": "Watch out for the rat.",
+      "asset_path": "/assets/avatars/generated/submission_20260604134450235_239412dc.png",
+      "tags": [
+        {
+          "label": "1990s",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bee",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bird",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Blurred profile",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Classification failure",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cloud",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Collector",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Deer",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dependent on a small circle",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dream",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Environmentalism",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Excited",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family home",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family legend",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family-oriented",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Folklore",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Forest",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Handmade feeling",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Hoarder",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Impulsive",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Insect",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Local person",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moss",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mythic age",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Natural environment",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgia",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old friend",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old key",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Parallel timeline",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Rabbit",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Regular visitor",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unpredictable user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Warm",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Wind",
+          "category": "system",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
     }
   ],
   "edges": [
@@ -1419,6 +1604,172 @@
         "Student",
         "Testimony",
         "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134450235_239412dc->submission_20260506141449565_a50b12ee",
+      "source": "submission_20260604134450235_239412dc",
+      "target": "submission_20260506141449565_a50b12ee",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Bee",
+        "Cat",
+        "Collector",
+        "Dependent on a small circle",
+        "Dream",
+        "Family legend",
+        "Family-oriented",
+        "Mythic age",
+        "Natural environment",
+        "Nostalgia",
+        "Old friend",
+        "Parallel timeline",
+        "Rabbit",
+        "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134450235_239412dc->submission_20260515121428855_f8dcaf32",
+      "source": "submission_20260604134450235_239412dc",
+      "target": "submission_20260515121428855_f8dcaf32",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Collector",
+        "Dream",
+        "Environmentalism",
+        "Family home",
+        "Family legend",
+        "Folklore",
+        "Local person",
+        "Natural environment",
+        "Nostalgia",
+        "Old friend",
+        "Old key",
+        "Unpredictable user",
+        "Warm",
+        "Wind"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134450235_239412dc->submission_20260506165618707_3ddc6e60",
+      "source": "submission_20260604134450235_239412dc",
+      "target": "submission_20260506165618707_3ddc6e60",
+      "relation": "interaction",
+      "weight": 12,
+      "shared_tags": [
+        "Bird",
+        "Cloud",
+        "Dependent on a small circle",
+        "Environmentalism",
+        "Family home",
+        "Family legend",
+        "Family-oriented",
+        "Handmade feeling",
+        "Hoarder",
+        "Natural environment",
+        "Parallel timeline",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134450235_239412dc->submission_20260505202528908_37fe7684",
+      "source": "submission_20260604134450235_239412dc",
+      "target": "submission_20260505202528908_37fe7684",
+      "relation": "interaction",
+      "weight": 11,
+      "shared_tags": [
+        "1990s",
+        "Bird",
+        "Cat",
+        "Family legend",
+        "Folklore",
+        "Forest",
+        "Impulsive",
+        "Local person",
+        "Mythic age",
+        "Natural environment",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134450235_239412dc->submission_20260506142903947_7257f333",
+      "source": "submission_20260604134450235_239412dc",
+      "target": "submission_20260506142903947_7257f333",
+      "relation": "interaction",
+      "weight": 11,
+      "shared_tags": [
+        "Cat",
+        "Collector",
+        "Dream",
+        "Family legend",
+        "Family-oriented",
+        "Forest",
+        "Mythic age",
+        "Old friend",
+        "Parallel timeline",
+        "Unpredictable user",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134450235_239412dc->submission_20260514131000453_8693665e",
+      "source": "submission_20260604134450235_239412dc",
+      "target": "submission_20260514131000453_8693665e",
+      "relation": "interaction",
+      "weight": 11,
+      "shared_tags": [
+        "Bee",
+        "Bird",
+        "Blurred profile",
+        "Family-oriented",
+        "Folklore",
+        "Handmade feeling",
+        "Hoarder",
+        "Impulsive",
+        "Insect",
+        "Moss",
+        "Mythic age"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134450235_239412dc->submission_20260514141519771_dd02f86f",
+      "source": "submission_20260604134450235_239412dc",
+      "target": "submission_20260514141519771_dd02f86f",
+      "relation": "interaction",
+      "weight": 11,
+      "shared_tags": [
+        "Blurred profile",
+        "Classification failure",
+        "Cloud",
+        "Dream",
+        "Family-oriented",
+        "Forest",
+        "Mythic age",
+        "Natural environment",
+        "Nostalgia",
+        "Old friend",
+        "Wind"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134450235_239412dc->submission_20260508164416797_b13e1f70",
+      "source": "submission_20260604134450235_239412dc",
+      "target": "submission_20260508164416797_b13e1f70",
+      "relation": "interaction",
+      "weight": 10,
+      "shared_tags": [
+        "Collector",
+        "Deer",
+        "Dependent on a small circle",
+        "Dream",
+        "Family legend",
+        "Family-oriented",
+        "Folklore",
+        "Forest",
+        "Mythic age",
+        "Nostalgia"
       ]
     }
   ]
