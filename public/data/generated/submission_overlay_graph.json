@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-06-01T08:37:32.419Z",
+  "generated_at": "2026-06-04T13:43:27.081Z",
   "base_graph_source": "/data/algorithm/interaction_graph_real_submissions.json",
   "base_timeline_source": "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
   "nodes": [
@@ -468,6 +468,341 @@
         }
       ],
       "source_group": "generated"
+    },
+    {
+      "id": "submission_20260604134000690_32f67196",
+      "type": "submission",
+      "label": "周餍",
+      "carried_fragment": "倒影",
+      "asset_path": "/assets/avatars/generated/submission_20260604134000690_32f67196.png",
+      "tags": [
+        {
+          "label": "Active at dawn",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "An eye",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anime / manga culture",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous observer",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anti-recommendation user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Archive",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Archive object",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bed",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Biological atlas style",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Color",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Crack",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Divination result",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dream",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Easily distracted",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Expired future",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family legend",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fish",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Folklore",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Freelancer",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fungus",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Future world",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game character",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game world",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Gentle",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Hard to determine",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Highly sensitive",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Identity drift",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Industrial age",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Jellyfish",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Junk file",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Keeps distance",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Late-night shopper",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Long silence",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Long-term lurker",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mirror",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moon",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum label",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum-like",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mythic age",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Natural environment",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Non-human material",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Octopus",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Outlier",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Platform nomad",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Punk",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Religious / mythological element",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Religious atmosphere",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Rooftop",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seaside",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Shadow",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Snake",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Snow",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Solitary person",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Student",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Suspected bot",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Testimony",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Traveler",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unpredictable user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Waiting to be recognized",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Witness",
+          "category": "system",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
     }
   ],
   "edges": [
@@ -866,6 +1201,224 @@
         "Seaside",
         "Socially active",
         "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134000690_32f67196->submission_20260515121428855_f8dcaf32",
+      "source": "submission_20260604134000690_32f67196",
+      "target": "submission_20260515121428855_f8dcaf32",
+      "relation": "interaction",
+      "weight": 20,
+      "shared_tags": [
+        "Active at dawn",
+        "Archive",
+        "Divination result",
+        "Dream",
+        "Family legend",
+        "Folklore",
+        "Hard to determine",
+        "Highly sensitive",
+        "Identity drift",
+        "Museum",
+        "Museum label",
+        "Natural environment",
+        "Octopus",
+        "Platform nomad",
+        "Punk",
+        "Seaside",
+        "Solitary person",
+        "Traveler",
+        "Unpredictable user",
+        "Witness"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134000690_32f67196->submission_20260517091347543_81717183",
+      "source": "submission_20260604134000690_32f67196",
+      "target": "submission_20260517091347543_81717183",
+      "relation": "interaction",
+      "weight": 20,
+      "shared_tags": [
+        "Anti-recommendation user",
+        "Archive object",
+        "Color",
+        "Dream",
+        "Easily distracted",
+        "Folklore",
+        "Freelancer",
+        "Future world",
+        "Game",
+        "Hard to determine",
+        "Museum label",
+        "Museum-like",
+        "Mythic age",
+        "Non-human material",
+        "Rooftop",
+        "Seaside",
+        "Shadow",
+        "Snow",
+        "Unpredictable user",
+        "Waiting to be recognized"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134000690_32f67196->submission_20260514161619507_df8db937",
+      "source": "submission_20260604134000690_32f67196",
+      "target": "submission_20260514161619507_df8db937",
+      "relation": "interaction",
+      "weight": 19,
+      "shared_tags": [
+        "An eye",
+        "Crack",
+        "Dream",
+        "Easily distracted",
+        "Family legend",
+        "Folklore",
+        "Fungus",
+        "Future world",
+        "Game",
+        "Hard to determine",
+        "Long silence",
+        "Museum",
+        "Museum label",
+        "Natural environment",
+        "Non-human material",
+        "Solitary person",
+        "Suspected bot",
+        "Testimony",
+        "Waiting to be recognized"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134000690_32f67196->submission_20260506141449565_a50b12ee",
+      "source": "submission_20260604134000690_32f67196",
+      "target": "submission_20260506141449565_a50b12ee",
+      "relation": "interaction",
+      "weight": 18,
+      "shared_tags": [
+        "Archive object",
+        "Cat",
+        "Dream",
+        "Easily distracted",
+        "Family legend",
+        "Freelancer",
+        "Game world",
+        "Junk file",
+        "Long-term lurker",
+        "Moon",
+        "Museum",
+        "Museum-like",
+        "Mythic age",
+        "Natural environment",
+        "Non-human material",
+        "Platform nomad",
+        "Religious / mythological element",
+        "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134000690_32f67196->submission_20260507093805308_8415663b",
+      "source": "submission_20260604134000690_32f67196",
+      "target": "submission_20260507093805308_8415663b",
+      "relation": "interaction",
+      "weight": 18,
+      "shared_tags": [
+        "Anime / manga culture",
+        "Anxious",
+        "Distant",
+        "Dream",
+        "Family legend",
+        "Folklore",
+        "Freelancer",
+        "Game",
+        "Game character",
+        "Industrial age",
+        "Late-night shopper",
+        "Moon",
+        "Mythic age",
+        "Punk",
+        "Seaside",
+        "Solitary person",
+        "Student",
+        "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134000690_32f67196->submission_20260505202528908_37fe7684",
+      "source": "submission_20260604134000690_32f67196",
+      "target": "submission_20260505202528908_37fe7684",
+      "relation": "interaction",
+      "weight": 17,
+      "shared_tags": [
+        "Anime / manga culture",
+        "Anonymous observer",
+        "Biological atlas style",
+        "Cat",
+        "Color",
+        "Divination result",
+        "Family legend",
+        "Folklore",
+        "Game world",
+        "Hard to determine",
+        "Late-night shopper",
+        "Mythic age",
+        "Natural environment",
+        "Octopus",
+        "Shadow",
+        "Snake",
+        "Traveler"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134000690_32f67196->submission_20260506142903947_7257f333",
+      "source": "submission_20260604134000690_32f67196",
+      "target": "submission_20260506142903947_7257f333",
+      "relation": "interaction",
+      "weight": 17,
+      "shared_tags": [
+        "Anime / manga culture",
+        "Cat",
+        "Dream",
+        "Family legend",
+        "Future world",
+        "Game",
+        "Game character",
+        "Gentle",
+        "Identity drift",
+        "Mythic age",
+        "Religious / mythological element",
+        "Religious atmosphere",
+        "Rooftop",
+        "Shadow",
+        "Traveler",
+        "Unpredictable user",
+        "Witness"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604134000690_32f67196->submission_20260506170942275_93cbccd2",
+      "source": "submission_20260604134000690_32f67196",
+      "target": "submission_20260506170942275_93cbccd2",
+      "relation": "interaction",
+      "weight": 17,
+      "shared_tags": [
+        "Anonymous observer",
+        "Anxious",
+        "Cat",
+        "Color",
+        "Dream",
+        "Easily distracted",
+        "Folklore",
+        "Freelancer",
+        "Game",
+        "Game character",
+        "Long silence",
+        "Natural environment",
+        "Punk",
+        "Seaside",
+        "Student",
+        "Testimony",
+        "Unpredictable user"
       ]
     }
   ]
