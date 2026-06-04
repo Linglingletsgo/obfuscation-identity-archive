@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-06-04T15:23:39.510Z",
+  "generated_at": "2026-06-04T15:55:19.517Z",
   "base_graph_source": "/data/algorithm/interaction_graph_real_submissions.json",
   "base_timeline_source": "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
   "nodes": [
@@ -1418,6 +1418,216 @@
         }
       ],
       "source_group": "generated"
+    },
+    {
+      "id": "submission_20260604155144192_e7be0ca1",
+      "type": "submission",
+      "label": "agu",
+      "carried_fragment": "eel sauce",
+      "asset_path": "/assets/avatars/generated/submission_20260604155144192_e7be0ca1.png",
+      "tags": [
+        {
+          "label": "Active user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Airport",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Archive object",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bird",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Brand loyalist",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Collector",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Database",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dog",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fish",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Folklore",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Futurism",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game character",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "High repetition",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "High-value user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Horse",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ignored",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Insect",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Internet",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Legend",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Lo-fi",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Location trace",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Low-value user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Marginal group member",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Minimalist",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Natural environment",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "New resident",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Paused time",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Poem",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ruin",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seasonal appearance",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Solitary person",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Stubborn",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Student",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Suburb",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Urban edge",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Warm",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Whale",
+          "category": "system",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
     }
   ],
   "edges": [
@@ -2570,6 +2780,183 @@
         "Old photo",
         "Pop culture",
         "Private diary"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604155144192_e7be0ca1->submission_20260506145602031_227b2d40",
+      "source": "submission_20260604155144192_e7be0ca1",
+      "target": "submission_20260506145602031_227b2d40",
+      "relation": "interaction",
+      "weight": 15,
+      "shared_tags": [
+        "Anxious",
+        "Brand loyalist",
+        "City center",
+        "Database",
+        "Distant",
+        "Dog",
+        "Futurism",
+        "Game character",
+        "High-value user",
+        "Internet",
+        "Marginal group member",
+        "Poem",
+        "Student",
+        "Suburb",
+        "Urban edge"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604155144192_e7be0ca1->submission_20260506170942275_93cbccd2",
+      "source": "submission_20260604155144192_e7be0ca1",
+      "target": "submission_20260506170942275_93cbccd2",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Airport",
+        "Anxious",
+        "Bird",
+        "City center",
+        "Dog",
+        "Folklore",
+        "Game character",
+        "High-value user",
+        "Natural environment",
+        "Poem",
+        "Seasonal appearance",
+        "Stubborn",
+        "Student",
+        "Suburb"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604155144192_e7be0ca1->submission_20260507093805308_8415663b",
+      "source": "submission_20260604155144192_e7be0ca1",
+      "target": "submission_20260507093805308_8415663b",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Active user",
+        "Anxious",
+        "City center",
+        "Distant",
+        "Dog",
+        "Folklore",
+        "Futurism",
+        "Game character",
+        "Low-value user",
+        "Poem",
+        "Solitary person",
+        "Stubborn",
+        "Student",
+        "Suburb"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604155144192_e7be0ca1->submission_20260508164416797_b13e1f70",
+      "source": "submission_20260604155144192_e7be0ca1",
+      "target": "submission_20260508164416797_b13e1f70",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Active user",
+        "Brand loyalist",
+        "Collector",
+        "Dog",
+        "Fish",
+        "Folklore",
+        "Horse",
+        "Internet",
+        "Legend",
+        "Location trace",
+        "Minimalist",
+        "Poem",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604155144192_e7be0ca1->submission_20260513163448258_5bc27ffd",
+      "source": "submission_20260604155144192_e7be0ca1",
+      "target": "submission_20260513163448258_5bc27ffd",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Active user",
+        "Anxious",
+        "Collector",
+        "Dog",
+        "High-value user",
+        "Legend",
+        "Location trace",
+        "Natural environment",
+        "Seasonal appearance",
+        "Solitary person",
+        "Stubborn",
+        "Student",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604155144192_e7be0ca1->submission_20260514131000453_8693665e",
+      "source": "submission_20260604155144192_e7be0ca1",
+      "target": "submission_20260514131000453_8693665e",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Bird",
+        "Database",
+        "Folklore",
+        "Futurism",
+        "Ignored",
+        "Insect",
+        "Location trace",
+        "Low-value user",
+        "Minimalist",
+        "Poem",
+        "Seasonal appearance",
+        "Solitary person",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604155144192_e7be0ca1->submission_20260515121428855_f8dcaf32",
+      "source": "submission_20260604155144192_e7be0ca1",
+      "target": "submission_20260515121428855_f8dcaf32",
+      "relation": "interaction",
+      "weight": 12,
+      "shared_tags": [
+        "Collector",
+        "Folklore",
+        "Legend",
+        "Location trace",
+        "Low-value user",
+        "Natural environment",
+        "Paused time",
+        "Poem",
+        "Ruin",
+        "Seasonal appearance",
+        "Solitary person",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604155144192_e7be0ca1->submission_20260505202528908_37fe7684",
+      "source": "submission_20260604155144192_e7be0ca1",
+      "target": "submission_20260505202528908_37fe7684",
+      "relation": "interaction",
+      "weight": 11,
+      "shared_tags": [
+        "Airport",
+        "Bird",
+        "Dog",
+        "Folklore",
+        "Lo-fi",
+        "Minimalist",
+        "Natural environment",
+        "Poem",
+        "Seasonal appearance",
+        "Stubborn",
+        "Warm"
       ]
     }
   ]
