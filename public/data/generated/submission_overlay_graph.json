@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-06-04T14:06:17.319Z",
+  "generated_at": "2026-06-04T15:23:39.510Z",
   "base_graph_source": "/data/algorithm/interaction_graph_real_submissions.json",
   "base_timeline_source": "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
   "nodes": [
@@ -1238,6 +1238,186 @@
         }
       ],
       "source_group": "generated"
+    },
+    {
+      "id": "submission_20260604152014319_226a3988",
+      "type": "submission",
+      "label": "YILIN",
+      "carried_fragment": "create own garden",
+      "asset_path": "/assets/avatars/generated/submission_20260604152014319_226a3988.png",
+      "tags": [
+        {
+          "label": "Adventurous",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Café",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cared-for person",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Digital subscriber",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dog",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dream",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fox",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Freelancer",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Gentle",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "High return rate",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Home",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Housemate",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Identity drift",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ignored",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Late-night shopper",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Low-value user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Luxury",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Medieval period",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Near future",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Office style",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old photo",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ordinary user",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Pop culture",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Private diary",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Rain",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seaside",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Silent",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Snow",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Solitary person",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Student",
+          "category": "system",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Wind",
+          "category": "system",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
     }
   ],
   "edges": [
@@ -2213,6 +2393,183 @@
         "River",
         "Stubborn",
         "Unpredictable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604152014319_226a3988->submission_20260507093805308_8415663b",
+      "source": "submission_20260604152014319_226a3988",
+      "target": "submission_20260507093805308_8415663b",
+      "relation": "interaction",
+      "weight": 18,
+      "shared_tags": [
+        "Adventurous",
+        "City center",
+        "Digital subscriber",
+        "Dog",
+        "Dream",
+        "Fox",
+        "Freelancer",
+        "High return rate",
+        "Home",
+        "Late-night shopper",
+        "Low-value user",
+        "Medieval period",
+        "Old photo",
+        "Private diary",
+        "Seaside",
+        "Silent",
+        "Solitary person",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604152014319_226a3988->submission_20260506191112228_5d260333",
+      "source": "submission_20260604152014319_226a3988",
+      "target": "submission_20260506191112228_5d260333",
+      "relation": "interaction",
+      "weight": 15,
+      "shared_tags": [
+        "Adventurous",
+        "Café",
+        "Calm",
+        "Cat",
+        "City center",
+        "Dog",
+        "Freelancer",
+        "Late-night shopper",
+        "Low-value user",
+        "Luxury",
+        "Medieval period",
+        "Old photo",
+        "Ordinary user",
+        "Private diary",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604152014319_226a3988->submission_20260506170942275_93cbccd2",
+      "source": "submission_20260604152014319_226a3988",
+      "target": "submission_20260506170942275_93cbccd2",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Calm",
+        "Cared-for person",
+        "Cat",
+        "City center",
+        "Dog",
+        "Dream",
+        "Freelancer",
+        "Home",
+        "Housemate",
+        "Old photo",
+        "Ordinary user",
+        "Pop culture",
+        "Seaside",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604152014319_226a3988->submission_20260513163448258_5bc27ffd",
+      "source": "submission_20260604152014319_226a3988",
+      "target": "submission_20260513163448258_5bc27ffd",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "Café",
+        "Calm",
+        "Cared-for person",
+        "Cat",
+        "Dog",
+        "Dream",
+        "Fox",
+        "Freelancer",
+        "Late-night shopper",
+        "Luxury",
+        "Pop culture",
+        "Private diary",
+        "Solitary person",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604152014319_226a3988->submission_20260506145602031_227b2d40",
+      "source": "submission_20260604152014319_226a3988",
+      "target": "submission_20260506145602031_227b2d40",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Cat",
+        "City center",
+        "Dog",
+        "Dream",
+        "Freelancer",
+        "High return rate",
+        "Housemate",
+        "Identity drift",
+        "Medieval period",
+        "Pop culture",
+        "Private diary",
+        "Rain",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604152014319_226a3988->submission_20260514131000453_8693665e",
+      "source": "submission_20260604152014319_226a3988",
+      "target": "submission_20260514131000453_8693665e",
+      "relation": "interaction",
+      "weight": 11,
+      "shared_tags": [
+        "Calm",
+        "Home",
+        "Ignored",
+        "Low-value user",
+        "Office style",
+        "Private diary",
+        "Rain",
+        "Seaside",
+        "Silent",
+        "Solitary person",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604152014319_226a3988->submission_20260505201354964_55dd2e1b",
+      "source": "submission_20260604152014319_226a3988",
+      "target": "submission_20260505201354964_55dd2e1b",
+      "relation": "interaction",
+      "weight": 10,
+      "shared_tags": [
+        "Cared-for person",
+        "Cat",
+        "City center",
+        "Dog",
+        "Dream",
+        "High return rate",
+        "Medieval period",
+        "Office style",
+        "Silent",
+        "Student"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260604152014319_226a3988->submission_20260506142903947_7257f333",
+      "source": "submission_20260604152014319_226a3988",
+      "target": "submission_20260506142903947_7257f333",
+      "relation": "interaction",
+      "weight": 10,
+      "shared_tags": [
+        "Calm",
+        "Cat",
+        "Dog",
+        "Dream",
+        "Gentle",
+        "Identity drift",
+        "Medieval period",
+        "Old photo",
+        "Pop culture",
+        "Private diary"
       ]
     }
   ]
