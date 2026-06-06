@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { ensureDir, graphPath, readJson, repoRoot } from "./archive-core.mjs";
 import { avatarTagFields, buildAvatarPrompt } from "./avatar-prompt-template.mjs";
 
@@ -58,6 +59,13 @@ function valuesFromField(rawSubmission, field) {
   return [];
 }
 
+function uniqueCleanStrings(values) {
+  return [...new Set(values)]
+    .filter((tag) => typeof tag === "string")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+}
+
 export function buildStandardTagSet(baseGraph) {
   return new Set(
     baseGraph.nodes
@@ -67,25 +75,40 @@ export function buildStandardTagSet(baseGraph) {
   );
 }
 
-export function fieldTagsFromSubmission(rawSubmission, standardTagSet) {
+export function fieldTagsFromSubmission(rawSubmission, standardTagSet = new Set(), { includeCustom = true } = {}) {
   return Object.fromEntries(
     avatarTagFields.map((field) => [
       field,
-      [...new Set(valuesFromField(rawSubmission, field))]
-        .filter((tag) => typeof tag === "string")
-        .map((tag) => tag.trim())
-        .filter((tag) => standardTagSet.has(tag))
-        .sort((a, b) => a.localeCompare(b)),
+      uniqueCleanStrings(valuesFromField(rawSubmission, field))
+        .filter((tag) => includeCustom || standardTagSet.has(tag)),
     ]),
   );
 }
 
-export function standardTagsFromFields(tagsByField) {
-  return [...new Set(Object.values(tagsByField).flat())].sort((a, b) => a.localeCompare(b));
+export function labelsFromFields(tagsByField, standardTagSet = null) {
+  return [...new Set(Object.values(tagsByField).flat())]
+    .filter((label) => !standardTagSet || standardTagSet.has(label))
+    .sort((a, b) => a.localeCompare(b));
+}
+
+export function tagObjectsFromFields(tagsByField, standardTagSet) {
+  const byLabel = new Map();
+  for (const field of avatarTagFields) {
+    for (const label of tagsByField[field] || []) {
+      if (!byLabel.has(label)) {
+        byLabel.set(label, {
+          label,
+          category: field,
+          definition_source: standardTagSet.has(label) ? "standard" : "custom",
+        });
+      }
+    }
+  }
+  return [...byLabel.values()];
 }
 
 export function standardTagsFromSubmission(rawSubmission, standardTagSet) {
-  const fieldTags = standardTagsFromFields(fieldTagsFromSubmission(rawSubmission, standardTagSet));
+  const fieldTags = labelsFromFields(fieldTagsFromSubmission(rawSubmission, standardTagSet, { includeCustom: false }));
   if (fieldTags.length > 0) {
     return fieldTags;
   }
@@ -104,7 +127,11 @@ export function standardTagsFromSubmission(rawSubmission, standardTagSet) {
 }
 
 export function createGeneratedEdges(generatedNode, baseNodes, maxTargets = 8) {
-  const generatedTags = new Set((generatedNode.tags || []).map((tag) => tag.label));
+  const generatedTags = new Set(
+    (generatedNode.tags || [])
+      .filter((tag) => tag.definition_source !== "custom")
+      .map((tag) => tag.label),
+  );
   return baseNodes
     .map((baseNode) => {
       const sharedTags = [
@@ -133,7 +160,7 @@ function submissionFiles(submissionsDir) {
   if (!submissionsDir || !fs.existsSync(submissionsDir)) return [];
   return fs
     .readdirSync(submissionsDir)
-    .filter((name) => name.endsWith(".json"))
+    .filter((name) => name.endsWith(".json") && !name.startsWith("._"))
     .sort((a, b) => a.localeCompare(b))
     .map((name) => path.join(submissionsDir, name));
 }
@@ -152,7 +179,8 @@ function extractBase64Image(payload) {
 
 async function generateAvatarImage({ rawSubmission, node, outputPath, dryRun }) {
   ensureDir(path.dirname(outputPath));
-  if (fs.existsSync(outputPath)) return;
+  const shouldOverwrite = node.source_hash_changed === true;
+  if (fs.existsSync(outputPath) && !shouldOverwrite) return;
 
   if (dryRun) {
     fs.writeFileSync(outputPath, "");
@@ -182,7 +210,7 @@ async function generateAvatarImage({ rawSubmission, node, outputPath, dryRun }) 
       messages: [
         {
           role: "user",
-          content: buildAvatarPrompt(fieldTagsFromSubmission(rawSubmission, new Set(node.tags.map((tag) => tag.label)))),
+          content: buildAvatarPrompt(fieldTagsFromSubmission(rawSubmission)),
         },
       ],
     }),
@@ -213,7 +241,7 @@ export async function runAutoArchive({
     edges: [],
   });
   const registry = readJsonIfExists(registryPath, { version: 1, submissions: {} });
-  const nodesById = new Map(previousOverlay.nodes.map((node) => [node.id, node]));
+  const nodesById = new Map();
 
   for (const filePath of submissionFiles(submissionsDir)) {
     const fileText = fs.readFileSync(filePath, "utf8");
@@ -226,37 +254,31 @@ export async function runAutoArchive({
     }
 
     const sourceHash = sha256(fileText);
-    if (
-      registry.submissions[submissionId]?.source_sha256 === sourceHash &&
-      nodesById.has(submissionId) &&
-      fs.existsSync(path.join(generatedAvatarDir, `${submissionId}.png`))
-    ) {
-      continue;
-    }
+    const previousRegistryEntry = registry.submissions[submissionId];
+    const sourceHashChanged = previousRegistryEntry?.source_sha256 !== sourceHash;
 
     const avatarPath = `/assets/avatars/generated/${submissionId}.png`;
-    const tagsByField = fieldTagsFromSubmission(rawSubmission, standardTagSet);
+    const tagsByField = fieldTagsFromSubmission(rawSubmission);
     const node = {
       id: submissionId,
       type: "submission",
       label: normalizeName(rawSubmission),
       carried_fragment: normalizeCarriedFragment(rawSubmission),
       asset_path: avatarPath,
-      tags: standardTagsFromFields(tagsByField).map((label) => ({
-        label,
-        category: "system",
-        definition_source: "standard",
-      })),
+      tags: tagObjectsFromFields(tagsByField, standardTagSet),
       source_group: "generated",
+      source_hash_changed: sourceHashChanged,
     };
 
     nodesById.set(submissionId, node);
-    registry.submissions[submissionId] = {
-      submission_id: submissionId,
-      source_sha256: sourceHash,
-      avatar_path: avatarPath,
-      processed_at: new Date().toISOString(),
-    };
+    if (sourceHashChanged || previousRegistryEntry?.avatar_path !== avatarPath) {
+      registry.submissions[submissionId] = {
+        submission_id: submissionId,
+        source_sha256: sourceHash,
+        avatar_path: avatarPath,
+        processed_at: new Date().toISOString(),
+      };
+    }
 
     if (generateImages) {
       await generateAvatarImage({
@@ -268,22 +290,37 @@ export async function runAutoArchive({
     }
   }
 
-  const nodes = [...nodesById.values()].sort((a, b) => a.id.localeCompare(b.id));
+  const nodes = [...nodesById.values()]
+    .map(({ source_hash_changed: _sourceHashChanged, ...node }) => node)
+    .sort((a, b) => a.id.localeCompare(b.id));
   const edges = nodes.flatMap((node) => createGeneratedEdges(node, baseGraph.nodes, 8));
-  const overlay = {
+  const overlayContent = {
     version: 1,
-    generated_at: new Date().toISOString(),
     base_graph_source: "/data/algorithm/interaction_graph_real_submissions.json",
     base_timeline_source: "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
     nodes,
     edges,
+  };
+  const previousOverlayContent = {
+    version: previousOverlay.version,
+    base_graph_source: previousOverlay.base_graph_source,
+    base_timeline_source: previousOverlay.base_timeline_source,
+    nodes: previousOverlay.nodes || [],
+    edges: previousOverlay.edges || [],
+  };
+  const overlay = {
+    ...overlayContent,
+    generated_at:
+      JSON.stringify(overlayContent) === JSON.stringify(previousOverlayContent)
+        ? previousOverlay.generated_at
+        : new Date().toISOString(),
   };
 
   writeJson(overlayPath, overlay);
   writeJson(registryPath, registry);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])) {
   const generateImages = process.argv.includes("--generate-images");
   const dryRunImages = process.argv.includes("--dry-run-images");
   await runAutoArchive({ generateImages, dryRunImages });

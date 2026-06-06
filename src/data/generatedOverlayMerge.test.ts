@@ -107,12 +107,16 @@ describe("mergeGeneratedOverlay", () => {
     expect(merged.metadata.source_files).toEqual(original.metadata.source_files);
   });
 
-  it("does not create new tag nodes for generated-only custom tags", () => {
+  it("keeps generated custom tags on individual nodes without creating custom tag nodes", () => {
     const customOverlay = overlay();
     customOverlay.nodes[0].tags.push({ label: "Custom invented tag", definition_source: "custom" });
     const merged = mergeGeneratedOverlay(baseGraph(), customOverlay);
 
     expect(merged.nodes.some((node) => node.id === "tag:Custom invented tag")).toBe(false);
-    expect(merged.nodes.find((node) => node.id === "generated-a")?.tag_labels).toEqual(["Archive"]);
+    expect(merged.nodes.find((node) => node.id === "generated-a")?.tag_labels).toEqual([
+      "Archive",
+      "Custom invented tag",
+    ]);
+    expect(merged.links.map((link) => link.target)).not.toContain("tag:Custom invented tag");
   });
 });

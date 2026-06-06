@@ -4,8 +4,10 @@ import {
   buildStandardTagSet,
   createGeneratedEdges,
   fieldTagsFromSubmission,
+  labelsFromFields,
   shouldProcessSubmissionId,
   standardTagsFromSubmission,
+  tagObjectsFromFields,
 } from "./auto-archive-submissions.mjs";
 import { buildAvatarPrompt } from "./avatar-prompt-template.mjs";
 
@@ -36,7 +38,7 @@ test("standardTagsFromSubmission skips custom tags and unknown labels", () => {
   assert.deepEqual(tags, ["Archive", "Calm"]);
 });
 
-test("fieldTagsFromSubmission preserves fixed field buckets", () => {
+test("fieldTagsFromSubmission preserves fixed field buckets including custom tags", () => {
   const standardTagSet = buildStandardTagSet(baseGraph);
   const tagsByField = fieldTagsFromSubmission(
     {
@@ -47,25 +49,44 @@ test("fieldTagsFromSubmission preserves fixed field buckets", () => {
   );
 
   assert.deepEqual(tagsByField.shell_form, ["Archive"]);
-  assert.deepEqual(tagsByField.emotion_personality_tags, ["Calm"]);
+  assert.deepEqual(tagsByField.emotion_personality_tags, ["Calm", "Custom invented tag"]);
 });
 
 test("buildAvatarPrompt uses fixed identity tag field headings", () => {
   const prompt = buildAvatarPrompt({
     shell_form: ["Archive"],
-    emotion_personality_tags: ["Calm"],
+    emotion_personality_tags: ["Calm", "Custom invented tag"],
   });
 
   assert.match(prompt, /Identity tags:\nshell_form: Archive/);
-  assert.match(prompt, /emotion_personality_tags: Calm/);
+  assert.match(prompt, /emotion_personality_tags: Calm, Custom invented tag/);
   assert.match(prompt, /non_human_tags: None/);
+});
+
+test("tagObjectsFromFields marks custom tags while labelsFromFields keeps them for display", () => {
+  const standardTagSet = buildStandardTagSet(baseGraph);
+  const tagsByField = {
+    shell_form: ["Archive"],
+    emotion_personality_tags: ["Calm", "Custom invented tag"],
+  };
+
+  assert.deepEqual(labelsFromFields(tagsByField), ["Archive", "Calm", "Custom invented tag"]);
+  assert.deepEqual(tagObjectsFromFields(tagsByField, standardTagSet), [
+    { label: "Archive", category: "shell_form", definition_source: "standard" },
+    { label: "Calm", category: "emotion_personality_tags", definition_source: "standard" },
+    { label: "Custom invented tag", category: "emotion_personality_tags", definition_source: "custom" },
+  ]);
 });
 
 test("createGeneratedEdges creates deterministic shared-tag interactions", () => {
   const edges = createGeneratedEdges(
     {
       id: "generated-a",
-      tags: [{ label: "Archive" }, { label: "Calm" }],
+      tags: [
+        { label: "Archive", definition_source: "standard" },
+        { label: "Calm", definition_source: "standard" },
+        { label: "Custom invented tag", definition_source: "custom" },
+      ],
     },
     baseGraph.nodes,
     2,

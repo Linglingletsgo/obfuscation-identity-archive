@@ -1,6 +1,5 @@
 {
   "version": 1,
-  "generated_at": "2026-06-05T05:01:40.985Z",
   "base_graph_source": "/data/algorithm/interaction_graph_real_submissions.json",
   "base_timeline_source": "/data/algorithm/timeline/anchor_timeline_real_submissions.json",
   "nodes": [
@@ -12,213 +11,218 @@
       "asset_path": "/assets/avatars/generated/submission_20260522111137276_c5867795.png",
       "tags": [
         {
-          "label": "Active at dawn",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Algorithmic anomaly",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anonymous browser",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anti-recommendation user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anxious",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Blurred profile",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Calm",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Caregiver",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cloth",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Color",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Community organizer",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Coral",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dream",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Expired future",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Forest",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Handmade feeling",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Highly expressive",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Lyric-like fragment",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Marginal group member",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Moon",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Mythic age",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "New resident",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Dream figure",
+          "category": "shell_form",
+          "definition_source": "custom"
         },
         {
           "label": "No fixed place",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Nocturnal",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Non-human material",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Nostalgia",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Old friend",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Optimistic",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Poem",
-          "category": "system",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
           "label": "Private diary",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Real memory",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Second-hand preference",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Simulated life",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Traveler",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Unclassifiable",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Unclassifiable person",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Unstable user",
-          "category": "system",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
           "label": "Untitled file",
-          "category": "system",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dream",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Real memory",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Color",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Non-human material",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Lyric-like fragment",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unclassifiable person",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Traveler",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "New resident",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Caregiver",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Forest",
+          "category": "spatial_tags",
           "definition_source": "standard"
         },
         {
           "label": "Village",
-          "category": "system",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mythic age",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Expired future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nocturnal",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Active at dawn",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anti-recommendation user",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous browser",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Second-hand preference",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "emotion_personality_tags",
           "definition_source": "standard"
         },
         {
           "label": "Warm",
-          "category": "system",
+          "category": "emotion_personality_tags",
           "definition_source": "standard"
         },
         {
-          "label": "White noise",
-          "category": "system",
+          "label": "Highly expressive",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Optimistic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Community organizer",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old friend",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Marginal group member",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unclassifiable",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgia",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Handmade feeling",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unstable user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Algorithmic anomaly",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Blurred profile",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Coral",
+          "category": "non_human_tags",
           "definition_source": "standard"
         },
         {
           "label": "Wind",
-          "category": "system",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moon",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cloth",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "White noise",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Simulated life",
+          "category": "non_human_tags",
           "definition_source": "standard"
         }
       ],
@@ -232,238 +236,253 @@
       "asset_path": "/assets/avatars/generated/submission_20260531200209816_fb9ea48b.png",
       "tags": [
         {
-          "label": "2020s",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Real self",
+          "category": "shell_form",
+          "definition_source": "custom"
         },
         {
-          "label": "Academic style",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Active at dawn",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Ad avoider",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Airport",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Algorithmic aesthetics",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anxious",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Archive",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Calm",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cared-for person",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cautious",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "City center",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Family-oriented",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Futurism",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Game world",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Gentle",
-          "category": "system",
+          "label": "Workplace",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Internet",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Keeps distance",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Lo-fi",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Low-value user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Map",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Membership user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Millennium",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Minimalism",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Minimalist",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Moon",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Multiple-account switcher",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Observer",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Official form",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Optimistic",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Rain",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Real memory",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Replies frequently",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Researcher",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Resume",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "School",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Seaside",
-          "category": "system",
+          "label": "Archive",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Social media bio",
-          "category": "system",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
-          "label": "Socially active",
-          "category": "system",
+          "label": "Official form",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
-          "label": "Student",
-          "category": "system",
+          "label": "Resume",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
-          "label": "Suspected bot",
-          "category": "system",
+          "label": "Real memory",
+          "category": "material_sources",
           "definition_source": "standard"
         },
         {
-          "label": "Tag conflict",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Tech geek",
-          "category": "system",
+          "label": "Observer",
+          "category": "social_role_tags",
           "definition_source": "standard"
         },
         {
           "label": "Unemployed person",
-          "category": "system",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Researcher",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Student",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seaside",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Airport",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "School",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game world",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Millennium",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "2020s",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Active at dawn",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Minimalist",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ad avoider",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Membership user",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Multiple-account switcher",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Gentle",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Optimistic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cautious",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Socially active",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Keeps distance",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Replies frequently",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cared-for person",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family-oriented",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Minimalism",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Futurism",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Academic style",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Tech geek",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Lo-fi",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Algorithmic aesthetics",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Low-value user",
+          "category": "system_tags",
           "definition_source": "standard"
         },
         {
           "label": "Unstable user",
-          "category": "system",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Tag conflict",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Suspected bot",
+          "category": "system_tags",
           "definition_source": "standard"
         },
         {
           "label": "Window",
-          "category": "system",
+          "category": "non_human_tags",
           "definition_source": "standard"
         },
         {
-          "label": "Workplace",
-          "category": "system",
+          "label": "Map",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Other: a smiling duck",
+          "category": "non_human_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Blank form",
+          "category": "non_human_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Moon",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Rain",
+          "category": "non_human_tags",
           "definition_source": "standard"
         }
       ],
@@ -477,328 +496,328 @@
       "asset_path": "/assets/avatars/generated/submission_20260604134000690_32f67196.png",
       "tags": [
         {
-          "label": "Active at dawn",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "An eye",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anime / manga culture",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anonymous observer",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anti-recommendation user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anxious",
-          "category": "system",
+          "label": "Shadow",
+          "category": "shell_form",
           "definition_source": "standard"
         },
         {
           "label": "Archive",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Archive object",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Bed",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Biological atlas style",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cat",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Color",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Crack",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Distant",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Divination result",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dream",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Easily distracted",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Expired future",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Family legend",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Fish",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Folklore",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Freelancer",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Fungus",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Future world",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Game",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Game character",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Game world",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Gentle",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Hard to determine",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Highly sensitive",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Identity drift",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Industrial age",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Jellyfish",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Junk file",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Keeps distance",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Late-night shopper",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Long silence",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Long-term lurker",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Mirror",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Moon",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Museum",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Museum label",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Museum-like",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Mythic age",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Natural environment",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Non-human material",
-          "category": "system",
+          "label": "Future world",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Octopus",
-          "category": "system",
+          "label": "Game",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Outlier",
-          "category": "system",
+          "label": "Dream",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Platform nomad",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Punk",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Religious / mythological element",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Religious atmosphere",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Rooftop",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Seaside",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Shadow",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Snake",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Snow",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Solitary person",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Student",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Suspected bot",
-          "category": "system",
+          "label": "Divination result",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
           "label": "Testimony",
-          "category": "system",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum label",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Junk file",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family legend",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Color",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Religious / mythological element",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game character",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Non-human material",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Student",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Freelancer",
+          "category": "social_role_tags",
           "definition_source": "standard"
         },
         {
           "label": "Traveler",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Unpredictable user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Waiting to be recognized",
-          "category": "system",
+          "category": "social_role_tags",
           "definition_source": "standard"
         },
         {
           "label": "Witness",
-          "category": "system",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Archive object",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seaside",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game world",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Rooftop",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mythic age",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Industrial age",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Expired future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Long silence",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Active at dawn",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Late-night shopper",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anti-recommendation user",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Platform nomad",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Long-term lurker",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Gentle",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Easily distracted",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Highly sensitive",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Hard to determine",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Solitary person",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous observer",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Waiting to be recognized",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Keeps distance",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anime / manga culture",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Religious atmosphere",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Folklore",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Punk",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum-like",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Biological atlas style",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unpredictable user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Identity drift",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Suspected bot",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Outlier",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fish",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Snake",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Octopus",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Jellyfish",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fungus",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Snow",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moon",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mirror",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bed",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Crack",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "An eye",
+          "category": "non_human_tags",
           "definition_source": "standard"
         }
       ],
@@ -812,178 +831,213 @@
       "asset_path": "/assets/avatars/generated/submission_20260604134450235_239412dc.png",
       "tags": [
         {
-          "label": "1990s",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Character",
+          "category": "shell_form",
+          "definition_source": "custom"
         },
         {
-          "label": "Bee",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Bird",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Blurred profile",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cat",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Classification failure",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cloud",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Collector",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Deer",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dependent on a small circle",
-          "category": "system",
+          "label": "Natural environment",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Dream",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Environmentalism",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Excited",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Family home",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Other: Fairytale",
+          "category": "expression_formats",
+          "definition_source": "custom"
         },
         {
           "label": "Family legend",
-          "category": "system",
+          "category": "material_sources",
           "definition_source": "standard"
         },
         {
-          "label": "Family-oriented",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Folklore",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Forest",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Handmade feeling",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Hoarder",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Impulsive",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Insect",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Other: Playmate",
+          "category": "social_role_tags",
+          "definition_source": "custom"
         },
         {
           "label": "Local person",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Moss",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Mythic age",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Natural environment",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Nostalgia",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Old friend",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Old key",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Parallel timeline",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Rabbit",
-          "category": "system",
+          "category": "social_role_tags",
           "definition_source": "standard"
         },
         {
           "label": "Regular visitor",
-          "category": "system",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family home",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Forest",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Other: Garden",
+          "category": "spatial_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Mythic age",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Early 20th century",
+          "category": "time_era_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "1990s",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Parallel timeline",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Hoarder",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Collector",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Other: Not online at all",
+          "category": "platform_behavior_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Warm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Impulsive",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Excited",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Other: Playful",
+          "category": "emotion_personality_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Family-oriented",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dependent on a small circle",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old friend",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgia",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Folklore",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Environmentalism",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Handmade feeling",
+          "category": "aesthetic_cultural_tags",
           "definition_source": "standard"
         },
         {
           "label": "Unpredictable user",
-          "category": "system",
+          "category": "system_tags",
           "definition_source": "standard"
         },
         {
-          "label": "Warm",
-          "category": "system",
+          "label": "Blurred profile",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Classification failure",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bird",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Insect",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Deer",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Rabbit",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bee",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moss",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cloud",
+          "category": "non_human_tags",
           "definition_source": "standard"
         },
         {
           "label": "Wind",
-          "category": "system",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old key",
+          "category": "non_human_tags",
           "definition_source": "standard"
         }
       ],
@@ -997,243 +1051,248 @@
       "asset_path": "/assets/avatars/generated/submission_20260604140245873_9f7a6ab1.png",
       "tags": [
         {
-          "label": "Active user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Airport",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Alien creature",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anonymous user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anti-recommendation user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anxious",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Artificially cultivated thing",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Bird",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Calm",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cat",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "City center",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cloud",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Data center",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Distant future",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dog",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dream",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Family-oriented",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Futurism",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Future version",
+          "category": "shell_form",
+          "definition_source": "custom"
         },
         {
           "label": "Game",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Game character",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Game interface style",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Hoarder",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Host",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "In an intimate relationship",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Insufficient information",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Legend",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Luxury",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Machine",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Mountain area",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Museum",
-          "category": "system",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
           "label": "Museum label",
-          "category": "system",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
-          "label": "Near future",
-          "category": "system",
+          "label": "Dream",
+          "category": "material_sources",
           "definition_source": "standard"
         },
         {
-          "label": "Nostalgia",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Often misunderstood",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Optimistic",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Platform nomad",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Recommendation difficulty",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Retro future",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "River",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Saves screenshots",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Sensor",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Simulated life",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Socially active",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Star",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Stubborn",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Tech geek",
-          "category": "system",
+          "label": "Game character",
+          "category": "material_sources",
           "definition_source": "standard"
         },
         {
           "label": "Traveler",
-          "category": "system",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Host",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous user",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mountain area",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Airport",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Data center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Retro future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Near future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Hoarder",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Platform nomad",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Saves screenshots",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anti-recommendation user",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Stubborn",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Optimistic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family-oriented",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "In an intimate relationship",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Socially active",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Often misunderstood",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgia",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Futurism",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Tech geek",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Luxury",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game interface style",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Active user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Recommendation difficulty",
+          "category": "system_tags",
           "definition_source": "standard"
         },
         {
           "label": "Unpredictable user",
-          "category": "system",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Insufficient information",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dog",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cloud",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bird",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "River",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Star",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Sensor",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Machine",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Artificially cultivated thing",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Simulated life",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Alien creature",
+          "category": "non_human_tags",
           "definition_source": "standard"
         }
       ],
@@ -1247,173 +1306,183 @@
       "asset_path": "/assets/avatars/generated/submission_20260604152014319_226a3988.png",
       "tags": [
         {
-          "label": "Adventurous",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Café",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Calm",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cared-for person",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Cat",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "City center",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Digital subscriber",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dog",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dream",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Fox",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Freelancer",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Gentle",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "High return rate",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Real self",
+          "category": "shell_form",
+          "definition_source": "custom"
         },
         {
           "label": "Home",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Housemate",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Identity drift",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Ignored",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Late-night shopper",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Low-value user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Luxury",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Medieval period",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Near future",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Office style",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Old photo",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Ordinary user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Pop culture",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Private diary",
-          "category": "system",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
-          "label": "Rain",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Seaside",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Silent",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Snow",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Solitary person",
-          "category": "system",
+          "label": "Dream",
+          "category": "material_sources",
           "definition_source": "standard"
         },
         {
           "label": "Student",
-          "category": "system",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Freelancer",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Housemate",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seaside",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Café",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Medieval period",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Early 20th century",
+          "category": "time_era_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Near future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Late-night shopper",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "High return rate",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Digital subscriber",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Gentle",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Adventurous",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Silent",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Solitary person",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cared-for person",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ignored",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Office style",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Luxury",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Pop culture",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ordinary user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Identity drift",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Low-value user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dog",
+          "category": "non_human_tags",
           "definition_source": "standard"
         },
         {
           "label": "Wind",
-          "category": "system",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fox",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Rain",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Snow",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old photo",
+          "category": "non_human_tags",
           "definition_source": "standard"
         }
       ],
@@ -1427,203 +1496,213 @@
       "asset_path": "/assets/avatars/generated/submission_20260604155144192_e7be0ca1.png",
       "tags": [
         {
-          "label": "Active user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Airport",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anxious",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Archive object",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Bird",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Brand loyalist",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "City center",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Collector",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Database",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Distant",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dog",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Fish",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Folklore",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Futurism",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Game character",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "High repetition",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "High-value user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Horse",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Ignored",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Insect",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Substitute",
+          "category": "shell_form",
+          "definition_source": "custom"
         },
         {
           "label": "Internet",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Legend",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Lo-fi",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Location trace",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Low-value user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Marginal group member",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Minimalist",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Natural environment",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "New resident",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Paused time",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Poem",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Ruin",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Seasonal appearance",
-          "category": "system",
+          "label": "Natural environment",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Solitary person",
-          "category": "system",
+          "label": "Database",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Stubborn",
-          "category": "system",
+          "label": "Poem",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Legend",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Location trace",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game character",
+          "category": "material_sources",
           "definition_source": "standard"
         },
         {
           "label": "Student",
-          "category": "system",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "New resident",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Archive object",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Airport",
+          "category": "spatial_tags",
           "definition_source": "standard"
         },
         {
           "label": "Suburb",
-          "category": "system",
+          "category": "spatial_tags",
           "definition_source": "standard"
         },
         {
           "label": "Urban edge",
-          "category": "system",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Paused time",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Other: snake",
+          "category": "time_era_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Seasonal appearance",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "High repetition",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Minimalist",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Brand loyalist",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Collector",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "emotion_personality_tags",
           "definition_source": "standard"
         },
         {
           "label": "Warm",
-          "category": "system",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Stubborn",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Solitary person",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Marginal group member",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ignored",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Futurism",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Folklore",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Lo-fi",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Active user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Low-value user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "High-value user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dog",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bird",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fish",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Insect",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Horse",
+          "category": "non_human_tags",
           "definition_source": "standard"
         },
         {
           "label": "Whale",
-          "category": "system",
+          "category": "non_human_tags",
           "definition_source": "standard"
         }
       ],
@@ -1637,333 +1716,343 @@
       "asset_path": "/assets/avatars/generated/submission_20260605045833644_ae2fbc58.png",
       "tags": [
         {
-          "label": "1920s",
-          "category": "system",
-          "definition_source": "standard"
+          "label": "Parallel-world resident",
+          "category": "shell_form",
+          "definition_source": "custom"
         },
         {
-          "label": "1970s",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Ad avoider",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "An unread email",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Anonymous observer",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Archive atmosphere",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Bee",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Browses without buying",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Café",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "City",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "City center",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Commuter",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Crack",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Disappears after browsing",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Distant",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dream",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Dust",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "False memory",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Folklore",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Forgotten person",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Freelancer",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Game",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Hospital",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Internet meme",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Ironic",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Keeps distance",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Library",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Lo-fi",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Location trace",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Looping time",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Luxury",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Lyric-like fragment",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Medical record",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Moth",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Multiple-account switcher",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Museum",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Museum label",
-          "category": "system",
+          "label": "Shopping mall",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "Natural environment",
-          "category": "system",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Noise user",
-          "category": "system",
+          "label": "Hospital",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Nostalgic",
-          "category": "system",
+          "label": "Dream",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Not worth analyzing",
-          "category": "system",
+          "label": "Game",
+          "category": "places",
           "definition_source": "standard"
         },
         {
-          "label": "Number",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Old friend",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Old photo",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Optimistic",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Passerby",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Periodic disappearance",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Poem",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Potted plant",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Predictable user",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Private diary",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Punk",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Radio",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Random words",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Real memory",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Relaxed",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Retro future",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Rooftop",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Second-hand preference",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Shopping mall",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Socially active",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Speechless",
-          "category": "system",
-          "definition_source": "standard"
-        },
-        {
-          "label": "Stranger",
-          "category": "system",
+          "label": "City",
+          "category": "places",
           "definition_source": "standard"
         },
         {
           "label": "System error",
-          "category": "system",
+          "category": "expression_formats",
           "definition_source": "standard"
         },
         {
-          "label": "Unpredictable user",
-          "category": "system",
+          "label": "Poem",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Private diary",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Medical record",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum label",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Random words",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Lyric-like fragment",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Number",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Location trace",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Internet meme",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "False memory",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Real memory",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Freelancer",
+          "category": "social_role_tags",
           "definition_source": "standard"
         },
         {
           "label": "Witness",
-          "category": "system",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Passerby",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Commuter",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Forgotten person",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Library",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Rooftop",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Café",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "1920s",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Periodic disappearance",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Retro future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Looping time",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "1970s",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ad avoider",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Multiple-account switcher",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Disappears after browsing",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Browses without buying",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Second-hand preference",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ironic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Relaxed",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Speechless",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Optimistic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous observer",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Keeps distance",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Stranger",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old friend",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Socially active",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Folklore",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Punk",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Luxury",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Lo-fi",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Archive atmosphere",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Noise user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Predictable user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unpredictable user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Not worth analyzing",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moth",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bee",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dust",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "An unread email",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Temporary folder",
+          "category": "non_human_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Potted plant",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Crack",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Radio",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old photo",
+          "category": "non_human_tags",
           "definition_source": "standard"
         }
       ],
@@ -3521,5 +3610,6 @@
         "System error"
       ]
     }
-  ]
+  ],
+  "generated_at": "2026-06-06T18:29:05.852Z"
 }

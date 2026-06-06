@@ -12,8 +12,12 @@ function labelsForExistingTags(node: GeneratedOverlayNode, existingTagLabels: Se
     .sort((a, b) => a.localeCompare(b));
 }
 
-function toArchiveNode(node: GeneratedOverlayNode, existingTagLabels: Set<string>): ArchiveGraphNode {
-  const tagLabels = labelsForExistingTags(node, existingTagLabels);
+function labelsForAllTags(node: GeneratedOverlayNode): string[] {
+  return [...new Set(node.tags.map((tag) => tag.label))].sort((a, b) => a.localeCompare(b));
+}
+
+function toArchiveNode(node: GeneratedOverlayNode): ArchiveGraphNode {
+  const tagLabels = labelsForAllTags(node);
   return withPosition({
     id: node.id,
     type: "submission",
@@ -21,7 +25,7 @@ function toArchiveNode(node: GeneratedOverlayNode, existingTagLabels: Set<string
     source_ids: [node.id],
     identity_name: node.label || node.id,
     carried_fragment: node.carried_fragment,
-    tags: node.tags.filter((tag) => tagLabels.includes(tag.label)),
+    tags: node.tags,
     tag_labels: tagLabels,
     scores: {},
     events: [],
@@ -39,16 +43,20 @@ function toArchiveNode(node: GeneratedOverlayNode, existingTagLabels: Set<string
 }
 
 function sharedTagLinks(node: ArchiveGraphNode): ArchiveGraphLink[] {
-  return node.tag_labels.map((label) => ({
-    id: `generated_shared_tag:${node.id}->${tagId(label)}`,
-    source: node.id,
-    target: tagId(label),
-    type: "shared_tag",
-    weight: 1,
-    scores: {},
-    events: [],
-    visual: { style_key: "shared-tag", opacity: 0.28, thickness: 0.6, dash: false },
-  }));
+  return node.tags
+    .filter((tag) => tag.definition_source !== "custom")
+    .map((tag) => tag.label)
+    .filter((label, index, labels) => labels.indexOf(label) === index)
+    .map((label) => ({
+      id: `generated_shared_tag:${node.id}->${tagId(label)}`,
+      source: node.id,
+      target: tagId(label),
+      type: "shared_tag",
+      weight: 1,
+      scores: {},
+      events: [],
+      visual: { style_key: "shared-tag", opacity: 0.28, thickness: 0.6, dash: false },
+    }));
 }
 
 export function mergeGeneratedOverlay(baseGraph: ArchiveGraph, overlay: GeneratedOverlayGraph): ArchiveGraph {
@@ -65,7 +73,17 @@ export function mergeGeneratedOverlay(baseGraph: ArchiveGraph, overlay: Generate
 
   const generatedNodes = overlay.nodes
     .filter((node) => !existingIds.has(node.id))
-    .map((node) => toArchiveNode(node, existingTagLabels));
+    .map((node) => {
+      const existingLabels = new Set(labelsForExistingTags(node, existingTagLabels));
+      return {
+        ...toArchiveNode(node),
+        tags: node.tags.map((tag) => ({
+          ...tag,
+          definition_source:
+            tag.definition_source === "custom" || !existingLabels.has(tag.label) ? "custom" : "standard",
+        })),
+      };
+    });
 
   const generatedNodeIds = new Set(generatedNodes.map((node) => node.id));
   const validIds = new Set([...existingIds, ...generatedNodeIds]);
