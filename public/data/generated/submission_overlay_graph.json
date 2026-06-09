@@ -2057,6 +2057,241 @@
         }
       ],
       "source_group": "generated"
+    },
+    {
+      "id": "submission_20260609151336163_86d9e50c",
+      "type": "submission",
+      "label": "test",
+      "carried_fragment": "This is just an example.",
+      "asset_path": "/assets/avatars/generated/submission_20260609151336163_86d9e50c.png",
+      "tags": [
+        {
+          "label": "Character",
+          "category": "shell_form",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Internet",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Workplace",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Archive",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Poem",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Social media bio",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Untitled file",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "News",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Color",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Number",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Researcher",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Freelancer",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Recorded subject",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Border",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Airport",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Library",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Data center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "2020s",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Near future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Millennium",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Minimalist",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Collector",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Deletes records",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Warm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Relaxed",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Stubborn",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Family-oriented",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Stranger",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Old friend",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Minimalism",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Futurism",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unclassifiable",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Archive atmosphere",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ordinary user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Noise user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Not worth analyzing",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Snake",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Jellyfish",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Stone",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moon",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Mirror",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Server",
+          "category": "non_human_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Electric wire",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Hybrid species",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
     }
   ],
   "edges": [
@@ -3609,7 +3844,183 @@
         "Socially active",
         "System error"
       ]
+    },
+    {
+      "id": "generated_shared:submission_20260609151336163_86d9e50c->submission_20260511182106779_6b1d4b6d",
+      "source": "submission_20260609151336163_86d9e50c",
+      "target": "submission_20260511182106779_6b1d4b6d",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "2020s",
+        "Archive atmosphere",
+        "Border",
+        "Calm",
+        "Electric wire",
+        "Freelancer",
+        "Futurism",
+        "Internet",
+        "Jellyfish",
+        "Minimalism",
+        "Minimalist",
+        "Moon",
+        "Near future",
+        "Poem"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260609151336163_86d9e50c->submission_20260514123922806_fb5180d9",
+      "source": "submission_20260609151336163_86d9e50c",
+      "target": "submission_20260514123922806_fb5180d9",
+      "relation": "interaction",
+      "weight": 14,
+      "shared_tags": [
+        "2020s",
+        "Calm",
+        "Data center",
+        "Freelancer",
+        "Hybrid species",
+        "Internet",
+        "Millennium",
+        "Minimalism",
+        "Minimalist",
+        "Near future",
+        "Not worth analyzing",
+        "Old friend",
+        "Relaxed",
+        "Untitled file"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260609151336163_86d9e50c->submission_20260506141449565_a50b12ee",
+      "source": "submission_20260609151336163_86d9e50c",
+      "target": "submission_20260506141449565_a50b12ee",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Archive atmosphere",
+        "Border",
+        "Calm",
+        "Collector",
+        "Data center",
+        "Family-oriented",
+        "Freelancer",
+        "Moon",
+        "Noise user",
+        "Old friend",
+        "Poem",
+        "Relaxed",
+        "Untitled file"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260609151336163_86d9e50c->submission_20260507093805308_8415663b",
+      "source": "submission_20260609151336163_86d9e50c",
+      "target": "submission_20260507093805308_8415663b",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Border",
+        "Family-oriented",
+        "Freelancer",
+        "Futurism",
+        "Minimalism",
+        "Moon",
+        "News",
+        "Noise user",
+        "Poem",
+        "Researcher",
+        "Social media bio",
+        "Stubborn",
+        "Workplace"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260609151336163_86d9e50c->submission_20260515195317169_faa06fbf",
+      "source": "submission_20260609151336163_86d9e50c",
+      "target": "submission_20260515195317169_faa06fbf",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Archive",
+        "Deletes records",
+        "Family-oriented",
+        "Futurism",
+        "Minimalism",
+        "Minimalist",
+        "Ordinary user",
+        "Researcher",
+        "Social media bio",
+        "Stubborn",
+        "Unclassifiable",
+        "Warm",
+        "Workplace"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260609151336163_86d9e50c->submission_20260517091347543_81717183",
+      "source": "submission_20260609151336163_86d9e50c",
+      "target": "submission_20260517091347543_81717183",
+      "relation": "interaction",
+      "weight": 13,
+      "shared_tags": [
+        "Color",
+        "Deletes records",
+        "Freelancer",
+        "Hybrid species",
+        "Internet",
+        "Minimalism",
+        "News",
+        "Old friend",
+        "Researcher",
+        "Stranger",
+        "Unclassifiable",
+        "Untitled file",
+        "Workplace"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260609151336163_86d9e50c->submission_20260505202528908_37fe7684",
+      "source": "submission_20260609151336163_86d9e50c",
+      "target": "submission_20260505202528908_37fe7684",
+      "relation": "interaction",
+      "weight": 12,
+      "shared_tags": [
+        "Airport",
+        "Border",
+        "Color",
+        "Deletes records",
+        "Minimalist",
+        "Noise user",
+        "Poem",
+        "Snake",
+        "Stranger",
+        "Stubborn",
+        "Untitled file",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260609151336163_86d9e50c->submission_20260506191112228_5d260333",
+      "source": "submission_20260609151336163_86d9e50c",
+      "target": "submission_20260506191112228_5d260333",
+      "relation": "interaction",
+      "weight": 12,
+      "shared_tags": [
+        "Airport",
+        "Calm",
+        "Family-oriented",
+        "Freelancer",
+        "Internet",
+        "Millennium",
+        "Minimalism",
+        "Minimalist",
+        "Old friend",
+        "Ordinary user",
+        "Poem",
+        "Social media bio"
+      ]
     }
   ],
-  "generated_at": "2026-06-06T18:29:05.852Z"
+  "generated_at": "2026-06-09T15:17:30.465Z"
 }
