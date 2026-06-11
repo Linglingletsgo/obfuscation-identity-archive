@@ -2292,6 +2292,341 @@
         }
       ],
       "source_group": "generated"
+    },
+    {
+      "id": "submission_20260611070650229_e78a9027",
+      "type": "submission",
+      "label": "kalichu",
+      "carried_fragment": "burdening knowledge",
+      "asset_path": "/assets/avatars/generated/submission_20260611070650229_e78a9027.png",
+      "tags": [
+        {
+          "label": "Error archive",
+          "category": "shell_form",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Internet",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dream",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Database",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ruin",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Future world",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Chat log",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "System error",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Legend",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Museum label",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Divination result",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "False memory",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Color",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Lyric-like fragment",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Religious / mythological element",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game character",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Outsider",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Traveler",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Observer",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unclassifiable person",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Café",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game world",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Border",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "1920s",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Near future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seasonal appearance",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Retro future",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Parallel timeline",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Low-frequency high-price consumer",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Collector",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anti-recommendation user",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ad avoider",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anxious",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Socially avoidant",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Suspicious",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cautious",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ironic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Impulsive",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Long-distance relationship",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Socially active",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dependent on a small circle",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Waiting to be recognized",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anime / manga culture",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Academic style",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Tech geek",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Punk",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Game interface style",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "High-value user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Unstable user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Blurred profile",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Insufficient information",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Classification failure",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Suspected bot",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Cat",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fox",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Star",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Glass",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Machine",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Surveillance camera",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Loading icon",
+          "category": "non_human_tags",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Black screen",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Error code",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
     }
   ],
   "edges": [
@@ -4020,7 +4355,241 @@
         "Poem",
         "Social media bio"
       ]
+    },
+    {
+      "id": "generated_shared:submission_20260611070650229_e78a9027->submission_20260506124058569_f041683a",
+      "source": "submission_20260611070650229_e78a9027",
+      "target": "submission_20260506124058569_f041683a",
+      "relation": "interaction",
+      "weight": 27,
+      "shared_tags": [
+        "Ad avoider",
+        "Anti-recommendation user",
+        "Black screen",
+        "Border",
+        "City center",
+        "Classification failure",
+        "Divination result",
+        "Dream",
+        "Error code",
+        "False memory",
+        "Future world",
+        "Game",
+        "Game character",
+        "Game world",
+        "Insufficient information",
+        "Ironic",
+        "Lyric-like fragment",
+        "Near future",
+        "Observer",
+        "Outsider",
+        "Ruin",
+        "Suspicious",
+        "System error",
+        "Tech geek",
+        "Traveler",
+        "Unclassifiable person",
+        "Unstable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260611070650229_e78a9027->submission_20260517091347543_81717183",
+      "source": "submission_20260611070650229_e78a9027",
+      "target": "submission_20260517091347543_81717183",
+      "relation": "interaction",
+      "weight": 21,
+      "shared_tags": [
+        "Academic style",
+        "Anti-recommendation user",
+        "Color",
+        "Distant future",
+        "Dream",
+        "False memory",
+        "Future world",
+        "Game",
+        "Glass",
+        "High-value user",
+        "Insufficient information",
+        "Internet",
+        "Legend",
+        "Lyric-like fragment",
+        "Museum label",
+        "Observer",
+        "Parallel timeline",
+        "Socially avoidant",
+        "Suspicious",
+        "System error",
+        "Waiting to be recognized"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260611070650229_e78a9027->submission_20260514123922806_fb5180d9",
+      "source": "submission_20260611070650229_e78a9027",
+      "target": "submission_20260514123922806_fb5180d9",
+      "relation": "interaction",
+      "weight": 20,
+      "shared_tags": [
+        "Anime / manga culture",
+        "Cautious",
+        "Chat log",
+        "Database",
+        "Dream",
+        "Future world",
+        "Game",
+        "Game character",
+        "Game interface style",
+        "Game world",
+        "Internet",
+        "Ironic",
+        "Machine",
+        "Near future",
+        "Outsider",
+        "Parallel timeline",
+        "Socially active",
+        "Suspected bot",
+        "Suspicious",
+        "Tech geek"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260611070650229_e78a9027->submission_20260520215915495_153fc34c",
+      "source": "submission_20260611070650229_e78a9027",
+      "target": "submission_20260520215915495_153fc34c",
+      "relation": "interaction",
+      "weight": 20,
+      "shared_tags": [
+        "Anxious",
+        "Chat log",
+        "City center",
+        "Collector",
+        "Dependent on a small circle",
+        "Divination result",
+        "Dream",
+        "False memory",
+        "Future world",
+        "Long-distance relationship",
+        "Lyric-like fragment",
+        "Museum label",
+        "Near future",
+        "Observer",
+        "Parallel timeline",
+        "Religious / mythological element",
+        "Star",
+        "Suspected bot",
+        "Traveler",
+        "Waiting to be recognized"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260611070650229_e78a9027->submission_20260506145602031_227b2d40",
+      "source": "submission_20260611070650229_e78a9027",
+      "target": "submission_20260506145602031_227b2d40",
+      "relation": "interaction",
+      "weight": 19,
+      "shared_tags": [
+        "Anxious",
+        "Border",
+        "Cat",
+        "Chat log",
+        "City center",
+        "Classification failure",
+        "Database",
+        "Dream",
+        "False memory",
+        "Game character",
+        "High-value user",
+        "Insufficient information",
+        "Internet",
+        "Ironic",
+        "Long-distance relationship",
+        "Lyric-like fragment",
+        "Museum label",
+        "Punk",
+        "Unstable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260611070650229_e78a9027->submission_20260514145912926_418bdae1",
+      "source": "submission_20260611070650229_e78a9027",
+      "target": "submission_20260514145912926_418bdae1",
+      "relation": "interaction",
+      "weight": 19,
+      "shared_tags": [
+        "Ad avoider",
+        "Café",
+        "Cat",
+        "Chat log",
+        "Collector",
+        "Dependent on a small circle",
+        "False memory",
+        "Game",
+        "Game character",
+        "Game interface style",
+        "Impulsive",
+        "Ironic",
+        "Legend",
+        "Lyric-like fragment",
+        "Ruin",
+        "System error",
+        "Tech geek",
+        "Traveler",
+        "Unstable user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260611070650229_e78a9027->submission_20260506142903947_7257f333",
+      "source": "submission_20260611070650229_e78a9027",
+      "target": "submission_20260506142903947_7257f333",
+      "relation": "interaction",
+      "weight": 18,
+      "shared_tags": [
+        "Academic style",
+        "Anime / manga culture",
+        "Cat",
+        "Collector",
+        "Distant future",
+        "Dream",
+        "Future world",
+        "Game",
+        "Game character",
+        "High-value user",
+        "Legend",
+        "Observer",
+        "Parallel timeline",
+        "Religious / mythological element",
+        "Ruin",
+        "Socially active",
+        "Star",
+        "Traveler"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260611070650229_e78a9027->submission_20260515160218612_97b66f84",
+      "source": "submission_20260611070650229_e78a9027",
+      "target": "submission_20260515160218612_97b66f84",
+      "relation": "interaction",
+      "weight": 18,
+      "shared_tags": [
+        "Border",
+        "Distant future",
+        "Divination result",
+        "Dream",
+        "Error code",
+        "False memory",
+        "Future world",
+        "Impulsive",
+        "Internet",
+        "Ironic",
+        "Observer",
+        "Parallel timeline",
+        "Retro future",
+        "Ruin",
+        "Star",
+        "Suspected bot",
+        "System error",
+        "Traveler"
+      ]
     }
   ],
-  "generated_at": "2026-06-09T15:17:30.465Z"
+  "generated_at": "2026-06-11T07:11:01.457Z"
 }
