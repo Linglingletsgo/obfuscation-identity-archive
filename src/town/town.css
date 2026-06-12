@@ -1,0 +1,321 @@
+/* 混淆小镇 — 手绘纸面风格 */
+
+.town-root {
+  --town-ink: #1a1a1a;
+  --town-paper: #faf7f0;
+  --town-accent: #e85d3a;
+  --town-soft: #6b6b6b;
+  min-height: 100vh;
+  background: var(--town-paper);
+  color: var(--town-ink);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+.town-shell {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 20px 96px;
+}
+
+.town-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.town-title {
+  font-size: 28px;
+  letter-spacing: 0.18em;
+  margin: 0 0 8px;
+}
+
+.town-subtitle {
+  color: var(--town-soft);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ── 表单 ─────────────────────────────── */
+
+.town-field {
+  margin-bottom: 28px;
+}
+
+.town-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.town-hint {
+  font-size: 12px;
+  color: var(--town-soft);
+  margin: 0 0 10px;
+}
+
+.town-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--town-ink);
+  background: #fff;
+  border: 1.5px solid var(--town-ink);
+  border-radius: 10px 14px 10px 14px / 14px 10px 14px 10px;
+  outline: none;
+}
+
+.town-input:focus {
+  border-color: var(--town-accent);
+}
+
+.town-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.town-chip {
+  padding: 5px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--town-ink);
+  background: #fff;
+  border: 1.3px solid var(--town-ink);
+  border-radius: 12px 16px 12px 16px / 16px 12px 16px 12px;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+
+.town-chip:hover {
+  transform: rotate(-1.2deg) scale(1.04);
+}
+
+.town-chip.selected {
+  background: var(--town-ink);
+  color: var(--town-paper);
+  border-color: var(--town-ink);
+}
+
+.town-chip-more {
+  background: transparent;
+  border-style: dashed;
+  color: var(--town-soft);
+}
+
+.town-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: var(--town-soft);
+  margin: 32px 0 24px;
+}
+
+.town-consent input {
+  margin-top: 4px;
+}
+
+.town-submit {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.12em;
+  color: var(--town-paper);
+  background: var(--town-ink);
+  border: none;
+  border-radius: 14px 18px 14px 18px / 18px 14px 18px 14px;
+  cursor: pointer;
+}
+
+.town-submit:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+
+.town-error {
+  color: var(--town-accent);
+  font-size: 14px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* ── 入镇仪式进度 ─────────────────────── */
+
+.town-ritual {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.town-ritual-step {
+  font-size: 15px;
+  color: var(--town-soft);
+  margin: 10px 0;
+  opacity: 0;
+  animation: town-fade-in 0.6s ease forwards;
+}
+
+.town-ritual-step.active {
+  color: var(--town-ink);
+}
+
+@keyframes town-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.town-ritual-dot {
+  display: inline-block;
+  animation: town-blink 1.2s infinite;
+}
+
+@keyframes town-blink {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ── 分身页 ───────────────────────────── */
+
+.town-profile {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.town-avatar {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 16px;
+}
+
+.town-resident-name {
+  font-size: 26px;
+  margin: 0 0 6px;
+  letter-spacing: 0.1em;
+}
+
+.town-fragment {
+  font-size: 15px;
+  color: var(--town-soft);
+  font-style: italic;
+  margin: 0;
+}
+
+.town-card {
+  background: #fff;
+  border: 1.5px solid var(--town-ink);
+  border-radius: 16px 22px 16px 22px / 22px 16px 22px 16px;
+  padding: 22px 24px;
+  margin-bottom: 24px;
+}
+
+.town-card-label {
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: var(--town-soft);
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.town-intro {
+  font-size: 15px;
+  margin: 0;
+}
+
+.town-memory-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.town-memory-list li {
+  font-size: 14px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #d8d2c4;
+}
+
+.town-memory-list li:last-child {
+  border-bottom: none;
+}
+
+.town-encounter-meta {
+  font-size: 13px;
+  color: var(--town-soft);
+  margin: 0 0 12px;
+}
+
+.town-scene {
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+
+.town-dialogue {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.town-dialogue li {
+  font-size: 14px;
+  padding: 6px 12px;
+  margin-bottom: 8px;
+  background: var(--town-paper);
+  border-radius: 10px 14px 10px 14px / 14px 10px 14px 10px;
+}
+
+.town-similarity {
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 10px;
+  border: 1.2px solid var(--town-accent);
+  color: var(--town-accent);
+  border-radius: 10px;
+  margin-left: 8px;
+}
+
+.town-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.town-action-btn {
+  flex: 1;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  background: #fff;
+  color: var(--town-ink);
+  border: 1.5px solid var(--town-ink);
+  border-radius: 12px 16px 12px 16px / 16px 12px 16px 12px;
+  cursor: pointer;
+}
+
+.town-action-btn.primary {
+  background: var(--town-ink);
+  color: var(--town-paper);
+}
+
+.town-footer-link {
+  display: block;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--town-soft);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+}

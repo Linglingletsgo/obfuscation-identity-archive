@@ -16,7 +16,10 @@
     "build:graph3d-cache": "node scripts/build-graph3d-cache.mjs",
     "validate:archive-data": "node scripts/validate-archive-data.mjs",
     "auto-archive:submissions": "node scripts/auto-archive-submissions.mjs",
-    "test:auto-archive": "node --test scripts/auto-archive-submissions.node-test.mjs"
+    "test:auto-archive": "node --test scripts/auto-archive-submissions.node-test.mjs",
+    "town:vocabulary": "node scripts/town-extract-vocabulary.mjs",
+    "town:seed": "node scripts/town-seed-founders.mjs",
+    "town:smoke": "node scripts/town-smoke-test.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
