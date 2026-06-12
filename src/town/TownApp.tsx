@@ -4,7 +4,8 @@ import { ResidentPage } from "./ResidentPage";
 import "./town.css";
 
 function parseTownPath(pathname: string): { page: "join" } | { page: "resident"; id: string } {
-  const match = pathname.match(/^\/town\/resident\/([^/]+)/);
+  // 支持 /town/resident/:id 和 /resident/:id（根路径入口也能解析分身页）
+  const match = pathname.match(/^(?:\/town)?\/resident\/([^/]+)/);
   if (match) return { page: "resident", id: decodeURIComponent(match[1]) };
   return { page: "join" };
 }
@@ -33,7 +34,7 @@ export default function TownApp() {
         <JoinPage
           onJoined={(residentId) => {
             setIsNewResident(true);
-            navigate(`/town/resident/${residentId}`);
+            navigate(`/resident/${residentId}`);
           }}
         />
       ) : (
@@ -42,7 +43,7 @@ export default function TownApp() {
           isNew={isNewResident}
           onNavigateHome={() => {
             setIsNewResident(false);
-            navigate("/town");
+            navigate("/");
           }}
         />
       )}

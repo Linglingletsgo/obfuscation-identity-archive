@@ -143,7 +143,7 @@ export async function downloadShareCard(
   resident: Resident,
   avatarSvg: SVGSVGElement | null,
 ): Promise<void> {
-  const siteUrl = `${window.location.host}/town/resident/${resident.id}`;
+  const siteUrl = `${window.location.host}/resident/${resident.id}`;
   const blob = await renderShareCard(resident, avatarSvg, siteUrl);
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");

@@ -25,15 +25,16 @@ function useCurrentPath(): string {
 function ArchiveRoute() {
   const path = useCurrentPath();
 
-  if (path === "/index") return <ArchiveIndexPage />;
-  if (path === "/technical") return <TechnicalRoutePage />;
+  if (path === "/archive/index" || path === "/index") return <ArchiveIndexPage />;
+  if (path === "/archive/technical" || path === "/technical") return <TechnicalRoutePage />;
   return <ArchiveExperience />;
 }
 
 export default function App() {
   const path = useCurrentPath();
 
-  if (path === "/town" || path.startsWith("/town/")) {
+  // 根路径 / 以及所有小镇路由都进 TownApp
+  if (path === "/" || path === "/town" || path.startsWith("/town/")) {
     return (
       <Suspense fallback={null}>
         <TownApp />
@@ -41,12 +42,34 @@ export default function App() {
     );
   }
 
+  // 3D 档案移至 /archive/*
+  if (path === "/archive" || path.startsWith("/archive/")) {
+    return (
+      <ArchiveProvider>
+        <main className="archive-app" data-testid="archive-experience">
+          <ArchiveRoute />
+          <IndividualAvatarScene />
+        </main>
+      </ArchiveProvider>
+    );
+  }
+
+  // 旧路径兜底：/index /technical 仍可访问
+  if (path === "/index" || path === "/technical") {
+    return (
+      <ArchiveProvider>
+        <main className="archive-app" data-testid="archive-experience">
+          <ArchiveRoute />
+          <IndividualAvatarScene />
+        </main>
+      </ArchiveProvider>
+    );
+  }
+
+  // 其余未知路径默认进小镇
   return (
-    <ArchiveProvider>
-      <main className="archive-app" data-testid="archive-experience">
-        <ArchiveRoute />
-        <IndividualAvatarScene />
-      </main>
-    </ArchiveProvider>
+    <Suspense fallback={null}>
+      <TownApp />
+    </Suspense>
   );
 }
