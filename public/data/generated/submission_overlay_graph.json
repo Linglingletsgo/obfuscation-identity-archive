@@ -2627,6 +2627,276 @@
         }
       ],
       "source_group": "generated"
+    },
+    {
+      "id": "submission_20260614123550516_cb3b4860",
+      "type": "submission",
+      "label": "Dawn",
+      "carried_fragment": "我会在黎明之际注视着你们，爱着你们。",
+      "asset_path": "/assets/avatars/generated/submission_20260614123550516_cb3b4860.png",
+      "tags": [
+        {
+          "label": "Dream figure",
+          "category": "shell_form",
+          "definition_source": "custom"
+        },
+        {
+          "label": "Internet",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Home",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dream",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Border",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Natural environment",
+          "category": "places",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Private diary",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Social media bio",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Poem",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Divination result",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Untitled file",
+          "category": "expression_formats",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Real memory",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Random words",
+          "category": "material_sources",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Researcher",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Traveler",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Observer",
+          "category": "social_role_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "City center",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Suburb",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Library",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Forest",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ruin",
+          "category": "spatial_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Parallel timeline",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Periodic disappearance",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seasonal appearance",
+          "category": "time_era_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Brand loyalist",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous browser",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Collector",
+          "category": "platform_behavior_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Calm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Warm",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Distant",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ironic",
+          "category": "emotion_personality_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Anonymous observer",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ignored",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Watched",
+          "category": "relationship_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Nostalgia",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Religious atmosphere",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Handmade feeling",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Biological atlas style",
+          "category": "aesthetic_cultural_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Ordinary user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Abnormal user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Risk user",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Not worth analyzing",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Recommendation difficulty",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Blurred profile",
+          "category": "system_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Bird",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Fish",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Insect",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Moss",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Seed",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        },
+        {
+          "label": "Dust",
+          "category": "non_human_tags",
+          "definition_source": "standard"
+        }
+      ],
+      "source_group": "generated"
     }
   ],
   "edges": [
@@ -4589,7 +4859,217 @@
         "System error",
         "Traveler"
       ]
+    },
+    {
+      "id": "generated_shared:submission_20260614123550516_cb3b4860->submission_20260505202528908_37fe7684",
+      "source": "submission_20260614123550516_cb3b4860",
+      "target": "submission_20260505202528908_37fe7684",
+      "relation": "interaction",
+      "weight": 20,
+      "shared_tags": [
+        "Anonymous observer",
+        "Biological atlas style",
+        "Bird",
+        "Border",
+        "Divination result",
+        "Dust",
+        "Forest",
+        "Ironic",
+        "Natural environment",
+        "Nostalgic",
+        "Observer",
+        "Poem",
+        "Private diary",
+        "Real memory",
+        "Recommendation difficulty",
+        "Risk user",
+        "Seasonal appearance",
+        "Traveler",
+        "Untitled file",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260614123550516_cb3b4860->submission_20260520215915495_153fc34c",
+      "source": "submission_20260614123550516_cb3b4860",
+      "target": "submission_20260520215915495_153fc34c",
+      "relation": "interaction",
+      "weight": 20,
+      "shared_tags": [
+        "Anonymous browser",
+        "City",
+        "City center",
+        "Collector",
+        "Divination result",
+        "Dream",
+        "Handmade feeling",
+        "Home",
+        "Library",
+        "Natural environment",
+        "Nostalgia",
+        "Observer",
+        "Ordinary user",
+        "Parallel timeline",
+        "Periodic disappearance",
+        "Poem",
+        "Private diary",
+        "Real memory",
+        "Traveler",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260614123550516_cb3b4860->submission_20260506124058569_f041683a",
+      "source": "submission_20260614123550516_cb3b4860",
+      "target": "submission_20260506124058569_f041683a",
+      "relation": "interaction",
+      "weight": 17,
+      "shared_tags": [
+        "Abnormal user",
+        "Anonymous observer",
+        "Border",
+        "City",
+        "City center",
+        "Distant",
+        "Divination result",
+        "Dream",
+        "Ironic",
+        "Library",
+        "Observer",
+        "Private diary",
+        "Real memory",
+        "Recommendation difficulty",
+        "Ruin",
+        "Traveler",
+        "Untitled file"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260614123550516_cb3b4860->submission_20260514131000453_8693665e",
+      "source": "submission_20260614123550516_cb3b4860",
+      "target": "submission_20260514131000453_8693665e",
+      "relation": "interaction",
+      "weight": 17,
+      "shared_tags": [
+        "Bird",
+        "Blurred profile",
+        "Calm",
+        "Divination result",
+        "Handmade feeling",
+        "Home",
+        "Ignored",
+        "Insect",
+        "Library",
+        "Moss",
+        "Poem",
+        "Private diary",
+        "Random words",
+        "Real memory",
+        "Risk user",
+        "Seasonal appearance",
+        "Seed"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260614123550516_cb3b4860->submission_20260515121428855_f8dcaf32",
+      "source": "submission_20260614123550516_cb3b4860",
+      "target": "submission_20260515121428855_f8dcaf32",
+      "relation": "interaction",
+      "weight": 17,
+      "shared_tags": [
+        "Border",
+        "City",
+        "Collector",
+        "Divination result",
+        "Dream",
+        "Home",
+        "Natural environment",
+        "Nostalgia",
+        "Nostalgic",
+        "Poem",
+        "Researcher",
+        "Ruin",
+        "Seasonal appearance",
+        "Seed",
+        "Traveler",
+        "Untitled file",
+        "Warm"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260614123550516_cb3b4860->submission_20260506170942275_93cbccd2",
+      "source": "submission_20260614123550516_cb3b4860",
+      "target": "submission_20260506170942275_93cbccd2",
+      "relation": "interaction",
+      "weight": 16,
+      "shared_tags": [
+        "Anonymous observer",
+        "Bird",
+        "Calm",
+        "City center",
+        "Dream",
+        "Home",
+        "Natural environment",
+        "Nostalgia",
+        "Nostalgic",
+        "Ordinary user",
+        "Poem",
+        "Random words",
+        "Real memory",
+        "Seasonal appearance",
+        "Social media bio",
+        "Suburb"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260614123550516_cb3b4860->submission_20260508164416797_b13e1f70",
+      "source": "submission_20260614123550516_cb3b4860",
+      "target": "submission_20260508164416797_b13e1f70",
+      "relation": "interaction",
+      "weight": 16,
+      "shared_tags": [
+        "Anonymous observer",
+        "Brand loyalist",
+        "City",
+        "Collector",
+        "Dream",
+        "Fish",
+        "Forest",
+        "Home",
+        "Internet",
+        "Ironic",
+        "Nostalgia",
+        "Nostalgic",
+        "Poem",
+        "Private diary",
+        "Real memory",
+        "Risk user"
+      ]
+    },
+    {
+      "id": "generated_shared:submission_20260614123550516_cb3b4860->submission_20260513163448258_5bc27ffd",
+      "source": "submission_20260614123550516_cb3b4860",
+      "target": "submission_20260513163448258_5bc27ffd",
+      "relation": "interaction",
+      "weight": 15,
+      "shared_tags": [
+        "Calm",
+        "City",
+        "Collector",
+        "Divination result",
+        "Dream",
+        "Forest",
+        "Natural environment",
+        "Nostalgia",
+        "Nostalgic",
+        "Private diary",
+        "Real memory",
+        "Seasonal appearance",
+        "Untitled file",
+        "Warm",
+        "Watched"
+      ]
     }
   ],
-  "generated_at": "2026-06-11T07:11:01.457Z"
+  "generated_at": "2026-06-14T12:39:08.799Z"
 }
