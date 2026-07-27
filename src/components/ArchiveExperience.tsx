@@ -176,6 +176,7 @@ export function ArchiveExperience() {
       className="archive-experience"
       data-view={view}
       data-entry-mode="unified"
+      data-timeline-active={timelineOverlayProgress < COLLECTIVE_INTERACTION_PROGRESS}
       data-testid="archive-experience"
       style={{ "--archive-3d-texture-opacity": Math.max(0, Math.min(1, (timelineOverlayProgress - 0.82) / 0.14)).toString() } as React.CSSProperties}
     >

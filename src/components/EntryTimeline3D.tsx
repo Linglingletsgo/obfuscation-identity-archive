@@ -50,10 +50,13 @@ function smoothstep(edge0: number, edge1: number, value: number): number {
 export function getTimelineEventPosition(
   index: number,
   eventCount: number,
+  compact = false,
 ): [number, number, number] {
   const progress = eventCount <= 1 ? 0 : index / (eventCount - 1);
   const side = index % 2 === 0 ? -1 : 1;
-  const x = side * (4.8 + (index % 3) * 1.25);
+  const x = compact
+    ? side * (0.16 + (index % 3) * 0.05)
+    : side * (4.8 + (index % 3) * 1.25);
   const y = EVENT_PATH_START_Y - progress * EVENT_PATH_RANGE;
   const z = -1.8 - (index % 4) * 1.15;
   return [x, y, z];
@@ -99,11 +102,14 @@ function getEventVisibility(
   progress: number,
   index: number,
   eventCount: number,
+  compact = false,
 ): number {
   const eventProgress = eventCount <= 1 ? 0 : index / (eventCount - 1);
   const timelineProgress = clamp01(progress / EVENT_PROGRESS_END);
   const distance = Math.abs(eventProgress - timelineProgress);
-  const baseVisibility = 1 - smoothstep(0.045, 0.18, distance);
+  const baseVisibility = compact
+    ? 1 - smoothstep(0.012, 0.072, distance)
+    : 1 - smoothstep(0.045, 0.18, distance);
   const transitionFade = 1 - smoothstep(0.72, 0.84, progress);
   return baseVisibility * transitionFade;
 }
@@ -295,6 +301,8 @@ TimelineIntroPanel.displayName = "TimelineIntroPanel";
 
 export function EntryTimeline3D() {
   const { timelineProgressRef } = useArchiveStore();
+  const viewportWidth = useThree((state) => state.size.width);
+  const compactLayout = viewportWidth <= 720;
   const introRef = useRef<HTMLElement>(null);
   const panelRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const linksRef = useRef<HTMLElement>(null);
@@ -315,7 +323,12 @@ export function EntryTimeline3D() {
     for (let i = 0; i < totalEvents; i++) {
       const panel = panelRefs.current[i];
       if (panel) {
-        const opacity = getEventVisibility(progress, i, totalEvents);
+        const opacity = getEventVisibility(
+          progress,
+          i,
+          totalEvents,
+          compactLayout,
+        );
         panel.style.opacity = opacity.toString();
         panel.style.pointerEvents = opacity > 0.25 ? "auto" : "none";
         panel.style.display = opacity <= 0.02 ? "none" : "";
@@ -351,13 +364,18 @@ export function EntryTimeline3D() {
         const position = getTimelineEventPosition(
           index,
           researchTimelineEvents.length,
+          compactLayout,
         );
         return (
           <group key={`${event.year}:${event.title}`} position={position}>
             <Html
               center
               distanceFactor={9}
-              position={[position[0] > 0 ? 1.8 : -1.8, 0, 0]}
+              position={[
+                compactLayout ? 0 : position[0] > 0 ? 1.8 : -1.8,
+                0,
+                0,
+              ]}
               transform
               zIndexRange={[20, 0]}
             >

@@ -16,6 +16,13 @@ describe("ResearchTimelineIntro helpers", () => {
     expect(getTimelineEventPosition(0, 21)[1]).toBeGreaterThan(getTimelineEventPosition(20, 21)[1]);
   });
 
+  it("keeps timeline events closer to the center on narrow screens", () => {
+    expect(Math.abs(getTimelineEventPosition(4, 21, true)[0])).toBeLessThan(
+      Math.abs(getTimelineEventPosition(4, 21)[0]),
+    );
+    expect(Math.abs(getTimelineEventPosition(4, 21, true)[0])).toBeLessThan(0.3);
+  });
+
   it("enters the collective scene only at the bottom of the timeline", () => {
     expect(shouldEnterCollectiveFromTimeline(0.94)).toBe(false);
     expect(shouldEnterCollectiveFromTimeline(0.99)).toBe(false);
