@@ -22,6 +22,20 @@ const vertexShader = `
   uniform float uPointerVelocity;
   uniform float uDragIntensity;
   uniform float uGlobalOpacity;
+  uniform float uScatterStrength;
+
+  vec3 randomDirection(float value) {
+    vec3 randomVector = vec3(
+      fract(sin(value * 127.1) * 43758.5453),
+      fract(sin(value * 311.7) * 43758.5453),
+      fract(sin(value * 269.5) * 43758.5453)
+    );
+    return normalize(randomVector * 2.0 - 1.0 + vec3(0.001));
+  }
+
+  float selectPart(float value, float target) {
+    return 1.0 - step(0.25, abs(value - target));
+  }
 
   void main() {
     vec3 displaced = position;
@@ -41,9 +55,90 @@ const vertexShader = `
     float interaction = abs(ripple) + pointerField * 0.72 + localInfluence * 0.18;
     vec3 direction = normalize(position + vec3(0.001, 0.013, 0.007));
     vec3 swirl = normalize(cross(uRayDirection, direction) + vec3(0.001, 0.002, 0.003));
+    float strongPart = clamp(
+      selectPart(partNumber, 5.0) +
+      selectPart(partNumber, 17.0) +
+      selectPart(partNumber, 18.0) +
+      selectPart(partNumber, 19.0) +
+      selectPart(partNumber, 24.0),
+      0.0,
+      1.0
+    );
+    float moderatePart = clamp(
+      selectPart(partNumber, 2.0) + selectPart(partNumber, 3.0),
+      0.0,
+      1.0
+    );
+    float preservedPart = clamp(
+      selectPart(partNumber, 0.0) +
+      selectPart(partNumber, 20.0) +
+      selectPart(partNumber, 21.0),
+      0.0,
+      1.0
+    );
+    float mainBodyPart = clamp(
+      selectPart(partNumber, 14.0) +
+      selectPart(partNumber, 26.0),
+      0.0,
+      1.0
+    );
+    vec3 scatterDirection = normalize(
+      mix(
+        direction,
+        randomDirection(seed + partId * 7.13) * vec3(1.65, 0.82, 0.68),
+        0.78
+      )
+    );
+    float scatterSeed = fract(sin(seed * 419.2 + partId * 31.7) * 43758.5453);
+    float localPatchField =
+      sin(
+        position.x * (1.15 + partId * 0.37) +
+        position.y * (1.42 + partId * 0.21) +
+        partPhase * 2.7
+      ) * 0.5 + 0.5;
+    float localPatch = smoothstep(0.78, 0.98, localPatchField);
+    float baseScatter = 0.018 + pow(scatterSeed, 3.4) * 0.11;
+    float moderateScatter = 0.04 + pow(scatterSeed, 2.4) * 0.18;
+    float strongScatter =
+      0.07 +
+      pow(scatterSeed, 2.1) * 0.28 +
+      smoothstep(0.9, 1.0, scatterSeed) * 0.38;
+    float scatterDistance = mix(
+      baseScatter,
+      moderateScatter,
+      moderatePart
+    );
+    scatterDistance = mix(scatterDistance, strongScatter, strongPart);
+    scatterDistance *= 1.0 - preservedPart * 0.84;
+    float localPatchScatter =
+      localPatch *
+      (0.16 + moderatePart * 0.42 + strongPart * 1.05) *
+      (1.0 - preservedPart * 0.78);
+    scatterDistance += localPatchScatter;
+    float secondaryPart =
+      1.0 -
+      clamp(strongPart + moderatePart + preservedPart + mainBodyPart, 0.0, 1.0);
+    vec3 secondaryOffsetDirection =
+      randomDirection(partNumber * 17.3 + partId * 5.7) *
+      vec3(1.25, 0.28, 0.14);
+    vec3 partOffset =
+      selectPart(partNumber, 14.0) * vec3(2.35, -0.1, -0.12) +
+      selectPart(partNumber, 26.0) * vec3(-1.65, -0.3, 0.18) +
+      selectPart(partNumber, 2.0) * vec3(-1.35, -0.4, 0.15) +
+      selectPart(partNumber, 3.0) * vec3(1.35, -0.4, -0.15) +
+      selectPart(partNumber, 5.0) * vec3(-4.6, 0.6, 0.25) +
+      selectPart(partNumber, 17.0) * vec3(4.45, 0.8, -0.2) +
+      selectPart(partNumber, 18.0) * vec3(-3.9, -1.0, 0.35) +
+      selectPart(partNumber, 19.0) * vec3(4.15, -0.75, 0.2) +
+      selectPart(partNumber, 24.0) * vec3(-3.35, 2.25, -0.3) +
+      secondaryPart * secondaryOffsetDirection;
     vec3 lightDirection = normalize(vec3(-0.32, 0.55, 0.78));
     float spatialLight = dot(direction, lightDirection) * 0.5 + 0.5;
     float selfShadow = smoothstep(0.0, 0.9, length(position.xy) * 0.055 + position.y * 0.018);
+    displaced += (
+      scatterDirection * scatterDistance +
+      partOffset
+    ) * uScatterStrength;
     displaced += direction * (0.045 * wave + localInfluence * (0.2 + wave * 0.11) + pointerField * 0.11 + hoverPower * 0.05 + ripple * 0.08);
     displaced += swirl * (localInfluence * 0.17 + pointerField * 0.14 + hoverPower * 0.08 + ripple * 0.13) * sin(uTime * 6.0 + seed * 44.0 + partPhase);
 
@@ -91,6 +186,53 @@ const fragmentShader = `
 `;
 
 const MIN_RENDER_OPACITY = 0.01;
+
+const COLLECTIVE_PART_OFFSETS: Readonly<Record<number, readonly [number, number, number]>> = {
+  2: [-1.35, -0.4, 0.15],
+  3: [1.35, -0.4, -0.15],
+  5: [-4.6, 0.6, 0.25],
+  14: [2.35, -0.1, -0.12],
+  17: [4.45, 0.8, -0.2],
+  18: [-3.9, -1, 0.35],
+  19: [4.15, -0.75, 0.2],
+  24: [-3.35, 2.25, -0.3],
+  26: [-1.65, -0.3, 0.18],
+};
+
+function deterministicSecondaryOffset(partNumber: number, partId: number): [number, number, number] {
+  const seed = partNumber * 17.3 + partId * 5.7;
+  const component = (multiplier: number) =>
+    ((Math.sin(seed * multiplier) * 43758.5453) % 1 + 1) % 1 * 2 - 1;
+  const x = component(127.1);
+  const y = component(311.7);
+  const z = component(269.5);
+  const length = Math.hypot(x, y, z) || 1;
+  return [(x / length) * 1.25, (y / length) * 0.28, (z / length) * 0.14];
+}
+
+export function createCollectiveLayoutPositions(
+  positions: Float32Array,
+  partIds: Float32Array,
+  partNumbers: Float32Array,
+  strength = archiveVisualConfig.rendering.collectiveScatterStrength,
+): Float32Array {
+  const transformed = new Float32Array(positions);
+  const preservedParts = new Set([0, 20, 21]);
+
+  for (let index = 0; index < partNumbers.length; index += 1) {
+    const partNumber = Math.round(partNumbers[index]);
+    if (preservedParts.has(partNumber)) continue;
+    const offset =
+      COLLECTIVE_PART_OFFSETS[partNumber] ??
+      deterministicSecondaryOffset(partNumber, partIds[index]);
+    const positionOffset = index * 3;
+    transformed[positionOffset] += offset[0] * strength;
+    transformed[positionOffset + 1] += offset[1] * strength;
+    transformed[positionOffset + 2] += offset[2] * strength;
+  }
+
+  return transformed;
+}
 
 function createSeeds(pointCount: number): Float32Array {
   const seeds = new Float32Array(pointCount);
@@ -145,6 +287,9 @@ export function createCollectiveModelPointMaterial(pointTexture?: THREE.Texture,
       uPointerVelocity: { value: 0 },
       uDragIntensity: { value: 0 },
       uGlobalOpacity: { value: opacity },
+      uScatterStrength: {
+        value: archiveVisualConfig.rendering.collectiveScatterStrength,
+      },
       uPointTexture: { value: pointTexture ?? new THREE.Texture() },
     },
     transparent: true,

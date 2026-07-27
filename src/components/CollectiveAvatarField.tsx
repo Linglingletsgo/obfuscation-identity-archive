@@ -5,7 +5,10 @@ import * as THREE from "three";
 import { archiveVisualConfig } from "../config/archiveVisualConfig";
 import { getAvatarNormalization, normalizePointCloudPositions, sampleObjectSurface, type AvatarNormalization } from "../data/avatarShape";
 import { loadBakedCollectiveModelPointCloud, type BakedCollectiveModelPointCloud } from "../data/bakedPointCloud";
-import { CollectiveModelPointCloud } from "./CollectiveModelPointCloud";
+import {
+  CollectiveModelPointCloud,
+  createCollectiveLayoutPositions,
+} from "./CollectiveModelPointCloud";
 import { useArchiveStore } from "../state/archiveStore";
 import { getAvatarRevealOpacity } from "./EntryTimeline3D";
 
@@ -55,10 +58,19 @@ function PreparedCollectiveAvatarField({
   const { timelineProgressRef } = useArchiveStore();
   const materialsRef = useRef<THREE.Material[]>([]);
   const primitiveRef = useRef<THREE.Object3D>(null);
+  const layoutPositions = useMemo(
+    () =>
+      createCollectiveLayoutPositions(
+        positions,
+        partIds,
+        partNumbers,
+      ),
+    [partIds, partNumbers, positions],
+  );
 
   useEffect(() => {
-    onShapePositions(positions);
-  }, [onShapePositions, positions]);
+    onShapePositions(layoutPositions);
+  }, [layoutPositions, onShapePositions]);
 
   useEffect(() => {
     if (!scene) return;

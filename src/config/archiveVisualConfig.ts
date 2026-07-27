@@ -37,6 +37,7 @@ export const archiveVisualConfig = {
   },
   rendering: {
     maxDevicePixelRatio: 1.35,
+    collectiveScatterStrength: 1,
   },
   graph: {
     seed: "obfuscation-identity-archive-v1",
